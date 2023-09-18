@@ -1,0 +1,5 @@
+CMakeLists.txt
+build/
+.vscode/
+storage/
+main.manifest
