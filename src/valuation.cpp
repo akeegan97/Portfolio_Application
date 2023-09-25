@@ -1,4 +1,4 @@
-#include "assetValuation.hpp"
+#include "valuation.hpp"
 
 wxVariant Valuation::GetValue(int col)const{
     switch(col){

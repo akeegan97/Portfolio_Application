@@ -1,4 +1,0 @@
-#ifndef INVESTOREVENT_HPP
-#define INVESTOREVENT_HPP
-
-#endif

@@ -1,5 +1,5 @@
-#ifndef ASSETVALUATION_HPP
-#define ASSETVALUATION_HPP
+#ifndef VALUATION_HPP
+#define VALUATION_HPP
 
 #include <wx/datetime.h>
 #include <wx/string.h>
