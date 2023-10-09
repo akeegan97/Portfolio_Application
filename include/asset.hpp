@@ -1,5 +1,28 @@
 #ifndef ASSET_HPP
 #define ASSET_HPP
+#include <wx/string.h>
+#include <wx/datetime.h>
+#include <wx/variant.h>
+#include "valuation.hpp"
+#include <json.hpp>
+using json = nlohmann::json;
 
+class Asset{
+    public:
+        wxString assetName;
+        wxDateTime assetExitDate;
+
+        std::vector<Valuation> valuations;
+
+        Asset()=default;
+        Asset(const wxString &assetName, const wxDateTime &assetExitDate):
+            assetName(assetName),assetExitDate(assetExitDate){};
+        bool operator<(const Asset& other) const {
+            return assetName < other.assetName; 
+        }
+
+};  
+void to_json(json &j, const Asset &as);
+void from_json(const json&j, Asset &as);
 
 #endif

@@ -32,3 +32,5 @@ void from_json(const json&j, Valuation &val){
     val.valuationDate = dateParsed;
     val.valuation = j["Valuation Amount"].get<double>();
 }
+
+template class std::vector<Valuation>;

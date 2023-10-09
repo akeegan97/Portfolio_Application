@@ -22,6 +22,8 @@ class Valuation{
 };
 
 void to_json(json&j, const Valuation &val);
-void to_json(const json &j, Valuation &val);
+void from_json(const json &j, Valuation &val);
+
+
 
 #endif

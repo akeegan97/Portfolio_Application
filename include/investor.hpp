@@ -7,6 +7,12 @@
 #include <wx/tokenzr.h>
 #include <wx/wxcrt.h>
 #include <json.hpp>
+#include <asset.hpp>
+#include <position.hpp>
+
+using AssetEntry = std::pair<wxDateTime,Position>;
+using AssetMap = std::map<Asset, AssetEntry>;
+
 using json = nlohmann::json;
 
 
@@ -14,6 +20,8 @@ class Investor{
     public:
         wxString clientName;
         wxString type;
+        
+        AssetMap assets;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):
