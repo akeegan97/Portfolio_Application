@@ -1,5 +1,7 @@
 #ifndef PORTFOLIO_HPP
 #define PORTFOLIO_HPP
+#include <fstream>
+#include <iostream>
 #include <wx/string.h>
 #include <wx/datetime.h>
 #include <wx/variant.h>
@@ -14,6 +16,8 @@ class Portfolio{
         std::vector<Asset> assets;
         std::vector<Investor> investors;
         Portfolio()=default;
+        void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
+        Portfolio LoadFromFile(const std::string &filePath);
 
 };
 void to_json(json &j, const Portfolio &por);

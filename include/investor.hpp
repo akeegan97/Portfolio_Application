@@ -12,9 +12,7 @@
 
 using AssetEntry = std::pair<wxDateTime,Position>;
 using AssetMap = std::map<Asset, AssetEntry>;
-
 using json = nlohmann::json;
-
 
 class Investor{
     public:
