@@ -1,7 +1,5 @@
 #include "investor.hpp"
 
-
-
 void to_json(json &j, const Investor &inv) {
     j = {
         {"Client Name", inv.clientName.ToStdString()},

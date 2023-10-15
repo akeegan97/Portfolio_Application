@@ -4,8 +4,8 @@
 #include <wx/datetime.h>
 #include <wx/variant.h>
 #include "valuation.hpp"
-#include "investorpositiondisplay.hpp"
 #include "investor.hpp"
+#include "investorpositiondisplay.hpp"
 #include <json.hpp>
 using json = nlohmann::json;
 
@@ -22,7 +22,7 @@ class Asset{
         std::vector<Investor> investors;
 
         static std::vector<wxString> columnNames;
-        static std::vector<int> columnwidths;
+        static std::vector<int> columnWidths;
 
         Asset()=default;
         Asset(const wxString &assetName, const wxDateTime &assetExitDate):

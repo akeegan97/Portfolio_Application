@@ -1,20 +1,22 @@
 #include "investorpositiondisplay.hpp"
+#include "investor.hpp"
+#include "position.hpp"
 
 
 wxVariant InvestorPositionDisplay::GetValue(int col)const{
     switch (col)
     {
-    case 0: return wxVariant(investorRef.clientName);break;
-    case 1: return wxVariant(investorRef.type);break;
-    case 2: return wxVariant(positionRef.dateInvested);break;
-    case 3: return wxVariant(positionRef.committedAmountUp);break;
-    case 4: return wxVariant(positionRef.committedAmountDown);break;
-    case 5: return wxVariant(positionRef.calledCapitalUp);break;
-    case 6: return wxVariant(positionRef.calledCapitalDown);break;
-    case 7: return wxVariant(positionRef.investedAmountUp);break;
-    case 8: return wxVariant(positionRef.investedAmountDown);break;
-    case 9: return wxVariant(positionRef.waitingDeployUp);break;
-    case 10: return wxVariant(positionRef.waitingDeployDown);break;
+    case 0: return wxVariant(investorPtr->clientName);break;
+    case 1: return wxVariant(investorPtr->type);break;
+    case 2: return wxVariant(positionPtr->dateInvested);break;
+    case 3: return wxVariant(positionPtr->committedAmountUp);break;
+    case 4: return wxVariant(positionPtr->committedAmountDown);break;
+    case 5: return wxVariant(positionPtr->calledCapitalUp);break;
+    case 6: return wxVariant(positionPtr->calledCapitalDown);break;
+    case 7: return wxVariant(positionPtr->investedAmountUp);break;
+    case 8: return wxVariant(positionPtr->investedAmountDown);break;
+    case 9: return wxVariant(positionPtr->waitingDeployUp);break;
+    case 10: return wxVariant(positionPtr->waitingDeployDown);break;
     default: return wxVariant();
         break;
     }
@@ -22,20 +24,20 @@ wxVariant InvestorPositionDisplay::GetValue(int col)const{
 
 void InvestorPositionDisplay::SetValue(int col, const wxVariant &v){
     switch(col){
-        case 0: investorRef.clientName = v.GetString();break;
-        case 1: investorRef.type = v.GetString();break;
-        case 2: positionRef.dateInvested = v.GetDateTime();break;
-        case 3: positionRef.committedAmountUp = v.GetDouble();break;
-        case 4: positionRef.committedAmountDown = v.GetDouble();break;
-        case 5: positionRef.calledCapitalUp = v.GetDouble();break;
-        case 6: positionRef.calledCapitalDown = v.GetDouble();break;
-        case 7: positionRef.investedAmountUp = v.GetDouble();break;
-        case 8: positionRef.investedAmountDown = v.GetDouble();break;
-        case 9: positionRef.waitingDeployUp = v.GetDouble();break;
-        case 10: positionRef.waitingDeployDown = v.GetDouble();break;
+        case 0: investorPtr->clientName = v.GetString();break;
+        case 1: investorPtr->type = v.GetString();break;
+        case 2: positionPtr->dateInvested = v.GetDateTime();break;
+        case 3: positionPtr->committedAmountUp = v.GetDouble();break;
+        case 4: positionPtr->committedAmountDown = v.GetDouble();break;
+        case 5: positionPtr->calledCapitalUp = v.GetDouble();break;
+        case 6: positionPtr->calledCapitalDown = v.GetDouble();break;
+        case 7: positionPtr->investedAmountUp = v.GetDouble();break;
+        case 8: positionPtr->investedAmountDown = v.GetDouble();break;
+        case 9: positionPtr->waitingDeployUp = v.GetDouble();break;
+        case 10: positionPtr->waitingDeployDown = v.GetDouble();break;
     }
 }
 
 std::vector<wxString> InvestorPositionDisplay::columnNames = {"Client","Type","Date Invested","Committed Up",
 "Committed Down","Called Up","Called Down","Invested Up","Invested Down","Waiting Up","Waiting Down"};
-std::vector<int> InvestorPositionDisplay::columnwidths = {100,50,50,75,75,75,75,75,75,75,75};
+std::vector<int> InvestorPositionDisplay::columnWidths = {100,50,50,75,75,75,75,75,75,75,75};

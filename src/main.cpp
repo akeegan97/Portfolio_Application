@@ -13,6 +13,7 @@ class RugenBerg : public wxApp{
 
 bool RugenBerg::OnInit(){
     portfolio.LoadFromFile("..\\storage\\data.json");
+    return true;
 
 }
 

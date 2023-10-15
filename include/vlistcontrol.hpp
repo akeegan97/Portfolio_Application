@@ -49,14 +49,27 @@ public:
         this->SetItemCount(orderedIndices.size());
         this->Refresh();
     }
-    void setItems(std::vector<T> itemsToSet) {
-        this->items = itemsToSet;
+    // void setItems(std::vector<T> itemsToSet) {
+    //     this->items = itemsToSet;
+    //     this->orderedIndices = std::vector<long>(items.size());
+    //     std::iota(orderedIndices.begin(),orderedIndices.end(),0);
+    //     this->SetItemCount(items.size());
+    // }
+    template<typename U>
+    void setItems(U&& itemsToSet) {
+        this->items = std::forward<U>(itemsToSet);
         this->orderedIndices = std::vector<long>(items.size());
-        std::iota(orderedIndices.begin(),orderedIndices.end(),0);
+        std::iota(orderedIndices.begin(), orderedIndices.end(), 0);
         this->SetItemCount(items.size());
     }
-    void AddRow(const T& newItem){
-        items.push_back(newItem);
+    // void AddRow(const T& newItem){
+    //     items.push_back(newItem);
+    //     this->SetItemCount(items.size());
+    //     this->Refresh();
+    // }
+    template<typename U>
+    void AddRow(U&& newItem) {
+        items.push_back(std::forward<U>(newItem));
         this->SetItemCount(items.size());
         this->Refresh();
     }

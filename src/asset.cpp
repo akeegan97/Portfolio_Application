@@ -19,7 +19,7 @@ void from_json(const json &j, Asset &as) {
 }
 
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
-std::vector<int> Asset::columnwidths = {150,75,100,100,100};
+std::vector<int> Asset::columnWidths = {150,75,100,100,100};
 
 wxVariant Asset::GetValue(int col)const{
     switch(col){
