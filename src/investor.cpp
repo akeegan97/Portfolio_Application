@@ -6,31 +6,23 @@ void to_json(json &j, const Investor &inv) {
     j = {
         {"Client Name", inv.clientName.ToStdString()},
         {"Type", inv.type.ToStdString()},
-        {"Assets", {}}
+        {"Positions", json::array()}
     };
-    for (const auto &pair : inv.assets) {
-        const Asset &asset = pair.first;
-        const AssetEntry &entry = pair.second;
-        j["Assets"][asset.assetName.ToStdString()] = {
-            {"Invested Date", entry.first.FormatISODate()},
-            {"Position", entry.second}
-        };
+    for(const auto &pos: inv.positions){
+        json posJson;
+        to_json(posJson, pos);
+        j["Positions"].push_back(posJson);
     }
 }
 
 void from_json(const json &j, Investor &inv) {
     inv.clientName = j["Client Name"].get<std::string>();
     inv.type = j["Type"].get<std::string>();
-    for (const auto &[assetName, assetData] : j["Assets"].items()) {
-        Asset asset;
-        asset.assetName = assetName;
-        
-        wxDateTime dateParse;
-        wxString dateStr = wxString::FromUTF8(assetData["Invested Date"].get<std::string>().c_str());
-        dateParse.ParseDate(dateStr);
-        
-        Position pos = assetData["Position"].get<Position>();
-        
-        inv.assets[asset] = {dateParse, pos};
+    if(j.contains("Positions")&&j["Positions"].is_array()){
+        for(const auto& posJson : j["Positions"]){
+            Position pos;
+            from_json(posJson, pos);
+            inv.positions.push_back(pos);
+        }
     }
 }

@@ -4,6 +4,8 @@
 #include <wx/datetime.h>
 #include <wx/variant.h>
 #include "valuation.hpp"
+#include "investorpositiondisplay.hpp"
+#include "investor.hpp"
 #include <json.hpp>
 using json = nlohmann::json;
 
@@ -11,8 +13,16 @@ class Asset{
     public:
         wxString assetName;
         wxDateTime assetExitDate;
+        double totalInvestedCapital;
+        double countOfInvestors;
+        double currentValue;
 
         std::vector<Valuation> valuations;
+        std::vector<InvestorPositionDisplay> investorsPositionsDisplays;
+        std::vector<Investor> investors;
+
+        static std::vector<wxString> columnNames;
+        static std::vector<int> columnwidths;
 
         Asset()=default;
         Asset(const wxString &assetName, const wxDateTime &assetExitDate):
@@ -21,6 +31,8 @@ class Asset{
             return assetName < other.assetName; 
         }
 
+        wxVariant GetValue(int col)const;
+        void SetValue(int col, const wxVariant &v);
 };  
 void to_json(json &j, const Asset &as);
 void from_json(const json&j, Asset &as);

@@ -10,16 +10,14 @@
 #include <asset.hpp>
 #include <position.hpp>
 
-using AssetEntry = std::pair<wxDateTime,Position>;
-using AssetMap = std::map<Asset, AssetEntry>;
+
 using json = nlohmann::json;
 
 class Investor{
     public:
         wxString clientName;
         wxString type;
-        
-        AssetMap assets;
+        std::vector<Position> positions;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):

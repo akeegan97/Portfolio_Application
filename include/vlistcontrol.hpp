@@ -73,7 +73,7 @@ public:
                         return sortAscending ? aValue.GetDateTime() < bValue.GetDateTime() 
                                                     : aValue.GetDateTime() > bValue.GetDateTime();
                     }
-                    else {  // Assuming all non-string types are numeric (int, long, double...)
+                    else {  
                         double aNumeric = aValue.GetDouble();
                         double bNumeric = bValue.GetDouble();
                         return sortAscending ? aNumeric < bNumeric 
