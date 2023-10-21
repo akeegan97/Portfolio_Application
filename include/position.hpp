@@ -1,15 +1,19 @@
 #ifndef POSITION_HPP
 #define POSITION_HPP
+#include <memory>
 #include <wx/string.h>
 #include <wx/variant.h>
 #include <wx/datetime.h>
 #include <wx/tokenzr.h>
 #include <wx/wxcrt.h>
 #include <json.hpp>
+#include "asset.hpp"
+#include "portfolio.hpp"
 using json = nlohmann::json;
 
 class Position{
     public:
+        std::shared_ptr<Asset> assetPtr;
         wxDateTime dateInvested;
         double committedAmountUp;
         double committedAmountDown;
@@ -27,5 +31,5 @@ class Position{
         investedAmountUp(investedAmountUp),investedAmountDown(investedAmountDown),waitingDeployUp(waitingDeployUp),waitingDeployDown(waitingDeployDown){};
 };
 void to_json(json &j, const Position &pos);
-void from_json(const json &j, Position &pos);
+void from_json(const json &j, Position &pos,Portfolio &porf);
 #endif

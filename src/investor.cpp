@@ -13,13 +13,13 @@ void to_json(json &j, const Investor &inv) {
     }
 }
 
-void from_json(const json &j, Investor &inv) {
+void from_json(const json &j, Investor &inv, Portfolio &porf) {
     inv.clientName = j["Client Name"].get<std::string>();
     inv.type = j["Type"].get<std::string>();
     if(j.contains("Positions")&&j["Positions"].is_array()){
         for(const auto& posJson : j["Positions"]){
             Position pos;
-            from_json(posJson, pos);
+            from_json(posJson, pos, porf);
             inv.positions.push_back(pos);
         }
     }

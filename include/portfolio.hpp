@@ -8,12 +8,13 @@
 #include "json.hpp"
 #include "investor.hpp"
 #include "asset.hpp"
+#include <memory>
 
 using json = nlohmann::json;
 
 class Portfolio{
     public:
-        std::vector<Asset> assets;
+        std::vector<std::shared_ptr<Asset>> assetPtrs;
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         Portfolio LoadFromFile(const std::string &filePath);

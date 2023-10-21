@@ -25,5 +25,6 @@ class Investor{
 };
 
 void to_json(json &j, const Investor &inv);
-void from_json(const json &j, Investor &inv);
+void from_json(const json &j, Investor &inv, Portfolio &porf);
+
 #endif

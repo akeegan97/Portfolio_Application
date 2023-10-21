@@ -2,6 +2,7 @@
 
 void to_json(json&j, const Position &pos){
     j=json{
+        {"AssetName",pos.assetPtr->assetName},
         {"Date Invested",pos.dateInvested.FormatISODate()},
         {"Committed Up",pos.committedAmountUp},
         {"Committed Down",pos.committedAmountDown},
@@ -14,7 +15,12 @@ void to_json(json&j, const Position &pos){
     };
 }
 
-void from_json(const json &j, Position &pos){
+void from_json(const json &j, Position &pos, Portfolio &porf){
+    wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
+    auto it = std::find_if(porf.assetPtrs.begin(),porf.assetPtrs.end(),[assetName](const std::shared_ptr<Asset> &assetPtr){return assetPtr->assetName == assetName;});
+    if(it != porf.assetPtrs.end()){
+        pos.assetPtr = *it;
+    }
     wxString dateStr = wxString::FromUTF8(j["Date Invested"].get<std::string>().c_str());
     wxDateTime dateParse;
     dateParse.ParseDate(dateStr);
