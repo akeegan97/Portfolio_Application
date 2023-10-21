@@ -20,6 +20,7 @@ class Asset{
         std::vector<Valuation> valuations;
         std::vector<InvestorPositionDisplay> investorsPositionsDisplays;
         std::vector<Investor> investors;
+        std::vector<Position> positions;
 
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
