@@ -7,7 +7,6 @@ void to_json(json &j, const Asset &as) {
         {"Asset Exit Date", as.assetExitDate.FormatISODate()},
         {"Valuations", as.valuations},
         {"Investors",as.investors},
-        {"Positions",as.positions}
     };
 }
 
@@ -19,7 +18,6 @@ void from_json(const json &j, Asset &as) {
     as.assetExitDate = dateParse;
     as.valuations = j["Valuations"].get<std::vector<Valuation>>();
     as.investors = j["Investors"].get<std::vector<Investor>>();
-    as.positions = j["Positions"].get<std::vector<Position>>();
 }
 
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
