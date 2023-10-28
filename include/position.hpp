@@ -11,6 +11,8 @@
 #include "portfolio.hpp"
 using json = nlohmann::json;
 
+class Asset;
+class Portfolio;
 class Position{
     public:
         std::shared_ptr<Asset> assetPtr;

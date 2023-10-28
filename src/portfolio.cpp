@@ -1,14 +1,24 @@
 #include "portfolio.hpp"
+#include "asset.hpp"
 
 
 void to_json(json &j, const Portfolio &por) {
-    j = {
-        {"Assets", por.assets},
-    };
+    std::vector<json> assetsJson;
+    for (const auto& assetPtr : por.assetPtrs) {
+        json assetJson;
+        to_json(assetJson, *assetPtr);
+        assetsJson.push_back(assetJson);
+    }
+    j["Assets"] = assetsJson;
 }
 
+
 void from_json(const json &j, Portfolio &por) {
-    por.assets = j["Assets"].get<std::vector<Asset>>();
+    for(const auto &assetJson : j["Assets"]){
+        auto asset = std::make_shared<Asset>();
+        from_json(assetJson, *asset, por);
+        por.assetPtrs.push_back(asset);
+    }
 }
 
 void Portfolio::SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath){

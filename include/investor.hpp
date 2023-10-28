@@ -12,7 +12,8 @@
 
 
 using json = nlohmann::json;
-
+class Position;
+class Portfolio;
 class Investor{
     public:
         wxString clientName;

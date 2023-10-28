@@ -1,4 +1,6 @@
 #include "asset.hpp"
+#include "investor.hpp"
+#include "portfolio.hpp"
 
 
 void to_json(json &j, const Asset &as) {
@@ -10,14 +12,18 @@ void to_json(json &j, const Asset &as) {
     };
 }
 
-void from_json(const json &j, Asset &as) {
+void from_json(const json &j, Asset &as, Portfolio &porf) {
     as.assetName = j["Asset Name"].get<std::string>().c_str();
     wxString dateStr = wxString::FromUTF8(j["Asset Exit Date"].get<std::string>().c_str());
     wxDateTime dateParse;
     dateParse.ParseDate(dateStr);
     as.assetExitDate = dateParse;
     as.valuations = j["Valuations"].get<std::vector<Valuation>>();
-    as.investors = j["Investors"].get<std::vector<Investor>>();
+    for(const auto &invJson : j["Investors"]){
+        Investor inv;
+        from_json(invJson, inv, porf);
+        as.investors.push_back(inv);
+    }
 }
 
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};

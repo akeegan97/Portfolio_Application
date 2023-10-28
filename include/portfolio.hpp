@@ -11,7 +11,7 @@
 #include <memory>
 
 using json = nlohmann::json;
-
+class Asset;
 class Portfolio{
     public:
         std::vector<std::shared_ptr<Asset>> assetPtrs;

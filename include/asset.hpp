@@ -8,6 +8,7 @@
 #include "investorpositiondisplay.hpp"
 #include <json.hpp>
 using json = nlohmann::json;
+class Portfolio;
 
 class Asset{
     public:
@@ -35,6 +36,6 @@ class Asset{
         void SetValue(int col, const wxVariant &v);
 };  
 void to_json(json &j, const Asset &as);
-void from_json(const json&j, Asset &as);
+void from_json(const json&j, Asset &as,Portfolio &porf);
 
 #endif

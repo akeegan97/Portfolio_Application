@@ -1,4 +1,6 @@
 #include "investor.hpp"
+#include "position.hpp"
+#include "portfolio.hpp"
 
 void to_json(json &j, const Investor &inv) {
     j = {
@@ -14,8 +16,8 @@ void to_json(json &j, const Investor &inv) {
 }
 
 void from_json(const json &j, Investor &inv, Portfolio &porf) {
-    inv.clientName = j["Client Name"].get<std::string>();
-    inv.type = j["Type"].get<std::string>();
+    inv.clientName =  wxString::FromUTF8(j["Client Name"].get<std::string>());
+    inv.type = wxString::FromUTF8(j["Type"].get<std::string>());
     if(j.contains("Positions")&&j["Positions"].is_array()){
         for(const auto& posJson : j["Positions"]){
             Position pos;
