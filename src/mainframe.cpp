@@ -21,9 +21,10 @@ void MainFrame::setupLayout(){
    topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
    lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
   
-   wxPanel*bottomLSidePanel = new wxPanel(this);
-   bottomLSidePanel->SetBackgroundColour(wxColor(207, 35, 141));
-   lSideSizer->Add(bottomLSidePanel, 7, wxEXPAND | wxALL, 10);
+   VListControl<Asset>* allAssetVListControl = new VListControl<Asset>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+
+   allAssetVListControl->SetBackgroundColour(wxColor(207, 35, 141));
+   lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
 
   
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);

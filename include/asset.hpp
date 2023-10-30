@@ -6,6 +6,7 @@
 #include "valuation.hpp"
 #include "investor.hpp"
 #include "investorpositiondisplay.hpp"
+#include "asset_event.hpp"
 #include <json.hpp>
 using json = nlohmann::json;
 class Portfolio;
@@ -21,6 +22,7 @@ class Asset{
         std::vector<Valuation> valuations;
         std::vector<InvestorPositionDisplay> investorsPositionsDisplays;
         std::vector<Investor> investors;
+        std::vector<AssetEvent> events;
 
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
