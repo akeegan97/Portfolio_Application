@@ -152,7 +152,9 @@ public:
         return -1;
     }
     virtual wxListItemAttr *OnGetItemAttr(long item) const wxOVERRIDE {
-        return nullptr;
+        static wxListItemAttr attr;
+        attr.SetTextColour(wxColour(51, 245, 12)); 
+        return &attr;
     }
 
     std::vector<long> orderedIndices;
