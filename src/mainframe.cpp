@@ -2,7 +2,7 @@
 
 
 void MainFrame::setupLayout(){
-
+   
    auto mainSizer = new wxBoxSizer(wxVERTICAL);
    
    wxPanel* a1Panel = new wxPanel(this);
@@ -20,9 +20,9 @@ void MainFrame::setupLayout(){
    wxPanel* topLSidePanel = new wxPanel(this);
    topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
    lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
-  
    VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
    allAssetVListControl->SetBackgroundColour(wxColor(207, 35, 141));
+   //need to make sure this isn't called if portfolio.assetPtrs is empty
    allAssetVListControl->setItems(portfolio.assetPtrs);
    lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
 
