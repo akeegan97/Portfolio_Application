@@ -21,9 +21,9 @@ void MainFrame::setupLayout(){
    topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
    lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
   
-   VListControl<Asset>* allAssetVListControl = new VListControl<Asset>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-
+   VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
    allAssetVListControl->SetBackgroundColour(wxColor(207, 35, 141));
+   allAssetVListControl->setItems(portfolio.assetPtrs);
    lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
 
   

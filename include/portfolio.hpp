@@ -17,7 +17,7 @@ class Portfolio{
         std::vector<std::shared_ptr<Asset>> assetPtrs;
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
-        Portfolio LoadFromFile(const std::string &filePath);
+        void LoadFromFile(const std::string &filePath);
 
 };
 void to_json(json &j, const Portfolio &por);

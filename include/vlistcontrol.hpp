@@ -3,17 +3,52 @@
 #include <wx/listctrl.h>
 #include <wx/wx.h>
 #include <numeric>
+#include <memory>
+
 using namespace std;
+template<typename T>
+struct DerefHelper {
+    static const T& deref(const T& item) {
+        return item;
+    }
+};
+
+template<typename T>
+struct DerefHelper<std::shared_ptr<T>> {
+    static const T& deref(const std::shared_ptr<T>& item) {
+        return *item;
+    }
+};
+
+template<typename T>
+struct DerefHelper<std::unique_ptr<T>> {
+    static const T& deref(const std::unique_ptr<T>& item) {
+        return *item;
+    }
+};
+
+template<typename T>
+struct DerefHelper<T*> {
+    static const T& deref(T* const& item) {
+        return *item;
+    }
+};
 
 template <typename T>
 class VListControl : public wxListCtrl {
+private:
+    using UnderlyingType = std::remove_reference_t<decltype(DerefHelper<T>::deref(std::declval<T>()))>;
 public:
     VListControl(wxWindow *parent, const wxWindowID id, const wxPoint &pos, const wxSize &size)
         : wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL) {
-        for (size_t i = 0; i < T::columnNames.size(); ++i) {
-            this->AppendColumn(T::columnNames[i]);
-            this->SetColumnWidth(i, T::columnWidths[i]);
+            //need to add check to make sure if constructing a VLC with pointer as type that there is 
+            //in fact data and it's not trying to deref a null
+        for (size_t i = 0; i < UnderlyingType::columnNames.size(); ++i) {
+            this->AppendColumn(UnderlyingType::columnNames[i]);
+            this->SetColumnWidth(i, UnderlyingType::columnWidths[i]);
         }
+
+
         this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt){
             auto selectedListIndex = getFirstSelectedIndex();
             long selectedDataIndex;
@@ -35,8 +70,8 @@ public:
     }
 
     virtual wxString OnGetItemText(long index, long column) const wxOVERRIDE {
-        const T& item = items[orderedIndices[index]];  
-        return item.GetValue(column).GetString();      
+        const auto& item = DerefHelper<T>::deref(items[orderedIndices[index]]);
+        return item.GetValue(column).GetString();
     }
 
     long getFirstSelectedIndex() {
@@ -49,12 +84,19 @@ public:
         this->SetItemCount(orderedIndices.size());
         this->Refresh();
     }
-    // void setItems(std::vector<T> itemsToSet) {
-    //     this->items = itemsToSet;
-    //     this->orderedIndices = std::vector<long>(items.size());
-    //     std::iota(orderedIndices.begin(),orderedIndices.end(),0);
-    //     this->SetItemCount(items.size());
-    // }
+    //for use with regular objects
+    void setItems(std::vector<T> itemsToSet) {
+        this->items = itemsToSet;
+        this->orderedIndices = std::vector<long>(items.size());
+        std::iota(orderedIndices.begin(),orderedIndices.end(),0);
+        this->SetItemCount(items.size());
+    }
+    void AddRow(const T& newItem){
+        items.push_back(newItem);
+        this->SetItemCount(items.size());
+        this->Refresh();
+    }
+    //for use with pointer objects
     template<typename U>
     void setItems(U&& itemsToSet) {
         this->items = std::forward<U>(itemsToSet);
@@ -62,22 +104,32 @@ public:
         std::iota(orderedIndices.begin(), orderedIndices.end(), 0);
         this->SetItemCount(items.size());
     }
-    // void AddRow(const T& newItem){
-    //     items.push_back(newItem);
-    //     this->SetItemCount(items.size());
-    //     this->Refresh();
-    // }
     template<typename U>
     void AddRow(U&& newItem) {
         items.push_back(std::forward<U>(newItem));
         this->SetItemCount(items.size());
         this->Refresh();
     }
+    //for use with shared_ptr objects like we have in portfolio.assets since it is a std::vector<std::shared_ptr<Asset>> type
+    void setItems(const std::vector<std::shared_ptr<T>>& itemsToSet) {
+        this->items = itemsToSet;
+        this->orderedIndices = std::vector<long>(items.size());
+        std::iota(orderedIndices.begin(), orderedIndices.end(), 0);
+        this->SetItemCount(items.size());
+    }
+
+    void AddRow(const std::shared_ptr<T>& newItem) {
+        items.push_back(newItem);
+        this->SetItemCount(items.size());
+        this->Refresh();
+    }
     void sortByColumn(int column) {
     std::sort(items.begin(), items.end(),
                 [this, column](const T& a, const T& b) {
-                  wxVariant aValue = a.GetValue(column);
-                  wxVariant bValue = b.GetValue(column);
+                    const auto& derefA = DerefHelper<T>::deref(a);
+                    const auto& derefB = DerefHelper<T>::deref(b);
+                    wxVariant aValue = derefA.GetValue(column);
+                    wxVariant bValue = derefB.GetValue(column);
 
                     if (aValue.GetType() == "string" && bValue.GetType() == "string") {
                         return sortAscending ? aValue.GetString() < bValue.GetString() 

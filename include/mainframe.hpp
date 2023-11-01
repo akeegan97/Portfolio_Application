@@ -21,7 +21,7 @@ class MainFrame : public wxFrame{
     
     private:
         Portfolio &portfolio;
-        VListControl<Asset>* assetListControl;
+        VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
         VListControl<InvestorPositionDisplay>* investorPositionListControl;
          
         void setupLayout();

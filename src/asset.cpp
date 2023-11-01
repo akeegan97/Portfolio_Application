@@ -14,19 +14,34 @@ void to_json(json &j, const Asset &as) {
 }
 
 void from_json(const json &j, Asset &as, Portfolio &porf) {
-    as.assetName = j["Asset Name"].get<std::string>().c_str();
-    wxString dateStr = wxString::FromUTF8(j["Asset Exit Date"].get<std::string>().c_str());
-    wxDateTime dateParse;
-    dateParse.ParseDate(dateStr);
-    as.assetExitDate = dateParse;
-    as.valuations = j["Valuations"].get<std::vector<Valuation>>();
-    for(const auto &invJson : j["Investors"]){
-        Investor inv;
-        from_json(invJson, inv, porf);
-        as.investors.push_back(inv);
+    if (j.contains("Asset Name")) {
+        as.assetName = j["Asset Name"].get<std::string>().c_str();
     }
-    as.events = j["Events"].get<std::vector<AssetEvent>>();
+    
+    if (j.contains("Asset Exit Date")) {
+        wxString dateStr = wxString::FromUTF8(j["Asset Exit Date"].get<std::string>().c_str());
+        wxDateTime dateParse;
+        dateParse.ParseDate(dateStr);
+        as.assetExitDate = dateParse;
+    }
+
+    if (j.contains("Valuations") && j["Valuations"].is_array()) {
+        as.valuations = j["Valuations"].get<std::vector<Valuation>>();
+    }
+
+    if (j.contains("Investors") && j["Investors"].is_array()) {
+        for (const auto &invJson : j["Investors"]) {
+            Investor inv;
+            from_json(invJson, inv, porf);
+            as.investors.push_back(inv);
+        }
+    }
+
+    if (j.contains("Events") && j["Events"].is_array()) {
+        as.events = j["Events"].get<std::vector<AssetEvent>>();
+    }
 }
+
 
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
 std::vector<int> Asset::columnWidths = {150,75,100,100,100};
