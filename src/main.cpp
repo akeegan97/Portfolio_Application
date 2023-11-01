@@ -12,7 +12,6 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    // Comment out this line:
     portfolio.LoadFromFile("C:\\Desktop\\Code\\CPP\\Portfolio_Application\\storage\\data.json");
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxDefaultSize, portfolio);
     frame->SetBackgroundColour(wxColor(35, 207, 61));
