@@ -36,6 +36,13 @@ class Asset{
 
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);
+
+        //Utility functions to calculate the totalInvestedCapital, countOfInvestors and currentValue
+
+        double CalculateNumberOfInvestors()const;
+        double CalculateInvestedCapital()const;
+        double GetLastValuation()const;
+        void UpdateDerivedValues();
 };  
 void to_json(json &j, const Asset &as);
 void from_json(const json&j, Asset &as,Portfolio &porf);
