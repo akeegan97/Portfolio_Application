@@ -20,17 +20,18 @@ void MainFrame::setupLayout(){
    wxPanel* topLSidePanel = new wxPanel(this);
    topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
    lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
-   VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-   allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
-   //need to make sure this isn't called if portfolio.assetPtrs is empty
-   //before initial item set need to calculate the number of investors, invested Capital and latest valuation for each asset
-   //using utility functions from Asset class to updated member vars
-   for(auto&assetPtr:portfolio.assetPtrs){
-      assetPtr->UpdateDerivedValues();
+   //Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future EVT
+   if(!portfolio.assetPtrs.empty()){
+      VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+      allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
+      //using utility functions from Asset class to updated member vars
+      for(auto&assetPtr:portfolio.assetPtrs){
+         assetPtr->UpdateDerivedValues();
+      }
+
+      allAssetVListControl->setItems(portfolio.assetPtrs);
+      lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
    }
-   
-   allAssetVListControl->setItems(portfolio.assetPtrs);
-   lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
 
   
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
