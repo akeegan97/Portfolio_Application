@@ -52,3 +52,13 @@ void Portfolio::LoadFromFile(const std::string &filePath) {
         throw;
     }
 }
+
+
+void Portfolio::PopulateEvents(){
+    assetEventPtrs.clear();
+    for(const auto& asset:assetPtrs){
+        for(const auto& eventPtr : asset->events){
+            assetEventPtrs.push_back(eventPtr);
+        }
+    }
+}

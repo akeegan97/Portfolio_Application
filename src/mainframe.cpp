@@ -17,10 +17,18 @@ void MainFrame::setupLayout(){
    wxBoxSizer* lSideSizer = new wxBoxSizer(wxVERTICAL);
 
    middleSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
-   wxPanel* topLSidePanel = new wxPanel(this);
-   topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
-   lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
-   //Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future EVT
+   // wxPanel* topLSidePanel = new wxPanel(this);
+   // topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
+   // lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
+
+   //Adding in All Asset Events
+   if(!portfolio.assetEventPtrs.empty()){
+      VListControl<std::shared_ptr<AssetEvent>>* allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+      allAssetEventVListControl->SetBackgroundColour(wxColor(0,0,0));
+      allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
+      lSideSizer->Add(allAssetEventVListControl,3,wxEXPAND|wxALL, 10);
+   }
+   //Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
    if(!portfolio.assetPtrs.empty()){
       VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
       allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));

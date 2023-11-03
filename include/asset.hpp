@@ -22,7 +22,7 @@ class Asset{
         std::vector<Valuation> valuations;
         std::vector<InvestorPositionDisplay> investorsPositionsDisplays;
         std::vector<Investor> investors;
-        std::vector<AssetEvent> events;
+        std::vector<std::shared_ptr<AssetEvent>> events;//changed to shared_ptrs instead of raw objects
 
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;

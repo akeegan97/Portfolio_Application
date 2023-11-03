@@ -8,16 +8,22 @@
 #include "json.hpp"
 #include "investor.hpp"
 #include "asset.hpp"
+#include "asset_event.hpp"
 #include <memory>
 
 using json = nlohmann::json;
 class Asset;
+class AssetEvent;
 class Portfolio{
     public:
         std::vector<std::shared_ptr<Asset>> assetPtrs;
+        std::vector<std::shared_ptr<AssetEvent>> assetEventPtrs;
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         void LoadFromFile(const std::string &filePath);
+
+        //add helper function to be called to populate assetEventPtrs
+        void PopulateEvents();
 
 };
 void to_json(json &j, const Portfolio &por);

@@ -8,9 +8,13 @@ void to_json(json &j, const Asset &as) {
         {"Asset Name", as.assetName.ToStdString()},
         {"Asset Exit Date", as.assetExitDate.FormatISODate()},
         {"Valuations", as.valuations},
-        {"Investors",as.investors},
-        {"Events",as.events}
+        {"Investors", as.investors},
+        {"Events", json::array({})}
     };
+    
+    for (const auto& evtPtr : as.events) {
+        j["Events"].push_back(*evtPtr);
+    }
 }
 
 void from_json(const json &j, Asset &as, Portfolio &porf) {
@@ -36,9 +40,12 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
             as.investors.push_back(inv);
         }
     }
-
+    //changing to make_shared
     if (j.contains("Events") && j["Events"].is_array()) {
-        as.events = j["Events"].get<std::vector<AssetEvent>>();
+        for (const auto &evtJson : j["Events"]) {
+            auto event = std::make_shared<AssetEvent>(evtJson.get<AssetEvent>());
+            as.events.push_back(event);
+        }
     }
 }
 
