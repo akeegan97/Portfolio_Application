@@ -1,8 +1,12 @@
 #include "asset.hpp"
 #include "investor.hpp"
 #include "portfolio.hpp"
-
-
+/**
+*@brief Convert the Asset object to JSON format.
+*
+*@param j - Reference to a JSON object.
+*@param as - The Asset object to be converted.
+*/
 void to_json(json &j, const Asset &as) {
     j = {
         {"Asset Name", as.assetName.ToStdString()},
@@ -16,7 +20,13 @@ void to_json(json &j, const Asset &as) {
         j["Events"].push_back(*evtPtr);
     }
 }
-
+/**
+*@brief Convert JSON object to Asset.
+*
+*@param j - JSON object to be converted.
+*@param as - Reference to an Asset Object.
+*param porf - Reference to Portfolio Object.
+*/
 void from_json(const json &j, Asset &as, Portfolio &porf) {
     if (j.contains("Asset Name")) {
         as.assetName = j["Asset Name"].get<std::string>().c_str();
@@ -49,10 +59,15 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
     }
 }
 
-
+//Definitions of static members of Asset class
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
 std::vector<int> Asset::columnWidths = {150,75,100,100,100};
-
+/**
+*@brief Get the value of a specified column for the Asset being displayed in a VLC
+*
+*@param col - The Column index of the VLC
+*@return wxVariant - The Value at that column.
+*/
 wxVariant Asset::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(assetName);
@@ -63,7 +78,13 @@ wxVariant Asset::GetValue(int col)const{
         default: return wxVariant();
     }
 }
-
+/**
+*@brief Set the value for a specified column for the Asset.
+*
+*@param col - The column index.
+*@param v - the value to be set.
+*
+*/
 void Asset::SetValue(int col, const wxVariant &v){
     switch(col){
         case 0: assetName = v.GetString();break;
@@ -73,7 +94,12 @@ void Asset::SetValue(int col, const wxVariant &v){
         case 4: currentValue = v.GetDouble();break;
     }
 }
-
+/**
+*@brief Calculate total invested capital in the Asset.
+*
+*@return double total amount of invested capital in asset
+*
+*/
 double Asset::CalculateInvestedCapital()const{
     double totalInvested = 0;
     for(const auto& investor: investors){
@@ -84,11 +110,19 @@ double Asset::CalculateInvestedCapital()const{
     }
     return totalInvested;
 }
-
+/**
+*@brief Calculate total number of investors in Asset.
+*
+*@return double size of investors vector.
+*/
 double Asset::CalculateNumberOfInvestors()const{
     return investors.size();
 }
-
+/**
+*@brief Gets latest valuation for Asset
+*
+*@return double last valuation added to valuations vector.
+*/
 double Asset::GetLastValuation()const{
     if(valuations.empty()){
         return 0.0;
@@ -96,7 +130,10 @@ double Asset::GetLastValuation()const{
         return valuations.back().valuation;
     }
 }
-
+/**
+*@brief Update the values of the Asset based off of the functions
+*
+*/
 void Asset::UpdateDerivedValues(){
     countOfInvestors = CalculateNumberOfInvestors();
     totalInvestedCapital = CalculateInvestedCapital();
