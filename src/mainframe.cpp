@@ -47,15 +47,28 @@ void MainFrame::setupLayout(){
   
    wxPanel* topRSidePanel = new wxPanel(this);
    topRSidePanel->SetBackgroundColour(wxColor(178, 35, 207));
-   rSideSizer->Add(topRSidePanel, 2, wxEXPAND | wxALL, 10);
+   rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
    
    wxPanel* midRSidePanel = new wxPanel(this);
    midRSidePanel->SetBackgroundColour(wxColor(242, 153, 212));
-   rSideSizer->Add(midRSidePanel, 5, wxEXPAND | wxALL, 10);
-   
+   rSideSizer->Add(midRSidePanel, 7, wxEXPAND | wxALL, 10);
+   //adding in the statistics of the fund in this section of the main frame
    wxPanel* botRSidePanel = new wxPanel(this);
-   botRSidePanel->SetBackgroundColour(wxColor(82, 227, 159));
-   rSideSizer->Add(botRSidePanel, 3, wxEXPAND | wxALL, 10);
+   botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
+
+   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Invested: $0.00");
+   totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Investors in fund: 0");
+   totalValuationText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Valuation: $0.00");
+
+   wxBoxSizer* botRSiderSizer = new wxBoxSizer(wxVERTICAL);
+   botRSiderSizer->Add(totalInvestedText, 1, wxEXPAND|wxALL, 5);
+   botRSiderSizer->Add(totalInvestorCountText, 1, wxEXPAND| wxALL, 5);
+   botRSiderSizer->Add(totalValuationText, 1, wxEXPAND | wxALL, 5);
+
+   botRSidePanel->SetSizer(botRSiderSizer);
+
+   rSideSizer->Add(botRSidePanel, 2, wxEXPAND | wxALL, 10);
+
 
    
    wxPanel* a3Panel = new wxPanel(this);
@@ -85,3 +98,16 @@ void MainFrame::setupLayout(){
 // +---------------------------------------+
 // |                  A3                   | <- 10%
 // +---------------------------------------+
+
+void MainFrame::UpdatePortfolioDisplayValues(){
+   double totalInvested = portfolio.TotalInvestedCapital();
+   double totalInvestors = portfolio.TotalInvestors();
+   double totalValuation_value = portfolio.TotalValuation();
+
+   totalInvestedText->SetLabel(wxString::Format("Total Invested Capital : $%.2f",totalInvested));
+   totalInvestedText->SetForegroundColour(wxColor(51, 245, 12));
+   totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %f",totalInvestors));
+   totalInvestorCountText->SetForegroundColour(wxColor(51, 245, 12));
+   totalValuationText->SetLabel(wxString::Format("Total Valuation of Fund : $%.2f",totalValuation_value));
+   totalValuationText->SetForegroundColour(wxColor(51, 245, 12));
+}

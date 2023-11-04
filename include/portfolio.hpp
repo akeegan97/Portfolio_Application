@@ -25,6 +25,12 @@ class Portfolio{
         //add helper function to be called to populate assetEventPtrs
         void PopulateEvents();
 
+        //functions for portfolio to calculate key figures used in the mainframe wxStaticText control
+
+        double TotalInvestedCapital();
+        double TotalInvestors();
+        double TotalValuation();
+
 };
 void to_json(json &j, const Portfolio &por);
 void from_json(const json &j, Portfolio &por);

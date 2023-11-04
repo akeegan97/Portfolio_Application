@@ -15,17 +15,29 @@
 class MainFrame : public wxFrame{
     public:
         MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port)
-        : wxFrame(NULL, wxID_ANY, title, pos, size),portfolio(port){
-            setupLayout();
-        };
+        : wxFrame(NULL, wxID_ANY, title, pos, size),
+            portfolio(port),
+            allAssetVListControl(nullptr),
+            allAssetEventVListControl(nullptr),
+            investorPositionListControl(nullptr),
+            totalInvestedText(nullptr),
+            totalInvestorCountText(nullptr),
+            totalValuationText(nullptr){
+                setupLayout();
+                UpdatePortfolioDisplayValues();
+            };
     
     private:
         Portfolio &portfolio;
         VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
         VListControl<InvestorPositionDisplay>* investorPositionListControl;
         VListControl<AssetEvent> *allAssetEventVListControl;
-         
+        wxStaticText * totalInvestedText;
+        wxStaticText * totalInvestorCountText;
+        wxStaticText * totalValuationText;
         void setupLayout();
+
+        void UpdatePortfolioDisplayValues();
 
 };
 

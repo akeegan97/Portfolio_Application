@@ -62,3 +62,28 @@ void Portfolio::PopulateEvents(){
         }
     }
 }
+
+double Portfolio::TotalInvestedCapital(){
+    double totalInvestedCapital = 0;
+    for(const auto &asset: assetPtrs){
+        totalInvestedCapital+= asset->CalculateInvestedCapital();
+    }
+    return totalInvestedCapital;
+}
+
+double Portfolio::TotalInvestors(){
+    double totalInvestors = 0;
+    for(const auto &asset:assetPtrs){
+        totalInvestors+=asset->CalculateNumberOfInvestors();
+    }
+    return totalInvestors;
+}
+
+double Portfolio::TotalValuation(){
+    double totalValuation = 0;
+    for(const auto&asset:assetPtrs){
+        totalValuation+=asset->GetLastValuation();
+    }
+    return totalValuation;
+}
+
