@@ -65,8 +65,68 @@ void ChartControl::OnPaint(wxPaintEvent &evt){
 
         for(int i = 0; i<yLinesCount;i++){
             double normalizedLineY = static_cast<double>(i) / (yLinesCount - 1);
+
+            auto lineStartPoint = normalizedToChartArea.TransformPoint({0,normalizedLineY});
+            auto lineEndPoint = normalizdToChartArea.TransformPoint({1, normalizedLineY});
+
+            wxPoint2DDouble linePoints[] = {lineStartPoint, lineEndPoint};
+            gc->StrokeLines(2, linePoints);
+
+            double valueAtLineY = normalizedToValue.TransformPoint({0,normalizedLineY}).m_y;
+
+            auto text = wxString::Format("%.2f",valueAtLineY);
+            text = wxControl::Ellipsize(text, dc, wxELLIPSIZE_MIDDLE, chartArea.GetLeft()-labelsToChartAreaMargin);
+
+            double titleHeight, titleWidth;
+            gc->GetTextExtent(text, &titleWidth, &titleHeight);
+            gc->DrawText(text, chartArea.GetLeft()-labelsToChartAreaMargin-titleWidth, lineStartPoint.m_y - titleHeight / 2.0);
+
+        }
+        wxPoint2DDouble leftHLinePoints[]={
+            normalizedToChartArea.TransformPoint({0,0}),
+            normalizedToChartArea.TransformPoint({0,-1});
         }
 
+        gc->StrokeLines(2, leftHLinePoints);
+        gc->StrokeLine(2, rightHLinePoints);
 
+        wxPoint2DDouble *pointArray = new wxPoint2DDouble[values.size()];
+
+        wxAffineMatrix2D valueToNormalized = normalizedToValue;
+        valueToNormalized.Invert();
+        wxAffineMatrix2D valueToChartArea = normalizedToChartArea;
+        valueToChartArea.Concat(valueToNormalized);
+
+        for(int i=0;i<values.size();i++){
+            pointArray[i] = valueToChartArea.TransformPoint({static_cast<double>(i), values[i]});
+        }
+
+        gc->SetPen(wxPen(wxColor(51, 245, 12)));
+        gc->StrokeLines(values.size(), pointArray);
+
+        delete[] pointArray;
+        delete gc;
     }
 }
+
+std::tuple<int, double, double> ChartControl::calculateChartSegmentCountAndRange(double origLow, double origHigh){
+    constexpr double rangeMults[] = {0.2, .25, .5, 1.0, 2.0, 2.5, 5.0};
+    constexpr int maxSegments = 6;
+
+    double magnitude = std::floor(std::log10(origHigh - origLow));
+
+    for(auto r: rangeMults){
+        double stepSize = r*std::pow(10.0, magnitude);
+        double low = std::floor(origLow/stepSize)*stepSize;
+        double high = std::ceil(origHigh / stepSize)*stepSize;
+
+        int segments = round((high - low)/ stepSize);
+        if(segments <=maxSegments){
+            return std::make_tuple(segments, low, high);
+        }
+
+    }
+
+    return std::make_tuple(10, origLow, origHigh);
+}
+
