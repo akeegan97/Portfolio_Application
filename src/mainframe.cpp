@@ -1,4 +1,5 @@
 #include "mainframe.hpp"
+#include "chartWidget.hpp"
 
 
 void MainFrame::setupLayout(){
@@ -49,10 +50,10 @@ void MainFrame::setupLayout(){
    topRSidePanel->SetBackgroundColour(wxColor(178, 35, 207));
    rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
    
-   wxPanel* midRSidePanel = new wxPanel(this);
-   midRSidePanel->SetBackgroundColour(wxColor(242, 153, 212));
-   rSideSizer->Add(midRSidePanel, 7, wxEXPAND | wxALL, 10);
-   //adding in the statistics of the fund in this section of the main frame
+   ChartControl* chartControl = new ChartControl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+   chartControl->SetBackgroundColour(wxColor(0,0,0));
+   rSideSizer->Add(chartControl, 7, wxEXPAND | wxALL, 10);
+
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
 

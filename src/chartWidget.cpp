@@ -7,11 +7,19 @@ ChartControl::ChartControl(wxWindow *parent, wxWindowID id, const wxPoint &pos, 
     wxPanel(parent, id, pos, size, wxFULL_REPAINT_ON_RESIZE){
         this->SetBackgroundStyle(wxBG_STYLE_PAINT);
         this->Bind(wxEVT_PAINT, &ChartControl::OnPaint, this);
+        values.push_back(2.0);
+        values.push_back(3.0);
+        values.push_back(4.0);
+        values.push_back(5.0);
+
+        title = "Testing Chart Control";
 }
 
 
 void ChartControl::OnPaint(wxPaintEvent &evt){
     wxAutoBufferedPaintDC dc(this);
+    dc.SetBackground(*wxBLACK_BRUSH);
+    
     dc.Clear();
     wxGraphicsContext *gc = wxGraphicsContext::Create(dc);
 
@@ -55,19 +63,19 @@ void ChartControl::OnPaint(wxPaintEvent &evt){
 
         double yLinesCount = segmentCount + 1;
 
-        wxAffineMatrix2D noramlizedToValue{};
-        noramlizedToValue.Translate(0, highValue);
-        noramlizedToValue.Scale(1,-1);
-        noramlizedToValue.Scale(static_cast<double>(values.size()-1), yValueSpan);
+        wxAffineMatrix2D normalizedToValue{};
+        normalizedToValue.Translate(0, highValue);
+        normalizedToValue.Scale(1,-1);
+        normalizedToValue.Scale(static_cast<double>(values.size()-1), yValueSpan);
 
-        gc->SetPen(wxPen(wxColor(128,128,128)));
+        gc->SetPen(wxPen(wxColor(51, 245, 12)));
         gc->SetFont(*wxNORMAL_FONT,wxColor(51, 245, 12));
 
         for(int i = 0; i<yLinesCount;i++){
             double normalizedLineY = static_cast<double>(i) / (yLinesCount - 1);
 
             auto lineStartPoint = normalizedToChartArea.TransformPoint({0,normalizedLineY});
-            auto lineEndPoint = normalizdToChartArea.TransformPoint({1, normalizedLineY});
+            auto lineEndPoint = normalizedToChartArea.TransformPoint({1, normalizedLineY});
 
             wxPoint2DDouble linePoints[] = {lineStartPoint, lineEndPoint};
             gc->StrokeLines(2, linePoints);
@@ -84,11 +92,15 @@ void ChartControl::OnPaint(wxPaintEvent &evt){
         }
         wxPoint2DDouble leftHLinePoints[]={
             normalizedToChartArea.TransformPoint({0,0}),
-            normalizedToChartArea.TransformPoint({0,-1});
-        }
+            normalizedToChartArea.TransformPoint({0,1}),
+        };
+        wxPoint2DDouble rightHLinePoints[] = {
+            normalizedToChartArea.TransformPoint({1, 0}),
+            normalizedToChartArea.TransformPoint({1, 1})
+        };
 
         gc->StrokeLines(2, leftHLinePoints);
-        gc->StrokeLine(2, rightHLinePoints);
+        gc->StrokeLines(2, rightHLinePoints);
 
         wxPoint2DDouble *pointArray = new wxPoint2DDouble[values.size()];
 
