@@ -11,6 +11,7 @@
 #include "portfolio.hpp"
 #include "investorpositiondisplay.hpp"
 #include "vlistcontrol.hpp"
+#include "chartcontrol.hpp"
 
 class MainFrame : public wxFrame{
     public:

@@ -1,10 +1,10 @@
-#include "chartWidget.hpp"
+#include "chartcontrol.hpp"
 #include <wx/settings.h>
 #include <wx/graphics.h>
 #include <wx/dcbuffer.h>
 
-ChartControl::ChartControl(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size):
-    wxPanel(parent, id, pos, size, wxFULL_REPAINT_ON_RESIZE){
+ChartControl::ChartControl(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size) :
+    wxScrolledWindow(parent, id, pos, size, wxFULL_REPAINT_ON_RESIZE){
         this->SetBackgroundStyle(wxBG_STYLE_PAINT);
         this->Bind(wxEVT_PAINT, &ChartControl::OnPaint, this);
         values.push_back(2.0);
@@ -141,4 +141,3 @@ std::tuple<int, double, double> ChartControl::calculateChartSegmentCountAndRange
 
     return std::make_tuple(10, origLow, origHigh);
 }
-
