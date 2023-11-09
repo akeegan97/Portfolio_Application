@@ -49,10 +49,7 @@ void MainFrame::setupLayout(){
    topRSidePanel->SetBackgroundColour(wxColor(178, 35, 207));
    rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
 
-   ChartControl* valuationFundChart = new ChartControl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
- 
 
-   rSideSizer->Add(valuationFundChart, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
