@@ -23,7 +23,7 @@ bool RugenBerg::OnInit(){
 
 
 int RugenBerg::OnExit(){
-    //portfolio.SavePortfolioToFile(portfolio,"..\\storage\\data.json");
+    portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
     return 0;
 }
 

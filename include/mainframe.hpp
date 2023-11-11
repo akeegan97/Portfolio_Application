@@ -17,6 +17,7 @@
 #include <wx/chartpanel.h>
 #include <wx/xy/xylinerenderer.h>
 #include <wx/axis/dateaxis.h>
+#include <wx/colorscheme.h>
 
 
 class MainFrame : public wxFrame{

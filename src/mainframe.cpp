@@ -59,10 +59,14 @@ void MainFrame::setupLayout(){
    }
 
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
+   XYLineRenderer* customcoloredLine = new XYLineRenderer();
+   wxPen* myPen = new wxPen(wxColor(51,245,12));
+   customcoloredLine->SetSeriePen(*times, myPen);
    valuationTimeSeries->SetRenderer(new XYLineRenderer());
 
    XYPlot *xyPlot = new XYPlot();
    xyPlot->AddDataset(valuationTimeSeries);
+
 
    NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
    DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
