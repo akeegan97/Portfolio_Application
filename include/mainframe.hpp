@@ -1,7 +1,7 @@
 #ifndef MAINFRAME_HPP
 #define MAINFRAME_HPP
 
-#include <wx-3.2/wx/wx.h>
+#include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
 #include "asset.hpp"
@@ -28,7 +28,8 @@ class MainFrame : public wxFrame{
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
             totalValuationText(nullptr),
-            chartPanel(nullptr){
+            chartPanel(nullptr)
+            {
                 setupLayout();
                 UpdatePortfolioDisplayValues();
             };

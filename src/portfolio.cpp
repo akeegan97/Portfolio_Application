@@ -108,7 +108,8 @@ double Portfolio::TotalValuation(){
 
 void Portfolio::addValuation(){
     double totalValuation = 0.0;
-    wxDateTime latestDate;
+    wxDateTime latestDate = wxDateTime(1, wxDateTime::Jan, 1900); 
+
 
     for(auto&assetPtr: assetPtrs){
         if(!assetPtr->valuations.empty()){
