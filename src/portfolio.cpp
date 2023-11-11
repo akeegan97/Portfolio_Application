@@ -10,6 +10,15 @@ void to_json(json &j, const Portfolio &por) {
         assetsJson.push_back(assetJson);
     }
     j["Assets"] = assetsJson;
+    json valuationArray = json::array();
+    for(const auto&pair:por.valuationVectorPlotting){
+        std::string dateStr = pair.first.FormatISODate().ToStdString();
+        double amount = pair.second;
+        json pairJson = {{"Date", dateStr},{"Amount",amount}};
+        valuationArray.push_back(pairJson);
+    }
+
+    j["valuationVectorPlotting"] = valuationArray;
 }
 
 
@@ -22,6 +31,16 @@ void from_json(const json &j, Portfolio &por) {
         auto asset = std::make_shared<Asset>();
         from_json(assetJson, *asset, por);
         por.assetPtrs.push_back(asset);
+    }
+    if(j.contains("valuationVectorPlotting")){
+        for(const auto &pair:j["valuationVectorPlotting"]){
+            std::string dateStr = pair["Date"];
+            double amount = pair["Amount"];
+
+            wxDateTime date;
+            date.ParseDate(dateStr);
+            por.valuationVectorPlotting.push_back(std::make_pair(date, amount));
+        }
     }
 }
 
@@ -87,3 +106,29 @@ double Portfolio::TotalValuation(){
     return totalValuation;
 }
 
+void Portfolio::addValuation(){
+    double totalValuation = 0.0;
+    wxDateTime latestDate;
+
+    for(auto&assetPtr: assetPtrs){
+        if(!assetPtr->valuations.empty()){
+            Valuation& lastValuation = assetPtr->valuations.back();
+            totalValuation +=lastValuation.valuation;
+            if(lastValuation.valuationDate.IsLaterThan(latestDate)){
+                latestDate = lastValuation.valuationDate;
+            }
+        }
+    }
+
+    auto it = std::find_if(valuationVectorPlotting.begin(), valuationVectorPlotting.end(),
+                           [&latestDate](const std::pair<wxDateTime, double>& entry) {
+                               return entry.first == latestDate;
+                           });
+    if (it != valuationVectorPlotting.end()) {
+        it->second = totalValuation;
+    } else {
+        valuationVectorPlotting.push_back(std::make_pair(latestDate, totalValuation));
+    }
+
+
+}

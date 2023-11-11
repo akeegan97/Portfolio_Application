@@ -1,7 +1,7 @@
 #ifndef MAINFRAME_HPP
 #define MAINFRAME_HPP
 
-#include <wx/wx.h>
+#include <wx-3.2/wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
 #include "asset.hpp"
@@ -11,6 +11,11 @@
 #include "portfolio.hpp"
 #include "investorpositiondisplay.hpp"
 #include "vlistcontrol.hpp"
+#include <wx/xy/xyplot.h>
+#include <wx/xy/xydataset.h>
+#include <wx/xy/timeseriesdataset.h>
+#include <wx/chartpanel.h>
+
 
 class MainFrame : public wxFrame{
     public:
@@ -22,21 +27,22 @@ class MainFrame : public wxFrame{
             investorPositionListControl(nullptr),
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
-            totalValuationText(nullptr){
+            totalValuationText(nullptr),
+            chartPanel(nullptr){
                 setupLayout();
                 UpdatePortfolioDisplayValues();
             };
+        Portfolio &portfolio;
     
     private:
-        Portfolio &portfolio;
         VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
         VListControl<InvestorPositionDisplay>* investorPositionListControl;
         VListControl<AssetEvent> *allAssetEventVListControl;
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;
+        wxChartPanel * chartPanel;
         void setupLayout();
-
         void UpdatePortfolioDisplayValues();
 
 };

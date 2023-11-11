@@ -49,6 +49,27 @@ void MainFrame::setupLayout(){
    topRSidePanel->SetBackgroundColour(wxColor(178, 35, 207));
    rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
 
+   size_t count = portfolio.valuationVectorPlotting.size();
+   double* data = new double[count];
+   time_t* times = new time_t[count];
+
+   for(size_t i = 0; i<count;++i){
+      data[i] = portfolio.valuationVectorPlotting[i].second;
+      times[i] = portfolio.valuationVectorPlotting[i].first.GetTicks();
+   }
+
+   TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
+
+   XYPlot *xyPlot = new XYPlot();
+   xyPlot->AddDataset(valuationTimeSeries);
+
+   Chart* myChart = new Chart(xyPlot, "Testing Valuation Chart");
+
+   chartPanel = new wxChartPanel(this, wxID_ANY);
+   chartPanel->SetChart(myChart);
+
+
+   rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
 
 
    wxPanel* botRSidePanel = new wxPanel(this);
@@ -109,3 +130,6 @@ void MainFrame::UpdatePortfolioDisplayValues(){
    totalValuationText->SetLabel(wxString::Format("Total Valuation of Fund : $%.2f",totalValuation_value));
    totalValuationText->SetForegroundColour(wxColor(51, 245, 12));
 }
+
+
+

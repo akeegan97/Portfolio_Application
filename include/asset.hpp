@@ -1,8 +1,8 @@
 #ifndef ASSET_HPP
 #define ASSET_HPP
-#include <wx/string.h>
-#include <wx/datetime.h>
-#include <wx/variant.h>
+#include "C:\cpp_libs_\wx\include\wx\defs.h"
+#include "C:\cpp_libs_\wx\include\wx\string.h"
+#include "C:\cpp_libs_\wx\include\wx\datetime.h"
 #include "valuation.hpp"
 #include "investor.hpp"
 #include "investorpositiondisplay.hpp"
