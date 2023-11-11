@@ -59,16 +59,30 @@ void MainFrame::setupLayout(){
    }
 
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
+   valuationTimeSeries->SetRenderer(new XYLineRenderer());
 
    XYPlot *xyPlot = new XYPlot();
    xyPlot->AddDataset(valuationTimeSeries);
 
-   Chart* myChart = new Chart(xyPlot, "Testing Valuation Chart");
+   NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+   DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
 
+   bottomAxis->SetVerticalLabelText(true);
+   bottomAxis->SetDateFormat(wxT("%d-%m"));
+
+   xyPlot->AddAxis(leftAxis);
+   xyPlot->AddAxis(bottomAxis);
+
+   xyPlot->LinkDataHorizontalAxis(0,0);
+   xyPlot->LinkDataVerticalAxis(0,0);
+
+   std::cout<<"Size of valuation vector: "<<portfolio.valuationVectorPlotting.size()<<std::endl;
+   std::cout<<"Size of assetPtrs: "<<portfolio.assetPtrs.size()<<std::endl;
+
+   // Remaining code to create and display the chart
+   Chart* myChart = new Chart(xyPlot, "Testing Valuation Chart");
    chartPanel = new wxChartPanel(this, wxID_ANY);
    chartPanel->SetChart(myChart);
-
-
    rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
 
 

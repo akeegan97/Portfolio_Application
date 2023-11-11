@@ -15,6 +15,8 @@
 #include <wx/xy/xydataset.h>
 #include <wx/xy/timeseriesdataset.h>
 #include <wx/chartpanel.h>
+#include <wx/xy/xylinerenderer.h>
+#include <wx/axis/dateaxis.h>
 
 
 class MainFrame : public wxFrame{
