@@ -3,7 +3,6 @@
 #include "portfolio.hpp"
 #include "mainframe.hpp"
 
-
 class RugenBerg : public wxApp{
     public:
         bool OnInit()override;
@@ -21,12 +20,9 @@ bool RugenBerg::OnInit(){
     return true;
 }
 
-
 int RugenBerg::OnExit(){
     portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
     return 0;
 }
 
 wxIMPLEMENT_APP(RugenBerg);
-
-

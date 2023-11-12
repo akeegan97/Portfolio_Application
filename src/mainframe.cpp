@@ -61,15 +61,32 @@ void MainFrame::setupLayout(){
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
    XYLineRenderer* customcoloredLine = new XYLineRenderer();
    wxPen* myPen = new wxPen(wxColor(51,245,12));
-   customcoloredLine->SetSeriePen(*times, myPen);
-   valuationTimeSeries->SetRenderer(new XYLineRenderer());
+   customcoloredLine->SetSeriePen(0, myPen);
+   valuationTimeSeries->SetRenderer(customcoloredLine);
 
    XYPlot *xyPlot = new XYPlot();
    xyPlot->AddDataset(valuationTimeSeries);
 
+   wxPen* borderPen = new wxPen(wxColor(51,245,12));
+   wxBrush* fillBrush = new wxBrush(wxColor(0,0,0));
+
+   FillAreaDraw* fillarea = new FillAreaDraw(*borderPen, *fillBrush);
+
+   xyPlot->SetBackground(fillarea);
+
+
 
    NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+   leftAxis->SetTitle("Valuations");
+   wxColor myColor =  wxColor(51,245,12);
+   leftAxis->SetTitleColour(myColor);
+   leftAxis->SetLabelTextColour(myColor);
+
+
    DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
+   bottomAxis->SetTitle("Dates");
+   bottomAxis->SetTitleColour(myColor);
+   bottomAxis->SetLabelTextColour(myColor);
 
    bottomAxis->SetVerticalLabelText(true);
    bottomAxis->SetDateFormat(wxT("%d-%m"));
@@ -84,11 +101,23 @@ void MainFrame::setupLayout(){
    std::cout<<"Size of assetPtrs: "<<portfolio.assetPtrs.size()<<std::endl;
 
    // Remaining code to create and display the chart
-   Chart* myChart = new Chart(xyPlot, "Testing Valuation Chart");
+   Chart* myChart = new Chart(xyPlot, "Valuations");
+   wxString titleText = "Valuation Chart";
+   wxFont titleFont = *wxNORMAL_FONT;  // Or any other font you'd like to use
+   TextElement* chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
+   chartTitle->SetColour(wxColour(51, 245, 12));  // Set the color
+
+   Header* myHeader = new Header(*chartTitle);
+   myChart->SetHeader(myHeader);
+   
+   wxPen* chartPen = new wxPen(wxColor(51,245,12));
+   wxBrush* chartBrush = new wxBrush(wxColor(0,0,0));
+
+   FillAreaDraw* chartFillArea = new FillAreaDraw(*borderPen, *fillBrush);
+   myChart->SetBackground(chartFillArea);
    chartPanel = new wxChartPanel(this, wxID_ANY);
    chartPanel->SetChart(myChart);
    rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
-
 
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
@@ -106,8 +135,6 @@ void MainFrame::setupLayout(){
 
    rSideSizer->Add(botRSidePanel, 2, wxEXPAND | wxALL, 10);
 
-
-   
    wxPanel* a3Panel = new wxPanel(this);
    a3Panel->SetBackgroundColour(wxColour(200, 200, 200));  
    auto bottomSizer = new wxBoxSizer(wxVERTICAL);
