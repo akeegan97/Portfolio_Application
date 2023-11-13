@@ -3,7 +3,7 @@
 
 void to_json(json&j, const Position &pos){
     j=json{
-        {"AssetName",pos.assetPtr->assetName.ToStdString()},
+        {"AssetName", pos.assetPtr ? pos.assetPtr->assetName.ToStdString() : "Unknown"},//check to see if we are attempting to deref a nullPtr
         {"Date Invested",pos.dateInvested.FormatISODate()},
         {"Committed Up",pos.committedAmountUp},
         {"Committed Down",pos.committedAmountDown},
@@ -18,10 +18,11 @@ void to_json(json&j, const Position &pos){
 
 void from_json(const json &j, Position &pos, Portfolio &porf){
     wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
-    // auto it = std::find_if(porf.assetPtrs.begin(),porf.assetPtrs.end(),[assetName](const std::shared_ptr<Asset> &assetPtr){return assetPtr->assetName == assetName;});
-    // if(it != porf.assetPtrs.end()){
-    //     pos.assetPtr = *it;
-    // }
+    std::cout << "Looking for Asset: " << assetName << " (length: " << assetName.length() << ")" << std::endl;
+    std::cout << "Portfolio's Assets:" << std::endl;
+    for (const auto& assetPtr : porf.assetPtrs) {
+        std::cout << " - " << assetPtr->assetName << " (length: " << assetPtr->assetName.length() << ")" << std::endl;
+    }
     for(const auto &assetPtr: porf.assetPtrs){
         if(assetPtr->assetName == assetName){
             pos.assetPtr = assetPtr;

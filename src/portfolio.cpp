@@ -24,6 +24,7 @@ void to_json(json &j, const Portfolio &por) {
 
 void from_json(const json &j, Portfolio &por) {
     if (!j.contains("Assets") || !j["Assets"].is_array()) {
+        std::cout<<"Json values: "<<j<<std::endl;
         throw std::runtime_error("JSON does not contain 'Assets' or 'Assets' is not an array.");
     }
 
@@ -49,6 +50,7 @@ void Portfolio::SavePortfolioToFile(const Portfolio &portfolio, const std::strin
     json j;
     to_json(j,portfolio);
     std::ofstream file(filePath,std::ios::trunc);
+    std::cout<<"Is file good? : "<<file.good()<<std::endl;
     file << j.dump(4);
 }
 

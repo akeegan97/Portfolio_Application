@@ -57,6 +57,15 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
             as.events.push_back(event);
         }
     }
+    for (const auto& assetPtr:porf.assetPtrs){
+        for (const auto& investor:assetPtr->investors){
+            std::cout<<"Investor: "<<investor.clientName<<std::endl;
+            for(const auto& position:investor.positions){
+                std::cout<<"Position Asset Ptr: "<<position.assetPtr->assetName<<std::endl;
+            }
+            //bug found, investors.position.assetPtr is not being set correctly resulting in a segmentation fault
+        }
+    }
 }
 
 //Definitions of static members of Asset class
