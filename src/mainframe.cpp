@@ -1,5 +1,11 @@
 #include "mainframe.hpp"
+#include <string>
+#include <sstream>
+#include <iomanip>
+#include <cmath>
 
+template <typename T>
+std::string formatDollarAmount(T value);
 
 void MainFrame::setupLayout(){
    //main sizer for the page
@@ -34,6 +40,12 @@ void MainFrame::setupLayout(){
    wxPanel* topRSidePanel = new wxPanel(this);
    topRSidePanel->SetBackgroundColour(wxColor(0,0,0));
    quoteOfTheDate = new wxStaticText(topRSidePanel, wxID_ANY, "");
+   int widthOfPAnel = topRSidePanel->GetMaxWidth();
+
+   wxFont quoteFont = wxFont(22, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+   quoteOfTheDate->Wrap(widthOfPAnel);
+
+   quoteOfTheDate->SetFont(quoteFont);
    wxBoxSizer* TopRSiderSizer = new wxBoxSizer(wxVERTICAL);
    TopRSiderSizer->Add(quoteOfTheDate,1, wxEXPAND | wxALL, 15);
    
@@ -139,14 +151,16 @@ void MainFrame::setupLayout(){
 
 void MainFrame::UpdatePortfolioDisplayValues(){
    double totalInvested = portfolio.TotalInvestedCapital();
+   std::string formattedTotalInvested = formatDollarAmount(totalInvested);
    double totalInvestors = portfolio.TotalInvestors();
    double totalValuation_value = portfolio.TotalValuation();
+   std::string formattedTotalvaluation = formatDollarAmount(totalValuation_value);
 
-   totalInvestedText->SetLabel(wxString::Format("Total Invested Capital : $%.2f",totalInvested));
+   totalInvestedText->SetLabel("Total Invested Capital: "+formattedTotalInvested);
    totalInvestedText->SetForegroundColour(wxColor(51, 245, 12));
-   totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %f",totalInvestors));
+   totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
    totalInvestorCountText->SetForegroundColour(wxColor(51, 245, 12));
-   totalValuationText->SetLabel(wxString::Format("Total Valuation of Fund : $%.2f",totalValuation_value));
+   totalValuationText->SetLabel("Total Valuation of Fund: "+formattedTotalvaluation);
    totalValuationText->SetForegroundColour(wxColor(51, 245, 12));
 }
 
@@ -167,6 +181,9 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
 
       quoteOfTheDate->SetLabel(pickedQuote);
       quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
+      int width = this->GetMaxWidth();
+      quoteOfTheDate->Wrap(width);
+
    }else{
       quoteOfTheDate->SetLabel(wxString::Format("NO QUOTES FOUND"));
       quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
@@ -174,4 +191,35 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
 
 }
 
+//Port of helpful Rust function I wrote
+template <typename T>
+std::string formatDollarAmount(T value) {
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << std::abs(value);
+    std::string formatted = stream.str();
 
+    size_t dotPos = formatted.find('.');
+    std::string intPart = formatted.substr(0, dotPos);
+    std::string decimalPart = formatted.substr(dotPos + 1);
+
+    std::string formattedWithCommas;
+    int count = 0;
+    for (auto it = intPart.rbegin(); it != intPart.rend(); ++it) {
+        if (count == 3) {
+            formattedWithCommas.push_back(',');
+            count = 0;
+        }
+        count++;
+        formattedWithCommas.push_back(*it);
+    }
+
+    std::reverse(formattedWithCommas.begin(), formattedWithCommas.end());
+    
+    std::string prefix = value < 0 ? "-$" : "$";
+    return prefix + formattedWithCommas + '.' + decimalPart;
+}
+
+///TODO
+/*
+Find way to find panel width of quote of the day panel and call wrap on quote of the day with that width
+*/
