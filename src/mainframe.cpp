@@ -13,7 +13,7 @@ void MainFrame::setupLayout(){
       allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
       lSideSizer->Add(allAssetEventVListControl,4,wxEXPAND | wxALL, 10);
    }
-//   Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
+   //   Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
    if(!portfolio.assetPtrs.empty()){
       VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
       allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
