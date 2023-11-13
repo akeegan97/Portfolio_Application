@@ -48,6 +48,9 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
             Investor inv;
             from_json(invJson, inv, porf);
             as.investors.push_back(inv);
+            for(const auto& pos:inv.positions){
+                std::cout<<"Position Asset Ptr: "<<pos.assetPtr->assetName<<std::endl;
+            }
         }
     }
     //changing to make_shared

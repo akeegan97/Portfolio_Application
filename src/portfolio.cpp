@@ -30,7 +30,10 @@ void from_json(const json &j, Portfolio &por) {
 
     for(const auto &assetJson : j["Assets"]){
         auto asset = std::make_shared<Asset>();
+        //source of issue empty asset deref pointer being sent to the from_json function which contains nothing and thus cannot
+        //set the assetName member variable used to link a position to an asset under an investor
         from_json(assetJson, *asset, por);
+        //only after the nested deserialization is the asset pushed to the assetPtr vector, making it unaccessable to the underlying objects
         por.assetPtrs.push_back(asset);
     }
     if(j.contains("valuationVectorPlotting")){
