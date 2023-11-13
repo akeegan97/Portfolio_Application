@@ -1,6 +1,6 @@
 #ifndef MAINFRAME_HPP
 #define MAINFRAME_HPP
-
+#include <random>
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
@@ -31,24 +31,27 @@ class MainFrame : public wxFrame{
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
             totalValuationText(nullptr),
-            chartPanel(nullptr)
+            chartPanel(nullptr),
+            quoteOfTheDate(nullptr)
             {
                 setupLayout();
                 UpdatePortfolioDisplayValues();
+                ReadPickQuote("../storage/RugenBergQuotes.txt");
             };
         Portfolio &portfolio;
     
     private:
         VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
         VListControl<InvestorPositionDisplay>* investorPositionListControl;
-        VListControl<AssetEvent> *allAssetEventVListControl;
+        VListControl<std::shared_ptr<AssetEvent>> *allAssetEventVListControl;
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;
         wxChartPanel * chartPanel;
+        wxStaticText * quoteOfTheDate;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
-
+        void ReadPickQuote(const std::string&filePath);
 };
 
 

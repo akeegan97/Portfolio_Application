@@ -18,7 +18,7 @@ void AssetEvent::SetValue(int col, const wxVariant &v){
 }
 
 std::vector<wxString> AssetEvent::columnNames {"Event Date","Has Happened","Event Details"};
-std::vector<int> AssetEvent::columnWidths{100,50,200};
+std::vector<int> AssetEvent::columnWidths{100,100,200};
 
 void to_json(json&j, const AssetEvent &ae){
     j=json{

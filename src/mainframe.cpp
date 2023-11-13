@@ -2,33 +2,18 @@
 
 
 void MainFrame::setupLayout(){
-   
-   auto mainSizer = new wxBoxSizer(wxVERTICAL);
-   
-   wxPanel* a1Panel = new wxPanel(this);
-   a1Panel->SetBackgroundColour(wxColour(200, 200, 200));  
-   mainSizer->Add(a1Panel, 1, wxEXPAND | wxALL, 20);
-
- 
-   wxBoxSizer* middleSizer = new wxBoxSizer(wxHORIZONTAL);
-   mainSizer->Add(middleSizer, 8, wxEXPAND | wxALL, 10);
-
-   
+   //main sizer for the page
+   auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
+   //left sizer for the left side of the page needs to be vertical 
    wxBoxSizer* lSideSizer = new wxBoxSizer(wxVERTICAL);
-
-   middleSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
-   // wxPanel* topLSidePanel = new wxPanel(this);
-   // topLSidePanel->SetBackgroundColour(wxColor(35, 207, 61));
-   // lSideSizer->Add(topLSidePanel, 3, wxEXPAND | wxALL, 10);
-
    //Adding in All Asset Events
    if(!portfolio.assetEventPtrs.empty()){
-      VListControl<std::shared_ptr<AssetEvent>>* allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+      VListControl<std::shared_ptr<AssetEvent>>* allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
       allAssetEventVListControl->SetBackgroundColour(wxColor(0,0,0));
       allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
-      lSideSizer->Add(allAssetEventVListControl,3,wxEXPAND|wxALL, 10);
+      lSideSizer->Add(allAssetEventVListControl,4,wxEXPAND | wxALL, 10);
    }
-   //Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
+//   Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
    if(!portfolio.assetPtrs.empty()){
       VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
       allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
@@ -38,15 +23,20 @@ void MainFrame::setupLayout(){
       }
 
       allAssetVListControl->setItems(portfolio.assetPtrs);
-      lSideSizer->Add(allAssetVListControl, 7, wxEXPAND | wxALL, 10);
+      lSideSizer->Add(allAssetVListControl, 6, wxEXPAND | wxALL, 10);
    }
-
-  
+   //add left side elements to sizer and left sizer to the mainSizer
+   mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
+   //creating the right side sizer
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
-   middleSizer->Add(rSideSizer, 5, wxEXPAND | wxALL, 10);
-  
+
+   //Where the Quote of the day panel will go
    wxPanel* topRSidePanel = new wxPanel(this);
-   topRSidePanel->SetBackgroundColour(wxColor(178, 35, 207));
+   topRSidePanel->SetBackgroundColour(wxColor(0,0,0));
+   quoteOfTheDate = new wxStaticText(topRSidePanel, wxID_ANY, "");
+   wxBoxSizer* TopRSiderSizer = new wxBoxSizer(wxVERTICAL);
+   TopRSiderSizer->Add(quoteOfTheDate,1, wxEXPAND | wxALL, 15);
+   
    rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
 
    size_t count = portfolio.valuationVectorPlotting.size();
@@ -72,17 +62,19 @@ void MainFrame::setupLayout(){
 
    FillAreaDraw* fillarea = new FillAreaDraw(*borderPen, *fillBrush);
 
-   xyPlot->SetBackground(fillarea);
+   xyPlot->SetDrawGrid(true, true);
 
-
+   wxPen gridlinePen(wxColor(51,245,12),1,wxPENSTYLE_SOLID);
 
    NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
    leftAxis->SetTitle("Valuations");
    wxColor myColor =  wxColor(51,245,12);
    leftAxis->SetTitleColour(myColor);
    leftAxis->SetLabelTextColour(myColor);
-
-
+   leftAxis->SetMajorGridlinePen(gridlinePen);
+   leftAxis->SetMinorGridlinePen(gridlinePen);
+   leftAxis->SetLabelPen(*myPen);
+   
    DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
    bottomAxis->SetTitle("Dates");
    bottomAxis->SetTitleColour(myColor);
@@ -90,6 +82,8 @@ void MainFrame::setupLayout(){
 
    bottomAxis->SetVerticalLabelText(true);
    bottomAxis->SetDateFormat(wxT("%d-%m"));
+   bottomAxis->SetMajorGridlinePen(gridlinePen);
+   bottomAxis->SetLabelPen(*myPen);
 
    xyPlot->AddAxis(leftAxis);
    xyPlot->AddAxis(bottomAxis);
@@ -97,19 +91,18 @@ void MainFrame::setupLayout(){
    xyPlot->LinkDataHorizontalAxis(0,0);
    xyPlot->LinkDataVerticalAxis(0,0);
 
-   std::cout<<"Size of valuation vector: "<<portfolio.valuationVectorPlotting.size()<<std::endl;
-   std::cout<<"Size of assetPtrs: "<<portfolio.assetPtrs.size()<<std::endl;
-
-   // Remaining code to create and display the chart
+   xyPlot->SetBackground(fillarea);
    Chart* myChart = new Chart(xyPlot, "Valuations");
    wxString titleText = "Valuation Chart";
-   wxFont titleFont = *wxNORMAL_FONT;  // Or any other font you'd like to use
+   wxFont titleFont = *wxNORMAL_FONT; 
+   titleFont.SetPointSize(22);
+
    TextElement* chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
-   chartTitle->SetColour(wxColour(51, 245, 12));  // Set the color
+   chartTitle->SetColour(wxColour(51, 245, 12)); 
 
    Header* myHeader = new Header(*chartTitle);
    myChart->SetHeader(myHeader);
-   
+
    wxPen* chartPen = new wxPen(wxColor(51,245,12));
    wxBrush* chartBrush = new wxBrush(wxColor(0,0,0));
 
@@ -117,6 +110,7 @@ void MainFrame::setupLayout(){
    myChart->SetBackground(chartFillArea);
    chartPanel = new wxChartPanel(this, wxID_ANY);
    chartPanel->SetChart(myChart);
+   //add valuation chart to the right side panel here
    rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
@@ -132,36 +126,16 @@ void MainFrame::setupLayout(){
    botRSiderSizer->Add(totalValuationText, 1, wxEXPAND | wxALL, 5);
 
    botRSidePanel->SetSizer(botRSiderSizer);
-
+   //add the bottom right side panel which houses the static text lines
    rSideSizer->Add(botRSidePanel, 2, wxEXPAND | wxALL, 10);
-
-   wxPanel* a3Panel = new wxPanel(this);
-   a3Panel->SetBackgroundColour(wxColour(200, 200, 200));  
-   auto bottomSizer = new wxBoxSizer(wxVERTICAL);
-   bottomSizer->Add(a3Panel, 1, wxEXPAND | wxALL, 20);
-
-   mainSizer->Add(bottomSizer, 1, wxEXPAND | wxALL, 10);  
-
+   //add right side sizer to the main sizer
+   mainSizer->Add(rSideSizer, 5, wxEXPAND | wxALL,10);
+   mainSizer->Layout();
+   //set mainframe sizer to be the main sizer here
    this->SetSizer(mainSizer);
-   
+   this->Layout();
 }
-//Desired Layout of the mainpage of application
-// +---------------------------------------+
-// |                  A1                   | <- 10%
-// +---------------------------------------+
-// |    LSide         |       RSide        |
-// |                  |                    |
-// |                  |       TSection     |
-// |                  |         20%        |
-// |     TSection     +--------------------+
-// |       30%        |       MSection     |
-// |                  |         50%        |
-// |                  +--------------------+
-// |     BSection     |       BSection     |
-// |       70%        |         30%        |
-// +---------------------------------------+
-// |                  A3                   | <- 10%
-// +---------------------------------------+
+
 
 void MainFrame::UpdatePortfolioDisplayValues(){
    double totalInvested = portfolio.TotalInvestedCapital();
@@ -176,5 +150,28 @@ void MainFrame::UpdatePortfolioDisplayValues(){
    totalValuationText->SetForegroundColour(wxColor(51, 245, 12));
 }
 
+void MainFrame::ReadPickQuote(const std::string&filePath){
+   std::vector<std::string> lines;
+   std::string line;
+   std::ifstream file(filePath);
+   while(std::getline(file, line)){
+      lines.push_back(line);
+   }
+   if(!lines.empty()){
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::uniform_int_distribution<> distrib(0,lines.size()-1);
+      int randomIndex = distrib(gen);
+
+      std::string pickedQuote = lines[randomIndex];
+
+      quoteOfTheDate->SetLabel(pickedQuote);
+      quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
+   }else{
+      quoteOfTheDate->SetLabel(wxString::Format("NO QUOTES FOUND"));
+      quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
+   }
+
+}
 
 
