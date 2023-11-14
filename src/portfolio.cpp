@@ -24,18 +24,27 @@ void to_json(json &j, const Portfolio &por) {
 
 void from_json(const json &j, Portfolio &por) {
     if (!j.contains("Assets") || !j["Assets"].is_array()) {
-        std::cout<<"Json values: "<<j<<std::endl;
+        // std::cout<<"Json values: "<<j<<std::endl;
         throw std::runtime_error("JSON does not contain 'Assets' or 'Assets' is not an array.");
     }
-
+    //first getting the base info from the json to create the asset object
     for(const auto &assetJson : j["Assets"]){
         auto asset = std::make_shared<Asset>();
-        //source of issue empty asset deref pointer being sent to the from_json function which contains nothing and thus cannot
-        //set the assetName member variable used to link a position to an asset under an investor
-        from_json(assetJson, *asset, por);
-        //only after the nested deserialization is the asset pushed to the assetPtr vector, making it unaccessable to the underlying objects
+        if(assetJson.contains("Asset Name")){
+            asset->assetName = assetJson["Asset Name"].get<std::string>().c_str();
+        }
+        if(assetJson.contains("Asset Exit Date")){
+            wxString dateStr = wxString::FromUTF8(assetJson["Asset Exit Date"].get<std::string>().c_str());
+            wxDateTime dateParse;
+            dateParse.ParseDate(dateStr);
+            asset->assetExitDate = dateParse;
+        }
         por.assetPtrs.push_back(asset);
+        //now that the asset has it's Name and Exit Date we can pass it to the assets from_json function and get the rest
+        //positions, investors, and events
+        from_json(assetJson, *asset, por);
     }
+
     if(j.contains("valuationVectorPlotting")){
         for(const auto &pair:j["valuationVectorPlotting"]){
             std::string dateStr = pair["Date"];
@@ -53,7 +62,6 @@ void Portfolio::SavePortfolioToFile(const Portfolio &portfolio, const std::strin
     json j;
     to_json(j,portfolio);
     std::ofstream file(filePath,std::ios::trunc);
-    std::cout<<"Is file good? : "<<file.good()<<std::endl;
     file << j.dump(4);
 }
 

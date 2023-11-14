@@ -18,11 +18,6 @@ void to_json(json&j, const Position &pos){
 
 void from_json(const json &j, Position &pos, Portfolio &porf){
     wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
-    std::cout << "Looking for Asset: " << assetName << " (length: " << assetName.length() << ")" << std::endl;
-    std::cout << "Portfolio's Assets:" << std::endl;
-    for (const auto& assetPtr : porf.assetPtrs) {
-        std::cout << " - " << assetPtr->assetName << " (length: " << assetPtr->assetName.length() << ")" << std::endl;
-    }
     for(const auto &assetPtr: porf.assetPtrs){
         if(assetPtr->assetName == assetName){
             pos.assetPtr = assetPtr;

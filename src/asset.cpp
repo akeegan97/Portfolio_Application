@@ -28,17 +28,6 @@ void to_json(json &j, const Asset &as) {
 *param porf - Reference to Portfolio Object.
 */
 void from_json(const json &j, Asset &as, Portfolio &porf) {
-    if (j.contains("Asset Name")) {
-        as.assetName = j["Asset Name"].get<std::string>().c_str();
-    }
-    
-    if (j.contains("Asset Exit Date")) {
-        wxString dateStr = wxString::FromUTF8(j["Asset Exit Date"].get<std::string>().c_str());
-        wxDateTime dateParse;
-        dateParse.ParseDate(dateStr);
-        as.assetExitDate = dateParse;
-    }
-
     if (j.contains("Valuations") && j["Valuations"].is_array()) {
         as.valuations = j["Valuations"].get<std::vector<Valuation>>();
     }
@@ -48,29 +37,16 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
             Investor inv;
             from_json(invJson, inv, porf);
             as.investors.push_back(inv);
-            for(const auto& pos:inv.positions){
-                std::cout<<"Position Asset Ptr: "<<pos.assetPtr->assetName<<std::endl;
-            }
         }
     }
-    //changing to make_shared
+
     if (j.contains("Events") && j["Events"].is_array()) {
         for (const auto &evtJson : j["Events"]) {
             auto event = std::make_shared<AssetEvent>(evtJson.get<AssetEvent>());
             as.events.push_back(event);
         }
     }
-    for (const auto& assetPtr:porf.assetPtrs){
-        for (const auto& investor:assetPtr->investors){
-            std::cout<<"Investor: "<<investor.clientName<<std::endl;
-            for(const auto& position:investor.positions){
-                std::cout<<"Position Asset Ptr: "<<position.assetPtr->assetName<<std::endl;
-            }
-            //bug found, investors.position.assetPtr is not being set correctly resulting in a segmentation fault
-        }
-    }
 }
-
 //Definitions of static members of Asset class
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
 std::vector<int> Asset::columnWidths = {150,75,100,100,100};
