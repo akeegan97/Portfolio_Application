@@ -37,10 +37,10 @@ void MainFrame::setupLayout(){
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
 
    //Where the Quote of the day panel will go
-   wxPanel* topRSidePanel = new wxPanel(this);
-   topRSidePanel->SetBackgroundColour(wxColor(0,0,0));
-   quoteOfTheDate = new wxStaticText(topRSidePanel, wxID_ANY, "");
-   int widthOfPAnel = topRSidePanel->GetMaxWidth();
+   quoteOftheDatePanel = new wxPanel(this);
+   quoteOftheDatePanel->SetBackgroundColour(wxColor(0,0,0));
+   quoteOfTheDate = new wxStaticText(quoteOftheDatePanel, wxID_ANY, "");
+   int widthOfPAnel = quoteOftheDatePanel->GetMaxWidth();
 
    wxFont quoteFont = wxFont(22, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
    quoteOfTheDate->Wrap(widthOfPAnel);
@@ -49,7 +49,7 @@ void MainFrame::setupLayout(){
    wxBoxSizer* TopRSiderSizer = new wxBoxSizer(wxVERTICAL);
    TopRSiderSizer->Add(quoteOfTheDate,1, wxEXPAND | wxALL, 15);
    
-   rSideSizer->Add(topRSidePanel, 1, wxEXPAND | wxALL, 10);
+   rSideSizer->Add(quoteOftheDatePanel, 1, wxEXPAND | wxALL, 10);
 
    size_t count = portfolio.valuationVectorPlotting.size();
    double* data = new double[count];

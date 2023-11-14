@@ -49,6 +49,7 @@ class MainFrame : public wxFrame{
         wxStaticText * totalValuationText;
         wxChartPanel * chartPanel;
         wxStaticText * quoteOfTheDate;
+        wxPanel* quoteOftheDatePanel;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
