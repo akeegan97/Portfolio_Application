@@ -27,7 +27,6 @@ class MainFrame : public wxFrame{
             portfolio(port),
             allAssetVListControl(nullptr),
             allAssetEventVListControl(nullptr),
-            investorPositionListControl(nullptr),
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
             totalValuationText(nullptr),
@@ -42,7 +41,6 @@ class MainFrame : public wxFrame{
     
     private:
         VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
-        VListControl<InvestorPositionDisplay>* investorPositionListControl;
         VListControl<std::shared_ptr<AssetEvent>> *allAssetEventVListControl;
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
@@ -53,6 +51,7 @@ class MainFrame : public wxFrame{
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
+        void OnAssetVLCClick(wxListEvent&e);
 };
 
 

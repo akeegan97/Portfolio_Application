@@ -26,7 +26,7 @@ class Asset{
         double currentValue;///<The Current Value of the asset based off of the latest valuation.
         //Vectors containing related information for the Asset.
         std::vector<Valuation> valuations;///<Historical valuations of the Asset.
-        std::vector<InvestorPositionDisplay> investorsPositionsDisplays;///<Display information for use in our VLC template class shows investor + their position as one row
+        std::vector<std::shared_ptr<InvestorPositionDisplay>> investorsPositionsDisplays;///<Display information for use in our VLC template class shows investor + their position as one row
         std::vector<Investor> investors;///<Investors in the asset.
         //shared_ptr<T> so that the portfolio class holds pointers to the actual event object in memory and not a pointer to a copy.
         std::vector<std::shared_ptr<AssetEvent>> events;///<Events associated with the Asset

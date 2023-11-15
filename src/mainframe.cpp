@@ -1,4 +1,5 @@
 #include "mainframe.hpp"
+#include "assetpopout.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -21,7 +22,7 @@ void MainFrame::setupLayout(){
    }
    //   Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
    if(!portfolio.assetPtrs.empty()){
-      VListControl<std::shared_ptr<Asset>>* allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+      allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
       allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
       //using utility functions from Asset class to updated member vars
       for(auto&assetPtr:portfolio.assetPtrs){
@@ -30,13 +31,12 @@ void MainFrame::setupLayout(){
 
       allAssetVListControl->setItems(portfolio.assetPtrs);
       lSideSizer->Add(allAssetVListControl, 6, wxEXPAND | wxALL, 10);
+      allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
+      allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    }
-   //add left side elements to sizer and left sizer to the mainSizer
    mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
-   //creating the right side sizer
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
 
-   //Where the Quote of the day panel will go
    quoteOftheDatePanel = new wxPanel(this);
    quoteOftheDatePanel->SetBackgroundColour(wxColor(0,0,0));
    quoteOfTheDate = new wxStaticText(quoteOftheDatePanel, wxID_ANY, "");
@@ -223,3 +223,13 @@ std::string formatDollarAmount(T value) {
 /*
 Find way to find panel width of quote of the day panel and call wrap on quote of the day with that width
 */
+
+void MainFrame::OnAssetVLCClick(wxListEvent&e){
+   long listIndex = e.GetIndex();
+   auto& selectedAsset = allAssetVListControl->GetItemAtListIndex(listIndex);
+   std::string selectedAssetName = selectedAsset->assetName.ToStdString();
+   auto* assetPopout = new AssetPopout(selectedAssetName, wxDefaultPosition, wxDefaultSize,
+   portfolio, selectedAsset);
+   assetPopout->SetBackgroundColour(wxColor(0,0,0));
+   assetPopout->Show(true);
+}

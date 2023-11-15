@@ -156,6 +156,9 @@ public:
         attr.SetTextColour(wxColour(51, 245, 12)); 
         return &attr;
     }
+    T& GetItemAtListIndex(long listIndex){
+        return items[orderedIndices[listIndex]];
+    }
 
     std::vector<long> orderedIndices;
     std::vector<T> items;
