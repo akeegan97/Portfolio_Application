@@ -1,18 +1,15 @@
 #include "position.hpp"
-#include "portfolio.hpp"
 
 void to_json(json&j, const Position &pos){
     j=json{
         {"AssetName", pos.assetPtr ? pos.assetPtr->assetName.ToStdString() : "Unknown"},//check to see if we are attempting to deref a nullPtr
         {"Date Invested",pos.dateInvested.FormatISODate()},
-        {"Committed Up",pos.committedAmountUp},
-        {"Committed Down",pos.committedAmountDown},
-        {"Called Up",pos.calledCapitalUp},
-        {"Called Down",pos.calledCapitalDown},
-        {"Invested Up",pos.investedAmountUp},
-        {"Invested Down",pos.investedAmountDown},
-        {"Waiting Up",pos.waitingDeployUp},
-        {"Waiting Down",pos.waitingDeployDown}
+        {"Subscribed", pos.subscribed},
+        {"Paid", pos.paid},
+        {"Reserve", pos.reserve},
+        {"Deployed",pos.deployed},
+        {"ROC", pos.returnOfCapital},
+        {"Ownership", pos.percentOwnership}
     };
 }
 
@@ -28,12 +25,24 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     wxDateTime dateParse;
     dateParse.ParseDate(dateStr);
     pos.dateInvested = dateParse;
-    pos.committedAmountUp = j["Committed Up"].get<double>();
-    pos.committedAmountDown = j["Committed Down"].get<double>();
-    pos.calledCapitalUp = j["Called Up"].get<double>();
-    pos.calledCapitalDown = j["Called Down"].get<double>();
-    pos.investedAmountUp = j["Invested Up"].get<double>();
-    pos.investedAmountDown = j["Invested Down"].get<double>();
-    pos.waitingDeployUp = j["Waiting Up"].get<double>();
-    pos.waitingDeployDown = j["Waiting Down"].get<double>();
+    pos.subscribed = j["Subscribed"].get<double>();
+    pos.paid = j["Paid"].get<double>();
+    pos.reserve = j["Reserve"].get<double>();
+    pos.deployed = j["Deployed"].get<double>();///
+    pos.returnOfCapital = j["ROC"].get<double>();
+    pos.percentOwnership = j["Ownership"].get<double>();
+}
+
+void Position::calculateOwnership(Portfolio &portfolio){
+    double totalPaid = 0;
+    for(const auto& assetPointer : portfolio.assetPtrs){
+        for(const auto &investor: assetPointer->investors){
+            for(const auto &position : investor.positions){
+                if(position.assetPtr == assetPtr){
+                    totalPaid+=position.paid;
+                }
+            }
+        }
+    }
+    percentOwnership = (paid/totalPaid);
 }

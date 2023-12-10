@@ -92,8 +92,8 @@ double Asset::CalculateInvestedCapital()const{
     double totalInvested = 0;
     for(const auto& investor: investors){
         for(const auto&position:investor.positions){
-            totalInvested+=position.investedAmountUp;
-            totalInvested+=position.investedAmountDown;
+            totalInvested+=position.deployed;
+            totalInvested+=position.deployed;
         }
     }
     return totalInvested;

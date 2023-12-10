@@ -3,6 +3,7 @@
 #include <wx/wx.h>
 #include "vlistcontrol.hpp"
 #include "portfolio.hpp"
+#include "asset.hpp"
 
 class AssetPopout : public wxFrame{
     public:
@@ -18,6 +19,7 @@ class AssetPopout : public wxFrame{
         std::shared_ptr<Asset> asset;
     private:
         VListControl<std::shared_ptr<InvestorPositionDisplay>>* investorPositionDisplayVirtualListControl;
+        VListControl<Valuation>* valuationListControl;
         void setupLayout();
 };
 

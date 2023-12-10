@@ -22,7 +22,4 @@ class InvestorPositionDisplay{
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);
 };
-
-
-
 #endif

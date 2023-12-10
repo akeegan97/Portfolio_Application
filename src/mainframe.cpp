@@ -228,7 +228,7 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
    long listIndex = e.GetIndex();
    auto& selectedAsset = allAssetVListControl->GetItemAtListIndex(listIndex);
    std::string selectedAssetName = selectedAsset->assetName.ToStdString();
-   auto* assetPopout = new AssetPopout(selectedAssetName, wxDefaultPosition, wxDefaultSize,
+   auto* assetPopout = new AssetPopout(selectedAssetName, wxDefaultPosition, wxSize(FromDIP(1200),FromDIP(800)),
    portfolio, selectedAsset);
    assetPopout->SetBackgroundColour(wxColor(0,0,0));
    assetPopout->Show(true);
