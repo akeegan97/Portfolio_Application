@@ -11,8 +11,10 @@ class AssetPopout : public wxFrame{
         : wxFrame(NULL, wxID_ANY, title, pos, size),
             portfolio(port),
             asset(asset),
-            investorPositionDisplayVirtualListControl(nullptr){
+            investorPositionDisplayVirtualListControl(nullptr),
+            valuationListControl(nullptr){
                 setupLayout();
+                UpdateDisplayTextValues();
             };
         
         Portfolio &portfolio;
@@ -20,7 +22,15 @@ class AssetPopout : public wxFrame{
     private:
         VListControl<std::shared_ptr<InvestorPositionDisplay>>* investorPositionDisplayVirtualListControl;
         VListControl<Valuation>* valuationListControl;
+        VListControl<std::shared_ptr<AssetEvent>>*eventsVirtualListControl;
+        wxStaticText *totalSubscribedText;//
+        wxStaticText *totalPaidText;//
+        wxStaticText *totalDeployedCapitalText;//
+        wxStaticText *numInvestorsText;//
+        wxStaticText *totalReserveCapitalText;//
+        wxStaticText *totalReturnedCapitalText;//
         void setupLayout();
+        void UpdateDisplayTextValues();
 };
 
 

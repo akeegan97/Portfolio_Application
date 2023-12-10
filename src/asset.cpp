@@ -93,7 +93,6 @@ double Asset::CalculateInvestedCapital()const{
     for(const auto& investor: investors){
         for(const auto&position:investor.positions){
             totalInvested+=position.deployed;
-            totalInvested+=position.deployed;
         }
     }
     return totalInvested;
@@ -126,4 +125,42 @@ void Asset::UpdateDerivedValues(){
     countOfInvestors = CalculateNumberOfInvestors();
     totalInvestedCapital = CalculateInvestedCapital();
     currentValue = GetLastValuation();
+}
+
+double Asset::CalculateReserveCapital(){
+    double reserveCapital = 0;
+    for(const auto&investor:investors){
+        for(const auto&position : investor.positions){
+            reserveCapital+=position.reserve;
+        }
+    }
+    return reserveCapital;
+}
+
+double Asset::CalculatePaidCapital(){
+    double paidCapital = 0;
+    for(const auto&investor:investors){
+        for(const auto&position : investor.positions){
+            paidCapital+=position.paid;
+        }
+    }
+    return paidCapital;
+}
+double Asset::CalculateSubscribedCapital(){
+    double subscribed = 0;
+    for(const auto&investor:investors){
+        for(const auto&position : investor.positions){
+            subscribed+=position.subscribed;
+        }
+    }
+    return subscribed;
+}
+double Asset::CalculateReturnedCapital(){
+    double returnedCapital = 0;
+    for(const auto&investor:investors){
+        for(const auto&position : investor.positions){
+            returnedCapital+=position.returnOfCapital;
+        }
+    }
+    return returnedCapital;
 }

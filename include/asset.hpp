@@ -48,6 +48,10 @@ class Asset{
 
         double CalculateNumberOfInvestors()const;///<Calculates the number of investors in the investors vector.
         double CalculateInvestedCapital()const;///<Calculates the total number of invested capital.
+        double CalculateReturnedCapital();
+        double CalculateSubscribedCapital();
+        double CalculateReserveCapital();
+        double CalculatePaidCapital();
         double GetLastValuation()const;///<Gets latest valuation of the Asset.
         void UpdateDerivedValues();///<Updated derived values and sets member variables.
 };  

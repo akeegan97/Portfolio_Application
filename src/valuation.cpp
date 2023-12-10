@@ -15,8 +15,8 @@ void Valuation::SetValue(int col, const wxVariant &v){
     }
 }
 
-std::vector<wxString> Valuation::columnNames = {"Valuation Date","Valuation Amount"};
-std::vector<int> Valuation::columnWidths = {100,150};
+std::vector<wxString> Valuation::columnNames = {"Valuation Date","Valuation"};
+std::vector<int> Valuation::columnWidths = {100,75};
 
 void to_json(json&j, const Valuation &val){
     j=json{
