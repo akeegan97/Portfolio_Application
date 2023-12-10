@@ -14,13 +14,6 @@ bool RugenBerg::OnInit(){
     portfolio.LoadFromFile("../storage/data.json");
     portfolio.PopulateEvents();
     portfolio.addValuation();
-        for(auto &assetPointer:portfolio.assetPtrs){
-        for(auto &investor : assetPointer->investors){
-            for(auto &position: investor.positions){
-                position.calculateOwnership(portfolio);
-            }
-        }
-    }
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
     frame->SetBackgroundColour(wxColor(0,0,0));
     frame->Show(true);

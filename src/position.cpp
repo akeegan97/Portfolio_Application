@@ -34,15 +34,15 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
 }
 
 void Position::calculateOwnership(Portfolio &portfolio){
-    double totalPaid = 0;
+    double totalDeployed = 0;
     for(const auto& assetPointer : portfolio.assetPtrs){
         for(const auto &investor: assetPointer->investors){
             for(const auto &position : investor.positions){
                 if(position.assetPtr == assetPtr){
-                    totalPaid+=position.paid;
+                    totalDeployed+=position.deployed;
                 }
             }
         }
     }
-    percentOwnership = (paid/totalPaid);
+    percentOwnership = (deployed/totalDeployed);
 }

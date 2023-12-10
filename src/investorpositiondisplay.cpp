@@ -33,4 +33,4 @@ void InvestorPositionDisplay::SetValue(int col, const wxVariant &v){
 }
 
 std::vector<wxString> InvestorPositionDisplay::columnNames = {"Investor", "Type","Date Invested","Subscribed", "Paid", "Deployed","Return of Capital","Ownership %"};
-std::vector<int> InvestorPositionDisplay::columnWidths = {120,100,150,100,125,175,175};
+std::vector<int> InvestorPositionDisplay::columnWidths = {120,100,150,100,125,175,175,150};

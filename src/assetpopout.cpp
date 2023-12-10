@@ -6,10 +6,11 @@ void AssetPopout::setupLayout(){
     //left side sizer
     auto lSideSizer = new wxBoxSizer(wxVERTICAL);
     //populate the investor.investorsPositionDisplay vectors here:
-    asset->investorsPositionsDisplays.clear();
+
     for(auto& investor : asset->investors){
         for(auto& position : investor.positions){
             if(position.assetPtr == asset){
+                position.calculateOwnership(portfolio);
                 auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(
                     std::make_shared<Investor>(investor), 
                     std::make_shared<Position>(position)
@@ -22,11 +23,9 @@ void AssetPopout::setupLayout(){
     investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
     investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
-    investorPositionDisplayVirtualListControl->Refresh();
     lSideSizer->Add(investorPositionDisplayVirtualListControl, 5, wxEXPAND | wxALL, 10);
-
-
     mainSizer->Add(lSideSizer);
     this->SetSizer(mainSizer);
+    investorPositionDisplayVirtualListControl->Refresh();
     this->Layout();
 }
