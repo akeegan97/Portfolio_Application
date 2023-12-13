@@ -100,6 +100,7 @@ double Asset::CalculateInvestedCapital()const{
 /**
 *@brief Calculate total number of investors in Asset.
 *
+
 *@return double size of investors vector.
 */
 double Asset::CalculateNumberOfInvestors()const{
