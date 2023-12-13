@@ -19,6 +19,8 @@ class Investor{
         wxString clientName;
         wxString type;
         std::vector<Position> positions;
+        double managementFeePercentage;
+        double promoteFeePercentage;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):

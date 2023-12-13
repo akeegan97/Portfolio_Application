@@ -11,7 +11,7 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data.json");
+    portfolio.LoadFromFile("../storage/data2.json");
     portfolio.PopulateEvents();
     portfolio.addValuation();
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
@@ -21,7 +21,7 @@ bool RugenBerg::OnInit(){
 }
 
 int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
+    portfolio.SavePortfolioToFile(portfolio,"../storage/data2.json");
     return 0;
 }
 

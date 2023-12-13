@@ -6,6 +6,8 @@ void to_json(json &j, const Investor &inv) {
     j = {
         {"Client Name", inv.clientName.ToStdString()},
         {"Type", inv.type.ToStdString()},
+        {"Management Fee Percentage", inv.managementFeePercentage},
+        {"Promote Fee Percentage",inv.promoteFeePercentage},
         {"Positions", json::array()}
     };
     for(const auto &pos: inv.positions){
@@ -18,6 +20,8 @@ void to_json(json &j, const Investor &inv) {
 void from_json(const json &j, Investor &inv, Portfolio &porf) {
     inv.clientName =  wxString::FromUTF8(j["Client Name"].get<std::string>());
     inv.type = wxString::FromUTF8(j["Type"].get<std::string>());
+    inv.managementFeePercentage = j["Management Fee Percentage"].get<double>();
+    inv.promoteFeePercentage = j["Promote Fee Percentage"].get<double>();   
     if(j.contains("Positions")&&j["Positions"].is_array()){
         for(const auto& posJson : j["Positions"]){
             Position pos;

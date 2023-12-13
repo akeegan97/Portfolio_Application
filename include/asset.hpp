@@ -41,6 +41,7 @@ class Asset{
             return assetName < other.assetName; 
         }///<Comparison operator to compare Asset objects by assetName value.
 
+
         wxVariant GetValue(int col)const;///<
         void SetValue(int col, const wxVariant &v);
 
@@ -54,6 +55,9 @@ class Asset{
         double CalculatePaidCapital();
         double GetLastValuation()const;///<Gets latest valuation of the Asset.
         void UpdateDerivedValues();///<Updated derived values and sets member variables.
+
+        std::pair<wxDateTime, wxDateTime> getCurrentQuarterDates(const wxDateTime &currentDate);
+        static int calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
 };  
 //serialization to and from json
 void to_json(json &j, const Asset &as);///<Converts Asset to JSON format. 

@@ -93,7 +93,7 @@ void Portfolio::PopulateEvents(){
             assetEventPtrs.push_back(eventPtr);
         }
     }
-}
+}//call this any time there is an edit/deletion/addition of an event 
 
 double Portfolio::TotalInvestedCapital(){
     double totalInvestedCapital = 0;
@@ -122,8 +122,6 @@ double Portfolio::TotalValuation(){
 void Portfolio::addValuation(){
     double totalValuation = 0.0;
     wxDateTime latestDate = wxDateTime(1, wxDateTime::Jan, 1900); 
-
-
     for(auto&assetPtr: assetPtrs){
         if(!assetPtr->valuations.empty()){
             Valuation& lastValuation = assetPtr->valuations.back();
@@ -143,6 +141,4 @@ void Portfolio::addValuation(){
     } else {
         valuationVectorPlotting.push_back(std::make_pair(latestDate, totalValuation));
     }
-
-
-}
+}//call this anytime there is an edit/addition/deletion of a valuation for any asset

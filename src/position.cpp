@@ -11,6 +11,28 @@ void to_json(json&j, const Position &pos){
         {"ROC", pos.returnOfCapital},
         {"Ownership", pos.percentOwnership}
     };
+
+    json feesJson = json::array();
+    for(const auto& fee: pos.fees){
+        json feeJson;
+        to_json(fee, feeJson);
+        feesJson.push_back(feeJson);
+    }
+
+    j["Fees"] = feesJson;
+
+    json movedToDeployJson;
+    for(const auto&[date, amount]:pos.movedToDeploy){
+        movedToDeployJson[date.FormatISODate().ToStdString()] = amount;
+    }
+    j["MovedToDeploy"] = movedToDeployJson;
+
+    json movedOutDeployJson;
+    for(const auto&[date, amount]:pos.movedOutOfDeployed){
+        movedOutDeployJson[date.FormatISODate().ToStdString()]=amount;
+    }
+    j["MovedOutDeploy"] = movedOutDeployJson;
+
 }
 
 void from_json(const json &j, Position &pos, Portfolio &porf){
@@ -31,6 +53,29 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     pos.deployed = j["Deployed"].get<double>();///
     pos.returnOfCapital = j["ROC"].get<double>();
     pos.percentOwnership = j["Ownership"].get<double>();
+
+    if(j.find("Fees")!=j.end()){
+        for(const auto&feeJson : j["Fees"]){
+            Fee fee;
+            from_json(feeJson, fee);
+            pos.fees.push_back(fee);
+        }
+    }
+
+    if(j.contains("MovedToDeploy")){
+        for(const auto&[dateStr, amount]: j["MovedToDeploy"].items()){
+            wxDateTime date;
+            date.ParseISODate(dateStr);
+            pos.movedToDeploy[date] = amount.get<double>();
+        }
+    }
+    if(j.contains("MovedOutDeploy")){
+        for(const auto&[dateStr, amount]: j["MovedOutDeploy"].items()){
+            wxDateTime date;
+            date.ParseISODate(dateStr);
+            pos.movedOutOfDeployed[date] = amount.get<double>();
+        }
+    }
 }
 
 void Position::calculateOwnership(Portfolio &portfolio){

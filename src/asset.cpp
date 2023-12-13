@@ -164,3 +164,43 @@ double Asset::CalculateReturnedCapital(){
     }
     return returnedCapital;
 }
+
+std::pair<wxDateTime, wxDateTime> getCurrentQuarterDates(const wxDateTime& currentDate) {
+    int year = currentDate.GetYear();
+    wxDateTime quarterStart, quarterEnd;
+
+    if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
+        // Q1
+        quarterStart = wxDateTime(1, wxDateTime::Jan, year);
+        quarterEnd = wxDateTime(31, wxDateTime::Mar, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Apr, year) && currentDate < wxDateTime(1, wxDateTime::Jul, year)) {
+        // Q2
+        quarterStart = wxDateTime(1, wxDateTime::Apr, year);
+        quarterEnd = wxDateTime(30, wxDateTime::Jun, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Jul, year) && currentDate < wxDateTime(1, wxDateTime::Oct, year)) {
+        // Q3
+        quarterStart = wxDateTime(1, wxDateTime::Jul, year);
+        quarterEnd = wxDateTime(30, wxDateTime::Sep, year);
+    } else {
+        // Q4
+        if (currentDate >= wxDateTime(1, wxDateTime::Oct, year)) {
+            quarterStart = wxDateTime(1, wxDateTime::Oct, year);
+            quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
+        } else {
+            // If the current date is in January or February of the new year, set to previous year's Q4
+            quarterStart = wxDateTime(1, wxDateTime::Oct, year - 1);
+            quarterEnd = wxDateTime(31, wxDateTime::Dec, year - 1);
+        }
+    }
+
+    return {quarterStart, quarterEnd};
+}
+
+int Asset::calculateDaysBetween(const wxDateTime &start, const wxDateTime &end){
+    if(end.IsEarlierThan(start)){
+        return 0;
+    }else{
+        wxTimeSpan span = end - start;
+        return span.GetDays();
+    }
+}

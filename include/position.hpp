@@ -1,6 +1,7 @@
 #ifndef POSITION_HPP
 #define POSITION_HPP
 #include <memory>
+#include <map>
 #include <wx/string.h>
 #include <wx/variant.h>
 #include <wx/datetime.h>
@@ -9,6 +10,7 @@
 #include <json.hpp>
 #include "portfolio.hpp"
 #include "asset.hpp"
+#include "fee.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -24,6 +26,9 @@ class Position{
         double deployed;
         double returnOfCapital;
         double percentOwnership;
+        std::vector<Fee> fees;//add to serde
+        std::map<wxDateTime, double> movedToDeploy;
+        std::map<wxDateTime, double> movedOutOfDeployed;
     
     Position() = default;
     Position(const wxDateTime &dateInvested, const double &subscribed, 
