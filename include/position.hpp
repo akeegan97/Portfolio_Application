@@ -2,6 +2,7 @@
 #define POSITION_HPP
 #include <memory>
 #include <map>
+#include <utility>
 #include <wx/string.h>
 #include <wx/variant.h>
 #include <wx/datetime.h>
@@ -10,7 +11,7 @@
 #include <json.hpp>
 #include "portfolio.hpp"
 #include "asset.hpp"
-#include "fee.hpp"
+#include "managementFee.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -26,7 +27,7 @@ class Position{
         double deployed;
         double returnOfCapital;
         double percentOwnership;
-        std::vector<Fee> fees;//add to serde
+        std::vector<ManagementFee> managementFees;
         std::map<wxDateTime, double> movedToDeploy;
         std::map<wxDateTime, double> movedOutOfDeployed;
     
@@ -38,6 +39,11 @@ class Position{
     returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
 
     void calculateOwnership(Portfolio &portfolio);
+    ManagementFee CalculatePositionManagementFees(const Position&position, const double &managementFeePercentage);
+    std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
+    void PushFeeToVector(const ManagementFee&fee);
+    double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
+
 
 };
 void to_json(json &j, const Position &pos);

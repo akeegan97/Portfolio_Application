@@ -54,10 +54,7 @@ class Asset{
         double CalculateReserveCapital();
         double CalculatePaidCapital();
         double GetLastValuation()const;///<Gets latest valuation of the Asset.
-        void UpdateDerivedValues();///<Updated derived values and sets member variables.
-
-        std::pair<wxDateTime, wxDateTime> getCurrentQuarterDates(const wxDateTime &currentDate);
-        static int calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
+        void UpdateDerivedValues();///<Updated derived values and sets member variables
 };  
 //serialization to and from json
 void to_json(json &j, const Asset &as);///<Converts Asset to JSON format. 

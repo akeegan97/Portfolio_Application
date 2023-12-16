@@ -13,7 +13,7 @@ void to_json(json&j, const Position &pos){
     };
 
     json feesJson = json::array();
-    for(const auto& fee: pos.fees){
+    for(const auto& fee: pos.managementFees){
         json feeJson;
         to_json(fee, feeJson);
         feesJson.push_back(feeJson);
@@ -56,9 +56,9 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
 
     if(j.find("Fees")!=j.end()){
         for(const auto&feeJson : j["Fees"]){
-            Fee fee;
+            ManagementFee fee;
             from_json(feeJson, fee);
-            pos.fees.push_back(fee);
+            pos.managementFees.push_back(fee);
         }
     }
 
@@ -90,4 +90,119 @@ void Position::calculateOwnership(Portfolio &portfolio){
         }
     }
     percentOwnership = (deployed/totalDeployed);
+}
+
+
+std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateTime &currentDate){
+    int year = currentDate.GetYear();
+    wxDateTime quarterStart, quarterEnd;
+
+    if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
+        // Q1
+        quarterStart = wxDateTime(1, wxDateTime::Jan, year);
+        quarterEnd = wxDateTime(31, wxDateTime::Mar, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Apr, year) && currentDate < wxDateTime(1, wxDateTime::Jul, year)) {
+        // Q2
+        quarterStart = wxDateTime(1, wxDateTime::Apr, year);
+        quarterEnd = wxDateTime(30, wxDateTime::Jun, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Jul, year) && currentDate < wxDateTime(1, wxDateTime::Oct, year)) {
+        // Q3
+        quarterStart = wxDateTime(1, wxDateTime::Jul, year);
+        quarterEnd = wxDateTime(30, wxDateTime::Sep, year);
+    } else {
+        // Q4
+        quarterStart = wxDateTime(1, wxDateTime::Oct, year);
+        quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
+    }
+
+    return {quarterStart, quarterEnd};
+}
+
+ManagementFee Position::CalculatePositionManagementFees(const Position&position, const double &managementFeePercentage){
+    ManagementFee feeThisQuarter;
+    wxDateTime now = wxDateTime::Today();
+    std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(now);
+    double endingDeployedCapital = position.deployed;
+    double totalMovedToDeploy, totalMovedFromDeploy = 0;
+
+    for(const auto &pair:position.movedToDeploy){
+        if(pair.first>=qdates.first && pair.first <= qdates.second){
+            totalMovedToDeploy +=pair.second;
+        }
+    }
+
+    for(const auto&pair:position.movedOutOfDeployed){
+        if(pair.first>=qdates.first && pair.first <= qdates.second){
+            totalMovedFromDeploy+=pair.second;
+        }
+    }
+
+    double deployedCapital = endingDeployedCapital - totalMovedToDeploy + totalMovedFromDeploy;
+
+    std::vector<std::pair<wxDateTime, double>> quarterMovements;
+    for(const auto&pair:position.movedToDeploy){
+        if(pair.first>=qdates.first && pair.first <= qdates.second){
+            quarterMovements.push_back(pair);
+        }
+    }
+
+    for(const auto&pair:position.movedOutOfDeployed){
+        if(pair.first>=qdates.first && pair.first <= qdates.second){
+            quarterMovements.push_back({pair.first, -pair.second});
+        }
+    }
+
+    std::sort(quarterMovements.begin(), quarterMovements.end());
+
+    wxDateTime segmentStartDate, segmentEndDate;
+    segmentStartDate = qdates.first;
+    double totalFee = 0;
+
+    for(const auto&movement:quarterMovements){
+        if(movement.first!=segmentStartDate){
+            segmentEndDate = movement.first;
+            double daysInSegment = calculateDaysBetween(segmentStartDate, segmentEndDate);
+            double feeForSegment = deployedCapital * managementFeePercentage *(daysInSegment/365);
+            totalFee+=feeForSegment;
+            segmentStartDate=segmentEndDate;
+            deployedCapital+=movement.second;
+        }else{
+            deployedCapital+=movement.second;
+        }
+    }
+
+    if(qdates.second>segmentStartDate){
+        double daysInFinalSegment = calculateDaysBetween(segmentStartDate, qdates.second);
+        double finalSegmentFees = deployedCapital * managementFeePercentage * (daysInFinalSegment/365);
+        totalFee+=finalSegmentFees;
+    }
+
+    feeThisQuarter.managementFeesAsset.first = qdates.second;
+    feeThisQuarter.managementFeesAsset.second = totalFee;
+
+    return feeThisQuarter;
+}
+
+double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime &end){
+    if(end.IsEarlierThan(start)){
+        return 0;
+    }else{
+        wxTimeSpan span = end - start;
+        return span.GetDays();
+    }
+}
+
+void Position::PushFeeToVector(const ManagementFee& fee) {
+    wxDateTime feeDate = fee.managementFeesAsset.first;
+    
+    auto it = std::find_if(managementFees.begin(), managementFees.end(),
+                           [&feeDate](const ManagementFee& existingFee) {
+                               return existingFee.managementFeesAsset.first == feeDate;
+                           });
+
+    if (it != managementFees.end()) {
+        *it = fee;
+    } else {
+        managementFees.push_back(fee);
+    }
 }
