@@ -11,7 +11,7 @@ class PromoteFee{
         PromoteFee()=default;
 };
 
-void to_json(const PromoteFee &promoteFee, json&j);
+void to_json(json&j,const PromoteFee &promoteFee);
 void from_json(const json&j,PromoteFee &promoteFee);
 
 #endif

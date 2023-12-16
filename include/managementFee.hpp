@@ -11,7 +11,7 @@ class ManagementFee{
         std::pair<wxDateTime, double> managementFeesAsset;
 };
 
-void to_json(const ManagementFee &fee, json&j);
+void to_json(json&j,const ManagementFee &fee);
 void from_json(const json&j, ManagementFee &fee);
 
 

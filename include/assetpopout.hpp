@@ -31,6 +31,7 @@ class AssetPopout : public wxFrame{
         wxStaticText *totalReturnedCapitalText;//
         void setupLayout();
         void UpdateDisplayTextValues();
+        
 };
 
 

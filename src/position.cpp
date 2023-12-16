@@ -9,18 +9,20 @@ void to_json(json&j, const Position &pos){
         {"Reserve", pos.reserve},
         {"Deployed",pos.deployed},
         {"ROC", pos.returnOfCapital},
-        {"Ownership", pos.percentOwnership}
+        {"Ownership", pos.percentOwnership},
+        {"Promote Fees",json::array({})},
+        {"Management Fees",json::array({})}
     };
-
-    json feesJson = json::array();
-    for(const auto& fee: pos.managementFees){
-        json feeJson;
-        to_json(fee, feeJson);
-        feesJson.push_back(feeJson);
+    for(const auto&mgmtFee : pos.managementFees){
+        json mgmtFeeJson;
+        to_json(mgmtFeeJson, mgmtFee);
+        j["Management Fees"].push_back(mgmtFeeJson);
     }
-
-    j["Fees"] = feesJson;
-
+    for(const auto&promoteFee : pos.promoteFees){
+        json promoteJson;
+        to_json(promoteJson, promoteFee);
+        j["Promote Fees"].push_back(promoteJson);
+    }
     json movedToDeployJson;
     for(const auto&[date, amount]:pos.movedToDeploy){
         movedToDeployJson[date.FormatISODate().ToStdString()] = amount;
@@ -54,14 +56,20 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     pos.returnOfCapital = j["ROC"].get<double>();
     pos.percentOwnership = j["Ownership"].get<double>();
 
-    if(j.find("Fees")!=j.end()){
-        for(const auto&feeJson : j["Fees"]){
+    if(j.find("Managment Fees")!=j.end()){
+        for(const auto&feeJson : j["Managment Fees"]){
             ManagementFee fee;
             from_json(feeJson, fee);
             pos.managementFees.push_back(fee);
         }
     }
-
+    if(j.find("Promote Fees")!=j.end()){
+        for(const auto&promoteFeeJson : j["Promote Fees"]){
+            PromoteFee pFee;
+            from_json(promoteFeeJson, pFee);
+            pos.promoteFees.push_back(pFee);
+        }
+    }
     if(j.contains("MovedToDeploy")){
         for(const auto&[dateStr, amount]: j["MovedToDeploy"].items()){
             wxDateTime date;
@@ -118,7 +126,7 @@ std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateT
     return {quarterStart, quarterEnd};
 }
 
-ManagementFee Position::CalculatePositionManagementFees(const Position&position, const double &managementFeePercentage){
+ManagementFee Position::CalculatePositionManagementFees(Position&position, const double &managementFeePercentage){
     ManagementFee feeThisQuarter;
     wxDateTime now = wxDateTime::Today();
     std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(now);

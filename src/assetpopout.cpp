@@ -9,6 +9,7 @@ void AssetPopout::setupLayout(){
     auto mainSizer = new wxBoxSizer(wxVERTICAL);
     auto topSizer = new wxBoxSizer(wxHORIZONTAL);
     auto lSideSizer = new wxBoxSizer(wxVERTICAL);
+    asset->investorsPositionsDisplays.clear();
     for(auto& investor : asset->investors){
         for(auto& position : investor.positions){
             if(position.assetPtr == asset){
@@ -64,6 +65,19 @@ void AssetPopout::setupLayout(){
     mainSizer->Add(bottomSizer,2);
 
     this->SetSizer(mainSizer);
+    for(auto& investor: asset->investors){
+        for(auto &position: investor.positions){
+            if(position.assetPtr==asset){
+                ManagementFee mgmtFee;
+                mgmtFee = position.CalculatePositionManagementFees(position, investor.managementFeePercentage);
+                position.PushFeeToVector(mgmtFee);
+                for(const auto&mgmtFee : position.managementFees){
+                    std::cout<<"MGMT FEE THIS Q: "<<mgmtFee.managementFeesAsset.first.FormatISODate().ToStdString()<<std::endl;
+                    std::cout<<"MGMT FEE AMIUNT: "<<mgmtFee.managementFeesAsset.second<<std::endl;
+                }
+            }
+        }
+    }
     this->Layout();
 }
 

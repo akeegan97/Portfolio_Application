@@ -12,6 +12,7 @@
 #include "portfolio.hpp"
 #include "asset.hpp"
 #include "managementFee.hpp"
+#include "promoteFee.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -28,6 +29,7 @@ class Position{
         double returnOfCapital;
         double percentOwnership;
         std::vector<ManagementFee> managementFees;
+        std::vector<PromoteFee> promoteFees;
         std::map<wxDateTime, double> movedToDeploy;
         std::map<wxDateTime, double> movedOutOfDeployed;
     
@@ -39,12 +41,10 @@ class Position{
     returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
 
     void calculateOwnership(Portfolio &portfolio);
-    ManagementFee CalculatePositionManagementFees(const Position&position, const double &managementFeePercentage);
+    ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage);
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
     void PushFeeToVector(const ManagementFee&fee);
     double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-
-
 };
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);

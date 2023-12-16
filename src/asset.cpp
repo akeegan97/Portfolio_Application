@@ -1,6 +1,7 @@
 #include "asset.hpp"
 #include "investor.hpp"
 #include "portfolio.hpp"
+#include "distribution.hpp"
 /**
 *@brief Convert the Asset object to JSON format.
 *
@@ -13,11 +14,17 @@ void to_json(json &j, const Asset &as) {
         {"Asset Exit Date", as.assetExitDate.FormatISODate()},
         {"Valuations", as.valuations},
         {"Investors", as.investors},
-        {"Events", json::array({})}
+        {"Events", json::array({})},
+        {"Distributions", json::array({})}
     };
     
     for (const auto& evtPtr : as.events) {
         j["Events"].push_back(*evtPtr);
+    }
+    for(const auto&distribution:as.distributions){
+        json distributionJson;
+        to_json(distributionJson, distribution);
+        j["Distributions"].push_back(distributionJson);
     }
 }
 /**
@@ -44,6 +51,13 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
         for (const auto &evtJson : j["Events"]) {
             auto event = std::make_shared<AssetEvent>(evtJson.get<AssetEvent>());
             as.events.push_back(event);
+        }
+    }
+    if(j.contains("Distributions") && j["Distributions"].is_array()){
+        for(const auto &distributionJson : j["Distributions"]){
+            Distribution distribution;
+            from_json(distributionJson, distribution);
+            as.distributions.push_back(distribution);
         }
     }
 }

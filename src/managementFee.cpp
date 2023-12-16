@@ -1,7 +1,7 @@
 #include "managementFee.hpp"
 
 
-void to_json(const ManagementFee &fee, json&j){
+void to_json(json&j,const ManagementFee &fee){
     std::string date = fee.managementFeesAsset.first.FormatISODate().ToStdString();
     j=json{{"Management Fee Date",date},{"Management Fee Amount", fee.managementFeesAsset.second}};
 }
