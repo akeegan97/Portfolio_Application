@@ -10,6 +10,7 @@ void to_json(json&j, const Position &pos){
         {"Deployed",pos.deployed},
         {"ROC", pos.returnOfCapital},
         {"Ownership", pos.percentOwnership},
+        {"Management Fees Due", pos.mgmtFeesDue},
         {"Promote Fees",json::array({})},
         {"Management Fees",json::array({})}
     };
@@ -22,6 +23,11 @@ void to_json(json&j, const Position &pos){
         json promoteJson;
         to_json(promoteJson, promoteFee);
         j["Promote Fees"].push_back(promoteJson);
+    }
+    for(const auto&distribution : pos.netIncome){
+        json netIncomeJson;
+        to_json(netIncomeJson, distribution);
+        j["Net Income"].push_back(netIncomeJson);
     }
     json movedToDeployJson;
     for(const auto&[date, amount]:pos.movedToDeploy){
@@ -55,6 +61,7 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     pos.deployed = j["Deployed"].get<double>();///
     pos.returnOfCapital = j["ROC"].get<double>();
     pos.percentOwnership = j["Ownership"].get<double>();
+    pos.mgmtFeesDue = j["Management Fees Due"].get<double>();
 
     if(j.find("Managment Fees")!=j.end()){
         for(const auto&feeJson : j["Managment Fees"]){
@@ -68,6 +75,13 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
             PromoteFee pFee;
             from_json(promoteFeeJson, pFee);
             pos.promoteFees.push_back(pFee);
+        }
+    }
+    if(j.find("Net Income")!=j.end()){
+        for(const auto &netIncomeJson : j["Net Income"]){
+            Distribution netIncome;
+            from_json(netIncomeJson, netIncome);
+            pos.netIncome.push_back(netIncome);
         }
     }
     if(j.contains("MovedToDeploy")){
@@ -188,6 +202,8 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     feeThisQuarter.managementFeesAsset.first = qdates.second;
     feeThisQuarter.managementFeesAsset.second = totalFee;
 
+
+
     return feeThisQuarter;
 }
 
@@ -209,8 +225,40 @@ void Position::PushFeeToVector(const ManagementFee& fee) {
                            });
 
     if (it != managementFees.end()) {
-        *it = fee;
+        if (it->managementFeesAsset.second != fee.managementFeesAsset.second) {
+            // Adjust mgmtFeesDue only if the fee amount has changed
+            mgmtFeesDue -= it->managementFeesAsset.second;
+            mgmtFeesDue += fee.managementFeesAsset.second;
+        }
+        *it = fee; // Replace the existing fee
     } else {
-        managementFees.push_back(fee);
+        managementFees.push_back(fee); // Add the new fee
+        mgmtFeesDue += fee.managementFeesAsset.second;
     }
+}
+
+void Position::CalculatePositionNetIncome(const Distribution &distribution, const double promoteFeePercentage){
+    wxDateTime now = wxDateTime::Today();
+    std::pair<wxDateTime, wxDateTime> QDates =  GetCurrentQuarterDates(now);
+
+    if(distribution.distribution.first>=QDates.first && distribution.distribution.first <= QDates.second){
+        double proportionalShare = distribution.distribution.second * percentOwnership;
+
+        double amountAfterMgmtFees = proportionalShare - mgmtFeesDue;
+        if(amountAfterMgmtFees<=0){
+            mgmtFeesDue = - amountAfterMgmtFees;
+            return;
+        }
+        double promoteFee = amountAfterMgmtFees * promoteFeePercentage;
+        PromoteFee promoteFeeEntry;
+        promoteFeeEntry.promotefee = std::make_pair(distribution.distribution.first, promoteFee);
+        promoteFees.push_back(promoteFeeEntry);
+
+        double netIncomeAmount = amountAfterMgmtFees - promoteFee;
+
+        Distribution netIncomeDistribution;
+        netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
+        netIncome.push_back(netIncomeDistribution);
+    }
+
 }

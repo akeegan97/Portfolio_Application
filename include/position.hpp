@@ -13,6 +13,7 @@
 #include "asset.hpp"
 #include "managementFee.hpp"
 #include "promoteFee.hpp"
+#include "distribution.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -28,10 +29,12 @@ class Position{
         double deployed;
         double returnOfCapital;
         double percentOwnership;
+        double mgmtFeesDue;
         std::vector<ManagementFee> managementFees;
         std::vector<PromoteFee> promoteFees;
         std::map<wxDateTime, double> movedToDeploy;
         std::map<wxDateTime, double> movedOutOfDeployed;
+        std::vector<Distribution> netIncome;
     
     Position() = default;
     Position(const wxDateTime &dateInvested, const double &subscribed, 
@@ -45,6 +48,7 @@ class Position{
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
     void PushFeeToVector(const ManagementFee&fee);
     double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
+    void CalculatePositionNetIncome(const Distribution &distribution, const double promoteFeePercentage);
 };
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);
