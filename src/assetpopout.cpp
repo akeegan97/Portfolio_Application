@@ -75,7 +75,7 @@ void AssetPopout::setupLayout(){
                     std::cout<<"MGMT FEE THIS Q: "<<mgmtFee.managementFeesAsset.first.FormatISODate().ToStdString()<<std::endl;
                     std::cout<<"MGMT FEE AMIUNT: "<<mgmtFee.managementFeesAsset.second<<std::endl;
                 }
-                position.CalculatePositionNetIncome(asset->distributions.back(), investor.promoteFeePercentage);
+                position.CalculatePositionNetIncome(asset->distributions.back(), investor.promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
             }
         }
     }
