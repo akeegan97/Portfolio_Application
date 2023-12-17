@@ -62,7 +62,7 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
     }
 }
 //Definitions of static members of Asset class
-std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Invested Capital","Number of Investors","Current Value"};
+std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Deployed","# Investors","Current Value"};
 std::vector<int> Asset::columnWidths = {150,75,100,100,100};
 /**
 *@brief Get the value of a specified column for the Asset being displayed in a VLC

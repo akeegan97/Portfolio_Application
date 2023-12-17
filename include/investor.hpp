@@ -21,10 +21,14 @@ class Investor{
         std::vector<Position> positions;
         double managementFeePercentage;
         double promoteFeePercentage;
+        static std::vector<wxString> columnNames;
+        static std::vector<int> columnWidths;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):
                 clientName(clientName),type(type){};
+        wxVariant GetValue(int col)const;
+        void SetValue(int col, const wxVariant &v);
 };
 
 void to_json(json &j, const Investor &inv);

@@ -42,6 +42,7 @@ class MainFrame : public wxFrame{
     private:
         VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
         VListControl<std::shared_ptr<AssetEvent>> *allAssetEventVListControl;
+        VListControl<std::shared_ptr<Investor>>* allInvestorVListControl;
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;

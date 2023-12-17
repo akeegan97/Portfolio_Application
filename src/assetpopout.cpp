@@ -141,3 +141,10 @@ void AssetPopout::UpdateDisplayTextValues(){
     totalReturnedCapitalText->SetLabel("Total Returned Amount: "+formattedReturnedCapital);
     totalReturnedCapitalText->SetForegroundColour(wxColor(51,245,12));
 }
+
+
+void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    auto& selectedInvestorPosition = investorPositionDisplayVirtualListControl->GetItemAtListIndex(listIndex);
+    
+}

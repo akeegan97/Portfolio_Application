@@ -95,6 +95,19 @@ void Portfolio::PopulateEvents(){
     }
 }//call this any time there is an edit/deletion/addition of an event 
 
+void Portfolio::PopulateInvestors(){
+    allInvestorPtrs.clear();
+    addedInvestorsName.clear();
+    for(const auto& asset:assetPtrs){
+        for(const auto& investor: asset->investors){
+            if(addedInvestorsName.find(investor.clientName.ToStdString()) == addedInvestorsName.end()){
+                allInvestorPtrs.push_back(std::make_shared<Investor>(investor));
+                addedInvestorsName.insert(investor.clientName.ToStdString());
+            }
+        }
+    }
+}
+
 double Portfolio::TotalInvestedCapital(){
     double totalInvestedCapital = 0;
     for(const auto &asset: assetPtrs){

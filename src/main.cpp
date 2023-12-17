@@ -14,6 +14,7 @@ bool RugenBerg::OnInit(){
     portfolio.LoadFromFile("../storage/data3.json");
     portfolio.PopulateEvents();
     portfolio.addValuation();
+    portfolio.PopulateInvestors();
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
     frame->SetBackgroundColour(wxColor(0,0,0));
     frame->Show(true);

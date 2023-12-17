@@ -18,7 +18,7 @@ void MainFrame::setupLayout(){
       VListControl<std::shared_ptr<AssetEvent>>* allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
       allAssetEventVListControl->SetBackgroundColour(wxColor(0,0,0));
       allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
-      lSideSizer->Add(allAssetEventVListControl,4,wxEXPAND | wxALL, 10);
+      lSideSizer->Add(allAssetEventVListControl,2,wxEXPAND | wxALL, 10);
    }
    //   Check to make sure VLC is only created if assetPtrs is not empty if it is skip initializing this VLC and will initialize it on a future
    if(!portfolio.assetPtrs.empty()){
@@ -28,11 +28,16 @@ void MainFrame::setupLayout(){
       for(auto&assetPtr:portfolio.assetPtrs){
          assetPtr->UpdateDerivedValues();
       }
-
       allAssetVListControl->setItems(portfolio.assetPtrs);
-      lSideSizer->Add(allAssetVListControl, 6, wxEXPAND | wxALL, 10);
+      lSideSizer->Add(allAssetVListControl, 4, wxEXPAND | wxALL, 10);
       allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
       allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
+   }
+   if(!portfolio.assetPtrs.empty()){
+      allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+      allInvestorVListControl->SetBackgroundColour(wxColor(0,0,0));
+      allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
+      lSideSizer->Add(allInvestorVListControl, 4, wxEXPAND | wxALL, 10);
    }
    mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);

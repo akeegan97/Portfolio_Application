@@ -30,3 +30,25 @@ void from_json(const json &j, Investor &inv, Portfolio &porf) {
         }
     }
 }
+
+wxVariant Investor::GetValue(int col)const{
+    switch(col){
+        case 0: return wxVariant(clientName);break;
+        case 1: return wxVariant(type);break;
+        case 2: return wxVariant(managementFeePercentage);break;
+        case 3: return wxVariant(promoteFeePercentage);break;
+        default: return wxVariant();break;
+    }
+}
+
+void Investor::SetValue(int col, const wxVariant &v){
+    switch(col){
+        case 0: clientName = v.GetString();break;
+        case 1: type = v.GetString();break;
+        case 3: managementFeePercentage = v.GetDouble();break;
+        case 4: promoteFeePercentage = v.GetDouble();break;
+    }
+}
+
+std::vector<wxString> Investor::columnNames = {"Name", "Type","Management Fee", "Promote Fee"};
+std::vector<int> Investor::columnWidths = {100,100,150,150};
