@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include "investorPositionEdit.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -25,6 +26,7 @@ void AssetPopout::setupLayout(){
     investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
     investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
+    investorPositionDisplayVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnInvestorPositionClick, this);
     lSideSizer->Add(investorPositionDisplayVirtualListControl, 1, wxEXPAND | wxALL, 10);
     topSizer->Add(lSideSizer,7);
     //adding in the valuations of the asset to the top right corner of window
@@ -144,7 +146,44 @@ void AssetPopout::UpdateDisplayTextValues(){
 
 
 void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
-    long listIndex = e.GetIndex();
-    auto& selectedInvestorPosition = investorPositionDisplayVirtualListControl->GetItemAtListIndex(listIndex);
-    
+    InvestorPositionEditWindow editWindow(this);
+    editWindow.SetBackgroundColour(wxColor(0,0,0));
+    int returnValue = editWindow.ShowModal();
+
+    if(returnValue==wxID_OK){
+        long listIndex = e.GetIndex();
+        auto& selectedInvestorPosition = investorPositionDisplayVirtualListControl->GetItemAtListIndex(listIndex);
+
+        wxDateTime investedDate = editWindow.GetInvestmentDate();
+        wxString clientName = editWindow.GetClientName();
+        wxString clientType = editWindow.GetClientType();
+        double clientSubscribed = editWindow.GetSubscribed();
+        double clientPaid = editWindow.GetPaid();
+        double clientDeployed = editWindow.GetDeployed();
+
+        if(investedDate != wxDateTime(01,wxDateTime::Jan, 2001)){
+            selectedInvestorPosition->positionPtr->dateInvested = investedDate;
+        }
+        if(clientName.ToStdString().size()!=0){
+            selectedInvestorPosition->investorPtr->clientName = clientName;
+        }
+        if(clientType.ToStdString().size()!=0){
+            selectedInvestorPosition->investorPtr->type = clientType;
+        }
+        if(clientSubscribed != 0){
+            selectedInvestorPosition->positionPtr->subscribed = clientSubscribed;
+        }
+        if(clientPaid != 0){
+            selectedInvestorPosition->positionPtr->paid = clientPaid;
+        }
+        if(clientDeployed != 0){
+            selectedInvestorPosition->positionPtr->deployed = clientDeployed;
+        }
+        for(auto&ipd : asset->investorsPositionsDisplays){
+            ipd->positionPtr->calculateOwnership(portfolio);
+        }
+        investorPositionDisplayVirtualListControl->Refresh();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }
 }
