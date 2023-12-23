@@ -12,12 +12,11 @@ void AssetPopout::setupLayout(){
     auto lSideSizer = new wxBoxSizer(wxVERTICAL);
     asset->investorsPositionsDisplays.clear();
     for(auto& investor : asset->investors){
-        for(auto& position : investor.positions){
-            if(position.assetPtr == asset){
-                position.calculateOwnership(portfolio);//calculate the ownership of each position in the asset only done when asset is popped out
+        for(auto& position : investor->positions){
+            if(position->assetPtr == asset){
+                position->calculateOwnership(portfolio);//calculate the ownership of each position in the asset only done when asset is popped out
                 auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(
-                    std::make_shared<Investor>(investor), 
-                    std::make_shared<Position>(position)
+                    investor, position
                 );
                 asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
             }
@@ -68,16 +67,16 @@ void AssetPopout::setupLayout(){
 
     this->SetSizer(mainSizer);
     for(auto& investor: asset->investors){
-        for(auto &position: investor.positions){
-            if(position.assetPtr==asset){
+        for(auto &position: investor->positions){
+            if(position->assetPtr==asset){
                 ManagementFee mgmtFee;
-                mgmtFee = position.CalculatePositionManagementFees(position, investor.managementFeePercentage);
-                position.PushFeeToVector(mgmtFee);
-                for(const auto&mgmtFee : position.managementFees){
+                mgmtFee = position->CalculatePositionManagementFees(*position, investor->managementFeePercentage);
+                position->PushFeeToVector(mgmtFee);
+                for(const auto&mgmtFee : position->managementFees){
                     std::cout<<"MGMT FEE THIS Q: "<<mgmtFee.managementFeesAsset.first.FormatISODate().ToStdString()<<std::endl;
                     std::cout<<"MGMT FEE AMIUNT: "<<mgmtFee.managementFeesAsset.second<<std::endl;
                 }
-                position.CalculatePositionNetIncome(asset->distributions.back(), investor.promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
+                position->CalculatePositionNetIncome(asset->distributions.back(), investor->promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
             }
         }
     }
@@ -184,6 +183,7 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
         }
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateDisplayTextValues();
+        portfolio.PopulateInvestors();//In case there are any changes to the Investors based on the user's input
         this->Refresh();
     }
 }

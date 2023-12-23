@@ -30,7 +30,7 @@ class Asset{
         std::vector<Valuation> valuations;///<Historical valuations of the Asset.
         std::vector<Distribution> distributions;
         std::vector<std::shared_ptr<InvestorPositionDisplay>> investorsPositionsDisplays;///<Display information for use in our VLC template class shows investor + their position as one row
-        std::vector<Investor> investors;///<Investors in the asset.
+        std::vector<std::shared_ptr<Investor>> investors;///<Investors in the asset.
         std::vector<std::shared_ptr<AssetEvent>> events;///<Events associated with the Asset
 
         static std::vector<wxString> columnNames;///<Column Names for displaying class in VLC

@@ -104,9 +104,9 @@ void Position::calculateOwnership(Portfolio &portfolio){
     double totalDeployed = 0;
     for(const auto& assetPointer : portfolio.assetPtrs){
         for(const auto &investor: assetPointer->investors){
-            for(const auto &position : investor.positions){
-                if(position.assetPtr == assetPtr){
-                    totalDeployed+=position.deployed;
+            for(const auto &position : investor->positions){
+                if(position->assetPtr == assetPtr){
+                    totalDeployed+=position->deployed;
                 }
             }
         }

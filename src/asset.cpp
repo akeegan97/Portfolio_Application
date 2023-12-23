@@ -13,13 +13,19 @@ void to_json(json &j, const Asset &as) {
         {"Asset Name", as.assetName.ToStdString()},
         {"Asset Exit Date", as.assetExitDate.FormatISODate()},
         {"Valuations", as.valuations},
-        {"Investors", as.investors},
+        {"Investors", json::array({})},
         {"Events", json::array({})},
         {"Distributions", json::array({})}
     };
-    
+    for(const auto&investorPtr: as.investors){
+        if(investorPtr){
+            j["Investors"].push_back(*investorPtr);
+        }
+    }
     for (const auto& evtPtr : as.events) {
-        j["Events"].push_back(*evtPtr);
+        if(evtPtr){
+            j["Events"].push_back(*evtPtr);
+        }
     }
     for(const auto&distribution:as.distributions){
         json distributionJson;
@@ -41,8 +47,8 @@ void from_json(const json &j, Asset &as, Portfolio &porf) {
 
     if (j.contains("Investors") && j["Investors"].is_array()) {
         for (const auto &invJson : j["Investors"]) {
-            Investor inv;
-            from_json(invJson, inv, porf);
+            auto inv = std::make_shared<Investor>();
+            from_json(invJson, *inv, porf);
             as.investors.push_back(inv);
         }
     }
@@ -105,8 +111,8 @@ void Asset::SetValue(int col, const wxVariant &v){
 double Asset::CalculateInvestedCapital()const{
     double totalInvested = 0;
     for(const auto& investor: investors){
-        for(const auto&position:investor.positions){
-            totalInvested+=position.deployed;
+        for(const auto&position:investor->positions){
+            totalInvested+=position->deployed;
         }
     }
     return totalInvested;
@@ -145,8 +151,8 @@ void Asset::UpdateDerivedValues(){
 double Asset::CalculateReserveCapital(){
     double reserveCapital = 0;
     for(const auto&investor:investors){
-        for(const auto&position : investor.positions){
-            reserveCapital+=position.reserve;
+        for(const auto&position : investor->positions){
+            reserveCapital+=position->reserve;
         }
     }
     return reserveCapital;
@@ -155,8 +161,8 @@ double Asset::CalculateReserveCapital(){
 double Asset::CalculatePaidCapital(){
     double paidCapital = 0;
     for(const auto&investor:investors){
-        for(const auto&position : investor.positions){
-            paidCapital+=position.paid;
+        for(const auto&position : investor->positions){
+            paidCapital+=position->paid;
         }
     }
     return paidCapital;
@@ -164,8 +170,8 @@ double Asset::CalculatePaidCapital(){
 double Asset::CalculateSubscribedCapital(){
     double subscribed = 0;
     for(const auto&investor:investors){
-        for(const auto&position : investor.positions){
-            subscribed+=position.subscribed;
+        for(const auto&position : investor->positions){
+            subscribed+=position->subscribed;
         }
     }
     return subscribed;
@@ -173,8 +179,8 @@ double Asset::CalculateSubscribedCapital(){
 double Asset::CalculateReturnedCapital(){
     double returnedCapital = 0;
     for(const auto&investor:investors){
-        for(const auto&position : investor.positions){
-            returnedCapital+=position.returnOfCapital;
+        for(const auto&position : investor->positions){
+            returnedCapital+=position->returnOfCapital;
         }
     }
     return returnedCapital;

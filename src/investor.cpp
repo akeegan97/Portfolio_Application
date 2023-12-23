@@ -12,7 +12,7 @@ void to_json(json &j, const Investor &inv) {
     };
     for(const auto &pos: inv.positions){
         json posJson;
-        to_json(posJson, pos);
+        to_json(posJson, *pos);
         j["Positions"].push_back(posJson);
     }
 }
@@ -24,8 +24,8 @@ void from_json(const json &j, Investor &inv, Portfolio &porf) {
     inv.promoteFeePercentage = j["Promote Fee Percentage"].get<double>();   
     if(j.contains("Positions")&&j["Positions"].is_array()){
         for(const auto& posJson : j["Positions"]){
-            Position pos;
-            from_json(posJson, pos, porf);
+            auto pos = std::make_shared<Position>();
+            from_json(posJson, *pos, porf);
             inv.positions.push_back(pos);
         }
     }

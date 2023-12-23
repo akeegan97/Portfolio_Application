@@ -9,6 +9,7 @@
 #include <json.hpp>
 #include <asset.hpp>
 #include <position.hpp>
+#include <memory>
 
 
 using json = nlohmann::json;
@@ -18,7 +19,7 @@ class Investor{
     public:
         wxString clientName;
         wxString type;
-        std::vector<Position> positions;
+        std::vector<std::shared_ptr<Position>> positions;
         double managementFeePercentage;
         double promoteFeePercentage;
         static std::vector<wxString> columnNames;
