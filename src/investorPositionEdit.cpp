@@ -67,7 +67,7 @@ InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
 //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
         wxButton * okayButton = new wxButton(this, wxID_OK, "Okay");
-        wxButton* cancelButton = new wxButton(this, wxID_ANY, "Cancel");
+        wxButton* cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
 
         buttonSizer->Add(okayButton, 0, wxALL, 5);
         buttonSizer->Add(cancelButton, 0, wxALL, 5);

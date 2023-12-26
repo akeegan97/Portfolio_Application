@@ -8,8 +8,9 @@
 
 void AssetPopout::setupLayout(){
     auto mainSizer = new wxBoxSizer(wxVERTICAL);
-    auto topSizer = new wxBoxSizer(wxHORIZONTAL);
-    auto lSideSizer = new wxBoxSizer(wxVERTICAL);
+    auto topSizer = new wxBoxSizer(wxHORIZONTAL);//only the IPD
+    auto middleSizer = new wxBoxSizer(wxHORIZONTAL);//Valuations/Events/Distributions
+    auto bottomSizer = new wxBoxSizer(wxHORIZONTAL);//Text values + future buttons
     asset->investorsPositionsDisplays.clear();
     for(auto& investor : asset->investors){
         for(auto& position : investor->positions){
@@ -26,19 +27,30 @@ void AssetPopout::setupLayout(){
     investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
     investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
     investorPositionDisplayVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnInvestorPositionClick, this);
-    lSideSizer->Add(investorPositionDisplayVirtualListControl, 1, wxEXPAND | wxALL, 10);
-    topSizer->Add(lSideSizer,7);
-    //adding in the valuations of the asset to the top right corner of window
-    auto rSideSizer = new wxBoxSizer(wxVERTICAL);
+
+    topSizer->Add(investorPositionDisplayVirtualListControl,wxALL|wxEXPAND, 10);
+    mainSizer->Add(topSizer, 3, wxALL|wxEXPAND,10);
+
     valuationListControl = new VListControl<Valuation>(this, wxID_ANY, FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     valuationListControl->setItems(asset->valuations);
     valuationListControl->SetBackgroundColour(wxColor(0,0,0));
-    rSideSizer->Add(valuationListControl, 1, wxEXPAND | wxALL, 10);
-    topSizer->Add(rSideSizer,3);
 
-    mainSizer->Add(topSizer,8);
+    middleSizer->Add(valuationListControl, 3, wxALL, 10);
 
-    auto bottomSizer = new wxBoxSizer(wxHORIZONTAL);
+    eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    eventsVirtualListControl->setItems(asset->events);
+    eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
+
+    middleSizer->Add(eventsVirtualListControl, 3, wxALL, 10);
+    
+    distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    distributionListControl->setItems(asset->distributions);
+    distributionListControl->SetBackgroundColour(wxColor(0,0,0));
+
+    middleSizer->Add(distributionListControl, 3, wxALL, 10);
+
+    mainSizer->Add(middleSizer, 3, wxALL|wxEXPAND, 10);
+
 
     auto textSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -58,25 +70,17 @@ void AssetPopout::setupLayout(){
 
     bottomSizer->Add(textSizer);
 
-    eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    eventsVirtualListControl->setItems(asset->events);
-    eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
-    bottomSizer->Add(eventsVirtualListControl,5,wxEXPAND|wxALL,10);
-    
-    mainSizer->Add(bottomSizer,2);
-
+    mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
+
     for(auto& investor: asset->investors){
         for(auto &position: investor->positions){
             if(position->assetPtr==asset){
                 ManagementFee mgmtFee;
+                std::cout<<"Position's MGMT FEE VECTOR LENGTH: "<<position->managementFees.size()<<std::endl;
                 mgmtFee = position->CalculatePositionManagementFees(*position, investor->managementFeePercentage);
                 position->PushFeeToVector(mgmtFee);
-                for(const auto&mgmtFee : position->managementFees){
-                    std::cout<<"MGMT FEE THIS Q: "<<mgmtFee.managementFeesAsset.first.FormatISODate().ToStdString()<<std::endl;
-                    std::cout<<"MGMT FEE AMIUNT: "<<mgmtFee.managementFeesAsset.second<<std::endl;
-                }
-                position->CalculatePositionNetIncome(asset->distributions.back(), investor->promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
+               // position->CalculatePositionNetIncome(asset->distributions.back(), investor->promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
             }
         }
     }
@@ -185,5 +189,7 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
         UpdateDisplayTextValues();
         portfolio.PopulateInvestors();//In case there are any changes to the Investors based on the user's input
         this->Refresh();
+    }else if(returnValue == wxID_ANY){
+        //exit 
     }
 }

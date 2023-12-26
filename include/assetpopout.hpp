@@ -23,6 +23,7 @@ class AssetPopout : public wxFrame{
         VListControl<std::shared_ptr<InvestorPositionDisplay>>* investorPositionDisplayVirtualListControl;
         VListControl<Valuation>* valuationListControl;
         VListControl<std::shared_ptr<AssetEvent>>*eventsVirtualListControl;
+        VListControl<Distribution>* distributionListControl;
         wxStaticText *totalSubscribedText;//
         wxStaticText *totalPaidText;//
         wxStaticText *totalDeployedCapitalText;//

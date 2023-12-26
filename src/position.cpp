@@ -63,8 +63,8 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     pos.percentOwnership = j["Ownership"].get<double>();
     pos.mgmtFeesDue = j["Management Fees Due"].get<double>();
 
-    if(j.find("Managment Fees")!=j.end()){
-        for(const auto&feeJson : j["Managment Fees"]){
+    if(j.find("Management Fees")!=j.end()){
+        for(const auto&feeJson : j["Management Fees"]){
             ManagementFee fee;
             from_json(feeJson, fee);
             pos.managementFees.push_back(fee);
@@ -201,9 +201,7 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
 
     feeThisQuarter.managementFeesAsset.first = qdates.second;
     feeThisQuarter.managementFeesAsset.second = totalFee;
-
-
-
+    
     return feeThisQuarter;
 }
 
@@ -217,24 +215,33 @@ double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime 
 }
 
 void Position::PushFeeToVector(const ManagementFee& fee) {
+    std::cout << "PushFeeToVector called with fee: " << fee.managementFeesAsset.second << std::endl;
+
     wxDateTime feeDate = fee.managementFeesAsset.first;
-    
+    std::cout<<"FeeDATE: "<<feeDate.FormatISODate().ToStdString()<<std::endl;
+    std::cout<<"Number of Fees in Management Fee Vector: "<<managementFees.size()<<std::endl;
     auto it = std::find_if(managementFees.begin(), managementFees.end(),
                            [&feeDate](const ManagementFee& existingFee) {
                                return existingFee.managementFeesAsset.first == feeDate;
                            });
 
     if (it != managementFees.end()) {
+        std::cout << "Existing fee found for date " << feeDate.FormatISODate().ToStdString() << std::endl;
+        std::cout << "Existing fee amount: " << it->managementFeesAsset.second << std::endl;
+        std::cout<<"fee.managementFeesAsset: "<<fee.managementFeesAsset.second<<std::endl;
         if (it->managementFeesAsset.second != fee.managementFeesAsset.second) {
-            // Adjust mgmtFeesDue only if the fee amount has changed
+            std::cout << "Fee amount has changed. Adjusting mgmtFeesDue." << std::endl;
             mgmtFeesDue -= it->managementFeesAsset.second;
             mgmtFeesDue += fee.managementFeesAsset.second;
         }
         *it = fee; // Replace the existing fee
     } else {
+        std::cout << "No existing fee found for date. Adding new fee." << std::endl;
         managementFees.push_back(fee); // Add the new fee
         mgmtFeesDue += fee.managementFeesAsset.second;
     }
+
+    std::cout << "Updated mgmtFeesDue: " << mgmtFeesDue << std::endl;
 }
 
 void Position::CalculatePositionNetIncome(const Distribution &distribution, const double promoteFeePercentage){
