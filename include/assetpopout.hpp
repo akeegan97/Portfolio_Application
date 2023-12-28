@@ -30,9 +30,11 @@ class AssetPopout : public wxFrame{
         wxStaticText *numInvestorsText;//
         wxStaticText *totalReserveCapitalText;//
         wxStaticText *totalReturnedCapitalText;//
+        wxButton * addDistributionButton;
         void setupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
+        void OnAddDistributionClicked(wxCommandEvent &e);
         
 };
 

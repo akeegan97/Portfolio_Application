@@ -69,6 +69,12 @@ InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
         wxButton * okayButton = new wxButton(this, wxID_OK, "Okay");
         wxButton* cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
 
+        okayButton->SetForegroundColour(wxColor(51,245,12));
+        okayButton->SetBackgroundColour(wxColor(0,0,0));
+
+        cancelButton->SetForegroundColour(wxColor(252,0,0));
+        cancelButton->SetBackgroundColour(wxColor(0,0,0));
+
         buttonSizer->Add(okayButton, 0, wxALL, 5);
         buttonSizer->Add(cancelButton, 0, wxALL, 5);
 

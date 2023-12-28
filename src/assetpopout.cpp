@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <cmath>
 #include "investorPositionEdit.hpp"
+#include "addDistribution.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -69,6 +70,13 @@ void AssetPopout::setupLayout(){
     textSizer->Add(totalReturnedCapitalText,1,wxEXPAND|wxALL,10);
 
     bottomSizer->Add(textSizer);
+
+    addDistributionButton = new wxButton(this, wxID_ANY, "Add Distribution");
+    addDistributionButton->SetBackgroundColour(wxColor(0,0,0));
+    addDistributionButton->SetForegroundColour(wxColor(51,245,12));
+    addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked, this);
+
+    bottomSizer->Add(addDistributionButton);
 
     mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
@@ -192,4 +200,29 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
     }else if(returnValue == wxID_ANY){
         //exit 
     }
+}
+
+void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
+    AddDistributionDialog addDistroWindow(this);
+    addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
+    int retValue = addDistroWindow.ShowModal();
+    if(retValue == wxID_OK){
+        std::cout<<"Clicked Add Distribution Button:"<<std::endl;
+        /*
+            1. Pushing Distribution to Asset.distributions vector
+            2. Calculate Position's "Net Income" -> IE Distribution - MGMT FEES DUE - PROMOTE FEE 
+            3. Push "Net" Distribution from ^ to Position.netIncome vector
+            4. Push the Promote Fees taken out of the gross distribution to Position.promoteFees vector
+            5. reset/recalibrate the Position.mgmtFeesDue double value
+        Data Structure: 
+            Recieve Distribuition <Date, Amount> from User:->
+                Asset.Distributions -> houses the <Date, Gross Amount>
+                Position.NetIncome -> houses the <Date, Net of Fees Amount(both fees)>
+                Position.PromoteFees -> houses the <Date, promoteFee for that distribution>
+                Position.mgmtFeesDue -> keeps track of the rolling mgmt fees due and needs to be reduced by the distribution
+                Position.ManagementFees ->Auto calculated each Q based off of the Deployed Capital and movements in and out of Deployed
+                                        In the Q
+        */
+    }
+
 }
