@@ -57,6 +57,8 @@ class Asset{
         double CalculatePaidCapital();
         double GetLastValuation()const;///<Gets latest valuation of the Asset.
         void UpdateDerivedValues();///<Updated derived values and sets member variables
+        double GetTotalMgmtFeesGenerated();
+        double GetTotalPromoteFeesGenerated();
 };  
 //serialization to and from json
 void to_json(json &j, const Asset &as);///<Converts Asset to JSON format. 

@@ -61,6 +61,8 @@ void AssetPopout::setupLayout(){
     numInvestorsText = new wxStaticText(this, wxID_ANY, "");
     totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
     totalReturnedCapitalText = new wxStaticText(this, wxID_ANY, "");
+    totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
+    totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
 
     textSizer->Add(numInvestorsText,1,wxEXPAND|wxALL,10);
     textSizer->Add(totalSubscribedText,1,wxEXPAND|wxALL,10);
@@ -68,6 +70,8 @@ void AssetPopout::setupLayout(){
     textSizer->Add(totalDeployedCapitalText,1,wxEXPAND|wxALL,10);
     textSizer->Add(totalReserveCapitalText,1,wxEXPAND|wxALL,10);
     textSizer->Add(totalReturnedCapitalText,1,wxEXPAND|wxALL,10);
+    textSizer->Add(totalMgmtFeesGeneratedText, 1, wxEXPAND| wxALL, 10);
+    textSizer->Add(totalPromoteFeesGeneratedText, 1, wxEXPAND | wxALL, 10);
 
     bottomSizer->Add(textSizer);
 
@@ -88,7 +92,6 @@ void AssetPopout::setupLayout(){
                 std::cout<<"Position's MGMT FEE VECTOR LENGTH: "<<position->managementFees.size()<<std::endl;
                 mgmtFee = position->CalculatePositionManagementFees(*position, investor->managementFeePercentage);
                 position->PushFeeToVector(mgmtFee);
-               // position->CalculatePositionNetIncome(asset->distributions.back(), investor->promoteFeePercentage);//ONLY FOR TESTING EVENTUALLY MOVE TO EVT THAT CORRESPONDS TO NEW DISTRIBUTION TO ASSET
             }
         }
     }
@@ -135,6 +138,10 @@ void AssetPopout::UpdateDisplayTextValues(){
     std::string formattedReserve = formatDollarAmount(totalReserveCapital);
     double totalReturnedCapital = asset->CalculateReturnedCapital();
     std::string formattedReturnedCapital = formatDollarAmount(totalReturnedCapital);
+    double totalPromoteFees = asset->GetTotalPromoteFeesGenerated();
+    std::string formatedPromoteFees = formatDollarAmount(totalPromoteFees);
+    double totalMgmtFees = asset->GetTotalMgmtFeesGenerated();
+    std::string formatedTotalMgmtFees = formatDollarAmount(totalMgmtFees);
 
     totalSubscribedText->SetLabel("Total Subscribed Amount: "+formattedSubscribed);
     totalSubscribedText->SetForegroundColour(wxColor(51,245,12));
@@ -153,6 +160,12 @@ void AssetPopout::UpdateDisplayTextValues(){
 
     totalReturnedCapitalText->SetLabel("Total Returned Amount: "+formattedReturnedCapital);
     totalReturnedCapitalText->SetForegroundColour(wxColor(51,245,12));
+
+    totalMgmtFeesGeneratedText->SetLabel("Total Management Fees Earned: "+formatedTotalMgmtFees);
+    totalMgmtFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
+
+    totalPromoteFeesGeneratedText->SetLabel("Total Promote Fees Earned: "+formatedPromoteFees);
+    totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
 }
 
 
@@ -208,21 +221,26 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
     int retValue = addDistroWindow.ShowModal();
     if(retValue == wxID_OK){
         std::cout<<"Clicked Add Distribution Button:"<<std::endl;
-        /*
-            1. Pushing Distribution to Asset.distributions vector
-            2. Calculate Position's "Net Income" -> IE Distribution - MGMT FEES DUE - PROMOTE FEE 
-            3. Push "Net" Distribution from ^ to Position.netIncome vector
-            4. Push the Promote Fees taken out of the gross distribution to Position.promoteFees vector
-            5. reset/recalibrate the Position.mgmtFeesDue double value
-        Data Structure: 
-            Recieve Distribuition <Date, Amount> from User:->
-                Asset.Distributions -> houses the <Date, Gross Amount>
-                Position.NetIncome -> houses the <Date, Net of Fees Amount(both fees)>
-                Position.PromoteFees -> houses the <Date, promoteFee for that distribution>
-                Position.mgmtFeesDue -> keeps track of the rolling mgmt fees due and needs to be reduced by the distribution
-                Position.ManagementFees ->Auto calculated each Q based off of the Deployed Capital and movements in and out of Deployed
-                                        In the Q
-        */
+        Distribution newDistribution;
+        newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
+        newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
+        //here specify if multiple distributions per Q are okay
+        asset->distributions.push_back(newDistribution);
+        for(auto&inv: asset->investors){
+            for(auto&pos:inv->positions){
+                if(pos->assetPtr == asset){
+                    pos->CalculatePositionNetIncome(newDistribution, inv->promoteFeePercentage);
+                    //Calculates and populates the positions netIncome and PromoteFees vector with an entry 
+                    if(!pos->netIncome.empty()){
+                     std::cout<<"Net Income for Position: "<<pos->netIncome.back().distribution.second<<std::endl;   
+                    }
+                    std::cout<<"Position Updated Management Fee's Due: "<<pos->mgmtFeesDue<<std::endl;
+                }
+            }
+        }
+        distributionListControl->setItems(asset->distributions);
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        this->Refresh();
     }
-
 }

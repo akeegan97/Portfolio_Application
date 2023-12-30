@@ -133,7 +133,7 @@ double Asset::CalculateNumberOfInvestors()const{
 */
 double Asset::GetLastValuation()const{
     if(valuations.empty()){
-        return 0.0;
+        return 0.0;////Might change instead of 0 to be sumtotal of deployed capital
     }else{
         return valuations.back().valuation;
     }
@@ -184,6 +184,30 @@ double Asset::CalculateReturnedCapital(){
         }
     }
     return returnedCapital;
+}
+
+double Asset::GetTotalMgmtFeesGenerated(){
+    double totalMgmtFees=0;
+    for(const auto&inv : investors){
+        for(const auto&pos:inv->positions){
+            for(const auto &mgmtFee : pos->managementFees){
+                totalMgmtFees+= mgmtFee.managementFeesAsset.second;
+            }
+        }
+    }
+    return totalMgmtFees;
+}
+
+double Asset::GetTotalPromoteFeesGenerated(){
+    double totalPromoteFees=0;
+    for(const auto&inv : investors){
+        for(const auto&pos:inv->positions){
+            for(const auto &pfee : pos->promoteFees){
+                totalPromoteFees+= pfee.promotefee.second;
+            }
+        }
+    }
+    return totalPromoteFees;
 }
 
 

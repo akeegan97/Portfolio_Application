@@ -266,6 +266,6 @@ void Position::CalculatePositionNetIncome(const Distribution &distribution, cons
         Distribution netIncomeDistribution;
         netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
         netIncome.push_back(netIncomeDistribution);
+        mgmtFeesDue = 0;
     }
-
 }
