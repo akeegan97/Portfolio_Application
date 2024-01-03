@@ -247,6 +247,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
 
 void AssetPopout::OnDeployMovement(wxCommandEvent &e){
     MoveDeploy DeployMovementWindow(this);
+    DeployMovementWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = DeployMovementWindow.ShowModal();
     if(retValue == wxID_OK){
         wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
