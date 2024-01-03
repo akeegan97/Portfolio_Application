@@ -31,7 +31,7 @@ AddDistributionDialog::AddDistributionDialog(wxWindow* parentWindow):
         amountText->SetBackgroundColour(wxColor(0,0,0));
 
         mainSizer->Add(amountText, 0, wxALL|wxLEFT, 10);
-        mainSizer->Add(amountCtrl, 0, wxALL|wxLEFT, 10);
+        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 10);
 
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);

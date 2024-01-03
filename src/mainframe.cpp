@@ -1,5 +1,6 @@
 #include "mainframe.hpp"
 #include "assetpopout.hpp"
+#include "customevents.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -7,6 +8,8 @@
 
 template <typename T>
 std::string formatDollarAmount(T value);
+
+wxIMPLEMENT_EVENT(ASSET_POPOUT_CLOSED, wxCommandEvent);
 
 void MainFrame::setupLayout(){
    //main sizer for the page
@@ -237,4 +240,10 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
    portfolio, selectedAsset);
    assetPopout->SetBackgroundColour(wxColor(0,0,0));
    assetPopout->Show(true);
+}
+
+
+void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
+   setupLayout();
+   UpdatePortfolioDisplayValues();
 }

@@ -15,6 +15,7 @@ class AssetPopout : public wxFrame{
             valuationListControl(nullptr){
                 setupLayout();
                 UpdateDisplayTextValues();
+                Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
             };
         
         Portfolio &portfolio;
@@ -35,11 +36,14 @@ class AssetPopout : public wxFrame{
         wxStaticText *totalPromoteFeesGeneratedText;
         wxButton * addDistributionButton;
         wxButton *assetLevelMovementOfCapitalButton;
+        wxButton *addValuationButton;
         void setupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
         void OnAddDistributionClicked(wxCommandEvent &e);
         void OnDeployMovement(wxCommandEvent &e);
+        void OnAddValuation(wxCommandEvent &e);
+        void OnClose(wxCloseEvent &e);
 
         
 };

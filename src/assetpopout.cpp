@@ -6,6 +6,8 @@
 #include "investorPositionEdit.hpp"
 #include "addDistribution.hpp"
 #include "moveDeploy.hpp"
+#include "addValuation.hpp"
+#include "customevents.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -86,8 +88,14 @@ void AssetPopout::setupLayout(){
     assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
     assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnDeployMovement, this);
 
+    addValuationButton = new wxButton(this, wxID_ANY, "Add Valuation");
+    addValuationButton->SetBackgroundColour(wxColor(0,0,0));
+    addValuationButton->SetForegroundColour(wxColor(51,245,12));
+    addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
+
     bottomSizer->Add(addDistributionButton);
     bottomSizer->Add(assetLevelMovementOfCapitalButton);
+    bottomSizer->Add(addValuationButton);
     mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
 
@@ -282,4 +290,28 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
     }else if(retValue == wxID_CANCEL){
         //do nothing close
     }
+}
+void AssetPopout::OnAddValuation(wxCommandEvent &e){
+    AddValuation addValuationDialog(this);
+    addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = addValuationDialog.ShowModal();
+    if(retVal == wxID_OK){
+        wxDateTime valuationDate = addValuationDialog.GetDate();
+        double valuationAmount = addValuationDialog.GetValuation();
+        Valuation newValuation;
+        newValuation.valuationDate = valuationDate;
+        newValuation.valuation = valuationAmount;
+        asset->valuations.push_back(newValuation);
+        valuationListControl->setItems(asset->valuations);
+        portfolio.addValuation();
+
+    }else if(retVal == wxID_CANCEL){
+        //do nothing and exit
+    }
+}
+
+void AssetPopout::OnClose(wxCloseEvent &e){
+    wxCommandEvent evt(ASSET_POPOUT_CLOSED);
+    wxPostEvent(GetParent(), evt);
+    e.Skip();
 }

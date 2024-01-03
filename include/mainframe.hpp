@@ -4,6 +4,7 @@
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
+#include "customevents.hpp"
 #include "asset.hpp"
 #include "investor.hpp"
 #include "position.hpp"
@@ -36,6 +37,7 @@ class MainFrame : public wxFrame{
                 setupLayout();
                 UpdatePortfolioDisplayValues();
                 ReadPickQuote("../storage/RugenBergQuotes.txt");
+                Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
             };
         Portfolio &portfolio;
     
@@ -53,6 +55,7 @@ class MainFrame : public wxFrame{
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
         void OnAssetVLCClick(wxListEvent&e);
+        void OnAssetPopoutClose(wxCommandEvent &e);
 };
 
 

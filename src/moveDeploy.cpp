@@ -9,6 +9,7 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         wxDateTime setDate = wxDateTime::Today();
         datePicker->SetValue(setDate);
+        datePicker->SetForegroundColour(wxColor(51,245,12));
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Move");
         datePickerText->SetForegroundColour(wxColor(51,245,12));
         mainSizer->Add(datePickerText, 0, wxALL | wxLEFT,10);
