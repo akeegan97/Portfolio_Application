@@ -10,7 +10,6 @@ AddDistributionDialog::AddDistributionDialog(wxWindow* parentWindow):
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         wxDateTime today = wxDateTime::Today();
         datePicker->SetValue(today);
-        datePicker->SetBackgroundColour(wxColor(0,0,0));
         datePicker->SetForegroundColour(wxColor(51,245,12));
 
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Distribution");

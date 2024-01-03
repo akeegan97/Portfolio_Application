@@ -34,10 +34,13 @@ class AssetPopout : public wxFrame{
         wxStaticText *totalMgmtFeesGeneratedText;
         wxStaticText *totalPromoteFeesGeneratedText;
         wxButton * addDistributionButton;
+        wxButton *assetLevelMovementOfCapitalButton;
         void setupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
         void OnAddDistributionClicked(wxCommandEvent &e);
+        void OnDeployMovement(wxCommandEvent &e);
+
         
 };
 

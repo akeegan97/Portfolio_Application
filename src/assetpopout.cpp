@@ -5,6 +5,7 @@
 #include <cmath>
 #include "investorPositionEdit.hpp"
 #include "addDistribution.hpp"
+#include "moveDeploy.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -80,8 +81,13 @@ void AssetPopout::setupLayout(){
     addDistributionButton->SetForegroundColour(wxColor(51,245,12));
     addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked, this);
 
-    bottomSizer->Add(addDistributionButton);
+    assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Asset Level Movement of Capital");
+    assetLevelMovementOfCapitalButton->SetBackgroundColour(wxColor(0,0,0));
+    assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
+    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnDeployMovement, this);
 
+    bottomSizer->Add(addDistributionButton);
+    bottomSizer->Add(assetLevelMovementOfCapitalButton);
     mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
 
@@ -89,7 +95,6 @@ void AssetPopout::setupLayout(){
         for(auto &position: investor->positions){
             if(position->assetPtr==asset){
                 ManagementFee mgmtFee;
-                std::cout<<"Position's MGMT FEE VECTOR LENGTH: "<<position->managementFees.size()<<std::endl;
                 mgmtFee = position->CalculatePositionManagementFees(*position, investor->managementFeePercentage);
                 position->PushFeeToVector(mgmtFee);
             }
@@ -220,7 +225,6 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
     addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = addDistroWindow.ShowModal();
     if(retValue == wxID_OK){
-        std::cout<<"Clicked Add Distribution Button:"<<std::endl;
         Distribution newDistribution;
         newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
         newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
@@ -231,10 +235,6 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
                 if(pos->assetPtr == asset){
                     pos->CalculatePositionNetIncome(newDistribution, inv->promoteFeePercentage);
                     //Calculates and populates the positions netIncome and PromoteFees vector with an entry 
-                    if(!pos->netIncome.empty()){
-                     std::cout<<"Net Income for Position: "<<pos->netIncome.back().distribution.second<<std::endl;   
-                    }
-                    std::cout<<"Position Updated Management Fee's Due: "<<pos->mgmtFeesDue<<std::endl;
                 }
             }
         }
@@ -242,5 +242,43 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         distributionListControl->Update();
         UpdateDisplayTextValues();
         this->Refresh();
+    }
+}
+
+void AssetPopout::OnDeployMovement(wxCommandEvent &e){
+    MoveDeploy DeployMovementWindow(this);
+    int retValue = DeployMovementWindow.ShowModal();
+    if(retValue == wxID_OK){
+        wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
+        double amountMoved = DeployMovementWindow.GetAmountMoved();
+        wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
+        if(selectedMovementDirection == "To Deploy"){
+            for(auto & inv : asset->investors){
+                for(auto &pos:inv->positions){
+                    if(pos->assetPtr == asset){
+                        pos->reserve -= amountMoved*pos->percentOwnership;
+                        pos->deployed += amountMoved*pos->percentOwnership;
+                        pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
+                        pos->CalculatePositionManagementFees(*pos, inv->managementFeePercentage);
+                    }
+                }
+            }
+        }else if(selectedMovementDirection == "From Deploy"){
+            for(auto & inv : asset->investors){
+                for(auto &pos:inv->positions){
+                    if(pos->assetPtr == asset){
+                        pos->reserve += amountMoved*pos->percentOwnership;
+                        pos->deployed -=amountMoved*pos->percentOwnership;
+                        pos->movedOutOfDeployed[dateOfMovement] = amountMoved*pos->percentOwnership;
+                        pos->CalculatePositionManagementFees(*pos, inv->managementFeePercentage);
+                    }
+                }
+            }
+        }
+        investorPositionDisplayVirtualListControl->Refresh();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }else if(retValue == wxID_CANCEL){
+        //do nothing close
     }
 }

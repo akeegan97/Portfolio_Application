@@ -9,7 +9,6 @@ InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
         wxDateTime setDate(01,wxDateTime::Jan, 2001);
         datePicker->SetValue(setDate);
         datePicker->SetForegroundColour(wxColor(51,245,12));
-        datePicker->SetBackgroundColour(wxColor(0,0,0));
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Investment");
         datePickerText->SetForegroundColour(wxColor(51,245,12));
         mainSizer->Add(datePickerText, 0, wxALL | wxLEFT,10);
