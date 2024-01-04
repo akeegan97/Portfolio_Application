@@ -11,7 +11,7 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data.json");
+    portfolio.LoadFromFile("../storage/data3.json");
     portfolio.PopulateEvents();
     portfolio.addValuation();
     portfolio.PopulateInvestors();
@@ -22,7 +22,7 @@ bool RugenBerg::OnInit(){
 }
 
 int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
+    portfolio.SavePortfolioToFile(portfolio,"../storage/data3.json");
     return 0;
 }
 

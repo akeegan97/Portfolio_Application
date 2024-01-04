@@ -6,4 +6,5 @@
 
 wxDECLARE_EVENT(ASSET_POPOUT_CLOSED, wxCommandEvent);
 
+
 #endif // CUSTOM_EVENTS_HPP

@@ -1,6 +1,6 @@
+
 #include "mainframe.hpp"
 #include "assetpopout.hpp"
-#include "customevents.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -8,9 +8,6 @@
 
 template <typename T>
 std::string formatDollarAmount(T value);
-
-wxIMPLEMENT_EVENT(ASSET_POPOUT_CLOSED, wxCommandEvent);
-
 void MainFrame::setupLayout(){
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -236,7 +233,7 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
    long listIndex = e.GetIndex();
    auto& selectedAsset = allAssetVListControl->GetItemAtListIndex(listIndex);
    std::string selectedAssetName = selectedAsset->assetName.ToStdString();
-   auto* assetPopout = new AssetPopout(selectedAssetName, wxDefaultPosition, wxSize(FromDIP(1200),FromDIP(800)),
+   auto* assetPopout = new AssetPopout(this, selectedAssetName, wxDefaultPosition, wxSize(FromDIP(1200),FromDIP(800)),
    portfolio, selectedAsset);
    assetPopout->SetBackgroundColour(wxColor(0,0,0));
    assetPopout->Show(true);
@@ -244,6 +241,7 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
 
 
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
+   std::cout<<"CALLED ON ASSET POPOUT CLOSE"<<std::endl;
    setupLayout();
    UpdatePortfolioDisplayValues();
 }
