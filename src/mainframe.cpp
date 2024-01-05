@@ -56,77 +56,15 @@ void MainFrame::setupLayout(){
    
    rSideSizer->Add(quoteOftheDatePanel, 1, wxEXPAND | wxALL, 10);
 
-   size_t count = portfolio.valuationVectorPlotting.size();
-   double* data = new double[count];
-   time_t* times = new time_t[count];
-
-   for(size_t i = 0; i<count;++i){
-      data[i] = portfolio.valuationVectorPlotting[i].second;
-      times[i] = portfolio.valuationVectorPlotting[i].first.GetTicks();
-   }
-
-   TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
-   XYLineRenderer* customcoloredLine = new XYLineRenderer();
-   wxPen* myPen = new wxPen(wxColor(51,245,12));
-   customcoloredLine->SetSeriePen(0, myPen);
-   valuationTimeSeries->SetRenderer(customcoloredLine);
-
-   XYPlot *xyPlot = new XYPlot();
-   xyPlot->AddDataset(valuationTimeSeries);
-
-   wxPen* borderPen = new wxPen(wxColor(51,245,12));
-   wxBrush* fillBrush = new wxBrush(wxColor(0,0,0));
-
-   FillAreaDraw* fillarea = new FillAreaDraw(*borderPen, *fillBrush);
-
-   xyPlot->SetDrawGrid(true, true);
-
-   wxPen gridlinePen(wxColor(51,245,12),1,wxPENSTYLE_SOLID);
-
-   NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
-   leftAxis->SetTitle("Valuations");
-   wxColor myColor =  wxColor(51,245,12);
-   leftAxis->SetTitleColour(myColor);
-   leftAxis->SetLabelTextColour(myColor);
-   leftAxis->SetMajorGridlinePen(gridlinePen);
-   leftAxis->SetMinorGridlinePen(gridlinePen);
-   leftAxis->SetLabelPen(*myPen);
-   
-   DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
-   bottomAxis->SetTitle("Dates");
-   bottomAxis->SetTitleColour(myColor);
-   bottomAxis->SetLabelTextColour(myColor);
-
-   bottomAxis->SetVerticalLabelText(true);
-   bottomAxis->SetDateFormat(wxT("%d-%m"));
-   bottomAxis->SetMajorGridlinePen(gridlinePen);
-   bottomAxis->SetLabelPen(*myPen);
-
-   xyPlot->AddAxis(leftAxis);
-   xyPlot->AddAxis(bottomAxis);
-
-   xyPlot->LinkDataHorizontalAxis(0,0);
-   xyPlot->LinkDataVerticalAxis(0,0);
-
-   xyPlot->SetBackground(fillarea);
-   Chart* myChart = new Chart(xyPlot, "Valuations");
-   wxString titleText = "Valuation Chart";
-   wxFont titleFont = *wxNORMAL_FONT; 
-   titleFont.SetPointSize(22);
-
-   TextElement* chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
-   chartTitle->SetColour(wxColour(51, 245, 12)); 
-
-   Header* myHeader = new Header(*chartTitle);
-   myChart->SetHeader(myHeader);
-
-   wxPen* chartPen = new wxPen(wxColor(51,245,12));
-   wxBrush* chartBrush = new wxBrush(wxColor(0,0,0));
-
-   FillAreaDraw* chartFillArea = new FillAreaDraw(*borderPen, *fillBrush);
-   myChart->SetBackground(chartFillArea);
    chartPanel = new wxChartPanel(this, wxID_ANY);
-   chartPanel->SetChart(myChart);
+   chartPanel->SetBackgroundColour(wxColor(0,0,0));
+   if(chartPanel->GetChart()!= nullptr){
+      delete chartPanel->GetChart();
+   }
+   Chart* myChart = PopulateDrawChart(portfolio);
+   if(myChart != nullptr){
+      chartPanel->SetChart(myChart);
+   }
    //add valuation chart to the right side panel here
    rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
 
@@ -245,3 +183,81 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    setupLayout();
    UpdatePortfolioDisplayValues();
 }
+Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
+   size_t count = portfolio.valuationVectorPlotting.size();
+   if(count == 0){
+      return nullptr;
+   }
+   double * data = new double[count];
+   time_t* times = new time_t[count];
+
+   for(size_t i = 0; i<count;i++){
+      data[i] = portfolio.valuationVectorPlotting[i].second;
+      times[i] = portfolio.valuationVectorPlotting[i].first.GetTicks();
+   }
+
+   TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
+
+   XYLineRenderer* customColoredLine = new XYLineRenderer();
+   wxPen* myPen = new wxPen(wxColor(51,245,12));
+   customColoredLine->SetSeriePen(0,myPen);
+   valuationTimeSeries->SetRenderer(customColoredLine);
+
+   XYPlot *xyPlot = new XYPlot();
+   xyPlot->AddDataset(valuationTimeSeries);
+
+   wxPen* borderPen = new wxPen(wxColor(51,245,12));
+   wxBrush* fillBrush = new wxBrush(wxColor(0,0,0));
+
+   FillAreaDraw* fillArea = new FillAreaDraw(*borderPen, *fillBrush);
+
+   xyPlot->SetDrawGrid(true, true);
+
+   wxPen gridLinePen(wxColor(51,245,12),1, wxPENSTYLE_SOLID);
+
+   NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+   leftAxis->SetTitle("Valuations");
+   wxColor myColor = wxColor(51,245,12);
+   leftAxis->SetTitleColour(myColor);
+   leftAxis->SetLabelTextColour(myColor);
+   leftAxis->SetMajorGridlinePen(gridLinePen);
+   leftAxis->SetMinorGridlinePen(gridLinePen);
+   leftAxis->SetLabelPen(gridLinePen);
+
+
+   DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
+   bottomAxis->SetTitle("Valuation Dates");
+   bottomAxis->SetTitleColour(myColor);
+   bottomAxis->SetLabelTextColour(myColor);
+   bottomAxis->SetVerticalLabelText(true);
+   bottomAxis->SetDateFormat(wxT("%b-%Y"));
+   bottomAxis->SetMajorGridlinePen(gridLinePen);
+   bottomAxis->SetLabelPen(*myPen);
+
+   xyPlot->AddAxis(leftAxis);
+   xyPlot->AddAxis(bottomAxis);
+
+   xyPlot->LinkDataHorizontalAxis(0,0);
+   xyPlot->LinkDataVerticalAxis(0,0);
+
+   xyPlot->SetBackground(fillArea);
+   Chart* myChart = new Chart(xyPlot, "Valuations");
+   wxString titleText = "Valuation Chart";
+   wxFont titleFont = *wxNORMAL_FONT;
+   titleFont.SetPointSize(22);
+
+   TextElement* chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
+   chartTitle->SetColour(myColor);
+
+   Header* myHeader = new Header(*chartTitle);
+   myChart->SetHeader(myHeader);
+
+   wxPen* chartPen = new wxPen(myColor);
+   wxBrush* chartBrush = new wxBrush(wxColor(0,0,0));
+
+   FillAreaDraw* chartFillArea = new FillAreaDraw(*borderPen, *fillBrush);
+   myChart->SetBackground(chartFillArea);
+
+   return myChart;
+
+}  

@@ -56,6 +56,7 @@ class MainFrame : public wxFrame{
         void ReadPickQuote(const std::string&filePath);
         void OnAssetVLCClick(wxListEvent&e);
         void OnAssetPopoutClose(wxCommandEvent &e);
+        Chart* PopulateDrawChart(Portfolio &portfolio);
 };
 
 

@@ -132,17 +132,23 @@ double Portfolio::TotalValuation(){
     return totalValuation;
 }
 
-void Portfolio::addValuation(){
+void Portfolio::addValuation() {
     double totalValuation = 0.0;
-    wxDateTime latestDate = wxDateTime(1, wxDateTime::Jan, 1900); 
-    for(auto&assetPtr: assetPtrs){
-        if(!assetPtr->valuations.empty()){
+    wxDateTime latestDate = wxDateTime(1, wxDateTime::Jan, 1900);
+
+    for (auto& assetPtr : assetPtrs) {
+        double assetValuation = 0.0;
+        if (!assetPtr->valuations.empty()) {
             Valuation& lastValuation = assetPtr->valuations.back();
-            totalValuation +=lastValuation.valuation;
-            if(lastValuation.valuationDate.IsLaterThan(latestDate)){
+            assetValuation = lastValuation.valuation;
+            if (lastValuation.valuationDate.IsLaterThan(latestDate)) {
                 latestDate = lastValuation.valuationDate;
             }
+        } else {
+            // If no valuation, use deployed capital
+            assetValuation = assetPtr->CalculateInvestedCapital();
         }
+        totalValuation += assetValuation;
     }
 
     auto it = std::find_if(valuationVectorPlotting.begin(), valuationVectorPlotting.end(),
@@ -154,4 +160,5 @@ void Portfolio::addValuation(){
     } else {
         valuationVectorPlotting.push_back(std::make_pair(latestDate, totalValuation));
     }
-}//call this anytime there is an edit/addition/deletion of a valuation for any asset
+}
+//call this anytime there is an edit/addition/deletion of a valuation for any asset
