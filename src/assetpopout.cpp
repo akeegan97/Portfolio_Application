@@ -312,7 +312,6 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
 }
 
 void AssetPopout::OnClose(wxCloseEvent &e){
-    std::cout << "AssetPopout::OnClose called, Parent: " << GetParent() << std::endl;
     wxCommandEvent evt(ASSET_POPOUT_CLOSED, wxID_ANY);
     wxPostEvent(GetParent(), evt);
     e.Skip();

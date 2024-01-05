@@ -15,7 +15,6 @@ class AssetPopout : public wxFrame{
             valuationListControl(nullptr){
                 setupLayout();
                 UpdateDisplayTextValues();
-                std::cout << "Binding ASSET_POPOUT_CLOSED event in MainFrame" << std::endl;
                 Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
             };
         

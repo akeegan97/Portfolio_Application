@@ -55,18 +55,32 @@ void MainFrame::setupLayout(){
    TopRSiderSizer->Add(quoteOfTheDate,1, wxEXPAND | wxALL, 15);
    
    rSideSizer->Add(quoteOftheDatePanel, 1, wxEXPAND | wxALL, 10);
+   // Create the holder panel
+   chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
+   chartPanelHolderPanel->SetBackgroundColour(wxColor(0, 0, 0));
 
-   chartPanel = new wxChartPanel(this, wxID_ANY);
-   chartPanel->SetBackgroundColour(wxColor(0,0,0));
-   if(chartPanel->GetChart()!= nullptr){
+   // Create a sizer for the holder panel
+   wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
+   chartPanelHolderPanel->SetSizer(holderSizer);
+
+   // Create the chart panel
+   wxChartPanel* chartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
+   chartPanel->SetBackgroundColour(wxColor(0, 0, 0));
+
+   // If there is an existing chart, delete it
+   if (chartPanel->GetChart() != nullptr) {
       delete chartPanel->GetChart();
    }
-   Chart* myChart = PopulateDrawChart(portfolio);
-   if(myChart != nullptr){
-      chartPanel->SetChart(myChart);
+
+   // Populate and set the new chart
+   Chart* valuationChart = PopulateDrawChart(portfolio);
+   if (valuationChart != nullptr) {
+      chartPanel->SetChart(valuationChart);
+      holderSizer->Add(chartPanel, 1, wxEXPAND); // Add chartPanel to the holder sizer with proportion 1 and expand flag
    }
-   //add valuation chart to the right side panel here
-   rSideSizer->Add(chartPanel, 7, wxEXPAND | wxALL, 10);
+
+   // Add chartPanelHolderPanel to the right side sizer
+   rSideSizer->Add(chartPanelHolderPanel, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
@@ -89,6 +103,8 @@ void MainFrame::setupLayout(){
    //set mainframe sizer to be the main sizer here
    this->SetSizer(mainSizer);
    this->Layout();
+   this->Refresh();
+   this->Update();
 }
 
 
@@ -179,9 +195,10 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
 
 
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
-   std::cout<<"CALLED ON ASSET POPOUT CLOSE"<<std::endl;
-   setupLayout();
+   UpdateChart();
+   UpdateAssetListControl();
    UpdatePortfolioDisplayValues();
+   this->Refresh();
 }
 Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    size_t count = portfolio.valuationVectorPlotting.size();
@@ -261,3 +278,29 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    return myChart;
 
 }  
+
+void MainFrame::UpdateChart() {
+   chartPanelHolderPanel->DestroyChildren(); // Destroy previous chart panel
+
+   wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
+   chartPanelHolderPanel->SetSizer(holderSizer);
+
+   Chart *newChart = PopulateDrawChart(portfolio);
+   wxChartPanel* newChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
+   newChartPanel->SetBackgroundColour(wxColor(0,0,0));
+   newChartPanel->SetChart(newChart);
+
+   holderSizer->Add(newChartPanel, 1, wxEXPAND);
+
+   chartPanelHolderPanel->Layout(); 
+   this->Layout(); 
+}
+
+void MainFrame::UpdateAssetListControl(){
+   for(auto &assetPtr: portfolio.assetPtrs){
+      assetPtr->UpdateDerivedValues();
+   }
+   allAssetVListControl->setItems(portfolio.assetPtrs);
+   allAssetVListControl->Update();
+   this->Layout();
+}

@@ -24,7 +24,7 @@ void to_json(json &j, const Portfolio &por) {
 
 void from_json(const json &j, Portfolio &por) {
     if (!j.contains("Assets") || !j["Assets"].is_array()) {
-        // std::cout<<"Json values: "<<j<<std::endl;
+
         throw std::runtime_error("JSON does not contain 'Assets' or 'Assets' is not an array.");
     }
     //first getting the base info from the json to create the asset object

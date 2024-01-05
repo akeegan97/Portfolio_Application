@@ -31,7 +31,7 @@ class MainFrame : public wxFrame{
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
             totalValuationText(nullptr),
-            chartPanel(nullptr),
+            chartPanelHolderPanel(nullptr),
             quoteOfTheDate(nullptr)
             {
                 setupLayout();
@@ -48,7 +48,7 @@ class MainFrame : public wxFrame{
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;
-        wxChartPanel * chartPanel;
+        wxPanel* chartPanelHolderPanel;
         wxStaticText * quoteOfTheDate;
         wxPanel* quoteOftheDatePanel;
         void setupLayout();
@@ -57,6 +57,8 @@ class MainFrame : public wxFrame{
         void OnAssetVLCClick(wxListEvent&e);
         void OnAssetPopoutClose(wxCommandEvent &e);
         Chart* PopulateDrawChart(Portfolio &portfolio);
+        void UpdateChart();
+        void UpdateAssetListControl();
 };
 
 
