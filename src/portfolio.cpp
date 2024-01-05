@@ -162,3 +162,81 @@ void Portfolio::addValuation() {
     }
 }
 //call this anytime there is an edit/addition/deletion of a valuation for any asset
+
+void Portfolio::PopulateValuationMaps(){
+    currentQMap.clear();
+    previousQMap.clear();
+    wxDateTime oldestInvestedDate = wxDateTime::Today();
+
+    for (const auto& assetPtr : assetPtrs) {
+        for(const auto&inv: assetPtr->investors){
+            for (const auto& position : inv->positions) {
+                if (position->dateInvested.IsEarlierThan(oldestInvestedDate)) {
+                    oldestInvestedDate = position->dateInvested;
+                }
+            }
+        }
+    }
+
+}
+
+
+wxDateTime Portfolio::GetQuarterEndDate(wxDateTime &currentDate){
+    int year = currentDate.GetYear();
+
+    wxDateTime quarterEnd;
+    if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
+        // Q1
+        quarterEnd = wxDateTime(31, wxDateTime::Mar, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Apr, year) && currentDate < wxDateTime(1, wxDateTime::Jul, year)) {
+        // Q2
+        quarterEnd = wxDateTime(30, wxDateTime::Jun, year);
+    } else if (currentDate >= wxDateTime(1, wxDateTime::Jul, year) && currentDate < wxDateTime(1, wxDateTime::Oct, year)) {
+        // Q3
+        quarterEnd = wxDateTime(30, wxDateTime::Sep, year);
+    } else {
+        // Q4
+        quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
+    }
+    return quarterEnd;
+}
+
+wxDateTime Portfolio::GetNextQuarterEndDate(wxDateTime &currentEndDate){
+    wxDateTime nextEndingQuarter;
+    int year = currentEndDate.GetYear();
+    if(currentEndDate.GetMonth()<= wxDateTime::Mar){
+        nextEndingQuarter = wxDateTime(30, wxDateTime::Jun, year);
+    }else if(currentEndDate.GetMonth()<=wxDateTime::Jun){
+        nextEndingQuarter = wxDateTime(30, wxDateTime::Sep, year);
+    }else if(currentEndDate.GetMonth()<=wxDateTime::Sep){
+        nextEndingQuarter = wxDateTime(31,wxDateTime::Dec, year);
+    }else if(currentEndDate.GetMonth()<=wxDateTime::Dec){
+        nextEndingQuarter = wxDateTime(31, wxDateTime::Mar, year+1);
+    }
+    return nextEndingQuarter;
+}
+
+
+bool Portfolio::IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate){
+    wxDateTime qStart, qEnd;
+    int year = quarterEndDate.GetYear();
+    if (quarterEndDate >= wxDateTime(1, wxDateTime::Jan, year) && quarterEndDate < wxDateTime(1, wxDateTime::Apr, year)) {
+        // Q1
+        qStart = wxDateTime(1, wxDateTime::Jan, year);
+        qEnd = wxDateTime(31, wxDateTime::Mar, year);
+    } else if (quarterEndDate >= wxDateTime(1, wxDateTime::Apr, year) && quarterEndDate < wxDateTime(1, wxDateTime::Jul, year)) {
+        // Q2
+        qStart = wxDateTime(1, wxDateTime::Apr, year);
+        qEnd = wxDateTime(30, wxDateTime::Jun, year);
+    } else if (quarterEndDate >= wxDateTime(1, wxDateTime::Jul, year) && quarterEndDate < wxDateTime(1, wxDateTime::Oct, year)) {
+        // Q3
+        qStart = wxDateTime(1, wxDateTime::Jul, year);
+        qEnd = wxDateTime(30, wxDateTime::Sep, year);
+    } else {
+        // Q4
+        qStart = wxDateTime(1, wxDateTime::Oct, year);
+        qEnd = wxDateTime(31, wxDateTime::Dec, year);
+    }
+
+    return date.IsBetween(qStart, qEnd);
+}

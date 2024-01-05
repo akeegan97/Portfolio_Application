@@ -24,6 +24,8 @@ class Portfolio{
         std::vector<std::pair<wxDateTime, double>> valuationVectorPlotting;
         std::vector<std::shared_ptr<Investor>> allInvestorPtrs;
         std::set<std::string> addedInvestorsName;
+        std::map<wxDateTime, double> previousQMap;
+        std::map<std::string, std::map<wxDateTime, double>> currentQMap;
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         void LoadFromFile(const std::string &filePath);
@@ -31,12 +33,15 @@ class Portfolio{
         //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display
         void PopulateEvents();
         void PopulateInvestors();        
-        void addValuation();
+        void addValuation();//
+        void PopulateValuationMaps();//call when any valuations are added/edited/deleted
         //functions for portfolio to calculate key figures used in the mainframe wxStaticText control
-
         double TotalInvestedCapital();
         double TotalInvestors();
         double TotalValuation();
+        wxDateTime GetQuarterEndDate(wxDateTime &currentdate);
+        wxDateTime GetNextQuarterEndDate(wxDateTime &currentEndDate);
+        bool IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate);
 
 };
 void to_json(json &j, const Portfolio &por);
