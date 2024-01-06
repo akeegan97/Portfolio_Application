@@ -166,19 +166,37 @@ void Portfolio::addValuation() {
 void Portfolio::PopulateValuationMaps(){
     currentQMap.clear();
     previousQMap.clear();
-    wxDateTime oldestInvestedDate = wxDateTime::Today();
+    valuationVectorPlotting.clear();
+    PopulatePreviousQValuations();
+    PopulateAndProcessCurrentQValuations();
 
-    for (const auto& assetPtr : assetPtrs) {
-        for(const auto&inv: assetPtr->investors){
-            for (const auto& position : inv->positions) {
-                if (position->dateInvested.IsEarlierThan(oldestInvestedDate)) {
-                    oldestInvestedDate = position->dateInvested;
-                }
-            }
+    // Insert all entries from previousQMap
+    for (const auto& entry : previousQMap) {
+        valuationVectorPlotting.push_back(entry);
+    }
+
+    // Insert or update entries from currentQMap
+    for (const auto& entry : currentQMap) {
+        auto it = std::find_if(valuationVectorPlotting.begin(), valuationVectorPlotting.end(),
+                               [&entry](const std::pair<wxDateTime, double>& existingEntry) {
+                                   return existingEntry.first == entry.first;
+                               });
+        if (it != valuationVectorPlotting.end()) {
+            // Update existing entry
+            it->second = entry.second;
+        } else {
+            // Insert new entry
+            valuationVectorPlotting.push_back(entry);
         }
     }
 
+    // Sort valuationVectorPlotting by date
+    std::sort(valuationVectorPlotting.begin(), valuationVectorPlotting.end(),
+              [](const std::pair<wxDateTime, double>& a, const std::pair<wxDateTime, double>& b) {
+                  return a.first.IsEarlierThan(b.first);
+              });
 }
+
 
 
 wxDateTime Portfolio::GetQuarterEndDate(wxDateTime &currentDate){
@@ -199,6 +217,26 @@ wxDateTime Portfolio::GetQuarterEndDate(wxDateTime &currentDate){
         quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
     }
     return quarterEnd;
+}
+
+wxDateTime Portfolio::GetQuarterStartDate(wxDateTime &date){
+    int year = date.GetYear();
+
+    wxDateTime quarterStartDate;
+    if (date >= wxDateTime(1, wxDateTime::Jan, year) && date < wxDateTime(1, wxDateTime::Apr, year)) {
+        // Q1
+        quarterStartDate = wxDateTime(1, wxDateTime::Jan, year);
+    } else if (date >= wxDateTime(1, wxDateTime::Apr, year) && date < wxDateTime(1, wxDateTime::Jul, year)) {
+        // Q2
+        quarterStartDate = wxDateTime(1, wxDateTime::Apr, year);
+    } else if (date >= wxDateTime(1, wxDateTime::Jul, year) && date < wxDateTime(1, wxDateTime::Oct, year)) {
+        // Q3
+        quarterStartDate = wxDateTime(1, wxDateTime::Jul, year);
+    } else {
+        // Q4
+        quarterStartDate = wxDateTime(1, wxDateTime::Oct, year);
+    }
+    return quarterStartDate;
 }
 
 wxDateTime Portfolio::GetNextQuarterEndDate(wxDateTime &currentEndDate){
@@ -239,4 +277,142 @@ bool Portfolio::IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterE
     }
 
     return date.IsBetween(qStart, qEnd);
+}
+
+double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asset, const wxDateTime& date) {
+    if (asset->valuations.empty()) {
+        return asset->CalculateInvestedCapital();
+    }
+    // Sort valuations by date
+    std::sort(asset->valuations.begin(), asset->valuations.end(), 
+              [](const Valuation& a, const Valuation& b) {
+                  return a.valuationDate.IsEarlierThan(b.valuationDate);
+              });
+
+    // Find the last valuation before the given date
+    double lastValuationAmount = asset->CalculateInvestedCapital();
+    for (const auto& valuation : asset->valuations) {
+        if (valuation.valuationDate.IsSameDate(date) || valuation.valuationDate.IsLaterThan(date)) {
+            break;
+        }
+        lastValuationAmount = valuation.valuation;
+    }
+    std::cout<<"entered bad return: 2"<<std::endl;
+    return 0.0;
+}
+
+
+void Portfolio::PopulatePreviousQValuations() {
+    previousQMap.clear();
+
+    wxDateTime oldestInvestedDate = wxDateTime::Today();
+
+    for(const auto&assetPointer: assetPtrs){
+        for(const auto&inv: assetPointer->investors){
+            for(const auto& pos : inv->positions){
+                if(pos->assetPtr == assetPointer){
+                    if(pos->dateInvested.IsEarlierThan(oldestInvestedDate)){
+                        oldestInvestedDate = pos->dateInvested;
+                    }
+                }
+            }
+        }
+    }//Getting the first date of deployed capital
+    //Get the End Date of the Q that corresponds to the oldest date
+    wxDateTime qEndDate = GetQuarterEndDate(oldestInvestedDate);
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQStartDate = GetQuarterStartDate(today);
+    double lastQuarterValuation = 0.0; // Initialize to zero or a starting value
+
+    while (qEndDate.IsEarlierThan(currentQStartDate)) {
+        double quarterValuation = 0.0;
+        bool hasNewDataInQuarter = false;
+
+        for (const auto& assetPointer : assetPtrs) {
+            bool hasValuationInQuarter = false;
+            double assetsValuation = 0.0;
+
+            // Check for valuations in this quarter
+            for (const auto& valuation : assetPointer->valuations) {
+                if (IsWithinQuarter(valuation.valuationDate, qEndDate)) {
+                    assetsValuation += valuation.valuation;
+                    hasValuationInQuarter = true;
+                }
+            }
+
+            // If no valuation, check for deployed capital in this quarter
+            if (!hasValuationInQuarter) {
+                double deployedCapital = 0.0;
+                for (const auto& inv : assetPointer->investors) {
+                    for (const auto& pos : inv->positions) {
+                        if (pos->assetPtr == assetPointer && IsWithinQuarter(pos->dateInvested, qEndDate)) {
+                            deployedCapital += pos->deployed;
+                        }
+                    }
+                }
+                if (deployedCapital > 0) {
+                    assetsValuation += deployedCapital;
+                    hasNewDataInQuarter = true;
+                }
+            }
+
+            quarterValuation += assetsValuation;
+        }
+
+        // Update the quarter valuation
+        if (hasNewDataInQuarter) {
+            quarterValuation += lastQuarterValuation; // Add to previous quarter's valuation
+            lastQuarterValuation = quarterValuation;  // Update for next iteration
+        } else {
+            quarterValuation = lastQuarterValuation; // Carry forward if no new data
+        }
+
+        previousQMap[qEndDate] = quarterValuation;
+        qEndDate = GetNextQuarterEndDate(qEndDate);
+    }
+}
+
+
+void Portfolio::PopulateAndProcessCurrentQValuations() {
+    std::map<wxString, std::map<wxDateTime, double>> allAssetValuationThisQMap;
+    double currentValuation = previousQMap.rbegin()->second;
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQStartDate = GetQuarterStartDate(today);
+
+    //populate all asset valuations map
+
+    for(auto &asset: assetPtrs){
+        if(asset->valuations.empty()){
+            allAssetValuationThisQMap[asset->assetName][currentQStartDate] = asset->CalculateInvestedCapital();
+        }else{
+            for(auto&val:asset->valuations){
+                if(IsWithinQuarter(val.valuationDate, today)){
+                    allAssetValuationThisQMap[asset->assetName][val.valuationDate] = val.valuation;    
+                }
+            }
+        }
+    }
+
+    for (const auto& [assetName, valuations] : allAssetValuationThisQMap) {
+        // Find the asset with the matching name
+        auto assetIt = std::find_if(assetPtrs.begin(), assetPtrs.end(),
+                                    [&assetName](const std::shared_ptr<Asset>& asset) {
+                                        return asset->assetName == assetName;
+                                    });
+
+        // Check if the asset was found
+        if (assetIt != assetPtrs.end()) {
+            // Iterate over the valuations for this asset
+            for (const auto& [date, amount] : valuations) {
+                // Get the last valuation amount before the current valuation date
+                wxDateTime dateBeforeCurrentValuation = date - wxTimeSpan::Days(1); // Date just before the current valuation
+                double lastValuation = GetLastValuationOrDeployedCapital(*assetIt, dateBeforeCurrentValuation);
+
+                // Calculate the differential and update current valuation
+                double differential = amount - lastValuation;
+                currentValuation += differential;
+                currentQMap[date] = currentValuation;
+            }
+        }
+    }
 }

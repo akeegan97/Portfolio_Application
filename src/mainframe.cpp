@@ -195,6 +195,7 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
 
 
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
+   portfolio.PopulateValuationMaps();
    UpdateChart();
    UpdateAssetListControl();
    UpdatePortfolioDisplayValues();

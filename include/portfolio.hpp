@@ -25,7 +25,7 @@ class Portfolio{
         std::vector<std::shared_ptr<Investor>> allInvestorPtrs;
         std::set<std::string> addedInvestorsName;
         std::map<wxDateTime, double> previousQMap;
-        std::map<std::string, std::map<wxDateTime, double>> currentQMap;
+        std::map<wxDateTime, double> currentQMap;
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         void LoadFromFile(const std::string &filePath);
@@ -42,6 +42,11 @@ class Portfolio{
         wxDateTime GetQuarterEndDate(wxDateTime &currentdate);
         wxDateTime GetNextQuarterEndDate(wxDateTime &currentEndDate);
         bool IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate);
+        double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
+        wxDateTime GetQuarterStartDate(wxDateTime &date);
+        void PopulatePreviousQValuations();
+        void PopulateAndProcessCurrentQValuations();
+
 
 };
 void to_json(json &j, const Portfolio &por);

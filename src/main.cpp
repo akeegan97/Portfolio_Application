@@ -11,10 +11,10 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data.json");
+    portfolio.LoadFromFile("../storage/data3.json");
     portfolio.PopulateEvents();
-    portfolio.addValuation();
     portfolio.PopulateInvestors();
+    portfolio.PopulateValuationMaps();
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
     frame->SetBackgroundColour(wxColor(0,0,0));
     frame->Show(true);
@@ -22,7 +22,7 @@ bool RugenBerg::OnInit(){
 }
 
 int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
+    portfolio.SavePortfolioToFile(portfolio,"../storage/data3.json");
     return 0;
 }
 
