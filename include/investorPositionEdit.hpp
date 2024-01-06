@@ -20,6 +20,8 @@ class InvestorPositionEditWindow : public wxDialog{
         double GetSubscribed();
         double GetPaid();
         double GetDeployed();
+        double GetReserve();
+        double GetReturnOfCapital();
         void OnDeletePositionButton(wxCommandEvent& e);//debating on allowing position deletes at this stage
     private:
         wxDatePickerCtrl * datePicker;
@@ -34,6 +36,10 @@ class InvestorPositionEditWindow : public wxDialog{
         wxStaticText*clientPaidText;
         wxTextCtrl*clientDeployedCtrl;
         wxStaticText*clientDeployedText;
+        wxTextCtrl*clientReserveCtrl;
+        wxStaticText*clientReserveText;
+        wxTextCtrl*clientReturnOfCapitalCtrl;
+        wxStaticText*clientReturnOfCapitalText;
 };
 
 #endif

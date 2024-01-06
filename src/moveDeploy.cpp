@@ -1,7 +1,7 @@
 #include "moveDeploy.hpp"
 
 MoveDeploy::MoveDeploy(wxWindow *parentWindow):
-    wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
+    wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxSize(300,300), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         wxTextValidator validator(wxFILTER_DIGITS);
         wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -12,8 +12,8 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
         datePicker->SetForegroundColour(wxColor(51,245,12));
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Move");
         datePickerText->SetForegroundColour(wxColor(51,245,12));
-        mainSizer->Add(datePickerText, 0, wxALL | wxLEFT,10);
-        mainSizer->Add(datePicker, 0, wxALL | wxEXPAND,10);
+        mainSizer->Add(datePickerText, 0, wxALL | wxLEFT,5);
+        mainSizer->Add(datePicker, 0, wxALL | wxEXPAND,5);
 
         //Amount Moved:
         amountCtrl = new wxTextCtrl(this, wxID_ANY);
@@ -23,8 +23,8 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
 
         amountText = new wxStaticText(this, wxID_ANY, "Enter Amount Moved");
         amountText->SetForegroundColour(wxColor(51,245,12));
-        mainSizer->Add(amountText, 0, wxALL|wxLEFT,10);
-        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 10);
+        mainSizer->Add(amountText, 0, wxALL|wxLEFT,5);
+        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
         //Direction of Move:
         wxArrayString choices;
         choices.Add("To Deploy");
@@ -35,8 +35,8 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
 
         directionOfMovementText = new wxStaticText(this, wxID_ANY, "Select Movement Type");
         directionOfMovementText->SetForegroundColour(wxColor(51,245,12));
-        mainSizer->Add(directionOfMovementText, 0, wxALL | wxLEFT, 10);
-        mainSizer->Add(directionOfMovement, 0, wxALL|wxEXPAND, 10);
+        mainSizer->Add(directionOfMovementText, 0, wxALL | wxLEFT, 5);
+        mainSizer->Add(directionOfMovement, 0, wxALL|wxEXPAND, 5);
 
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);

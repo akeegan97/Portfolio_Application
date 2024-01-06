@@ -1,7 +1,7 @@
 #include "addValuation.hpp"
 
 AddValuation::AddValuation(wxWindow *parentWindow):
-    wxDialog(parentWindow, wxID_ANY, "Add Valuation", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){
+    wxDialog(parentWindow, wxID_ANY, "Add Valuation", wxDefaultPosition, wxSize(300,200), wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){
         wxTextValidator validator(wxFILTER_DIGITS);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -16,8 +16,8 @@ AddValuation::AddValuation(wxWindow *parentWindow):
         datePickerText->SetForegroundColour(wxColor(51,245,12));
         datePickerText->SetBackgroundColour(wxColor(0,0,0));
 
-        mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 10);
-        mainSizer->Add(datePicker, 0, wxALL|wxLEFT, 10);
+        mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 5);
+        mainSizer->Add(datePicker, 0, wxALL|wxEXPAND, 5);
 
         //valuation amount
 
@@ -31,8 +31,8 @@ AddValuation::AddValuation(wxWindow *parentWindow):
         valuationText->SetForegroundColour(wxColor(51,245,12));
         valuationText->SetBackgroundColour(wxColor(0,0,0));
 
-        mainSizer->Add(valuationText, 0, wxALL|wxLEFT,10);
-        mainSizer->Add(valuationCtrl, 0, wxALL|wxEXPAND,10);
+        mainSizer->Add(valuationText, 0, wxALL|wxLEFT,5);
+        mainSizer->Add(valuationCtrl, 0, wxALL|wxEXPAND,5);
 
         //buttons
 

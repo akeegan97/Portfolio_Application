@@ -1,7 +1,7 @@
 #include "addDistribution.hpp"
 
 AddDistributionDialog::AddDistributionDialog(wxWindow* parentWindow):
-    wxDialog(parentWindow, wxID_ANY, "Add Distribution", wxDefaultPosition,wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
+    wxDialog(parentWindow, wxID_ANY, "Add Distribution", wxDefaultPosition,wxSize(300,200), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         wxTextValidator validator(wxFILTER_DIGITS);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -16,8 +16,8 @@ AddDistributionDialog::AddDistributionDialog(wxWindow* parentWindow):
         datePickerText->SetForegroundColour(wxColor(51,245,12));
         datePickerText->SetBackgroundColour(wxColor(0,0,0));
 
-        mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 10);
-        mainSizer->Add(datePicker, 0, wxALL|wxLEFT, 10);
+        mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 5);
+        mainSizer->Add(datePicker, 0, wxALL|wxEXPAND, 5);
 
         //Distribution Amount
 
@@ -30,8 +30,8 @@ AddDistributionDialog::AddDistributionDialog(wxWindow* parentWindow):
         amountText->SetForegroundColour(wxColor(51,245,12));
         amountText->SetBackgroundColour(wxColor(0,0,0));
 
-        mainSizer->Add(amountText, 0, wxALL|wxLEFT, 10);
-        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 10);
+        mainSizer->Add(amountText, 0, wxALL|wxLEFT, 5);
+        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
 
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);

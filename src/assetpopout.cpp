@@ -198,6 +198,8 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
         double clientSubscribed = editWindow.GetSubscribed();
         double clientPaid = editWindow.GetPaid();
         double clientDeployed = editWindow.GetDeployed();
+        double clientReserve = editWindow.GetReserve();
+        double clientReturnOfCapital = editWindow.GetReserve();
 
         if(investedDate != wxDateTime(01,wxDateTime::Jan, 2001)){
             selectedInvestorPosition->positionPtr->dateInvested = investedDate;
@@ -216,6 +218,12 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
         }
         if(clientDeployed != 0){
             selectedInvestorPosition->positionPtr->deployed = clientDeployed;
+        }
+        if(clientReserve != 0){
+            selectedInvestorPosition->positionPtr->reserve = clientReserve;
+        }
+        if(clientReturnOfCapital !=0){
+            selectedInvestorPosition->positionPtr->returnOfCapital = clientReturnOfCapital;
         }
         for(auto&ipd : asset->investorsPositionsDisplays){
             ipd->positionPtr->calculateOwnership(portfolio);
