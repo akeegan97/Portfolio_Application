@@ -131,11 +131,26 @@ double Asset::CalculateNumberOfInvestors()const{
 *
 *@return double last valuation added to valuations vector.
 */
-double Asset::GetLastValuation()const{
-    if(valuations.empty()){
-        return 0.0;////Might change instead of 0 to be sumtotal of deployed capital
-    }else{
-        return valuations.back().valuation;
+double Asset::GetLastValuation() const {
+    if (valuations.empty()) {
+        double deployedCapital = 0.0;
+        for (const auto& inv : investors) {
+            for (const auto& pos : inv->positions) {
+                if (pos->assetPtr.get() == this) {
+                    deployedCapital += pos->deployed;
+                }
+            }
+        }
+        return deployedCapital;
+    } else {
+        // Make a copy of valuations for sorting if the original vector is const
+        auto sortedValuations = valuations; 
+        std::sort(sortedValuations.begin(), sortedValuations.end(), 
+            [](const Valuation& a, const Valuation& b) {
+                return a.valuationDate.IsEarlierThan(b.valuationDate);
+            }
+        );
+        return sortedValuations.back().valuation;
     }
 }
 /**
