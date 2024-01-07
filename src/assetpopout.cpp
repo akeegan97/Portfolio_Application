@@ -9,6 +9,7 @@
 #include "moveDeploy.hpp"
 #include "addValuation.hpp"
 #include "customevents.hpp"
+#include "addEvent.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -94,9 +95,15 @@ void AssetPopout::setupLayout(){
     addValuationButton->SetForegroundColour(wxColor(51,245,12));
     addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
 
+    addEventButton = new wxButton(this, wxID_ANY, "Add Event");
+    addEventButton->SetBackgroundColour(wxColor(0,0,0));
+    addEventButton->SetForegroundColour(wxColor(51,245,12));
+    addEventButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddEvent, this);
+
     bottomSizer->Add(addDistributionButton);
     bottomSizer->Add(assetLevelMovementOfCapitalButton);
     bottomSizer->Add(addValuationButton);
+    bottomSizer->Add(addEventButton);
     mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
 
@@ -318,6 +325,30 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         //do nothing and exit
     }
 }
+
+void AssetPopout::OnAddEvent(wxCommandEvent &e){
+    AddEvent addEventDialog(this);
+    addEventDialog.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = addEventDialog.ShowModal();
+    if(retVal == wxID_OK){
+        wxDateTime eventDate = addEventDialog.GetDate();
+        bool eventHasHappened = addEventDialog.GetHasHappened();
+        wxString eventDetails = addEventDialog.GetDiscription();
+
+        AssetEvent newEvent;
+        newEvent.eventDate = eventDate;
+        newEvent.hasHappened = eventHasHappened;
+        newEvent.eventDetails = eventDetails;
+        std::shared_ptr<AssetEvent> newEventPtr = std::make_shared<AssetEvent>(newEvent);
+        asset->events.push_back(newEventPtr);
+        portfolio.assetEventPtrs.push_back(newEventPtr);
+
+        eventsVirtualListControl->setItems(asset->events);
+    }else if(retVal== wxID_CANCEL){
+        //do nothing and exit
+    }
+}
+
 
 void AssetPopout::OnClose(wxCloseEvent &e){
     wxCommandEvent evt(ASSET_POPOUT_CLOSED, wxID_ANY);

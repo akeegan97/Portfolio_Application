@@ -15,7 +15,7 @@ void MainFrame::setupLayout(){
    wxBoxSizer* lSideSizer = new wxBoxSizer(wxVERTICAL);
    //Adding in All Asset Events
    if(!portfolio.assetEventPtrs.empty()){
-      VListControl<std::shared_ptr<AssetEvent>>* allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+      allAssetEventVListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
       allAssetEventVListControl->SetBackgroundColour(wxColor(0,0,0));
       allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
       lSideSizer->Add(allAssetEventVListControl,2,wxEXPAND | wxALL, 10);
@@ -196,9 +196,11 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
 
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    portfolio.PopulateValuationMaps();
+   portfolio.PopulateEvents();
    UpdateChart();
    UpdateAssetListControl();
    UpdatePortfolioDisplayValues();
+   UpdateEventListControl();
    this->Refresh();
 }
 Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
@@ -303,5 +305,10 @@ void MainFrame::UpdateAssetListControl(){
    }
    allAssetVListControl->setItems(portfolio.assetPtrs);
    allAssetVListControl->Update();
+   this->Layout();
+}
+void MainFrame::UpdateEventListControl(){
+   allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
+   allAssetEventVListControl->Update();
    this->Layout();
 }

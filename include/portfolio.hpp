@@ -46,8 +46,6 @@ class Portfolio{
         wxDateTime GetQuarterStartDate(wxDateTime &date);
         void PopulatePreviousQValuations();
         void PopulateAndProcessCurrentQValuations();
-
-
 };
 void to_json(json &j, const Portfolio &por);
 void from_json(const json &j, Portfolio &por);

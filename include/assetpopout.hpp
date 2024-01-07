@@ -37,12 +37,14 @@ class AssetPopout : public wxFrame{
         wxButton * addDistributionButton;
         wxButton *assetLevelMovementOfCapitalButton;
         wxButton *addValuationButton;
+        wxButton *addEventButton;
         void setupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
         void OnAddDistributionClicked(wxCommandEvent &e);
         void OnDeployMovement(wxCommandEvent &e);
         void OnAddValuation(wxCommandEvent &e);
+        void OnAddEvent(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
 };
 

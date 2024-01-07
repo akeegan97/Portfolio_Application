@@ -59,6 +59,7 @@ class MainFrame : public wxFrame{
         Chart* PopulateDrawChart(Portfolio &portfolio);
         void UpdateChart();
         void UpdateAssetListControl();
+        void UpdateEventListControl();
 };
 
 
