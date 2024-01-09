@@ -46,6 +46,9 @@ class AssetPopout : public wxFrame{
         void OnAddValuation(wxCommandEvent &e);
         void OnAddEvent(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
+        void OnDistributionEdit(wxListEvent &e);
+        void OnValuationEdit(wxListEvent &e);
+        void OnEventEdit(wxListEvent &e);
 };
 
 

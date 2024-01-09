@@ -44,11 +44,16 @@ class Position{
     returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
 
     void calculateOwnership(Portfolio &portfolio);
-    ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage);
+    ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date);
+    void CalculateHistoricalManagementFees(const double &managementFeePercentage);
+    void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
+    void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
+
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
-    void PushFeeToVector(const ManagementFee&fee);
+    wxDateTime GetNextQuarterStartDate(wxDateTime &date);
     double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-    void CalculatePositionNetIncome(const Distribution &distribution, const double promoteFeePercentage);
+
+
 };
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);

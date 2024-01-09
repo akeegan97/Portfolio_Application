@@ -114,7 +114,6 @@ void Position::calculateOwnership(Portfolio &portfolio){
     percentOwnership = (deployed/totalDeployed);
 }
 
-
 std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateTime &currentDate){
     int year = currentDate.GetYear();
     wxDateTime quarterStart, quarterEnd;
@@ -140,10 +139,19 @@ std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateT
     return {quarterStart, quarterEnd};
 }
 
-ManagementFee Position::CalculatePositionManagementFees(Position&position, const double &managementFeePercentage){
+void Position::ReCalculateTotalManagementFeesDue(wxDateTime distributionDate) {
+    double feesDueUpToDistribution = 0.0;
+    for (const auto& fee : managementFees) {
+        if (fee.managementFeesAsset.first <= distributionDate) {
+            feesDueUpToDistribution += fee.managementFeesAsset.second;
+        }
+    }
+    mgmtFeesDue = feesDueUpToDistribution;
+}
+
+ManagementFee Position::CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date){
     ManagementFee feeThisQuarter;
-    wxDateTime now = wxDateTime::Today();
-    std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(now);
+    std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(date);
     double endingDeployedCapital = position.deployed;
     double totalMovedToDeploy, totalMovedFromDeploy = 0;
 
@@ -205,7 +213,91 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     return feeThisQuarter;
 }
 
+void Position::CalculateHistoricalManagementFees(const double &managementFeePercentage){
+    managementFees.clear();
+    wxDateTime dateInvested = this->dateInvested;
+    wxDateTime currentDate = wxDateTime::Today();
+    std::pair<wxDateTime, wxDateTime> startingQDates = GetCurrentQuarterDates(dateInvested);
+    wxDateTime startingQDate = startingQDates.first;
+    wxDateTime endingQDate;
+
+    while(startingQDate < currentDate){
+        std::pair<wxDateTime, wxDateTime> qDates = GetCurrentQuarterDates(startingQDate);
+        endingQDate = qDates.second;
+        ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,startingQDate);
+        startingQDate = GetNextQuarterStartDate(endingQDate);
+        managementFees.push_back(feeForQuarter);
+    }
+    ReCalculateTotalManagementFeesDue(startingQDate);
+}
+
+void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double& mgmtFeePercentage){
+    netIncome.clear();
+    promoteFees.clear();
+
+    std::sort(distributions.begin(), distributions.end(), 
+        [](const Distribution& a, const Distribution& b) {
+            return a.distribution.first < b.distribution.first;
+        }
+    );
+
+    // Set the initial last processed quarter to a time before any possible distributions
+    wxDateTime lastQuarterProcessed = wxDateTime::Now();
+    lastQuarterProcessed.SetYear(1900); // Example: Setting to a date way in the past
+    double totalFeesDue = 0.0;
+
+    for (const auto& distribution : distributions) {
+        std::pair<wxDateTime, wxDateTime> currentQuarter = GetCurrentQuarterDates(distribution.distribution.first);
+        wxDateTime quarterStartDate = currentQuarter.first;
+        wxDateTime quarterEndDate = currentQuarter.second;
+
+        // Check if we are in a new quarter and accumulate management fees
+        if (quarterStartDate > lastQuarterProcessed) {
+            totalFeesDue = 0.0; // Reset fees for a new quarter
+            for (const auto& fee : managementFees) {
+                if (fee.managementFeesAsset.first > lastQuarterProcessed && fee.managementFeesAsset.first <= quarterEndDate) {
+                    totalFeesDue += fee.managementFeesAsset.second;
+                }
+            }
+            lastQuarterProcessed = quarterEndDate;
+        }
+
+        double proportionalShare = distribution.distribution.second * percentOwnership;
+        double amountAfterMgmtFees = proportionalShare - totalFeesDue;
+        double promoteFee = 0;
+        double netIncomeAmount = 0;
+
+        if (amountAfterMgmtFees > 0) {
+            promoteFee = amountAfterMgmtFees * promoteFeePercentage;
+            netIncomeAmount = amountAfterMgmtFees - promoteFee;
+        }
+
+        if (netIncomeAmount > 0) {
+            Distribution netIncomeDistribution;
+            netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
+            netIncome.push_back(netIncomeDistribution);
+        }
+
+        if (promoteFee > 0) {
+            PromoteFee newPromoteFee;
+            newPromoteFee.promotefee = std::make_pair(distribution.distribution.first, promoteFee);
+            promoteFees.push_back(newPromoteFee);
+        }
+
+        // Debug prints
+        std::cout << "Date of Distribution Pushed: " << distribution.distribution.first.FormatISODate() << std::endl;
+        std::cout << "PROPORTIONAL SHARE OF GROSS DISTR: " << proportionalShare << std::endl;
+        std::cout << "TOTAL MGMT FEES DUE: " << totalFeesDue << std::endl;
+        std::cout << "NET INCOME AFTER MGMT FEES: " << netIncomeAmount << std::endl;
+        std::cout << "PROMOTE FEE: " << promoteFee << std::endl;
+
+        // Reset total fees due for the next distribution
+        totalFeesDue = 0.0;
+    }
+}
+
 double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime &end){
+
     if(end.IsEarlierThan(start)){
         return 0;
     }else{
@@ -214,47 +306,18 @@ double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime 
     }
 }
 
-void Position::PushFeeToVector(const ManagementFee& fee) {
-
-    wxDateTime feeDate = fee.managementFeesAsset.first;
-    auto it = std::find_if(managementFees.begin(), managementFees.end(),
-                           [&feeDate](const ManagementFee& existingFee) {
-                               return existingFee.managementFeesAsset.first == feeDate;
-                           });
-    if (it != managementFees.end()) {
-        if (it->managementFeesAsset.second != fee.managementFeesAsset.second) {
-            mgmtFeesDue -= it->managementFeesAsset.second;
-            mgmtFeesDue += fee.managementFeesAsset.second;
-        }
-        *it = fee; // Replace the existing fee
-    } else {
-        managementFees.push_back(fee); // Add the new fee
-        mgmtFeesDue += fee.managementFeesAsset.second;
+wxDateTime Position::GetNextQuarterStartDate(wxDateTime &date){
+    wxDateTime nextQStartDate;
+    int year =date.GetYear();
+    if(date.GetMonth()<= wxDateTime::Mar){
+        nextQStartDate = wxDateTime(1, wxDateTime::Apr, year);
+    }else if(date.GetMonth()<=wxDateTime::Jun){
+        nextQStartDate = wxDateTime(1, wxDateTime::Jul, year);
+    }else if(date.GetMonth()<=wxDateTime::Sep){
+        nextQStartDate = wxDateTime(1,wxDateTime::Oct, year);
+    }else if(date.GetMonth()<=wxDateTime::Dec){
+        nextQStartDate = wxDateTime(1, wxDateTime::Jan, year+1);
     }
+    return nextQStartDate;
 }
 
-void Position::CalculatePositionNetIncome(const Distribution &distribution, const double promoteFeePercentage){
-    wxDateTime now = wxDateTime::Today();
-    std::pair<wxDateTime, wxDateTime> QDates =  GetCurrentQuarterDates(now);
-
-    if(distribution.distribution.first>=QDates.first && distribution.distribution.first <= QDates.second){
-        double proportionalShare = distribution.distribution.second * percentOwnership;
-
-        double amountAfterMgmtFees = proportionalShare - mgmtFeesDue;
-        if(amountAfterMgmtFees<=0){
-            mgmtFeesDue = - amountAfterMgmtFees;
-            return;
-        }
-        double promoteFee = amountAfterMgmtFees * promoteFeePercentage;
-        PromoteFee promoteFeeEntry;
-        promoteFeeEntry.promotefee = std::make_pair(distribution.distribution.first, promoteFee);
-        promoteFees.push_back(promoteFeeEntry);
-
-        double netIncomeAmount = amountAfterMgmtFees - promoteFee;
-
-        Distribution netIncomeDistribution;
-        netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
-        netIncome.push_back(netIncomeDistribution);
-        mgmtFeesDue = 0;
-    }
-}

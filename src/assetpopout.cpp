@@ -52,6 +52,7 @@ void AssetPopout::setupLayout(){
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     distributionListControl->setItems(asset->distributions);
     distributionListControl->SetBackgroundColour(wxColor(0,0,0));
+    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
 
     middleSizer->Add(distributionListControl, 3, wxALL, 10);
 
@@ -111,8 +112,9 @@ void AssetPopout::setupLayout(){
         for(auto &position: investor->positions){
             if(position->assetPtr==asset){
                 ManagementFee mgmtFee;
-                mgmtFee = position->CalculatePositionManagementFees(*position, investor->managementFeePercentage);
-                position->PushFeeToVector(mgmtFee);
+                position->CalculateHistoricalManagementFees(investor->managementFeePercentage);
+                position->UpdateFinancesPostDistributionChanges(asset->distributions,investor->promoteFeePercentage, investor->managementFeePercentage);
+
             }
         }
     }
@@ -189,7 +191,6 @@ void AssetPopout::UpdateDisplayTextValues(){
     totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
 }
 
-
 void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
     InvestorPositionEditWindow editWindow(this);
     editWindow.SetBackgroundColour(wxColor(0,0,0));
@@ -257,8 +258,8 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         for(auto&inv: asset->investors){
             for(auto&pos:inv->positions){
                 if(pos->assetPtr == asset){
-                    pos->CalculatePositionNetIncome(newDistribution, inv->promoteFeePercentage);
-                    //Calculates and populates the positions netIncome and PromoteFees vector with an entry 
+                    pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
+                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage, inv->managementFeePercentage);
                 }
             }
         }
@@ -284,7 +285,7 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
                         pos->reserve -= amountMoved*pos->percentOwnership;
                         pos->deployed += amountMoved*pos->percentOwnership;
                         pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
-                        pos->CalculatePositionManagementFees(*pos, inv->managementFeePercentage);
+                        pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
                     }
                 }
             }
@@ -295,7 +296,7 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
                         pos->reserve += amountMoved*pos->percentOwnership;
                         pos->deployed -=amountMoved*pos->percentOwnership;
                         pos->movedOutOfDeployed[dateOfMovement] = amountMoved*pos->percentOwnership;
-                        pos->CalculatePositionManagementFees(*pos, inv->managementFeePercentage);
+                        pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
                     }
                 }
             }
@@ -307,6 +308,7 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
         //do nothing close
     }
 }
+
 void AssetPopout::OnAddValuation(wxCommandEvent &e){
     AddValuation addValuationDialog(this);
     addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
@@ -349,9 +351,36 @@ void AssetPopout::OnAddEvent(wxCommandEvent &e){
     }
 }
 
-
 void AssetPopout::OnClose(wxCloseEvent &e){
     wxCommandEvent evt(ASSET_POPOUT_CLOSED, wxID_ANY);
     wxPostEvent(GetParent(), evt);
     e.Skip();
+}
+
+//TODO Implement Edits for Distribution/Event/Valuation
+
+void AssetPopout::OnDistributionEdit(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    long dataIndex = distributionListControl->orderedIndices[listIndex];
+    Distribution& selectedDistribution = asset->distributions[dataIndex];
+    AddDistributionDialog distributionEditwindow(this);
+    distributionEditwindow.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = distributionEditwindow.ShowModal();
+    if(retVal == wxID_OK){
+        selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
+        selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
+        for(auto& inv: asset->investors){
+            for(auto &pos: inv->positions){
+                if(pos->assetPtr == asset){
+                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage,inv->managementFeePercentage);
+                }
+            }
+        }
+        distributionListControl->setItems(asset->distributions);
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }else if(retVal == wxID_CANCEL){
+        //do nothing
+    }
 }
