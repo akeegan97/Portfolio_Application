@@ -1,5 +1,6 @@
-#ifndef ADDDISTRIBUTION_HPP
-#define ADDDISTRIBUTION_HPP
+#ifndef DISTRIBUTIONDIALOG_HPP
+#define DISTRIBUTIONDIALOG_HPP
+#define MY_CUSTOM_DELETE_CODE 1001
 #include "wx/dialog.h"
 #include "wx/datetime.h"
 #include "wx/datectrl.h"
@@ -10,18 +11,20 @@
 #include "wx/button.h"
 
 
-class AddDistributionDialog : public wxDialog{
+class DistributionDialog : public wxDialog{
     public:
-        AddDistributionDialog(wxWindow *parentWindow);
+        DistributionDialog(wxWindow *parentWindow, bool isEditMode);
         wxDateTime GetDistributionDate();
         double GetDistributionAmount();
+        void SetUpOnAddDistribution();
+        void SetUpOnEditDistribution();
+        void OnDeleteButtonPress(wxCommandEvent &e);
     private:
         wxDatePickerCtrl* datePicker;
         wxStaticText* datePickerText;
         wxTextCtrl* amountCtrl;
         wxStaticText* amountText;
 };
-
 
 
 #endif

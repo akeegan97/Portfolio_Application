@@ -1,5 +1,6 @@
-#ifndef ADDVALUATION_HPP
-#define ADDVALUATION_HPP
+#ifndef VALUATIONDIALOG_HPP
+#define VALUATIONDIALOG_HPP
+#define MY_VALUATION_DELETE_CODE 1002
 #include "wx/dialog.h"
 #include "wx/textctrl.h"
 #include "wx/valtext.h"
@@ -10,11 +11,14 @@
 #include "wx/button.h"
 #include "wx/arrstr.h"
 
-class AddValuation : public wxDialog{
+class ValuationDialog : public wxDialog{
     public:
-        AddValuation(wxWindow *parentWindow);
+        ValuationDialog(wxWindow *parentWindow, bool editMode);
         wxDateTime GetDate();
         double GetValuation();
+        void SetUpOnAdd();
+        void SetUpOnEdit();
+        void OnDeleteButtonPress(wxCommandEvent &e);
     private:
         wxDatePickerCtrl *datePicker;
         wxStaticText *datePickerText;

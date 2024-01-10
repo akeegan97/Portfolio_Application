@@ -5,9 +5,9 @@
 #include <iomanip>
 #include <cmath>
 #include "investorPositionEdit.hpp"
-#include "addDistribution.hpp"
+#include "distributiondialog.hpp"
 #include "moveDeploy.hpp"
-#include "addValuation.hpp"
+#include "valuationdialog.hpp"
 #include "customevents.hpp"
 #include "addEvent.hpp"
 
@@ -40,6 +40,7 @@ void AssetPopout::setupLayout(){
     valuationListControl = new VListControl<Valuation>(this, wxID_ANY, FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     valuationListControl->setItems(asset->valuations);
     valuationListControl->SetBackgroundColour(wxColor(0,0,0));
+    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
 
     middleSizer->Add(valuationListControl, 3, wxALL, 10);
 
@@ -246,7 +247,7 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
 }
 
 void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
-    AddDistributionDialog addDistroWindow(this);
+    DistributionDialog addDistroWindow(this,false);
     addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = addDistroWindow.ShowModal();
     if(retValue == wxID_OK){
@@ -310,7 +311,7 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
 }
 
 void AssetPopout::OnAddValuation(wxCommandEvent &e){
-    AddValuation addValuationDialog(this);
+    ValuationDialog addValuationDialog(this, false);
     addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
     int retVal = addValuationDialog.ShowModal();
     if(retVal == wxID_OK){
@@ -321,8 +322,7 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         newValuation.valuation = valuationAmount;
         asset->valuations.push_back(newValuation);
         valuationListControl->setItems(asset->valuations);
-        portfolio.addValuation();
-
+        portfolio.ValuationDialog();
     }else if(retVal == wxID_CANCEL){
         //do nothing and exit
     }
@@ -363,7 +363,8 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     long listIndex = e.GetIndex();
     long dataIndex = distributionListControl->orderedIndices[listIndex];
     Distribution& selectedDistribution = asset->distributions[dataIndex];
-    AddDistributionDialog distributionEditwindow(this);
+    DistributionDialog distributionEditwindow(this,true);
+
     distributionEditwindow.SetBackgroundColour(wxColor(0,0,0));
     int retVal = distributionEditwindow.ShowModal();
     if(retVal == wxID_OK){
@@ -380,7 +381,45 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         distributionListControl->Update();
         UpdateDisplayTextValues();
         this->Refresh();
-    }else if(retVal == wxID_CANCEL){
-        //do nothing
+    }else if(retVal == MY_CUSTOM_DELETE_CODE){
+        if(dataIndex >= 0 && dataIndex < asset->distributions.size()){
+            std::swap(asset->distributions[dataIndex], asset->distributions.back());
+            asset->distributions.pop_back();
+        }
+        for(auto& inv: asset->investors){
+            for(auto &pos: inv->positions){
+                if(pos->assetPtr == asset){
+                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage,inv->managementFeePercentage);
+                }
+            }
+        }
+        distributionListControl->setItems(asset->distributions);
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }
+}
+
+void AssetPopout::OnValuationEdit(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    long dataIndex = valuationListControl->orderedIndices[listIndex];
+    Valuation& valuationToEdit = asset->valuations[dataIndex];
+    ValuationDialog valuationWindow(this, true);
+    valuationWindow.SetBackgroundColour(wxColor(0,0,0));
+    int retValue = valuationWindow.ShowModal();
+    if(retValue == wxID_OK){
+        valuationToEdit.valuation = valuationWindow.GetValuation();
+        valuationToEdit.valuationDate = valuationWindow.GetDate();
+        valuationListControl->setItems(asset->valuations);
+        valuationListControl->Update();
+        this->Refresh();
+    }else if(retValue == MY_VALUATION_DELETE_CODE){
+        if(dataIndex>=0 && dataIndex < asset->valuations.size()){
+            std::swap(asset->valuations[dataIndex], asset->valuations.back());
+            asset->valuations.pop_back();
+        }
+        valuationListControl->setItems(asset->valuations);
+        valuationListControl->Update();
+        this->Refresh();
     }
 }

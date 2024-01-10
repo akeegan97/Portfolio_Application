@@ -132,7 +132,7 @@ double Portfolio::TotalValuation(){
     return totalValuation;
 }
 
-void Portfolio::addValuation() {
+void Portfolio::ValuationDialog() {
     double totalValuation = 0.0;
     wxDateTime latestDate = wxDateTime(1, wxDateTime::Jan, 1900);
 

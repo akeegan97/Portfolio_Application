@@ -33,7 +33,7 @@ class Portfolio{
         //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display
         void PopulateEvents();
         void PopulateInvestors();        
-        void addValuation();//
+        void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
         //functions for portfolio to calculate key figures used in the mainframe wxStaticText control
         double TotalInvestedCapital();
