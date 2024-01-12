@@ -241,35 +241,45 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
         }
     );
 
-    // Set the initial last processed quarter to a time before any possible distributions
-    wxDateTime lastQuarterProcessed = wxDateTime::Now();
-    lastQuarterProcessed.SetYear(1900); // Example: Setting to a date way in the past
-    double totalFeesDue = 0.0;
+    wxDateTime lastDistributionQuarterEnd = wxDateTime::Today();
+    lastDistributionQuarterEnd.SetYear(1900); // A date way in the past
+    double unpaidMgmtFees = 0.0;
 
     for (const auto& distribution : distributions) {
         std::pair<wxDateTime, wxDateTime> currentQuarter = GetCurrentQuarterDates(distribution.distribution.first);
         wxDateTime quarterStartDate = currentQuarter.first;
         wxDateTime quarterEndDate = currentQuarter.second;
 
-        // Check if we are in a new quarter and accumulate management fees
-        if (quarterStartDate > lastQuarterProcessed) {
-            totalFeesDue = 0.0; // Reset fees for a new quarter
+        if (quarterEndDate != lastDistributionQuarterEnd) {
+            // Reset and accumulate management fees for the new quarter
+            mgmtFeesDue = unpaidMgmtFees;
+            unpaidMgmtFees = 0.0; // Reset unpaid fees for the new quarter
             for (const auto& fee : managementFees) {
-                if (fee.managementFeesAsset.first > lastQuarterProcessed && fee.managementFeesAsset.first <= quarterEndDate) {
-                    totalFeesDue += fee.managementFeesAsset.second;
+                if (fee.managementFeesAsset.first > lastDistributionQuarterEnd && fee.managementFeesAsset.first <= quarterEndDate) {
+                    mgmtFeesDue += fee.managementFeesAsset.second;
                 }
             }
-            lastQuarterProcessed = quarterEndDate;
+            lastDistributionQuarterEnd = quarterEndDate;
         }
 
         double proportionalShare = distribution.distribution.second * percentOwnership;
-        double amountAfterMgmtFees = proportionalShare - totalFeesDue;
-        double promoteFee = 0;
-        double netIncomeAmount = 0;
+        double totalFeesDue = mgmtFeesDue;
 
-        if (amountAfterMgmtFees > 0) {
-            promoteFee = amountAfterMgmtFees * promoteFeePercentage;
-            netIncomeAmount = amountAfterMgmtFees - promoteFee;
+        // Check if distribution covers the management fees
+        if (proportionalShare < totalFeesDue) {
+            unpaidMgmtFees = totalFeesDue - proportionalShare; // Update unpaid fees
+            proportionalShare = 0.0; // Distribution is entirely used to pay part of the fees
+        } else {
+            unpaidMgmtFees = 0.0; // All fees are paid
+            proportionalShare -= totalFeesDue; // Deduct fees from distribution
+        }
+
+        double promoteFee = 0.0;
+        double netIncomeAmount = 0.0;
+
+        if (proportionalShare > 0) {
+            promoteFee = proportionalShare * promoteFeePercentage;
+            netIncomeAmount = proportionalShare - promoteFee;
         }
 
         if (netIncomeAmount > 0) {
@@ -284,16 +294,28 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
             promoteFees.push_back(newPromoteFee);
         }
 
-        // Debug prints
-        std::cout << "Date of Distribution Pushed: " << distribution.distribution.first.FormatISODate() << std::endl;
-        std::cout << "PROPORTIONAL SHARE OF GROSS DISTR: " << proportionalShare << std::endl;
-        std::cout << "TOTAL MGMT FEES DUE: " << totalFeesDue << std::endl;
-        std::cout << "NET INCOME AFTER MGMT FEES: " << netIncomeAmount << std::endl;
-        std::cout << "PROMOTE FEE: " << promoteFee << std::endl;
+        // Debug prints (optional)
+        std::cout << "Date of Distribution Processed: " << distribution.distribution.first.FormatISODate() << std::endl;
+        std::cout << "Proportional Share of Distribution: " << proportionalShare << std::endl;
+        std::cout << "Management Fees Due: " << mgmtFeesDue << std::endl;
+        std::cout << "Net Income After Fees: " << netIncomeAmount << std::endl;
+        std::cout << "Promote Fee: " << promoteFee << std::endl;
 
-        // Reset total fees due for the next distribution
-        totalFeesDue = 0.0;
+        // Update lastDistributionQuarterEnd for the next iteration
+        lastDistributionQuarterEnd = quarterEndDate;
     }
+    wxDateTime currentQuarterEnd = GetCurrentQuarterDates(wxDateTime::Today()).second;
+    if (!distributions.empty() && lastDistributionQuarterEnd < currentQuarterEnd) {
+        wxDateTime nextQuarterStartDate = GetNextQuarterStartDate(lastDistributionQuarterEnd);
+        for (const auto& fee : managementFees) {
+            if (fee.managementFeesAsset.first >= nextQuarterStartDate && fee.managementFeesAsset.first <= currentQuarterEnd) {
+                unpaidMgmtFees += fee.managementFeesAsset.second;
+            }
+        }
+    }
+
+    // After processing, update any remaining unpaid management fees
+    mgmtFeesDue = unpaidMgmtFees;
 }
 
 double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime &end){
