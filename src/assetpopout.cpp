@@ -444,10 +444,8 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
             std::swap(asset->events[dataIndex], asset->events.back());
             asset->events.pop_back();
         }
-        if(asset->events.size()>0){
-            eventsVirtualListControl->setItems(asset->events);
-        }
-        this->Refresh();
+        eventsVirtualListControl->setItems(asset->events);
+        eventsVirtualListControl->Update();
         this->Update();
     }
 }

@@ -122,6 +122,8 @@ void EventDialog::SetUpEditMode(){
     okayButton->SetBackgroundColour(wxColor(0,0,0));
     cancelButton->SetForegroundColour(wxColor(252,0,0));
     cancelButton->SetBackgroundColour(wxColor(0,0,0));
+    deleteButton->SetForegroundColour(wxColor(0,0,0));
+    deleteButton->SetBackgroundColour(wxColor(250,0,0));
 
     buttonSizer->Add(okayButton, 0, wxALL, 5);
     buttonSizer->Add(cancelButton, 0, wxALL, 5);
