@@ -1,6 +1,6 @@
-#include "investor.hpp"
-#include "position.hpp"
-#include "portfolio.hpp"
+#include "baseclasses/investor.hpp"
+#include "baseclasses/position.hpp"
+#include "baseclasses/portfolio.hpp"
 
 void to_json(json &j, const Investor &inv) {
     j = {

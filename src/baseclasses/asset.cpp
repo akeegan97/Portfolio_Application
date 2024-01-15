@@ -1,7 +1,7 @@
-#include "asset.hpp"
-#include "investor.hpp"
-#include "portfolio.hpp"
-#include "distribution.hpp"
+#include "baseclasses/asset.hpp"
+#include "baseclasses/investor.hpp"
+#include "baseclasses/portfolio.hpp"
+#include "baseclasses/distribution.hpp"
 /**
 *@brief Convert the Asset object to JSON format.
 *

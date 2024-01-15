@@ -7,8 +7,8 @@
 #include <wx/tokenzr.h>
 #include <wx/wxcrt.h>
 #include <json.hpp>
-#include <asset.hpp>
-#include <position.hpp>
+#include <baseclasses/asset.hpp>
+#include <baseclasses/position.hpp>
 #include <memory>
 
 

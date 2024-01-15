@@ -1,4 +1,4 @@
-#include "investorPositionEdit.hpp"
+#include "assetpopout/investorPositionEdit.hpp"
 
 InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
     wxDialog(parentWindow,wxID_ANY, "Edit InvestorPosition", wxDefaultPosition, wxSize(300,600),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <wx/wx.h>
-#include "portfolio.hpp"
+#include "baseclasses/portfolio.hpp"
 #include "mainframe.hpp"
 
 class RugenBerg : public wxApp{

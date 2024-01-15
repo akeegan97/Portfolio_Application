@@ -1,4 +1,4 @@
-#include "position.hpp"
+#include "baseclasses/position.hpp"
 
 void to_json(json&j, const Position &pos){
     j=json{

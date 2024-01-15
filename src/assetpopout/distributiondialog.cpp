@@ -1,4 +1,4 @@
-#include "distributiondialog.hpp"
+#include "assetpopout/distributiondialog.hpp"
 DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
     wxDialog(parentWindow, wxID_ANY, "Add Distribution", wxDefaultPosition,wxSize(300,250), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         if(isEditMode){

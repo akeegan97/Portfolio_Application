@@ -1,4 +1,4 @@
-#include "valuation.hpp"
+#include "baseclasses/valuation.hpp"
 
 wxVariant Valuation::GetValue(int col)const{
     switch(col){

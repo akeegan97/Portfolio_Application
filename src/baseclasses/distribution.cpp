@@ -1,4 +1,4 @@
-#include "distribution.hpp"
+#include "baseclasses/distribution.hpp"
 
 
 void to_json(json &j,const Distribution &distribution){

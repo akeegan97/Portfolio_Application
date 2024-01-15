@@ -1,4 +1,4 @@
-#include "moveDeploy.hpp"
+#include "assetpopout/moveDeploy.hpp"
 
 MoveDeploy::MoveDeploy(wxWindow *parentWindow):
     wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxSize(300,300), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){

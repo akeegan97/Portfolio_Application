@@ -1,15 +1,14 @@
-#include "customevents.hpp"
-#include "assetpopout.hpp"
+#include "helpers/customevents.hpp"
+#include "assetpopout/assetpopout.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
 #include <cmath>
-#include "investorPositionEdit.hpp"
-#include "distributiondialog.hpp"
-#include "moveDeploy.hpp"
-#include "valuationdialog.hpp"
-#include "customevents.hpp"
-#include "EventDialog.hpp"
+#include "assetpopout/investorPositionEdit.hpp"
+#include "assetpopout/distributiondialog.hpp"
+#include "assetpopout/moveDeploy.hpp"
+#include "assetpopout/valuationdialog.hpp"
+#include "assetpopout/EventDialog.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -357,8 +356,6 @@ void AssetPopout::OnClose(wxCloseEvent &e){
     wxPostEvent(GetParent(), evt);
     e.Skip();
 }
-
-//TODO Implement Edits for Distribution/Event/Valuation
 
 void AssetPopout::OnDistributionEdit(wxListEvent &e){
     long listIndex = e.GetIndex();

@@ -1,9 +1,9 @@
 #ifndef ASSETPOPOUT_HPP
 #define ASSETPOPOUT_HPP
 #include <wx/wx.h>
-#include "vlistcontrol.hpp"
-#include "portfolio.hpp"
-#include "asset.hpp"
+#include "helpers/vlistcontrol.hpp"
+#include "baseclasses/portfolio.hpp"
+#include "baseclasses/asset.hpp"
 
 class AssetPopout : public wxFrame{
     public:

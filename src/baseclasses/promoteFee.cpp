@@ -1,4 +1,4 @@
-#include "promoteFee.hpp"
+#include "baseclasses/promoteFee.hpp"
 
 void to_json(json&j,const PromoteFee &promoteFee){
     std::string date = promoteFee.promotefee.first.FormatISODate().ToStdString();

@@ -1,4 +1,4 @@
-#include "asset_event.hpp"
+#include "baseclasses/asset_event.hpp"
 
 wxVariant AssetEvent::GetValue(int col)const{
     switch(col){

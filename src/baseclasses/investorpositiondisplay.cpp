@@ -1,6 +1,6 @@
-#include "investorpositiondisplay.hpp"
-#include "investor.hpp"
-#include "position.hpp"
+#include "baseclasses/investorpositiondisplay.hpp"
+#include "baseclasses/investor.hpp"
+#include "baseclasses/position.hpp"
 
 
 wxVariant InvestorPositionDisplay::GetValue(int col)const{

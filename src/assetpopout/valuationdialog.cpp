@@ -1,4 +1,4 @@
-#include "valuationdialog.hpp"
+#include "assetpopout/valuationdialog.hpp"
 
 ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode):
     wxDialog(parentWindow, wxID_ANY, "Add Valuation", wxDefaultPosition, wxSize(300,250), wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){
