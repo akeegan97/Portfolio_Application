@@ -312,8 +312,11 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
                 unpaidMgmtFees += fee.managementFeesAsset.second;
             }
         }
+    }else if(distributions.empty()){
+        for(auto &fee: managementFees){
+            unpaidMgmtFees += fee.managementFeesAsset.second;
+        }
     }
-
     // After processing, update any remaining unpaid management fees
     mgmtFeesDue = unpaidMgmtFees;
 }

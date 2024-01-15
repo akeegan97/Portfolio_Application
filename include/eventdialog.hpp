@@ -1,5 +1,6 @@
-#ifndef ADD_EVENT_HPP
-#define ADD_EVENT_HPP
+#ifndef EVENTDIALOG_HPP
+#define EVENTDIALOG_HPP
+#define DELETE_CODE_EVENT 1002
 #include "wx/dialog.h"
 #include "wx/textctrl.h"
 #include "wx/valtext.h"
@@ -11,13 +12,16 @@
 #include "wx/choice.h"
 #include "wx/arrstr.h"
 
-class AddEvent : public wxDialog{
+class EventDialog : public wxDialog{
     public:
-        AddEvent(wxWindow *parentWindow);
+        EventDialog(wxWindow *parentWindow, bool isEditMode);
         wxDateTime GetDate();
-        wxString GetDiscription();
+        wxString GetDescription();
         bool GetHasHappened();
         wxString GetHasHappenedTextFromChoiceCtrl();
+        void SetUpEditMode();
+        void SetUpAddMode();
+        void OnDeleteEventButtonPress(wxCommandEvent &e);
     private:
         wxDatePickerCtrl* datePicker;
         wxStaticText* datePickerText;

@@ -9,7 +9,7 @@
 #include "moveDeploy.hpp"
 #include "valuationdialog.hpp"
 #include "customevents.hpp"
-#include "addEvent.hpp"
+#include "EventDialog.hpp"
 
 
 void AssetPopout::setupLayout(){
@@ -47,6 +47,7 @@ void AssetPopout::setupLayout(){
     eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     eventsVirtualListControl->setItems(asset->events);
     eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
+    eventsVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnEventEdit, this);
 
     middleSizer->Add(eventsVirtualListControl, 3, wxALL, 10);
     
@@ -329,13 +330,13 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
 }
 
 void AssetPopout::OnAddEvent(wxCommandEvent &e){
-    AddEvent addEventDialog(this);
+    EventDialog addEventDialog(this,false);
     addEventDialog.SetBackgroundColour(wxColor(0,0,0));
     int retVal = addEventDialog.ShowModal();
     if(retVal == wxID_OK){
         wxDateTime eventDate = addEventDialog.GetDate();
         bool eventHasHappened = addEventDialog.GetHasHappened();
-        wxString eventDetails = addEventDialog.GetDiscription();
+        wxString eventDetails = addEventDialog.GetDescription();
 
         AssetEvent newEvent;
         newEvent.eventDate = eventDate;
@@ -421,5 +422,32 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
         this->Refresh();
+    }
+}
+
+void AssetPopout::OnEventEdit(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    long dataIndex = eventsVirtualListControl->orderedIndices[listIndex];
+    std::shared_ptr<AssetEvent> eventToEdit = asset->events[dataIndex];
+    EventDialog eventDialog(this, true);
+    eventDialog.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = eventDialog.ShowModal();
+    if(retVal == wxID_OK){
+        eventToEdit->eventDate = eventDialog.GetDate();
+        eventToEdit->hasHappened = eventDialog.GetHasHappened();
+        eventToEdit->eventDetails = eventDialog.GetDescription();
+        eventsVirtualListControl->setItems(asset->events);
+        this->Refresh();
+        this->Update();
+    }else if(retVal == DELETE_CODE_EVENT){
+        if(dataIndex >=0 && dataIndex < asset->events.size()){
+            std::swap(asset->events[dataIndex], asset->events.back());
+            asset->events.pop_back();
+        }
+        if(asset->events.size()>0){
+            eventsVirtualListControl->setItems(asset->events);
+        }
+        this->Refresh();
+        this->Update();
     }
 }
