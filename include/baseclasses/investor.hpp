@@ -16,6 +16,7 @@
 using json = nlohmann::json;
 class Position;
 class Portfolio;
+class InvestorAssetDisplay;
 class Investor{
     public:
         wxString clientName;
@@ -25,7 +26,7 @@ class Investor{
         double promoteFeePercentage;
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
-        std::vector<InvestorAssetDisplay> displaysForInvestorPopout;
+        std::vector<std::shared_ptr<InvestorAssetDisplay>> displaysForInvestorPopout;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):

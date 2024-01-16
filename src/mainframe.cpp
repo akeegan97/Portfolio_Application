@@ -1,6 +1,7 @@
 
 #include "mainframe.hpp"
 #include "assetpopout/assetpopout.hpp"
+#include "investorpopout/investorpopout.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -43,6 +44,7 @@ void MainFrame::setupLayout(){
    if(!portfolio.assetPtrs.empty()){
       allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
    }
+   allInvestorVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnInvestorVLCClick, this);
 
    lSideSizer->Add(allInvestorVListControl, 4, wxEXPAND | wxALL, 10);
    mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
@@ -199,6 +201,15 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
    assetPopout->Show(true);
 }
 
+void MainFrame::OnInvestorVLCClick(wxListEvent &e){
+   long listIndex = e.GetIndex();
+   auto& selectedInvestor = allInvestorVListControl->GetItemAtListIndex(listIndex);
+   std::string selectedInvestorName  = selectedInvestor->clientName.ToStdString();
+   auto* investorPopout  = new InvestorPopout(this, selectedInvestorName, wxDefaultPosition,wxSize(FromDIP(1200),FromDIP(800)),
+   portfolio, selectedInvestor);
+   investorPopout->SetBackgroundColour(wxColor(0,0,0));
+   investorPopout->Show(true);
+}
 
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    portfolio.PopulateValuationMaps();

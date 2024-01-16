@@ -17,6 +17,7 @@ class InvestorAssetDisplay{
         assetPtr(std::move(assetPtr)),investorPtr(std::move(investorPtr)){
             PopulateITDNetDistribution();
             SetDerivedValues();
+            PopulateIRR();
         };
         std::shared_ptr<Asset> assetPtr;
         std::shared_ptr<Investor> investorPtr;
@@ -28,7 +29,6 @@ class InvestorAssetDisplay{
         double irr;
         double itdNetDistribution;
         
-
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
 

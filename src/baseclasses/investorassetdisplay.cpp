@@ -101,4 +101,31 @@ double InvestorAssetDisplay::CalculateNPV(std::vector<CashFlow> &cashFlows, doub
         double years = timeSpan.GetDays() / 365.25;
         npv += cf.amount / std::pow(1+rate, years);
     }
+    return npv;
 }
+
+wxVariant InvestorAssetDisplay::GetValue(int col)const{
+    switch(col){
+        case 0: return wxVariant(assetPtr->assetName);break;
+        case 1: return wxVariant(totalSubscribed);break;
+        case 2: return wxVariant(totalPaid);break;
+        case 3: return wxVariant(totalDeployed);break;
+        case 4: return wxVariant(itdNetDistribution);break;
+        case 5: return wxVariant(irr);break;
+        default: return wxVariant();break;
+    }
+}
+
+void InvestorAssetDisplay::SetValue(int col, const wxVariant &v){
+    switch(col){
+        case 0: assetPtr->assetName = v.GetString();break;
+        case 1: totalSubscribed = v.GetDouble();break;
+        case 2: totalPaid = v.GetDouble();break;
+        case 3: totalDeployed = v.GetDouble();break;
+        case 4: itdNetDistribution = v.GetDouble();break;
+        case 5: irr = v.GetDouble();break;
+    }
+}
+
+std::vector<wxString> InvestorAssetDisplay::columnNames={"Asset Name","Subscribed","Paid","Deployed","ITD Net Distributions","IRR"};
+std::vector<int> InvestorAssetDisplay::columnWidths = {100,100,100,100,100,100};

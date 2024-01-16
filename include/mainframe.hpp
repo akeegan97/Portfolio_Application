@@ -60,6 +60,7 @@ class MainFrame : public wxFrame{
         void UpdateChart();
         void UpdateAssetListControl();
         void UpdateEventListControl();
+        void OnInvestorVLCClick(wxListEvent &e);
 };
 
 
