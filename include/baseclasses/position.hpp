@@ -36,23 +36,22 @@ class Position{
         std::map<wxDateTime, double> movedOutOfDeployed;
         std::vector<Distribution> netIncome;
     
-    Position() = default;
-    Position(const wxDateTime &dateInvested, const double &subscribed, 
-    const double &paid, const double &reserve,const double deployed, const double &returnOfCapital, 
-    const double &percentOwnership): dateInvested(dateInvested), subscribed(subscribed),
-    paid(paid), reserve(reserve), deployed(deployed),
-    returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
+        Position() = default;
+        Position(const wxDateTime &dateInvested, const double &subscribed, 
+        const double &paid, const double &reserve,const double deployed, const double &returnOfCapital, 
+        const double &percentOwnership): dateInvested(dateInvested), subscribed(subscribed),
+        paid(paid), reserve(reserve), deployed(deployed),
+        returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
 
-    void calculateOwnership(Portfolio &portfolio);
-    ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date);
-    void CalculateHistoricalManagementFees(const double &managementFeePercentage);
-    void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
-    void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
+        void calculateOwnership(Portfolio &portfolio);
+        ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date);
+        void CalculateHistoricalManagementFees(const double &managementFeePercentage);
+        void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
+        void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
 
-    std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
-    wxDateTime GetNextQuarterStartDate(wxDateTime &date);
-    double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-
+        std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
+        wxDateTime GetNextQuarterStartDate(wxDateTime &date);
+        double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
 
 };
 void to_json(json &j, const Position &pos);

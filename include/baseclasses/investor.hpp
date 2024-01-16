@@ -9,6 +9,7 @@
 #include <json.hpp>
 #include <baseclasses/asset.hpp>
 #include <baseclasses/position.hpp>
+#include <baseclasses/investorassetdisplay.hpp>
 #include <memory>
 
 
@@ -24,6 +25,7 @@ class Investor{
         double promoteFeePercentage;
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
+        std::vector<InvestorAssetDisplay> displaysForInvestorPopout;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):
