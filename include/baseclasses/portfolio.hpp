@@ -20,19 +20,23 @@ class Investor;
 class Portfolio{
     public:
         std::vector<std::shared_ptr<Asset>> assetPtrs;
+        std::vector<std::shared_ptr<Investor>> allInvestorPtrs;
+
         std::vector<std::shared_ptr<AssetEvent>> assetEventPtrs;
         std::vector<std::pair<wxDateTime, double>> valuationVectorPlotting;
-        std::vector<std::shared_ptr<Investor>> allInvestorPtrs;
+
         std::set<std::string> addedInvestorsName;
+
         std::map<wxDateTime, double> previousQMap;
         std::map<wxDateTime, double> currentQMap;
+        
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         void LoadFromFile(const std::string &filePath);
 
         //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display
         void PopulateEvents();
-        void PopulateInvestors();        
+        void SetAssetPositions();        
         void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
         //functions for portfolio to calculate key figures used in the mainframe wxStaticText control

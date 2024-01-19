@@ -23,26 +23,28 @@ void to_json(json &j, const Portfolio &por) {
 
 
 void from_json(const json &j, Portfolio &por) {
-    if (!j.contains("Assets") || !j["Assets"].is_array()) {
-
-        throw std::runtime_error("JSON does not contain 'Assets' or 'Assets' is not an array.");
+    if(j.contains("Assets") && j["Assets"].is_array()){
+        for(const auto &assetJson : j["Assets"]){
+            auto asset = std::make_shared<Asset>();
+            if(assetJson.contains("Asset Name")){
+                asset->assetName = assetJson["Asset Name"].get<std::string>().c_str();
+            }
+            if(assetJson.contains("Asset Exit Date")){
+                wxString dateStr = wxString::FromUTF8(assetJson["Asset Exit Date"].get<std::string>().c_str());
+                wxDateTime dateParse;
+                dateParse.ParseDate(dateStr);
+                asset->assetExitDate = dateParse;
+            }
+            from_json(j["Assets"], *asset, por);
+            por.assetPtrs.push_back(asset);
+        }
     }
-    //first getting the base info from the json to create the asset object
-    for(const auto &assetJson : j["Assets"]){
-        auto asset = std::make_shared<Asset>();
-        if(assetJson.contains("Asset Name")){
-            asset->assetName = assetJson["Asset Name"].get<std::string>().c_str();
+    if(j.contains("Investors") && j["Investors"].is_array()){
+        for(const auto& investorJson: j["Investors"]){
+            std::shared_ptr<Investor> investor= std::make_shared<Investor>();
+            from_json(investorJson, *investor, por);
+            por.allInvestorPtrs.push_back(investor);
         }
-        if(assetJson.contains("Asset Exit Date")){
-            wxString dateStr = wxString::FromUTF8(assetJson["Asset Exit Date"].get<std::string>().c_str());
-            wxDateTime dateParse;
-            dateParse.ParseDate(dateStr);
-            asset->assetExitDate = dateParse;
-        }
-        por.assetPtrs.push_back(asset);
-        //now that the asset has it's Name and Exit Date we can pass it to the assets from_json function and get the rest
-        //positions, investors, and events
-        from_json(assetJson, *asset, por);
     }
 
     if(j.contains("valuationVectorPlotting")){
@@ -55,6 +57,7 @@ void from_json(const json &j, Portfolio &por) {
             por.valuationVectorPlotting.push_back(std::make_pair(date, amount));
         }
     }
+    por.SetAssetPositions();
 }
 
 
@@ -95,23 +98,11 @@ void Portfolio::PopulateEvents(){
     }
 }//call this any time there is an edit/deletion/addition of an event 
 
-void Portfolio::PopulateInvestors() {
-    allInvestorPtrs.clear();
-    addedInvestorsName.clear();
-    for (const auto& asset : assetPtrs) {
-        for (const auto& investor : asset->investors) {
-            if (addedInvestorsName.find(investor->clientName.ToStdString()) == addedInvestorsName.end()) {
-                allInvestorPtrs.push_back(investor);
-                addedInvestorsName.insert(investor->clientName.ToStdString());
-            }
-        }
-    }
-}//call this any time there is a change to investors
 
 double Portfolio::TotalInvestedCapital(){
     double totalInvestedCapital = 0;
     for(const auto &asset: assetPtrs){
-        totalInvestedCapital+= asset->CalculateInvestedCapital();
+        totalInvestedCapital+= asset->CalculateDeployedCapital();
     }
     return totalInvestedCapital;
 }
@@ -146,7 +137,7 @@ void Portfolio::ValuationDialog() {
             }
         } else {
             // If no valuation, use deployed capital
-            assetValuation = assetPtr->CalculateInvestedCapital();
+            assetValuation = assetPtr->CalculateDeployedCapital();
         }
         totalValuation += assetValuation;
     }
@@ -281,7 +272,7 @@ bool Portfolio::IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterE
 
 double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asset, const wxDateTime& date) {
     if (asset->valuations.empty()) {
-        return asset->CalculateInvestedCapital();
+        return asset->CalculateDeployedCapital();
     }
     // Sort valuations by date
     std::sort(asset->valuations.begin(), asset->valuations.end(), 
@@ -290,7 +281,7 @@ double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asse
               });
 
     // Find the last valuation before the given date
-    double lastValuationAmount = asset->CalculateInvestedCapital();
+    double lastValuationAmount = asset->CalculateDeployedCapital();
     for (const auto& valuation : asset->valuations) {
         if (valuation.valuationDate.IsSameDate(date) || valuation.valuationDate.IsLaterThan(date)) {
             break;
@@ -306,17 +297,18 @@ void Portfolio::PopulatePreviousQValuations() {
 
     wxDateTime oldestInvestedDate = wxDateTime::Today();
 
-    for(const auto&assetPointer: assetPtrs){
-        for(const auto&inv: assetPointer->investors){
-            for(const auto& pos : inv->positions){
-                if(pos->assetPtr == assetPointer){
+    for(const auto&assetPtr: assetPtrs){
+        for(const auto&investorPtr: allInvestorPtrs){
+            for(const auto&pos:investorPtr->positions){
+                if(pos->assetPtr == assetPtr){
                     if(pos->dateInvested.IsEarlierThan(oldestInvestedDate)){
                         oldestInvestedDate = pos->dateInvested;
                     }
                 }
             }
         }
-    }//Getting the first date of deployed capital
+    } 
+    //Getting the first date of deployed capital
     //Get the End Date of the Q that corresponds to the oldest date
     wxDateTime qEndDate = GetQuarterEndDate(oldestInvestedDate);
     wxDateTime today = wxDateTime::Today();
@@ -342,7 +334,7 @@ void Portfolio::PopulatePreviousQValuations() {
             // If no valuation, check for deployed capital in this quarter
             if (!hasValuationInQuarter) {
                 double deployedCapital = 0.0;
-                for (const auto& inv : assetPointer->investors) {
+                for (const auto& inv : allInvestorPtrs) {
                     for (const auto& pos : inv->positions) {
                         if (pos->assetPtr == assetPointer && IsWithinQuarter(pos->dateInvested, qEndDate)) {
                             deployedCapital += pos->deployed;
@@ -380,7 +372,7 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
 
     // Initialize assetLastValuationMap with the deployed capital for each asset
     for (auto& asset : assetPtrs) {
-        assetLastValuationMap[asset->assetName] = asset->CalculateInvestedCapital();
+        assetLastValuationMap[asset->assetName] = asset->CalculateDeployedCapital();
     }
 
     // Sort all valuations within the current quarter
@@ -403,5 +395,17 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
         currentValuation += differential; // Update current total valuation
         currentQMap[date] = currentValuation; // Store in map
         assetLastValuationMap[assetName] = valuationAmount; // Update last valuation for the asset
+    }
+}
+
+void Portfolio::SetAssetPositions(){
+    for(auto& asset:assetPtrs){
+        for(auto& investor: allInvestorPtrs){
+            for(auto&position: investor->positions){
+                if(position->assetPtr->assetName == asset->assetName){
+                    asset->positions.push_back(position);
+                }
+            }
+        }
     }
 }

@@ -46,8 +46,12 @@ void InvestorAssetDisplay::PopulateIRR(){
         }
         newCashFlow.amount = paidCapital;
         newCashFlow.date = wxDateTime::Today();
+        cashFlow.push_back(newCashFlow);
     }
     //starting calculation around XIRR:
+    for(const auto&cf:cashFlow){
+        std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
+    }
     irr = 0.0;
     double guess = 0.1;
     double x1 = 0.0;
@@ -69,6 +73,7 @@ void InvestorAssetDisplay::PopulateIRR(){
 void InvestorAssetDisplay::PopulateITDNetDistribution(){
     double returns = 0;
     for(const auto pos: investorPtr->positions){
+        std::cout<<"Investor Ptr Position Size: "<<investorPtr->positions.size()<<std::endl;
         if(pos->assetPtr == assetPtr){
             for(auto&income : pos->netIncome){
                 returns+=income.distribution.second;

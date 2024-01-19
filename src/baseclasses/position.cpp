@@ -51,6 +51,13 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
             break;
         }
     }
+    wxString investorName = wxString::FromUTF8(j["InvestorName"].get<std::string>().c_str());
+    for(const auto& invPtr: porf.allInvestorPtrs){
+        if(invPtr->clientName == investorName){
+            pos.investorPtr = invPtr;
+            break;
+        }
+    }
     wxString dateStr = wxString::FromUTF8(j["Date Invested"].get<std::string>().c_str());
     wxDateTime dateParse;
     dateParse.ParseDate(dateStr);
@@ -98,20 +105,6 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
             pos.movedOutOfDeployed[date] = amount.get<double>();
         }
     }
-}
-
-void Position::calculateOwnership(Portfolio &portfolio){
-    double totalDeployed = 0;
-    for(const auto& assetPointer : portfolio.assetPtrs){
-        for(const auto &investor: assetPointer->investors){
-            for(const auto &position : investor->positions){
-                if(position->assetPtr == assetPtr){
-                    totalDeployed+=position->deployed;
-                }
-            }
-        }
-    }
-    percentOwnership = (deployed/totalDeployed);
 }
 
 std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateTime &currentDate){

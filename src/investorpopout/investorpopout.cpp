@@ -12,6 +12,7 @@ void InvestorPopout::SetUpLayout(){
     std::unordered_set<std::shared_ptr<Asset>> processedAssets;
 
     for (const auto& position : investor->positions) {
+        std::cout<<"Number of positions: "<<investor->positions.size()<<std::endl;
         std::shared_ptr<Asset> asset = position->assetPtr;
 
         if (processedAssets.find(asset) == processedAssets.end()) {

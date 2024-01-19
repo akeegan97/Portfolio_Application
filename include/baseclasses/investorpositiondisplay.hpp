@@ -11,13 +11,12 @@ using json = nlohmann::json;
 
 class InvestorPositionDisplay{
     public:
-        std::shared_ptr<Investor> investorPtr;
         std::shared_ptr<Position> positionPtr;
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
 
-        InvestorPositionDisplay(std::shared_ptr<Investor> investorPtr, std::shared_ptr<Position>positionPtr):
-        investorPtr(std::move(investorPtr)),positionPtr(std::move(positionPtr)){}
+        InvestorPositionDisplay(std::shared_ptr<Position>positionPtr):
+        positionPtr(positionPtr){}
 
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);

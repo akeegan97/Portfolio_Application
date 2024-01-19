@@ -6,8 +6,8 @@
 wxVariant InvestorPositionDisplay::GetValue(int col)const{
     switch (col)
     {
-    case 0: return wxVariant(investorPtr->clientName);break;
-    case 1: return wxVariant(investorPtr->type);break;
+    case 0: return wxVariant(positionPtr->investorPtr->clientName);break;
+    case 1: return wxVariant(positionPtr->investorPtr->type);break;
     case 2: return wxVariant(positionPtr->dateInvested);break;
     case 3: return wxVariant(positionPtr->subscribed);break;
     case 4: return wxVariant(positionPtr->paid);break;
@@ -22,8 +22,8 @@ wxVariant InvestorPositionDisplay::GetValue(int col)const{
 
 void InvestorPositionDisplay::SetValue(int col, const wxVariant &v){
     switch(col){
-        case 0: investorPtr->clientName = v.GetString();break;
-        case 1: investorPtr->type = v.GetString();break;
+        case 0: positionPtr->investorPtr->clientName = v.GetString();break;
+        case 1: positionPtr->investorPtr->type = v.GetString();break;
         case 2: positionPtr->dateInvested = v.GetDateTime();break;
         case 3: positionPtr->subscribed = v.GetDouble();break;
         case 4: positionPtr->paid = v.GetDouble();break;

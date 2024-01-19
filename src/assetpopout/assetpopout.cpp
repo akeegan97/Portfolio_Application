@@ -154,7 +154,7 @@ void AssetPopout::UpdateDisplayTextValues(){
     double numInvestors = asset->CalculateNumberOfInvestors();
     double totalPaid = asset->CalculatePaidCapital();
     std::string formattedTotalPaid = formatDollarAmount(totalPaid);
-    double totalDeployed = asset->CalculateInvestedCapital();
+    double totalDeployed = asset->CalculateDeployedCapital();
     std::string formattedTotalDeployed = formatDollarAmount(totalDeployed);
     double totalSubscribed = asset->CalculateSubscribedCapital();
     std::string formattedSubscribed = formatDollarAmount(totalSubscribed);

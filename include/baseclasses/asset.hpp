@@ -8,60 +8,51 @@
 #include "asset_event.hpp"
 #include "distribution.hpp"
 #include <json.hpp>
+#include "position.hpp"
 using json = nlohmann::json;
 class Portfolio;
-/**
-    *@class Asset
-    *@brief Represents an individual asset with associated valuations, investors, and events.
-    *
-    * This class encapsulates information about a financial asset, including its 
-    * name, exit date, valuations over time, and associated investors. It also 
-    * provides utility functions to calculate derived values like total invested 
-    * capital and the number of investors.
-*/
+
 class Asset{
     public:
-        wxString assetName;///< The name of the Asset.
-        wxDateTime assetExitDate;///< The planned Exit Date.
-        double totalInvestedCapital;///<Total Capital Invested in the Asset.
-        double countOfInvestors;///<The total number of investors for the Asset.
-        double currentValue;///<The Current Value of the asset based off of the latest valuation.
-        //Vectors containing related information for the Asset.
-        std::vector<Valuation> valuations;///<Historical valuations of the Asset.
+        wxString assetName;
+        wxDateTime assetExitDate;
+        double totalInvestedCapital;
+        double countOfInvestors;
+        double currentValue;
+
+        std::vector<Valuation> valuations;
         std::vector<Distribution> distributions;
-        std::vector<std::shared_ptr<InvestorPositionDisplay>> investorsPositionsDisplays;///<Display information for use in our VLC template class shows investor + their position as one row
-        std::vector<std::shared_ptr<Investor>> investors;///<Investors in the asset.
-        std::vector<std::shared_ptr<AssetEvent>> events;///<Events associated with the Asset
+        std::vector<std::shared_ptr<InvestorPositionDisplay>> investorsPositionsDisplays;
+        std::vector<std::shared_ptr<Position>> positions;
+        std::vector<std::shared_ptr<AssetEvent>> events;
 
-        static std::vector<wxString> columnNames;///<Column Names for displaying class in VLC
-        static std::vector<int> columnWidths;///<Column widths for displaying class in VLC
+        static std::vector<wxString> columnNames;
+        static std::vector<int> columnWidths;
 
-        Asset()=default;///<Default Constuctor
+        Asset()=default;
         Asset(const wxString &assetName, const wxDateTime &assetExitDate):
-            assetName(assetName),assetExitDate(assetExitDate){};///<Constructor with Asset Name and Exit Date Initialization.
+            assetName(assetName),assetExitDate(assetExitDate){};
         bool operator<(const Asset& other) const {
             return assetName < other.assetName; 
-        }///<Comparison operator to compare Asset objects by assetName value.
-
+        }
 
         wxVariant GetValue(int col)const;///<
         void SetValue(int col, const wxVariant &v);
 
-        //Utility functions to calculate the totalInvestedCapital, countOfInvestors and currentValue
-
-        double CalculateNumberOfInvestors()const;///<Calculates the number of investors in the investors vector.
-        double CalculateInvestedCapital()const;///<Calculates the total number of invested capital.
+        double CalculateNumberOfInvestors()const;
+        double CalculateDeployedCapital()const;
         double CalculateReturnedCapital();
         double CalculateSubscribedCapital();
         double CalculateReserveCapital();
         double CalculatePaidCapital();
-        double GetLastValuation()const;///<Gets latest valuation of the Asset.
-        void UpdateDerivedValues();///<Updated derived values and sets member variables
+        double GetLastValuation()const;
+        void UpdateDerivedValues();
         double GetTotalMgmtFeesGenerated();
         double GetTotalPromoteFeesGenerated();
+        void SetOwnershipOfPositions();
 };  
-//serialization to and from json
-void to_json(json &j, const Asset &as);///<Converts Asset to JSON format. 
-void from_json(const json&j, Asset &as,Portfolio &porf);///<Converts JSON data to Asset object.
+
+void to_json(json &j, const Asset &as);
+void from_json(const json&j, Asset &as,Portfolio &porf);
 
 #endif

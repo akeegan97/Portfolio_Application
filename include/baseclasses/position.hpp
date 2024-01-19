@@ -14,14 +14,17 @@
 #include "managementFee.hpp"
 #include "promoteFee.hpp"
 #include "distribution.hpp"
+#include "investor.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
 class Asset;
+class Investor;
 
 class Position{
     public:
         std::shared_ptr<Asset> assetPtr;
+        std::shared_ptr<Investor> investorPtr;
         wxDateTime dateInvested;
         double subscribed;
         double paid;
@@ -52,7 +55,6 @@ class Position{
         std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
         wxDateTime GetNextQuarterStartDate(wxDateTime &date);
         double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-
 };
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);
