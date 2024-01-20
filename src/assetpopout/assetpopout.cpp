@@ -17,16 +17,10 @@ void AssetPopout::setupLayout(){
     auto middleSizer = new wxBoxSizer(wxHORIZONTAL);//Valuations/Events/Distributions
     auto bottomSizer = new wxBoxSizer(wxHORIZONTAL);//Text values + future buttons
     asset->investorsPositionsDisplays.clear();
-    for(auto& investor : asset->investors){
-        for(auto& position : investor->positions){
-            if(position->assetPtr == asset){
-                position->calculateOwnership(portfolio);//calculate the ownership of each position in the asset only done when asset is popped out
-                auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(
-                    investor, position
-                );
-                asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
-            }
-        }
+    for(auto&pos:asset->positions){
+        asset->SetOwnershipOfPositions();
+        auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(pos);
+        asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
     }
     investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
@@ -109,15 +103,10 @@ void AssetPopout::setupLayout(){
     mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
 
-    for(auto& investor: asset->investors){
-        for(auto &position: investor->positions){
-            if(position->assetPtr==asset){
-                ManagementFee mgmtFee;
-                position->CalculateHistoricalManagementFees(investor->managementFeePercentage);
-                position->UpdateFinancesPostDistributionChanges(asset->distributions,investor->promoteFeePercentage, investor->managementFeePercentage);
-
-            }
-        }
+    for(auto &pos: asset->positions){
+        ManagementFee mgmtFee;
+        pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+        pos->UpdateFinancesPostDistributionChanges(asset->distributions,pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
     }
     this->Layout();
 }
@@ -214,10 +203,10 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
             selectedInvestorPosition->positionPtr->dateInvested = investedDate;
         }
         if(clientName.ToStdString().size()!=0){
-            selectedInvestorPosition->investorPtr->clientName = clientName;
+            selectedInvestorPosition->positionPtr->investorPtr->clientName = clientName;
         }
         if(clientType.ToStdString().size()!=0){
-            selectedInvestorPosition->investorPtr->type = clientType;
+            selectedInvestorPosition->positionPtr->investorPtr->type = clientType;
         }
         if(clientSubscribed != 0){
             selectedInvestorPosition->positionPtr->subscribed = clientSubscribed;
@@ -235,11 +224,10 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
             selectedInvestorPosition->positionPtr->returnOfCapital = clientReturnOfCapital;
         }
         for(auto&ipd : asset->investorsPositionsDisplays){
-            ipd->positionPtr->calculateOwnership(portfolio);
+            ipd->positionPtr->assetPtr->SetOwnershipOfPositions();
         }
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateDisplayTextValues();
-        portfolio.PopulateInvestors();//In case there are any changes to the Investors based on the user's input
         this->Refresh();
     }else if(returnValue == wxID_ANY){
         //exit 
@@ -256,14 +244,11 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
         //here specify if multiple distributions per Q are okay
         asset->distributions.push_back(newDistribution);
-        for(auto&inv: asset->investors){
-            for(auto&pos:inv->positions){
-                if(pos->assetPtr == asset){
-                    pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
-                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage, inv->managementFeePercentage);
-                }
-            }
+        for(auto&pos:asset->positions){
+            pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+            pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
         }
+
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();
         UpdateDisplayTextValues();
@@ -280,26 +265,18 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
         double amountMoved = DeployMovementWindow.GetAmountMoved();
         wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
         if(selectedMovementDirection == "To Deploy"){
-            for(auto & inv : asset->investors){
-                for(auto &pos:inv->positions){
-                    if(pos->assetPtr == asset){
-                        pos->reserve -= amountMoved*pos->percentOwnership;
-                        pos->deployed += amountMoved*pos->percentOwnership;
-                        pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
-                        pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
-                    }
-                }
+            for(auto&pos:asset->positions){
+                pos->reserve -=amountMoved*pos->percentOwnership;
+                pos->deployed+=amountMoved*pos->percentOwnership;
+                pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
+                pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
             }
         }else if(selectedMovementDirection == "From Deploy"){
-            for(auto & inv : asset->investors){
-                for(auto &pos:inv->positions){
-                    if(pos->assetPtr == asset){
-                        pos->reserve += amountMoved*pos->percentOwnership;
-                        pos->deployed -=amountMoved*pos->percentOwnership;
-                        pos->movedOutOfDeployed[dateOfMovement] = amountMoved*pos->percentOwnership;
-                        pos->CalculateHistoricalManagementFees(inv->managementFeePercentage);
-                    }
-                }
+            for(auto&pos:asset->positions){
+                pos->reserve+= amountMoved *pos->percentOwnership;
+                pos->deployed-=amountMoved* pos->percentOwnership;
+                pos->movedOutOfDeployed[dateOfMovement] = amountMoved *pos->percentOwnership;
+                pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
             }
         }
         investorPositionDisplayVirtualListControl->Refresh();
@@ -368,12 +345,8 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     if(retVal == wxID_OK){
         selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
         selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
-        for(auto& inv: asset->investors){
-            for(auto &pos: inv->positions){
-                if(pos->assetPtr == asset){
-                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage,inv->managementFeePercentage);
-                }
-            }
+        for(auto &pos:asset->positions){
+            pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
         }
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();
@@ -384,12 +357,8 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
             std::swap(asset->distributions[dataIndex], asset->distributions.back());
             asset->distributions.pop_back();
         }
-        for(auto& inv: asset->investors){
-            for(auto &pos: inv->positions){
-                if(pos->assetPtr == asset){
-                    pos->UpdateFinancesPostDistributionChanges(asset->distributions, inv->promoteFeePercentage,inv->managementFeePercentage);
-                }
-            }
+        for(auto&pos : asset->positions){
+            pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
         }
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();

@@ -22,13 +22,6 @@ void from_json(const json &j, Investor &inv, Portfolio &porf) {
     inv.type = wxString::FromUTF8(j["Type"].get<std::string>());
     inv.managementFeePercentage = j["Management Fee Percentage"].get<double>();
     inv.promoteFeePercentage = j["Promote Fee Percentage"].get<double>();   
-    if(j.contains("Positions")&&j["Positions"].is_array()){
-        for(const auto& posJson : j["Positions"]){
-            auto pos = std::make_shared<Position>();
-            from_json(posJson, *pos, porf);
-            inv.positions.push_back(pos);
-        }
-    }
 }
 
 wxVariant Investor::GetValue(int col)const{

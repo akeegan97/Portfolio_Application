@@ -94,6 +94,7 @@ void InvestorAssetDisplay::SetDerivedValues(){
             totalDeployed +=pos->deployed;
             totalReserve +=pos->reserve;
             totalReturnOfCapital +=pos->returnOfCapital;
+            totalPaid +=pos->paid;
         }
     }
 }

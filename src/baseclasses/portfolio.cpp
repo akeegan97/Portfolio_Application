@@ -23,6 +23,14 @@ void to_json(json &j, const Portfolio &por) {
 
 
 void from_json(const json &j, Portfolio &por) {
+    if(j.contains("Investors") && j["Investors"].is_array()){
+        for(const auto& investorJson: j["Investors"]){
+            std::shared_ptr<Investor> investor= std::make_shared<Investor>();
+            from_json(investorJson, *investor, por);
+            por.allInvestorPtrs.push_back(investor);
+        }
+    }
+
     if(j.contains("Assets") && j["Assets"].is_array()){
         for(const auto &assetJson : j["Assets"]){
             auto asset = std::make_shared<Asset>();
@@ -39,13 +47,35 @@ void from_json(const json &j, Portfolio &por) {
             por.assetPtrs.push_back(asset);
         }
     }
-    if(j.contains("Investors") && j["Investors"].is_array()){
-        for(const auto& investorJson: j["Investors"]){
-            std::shared_ptr<Investor> investor= std::make_shared<Investor>();
-            from_json(investorJson, *investor, por);
-            por.allInvestorPtrs.push_back(investor);
+    for (auto& investorJson : j["Investors"]) {
+        auto investorName = investorJson["Client Name"].get<std::string>();
+        auto investor = std::find_if(por.allInvestorPtrs.begin(), por.allInvestorPtrs.end(),
+                                     [&investorName](const std::shared_ptr<Investor>& inv) {
+                                         return inv->clientName == investorName;
+                                     });
+
+        if (investor != por.allInvestorPtrs.end()) {
+            for (const auto& positionJson : investorJson["Positions"]) {
+                auto position = std::make_shared<Position>();
+                from_json(positionJson, *position, por);
+
+                position->investorPtr = *investor;
+
+                auto assetName = positionJson["AssetName"].get<std::string>();
+                auto asset = std::find_if(por.assetPtrs.begin(), por.assetPtrs.end(),
+                                          [&assetName](const std::shared_ptr<Asset>& as) {
+                                              return as->assetName == assetName;
+                                          });
+
+                if (asset != por.assetPtrs.end()) {
+                    position->assetPtr = *asset;
+                    (*investor)->positions.push_back(position);
+                    (*asset)->positions.push_back(position);
+                }
+            }
         }
     }
+
 
     if(j.contains("valuationVectorPlotting")){
         for(const auto &pair:j["valuationVectorPlotting"]){
@@ -57,7 +87,7 @@ void from_json(const json &j, Portfolio &por) {
             por.valuationVectorPlotting.push_back(std::make_pair(date, amount));
         }
     }
-    por.SetAssetPositions();
+    //por.SetAssetPositions();
 }
 
 
@@ -409,3 +439,4 @@ void Portfolio::SetAssetPositions(){
         }
     }
 }
+

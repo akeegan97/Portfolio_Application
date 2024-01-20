@@ -46,7 +46,6 @@ class Position{
         paid(paid), reserve(reserve), deployed(deployed),
         returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
 
-        void calculateOwnership(Portfolio &portfolio);
         ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date);
         void CalculateHistoricalManagementFees(const double &managementFeePercentage);
         void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
