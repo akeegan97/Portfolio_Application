@@ -2,6 +2,7 @@
 #define INVESTORPOPOUT_HPP
 #include "wx/frame.h"
 #include <wx/stattext.h>
+#include <wx/notebook.h>
 #include "helpers/vlistcontrol.hpp"
 #include "baseclasses/portfolio.hpp"
 #include "baseclasses/investor.hpp"
@@ -19,6 +20,7 @@ class InvestorPopout : public wxFrame{
         std::shared_ptr<Investor> investor;
     private:
         VListControl<std::shared_ptr<InvestorAssetDisplay>> *investorAssetDisplayVirtualListControl;
+        wxNotebook* distributionsByAssetNoteBook;
         wxStaticText *totalPaid;
         void SetUpLayout();
 };

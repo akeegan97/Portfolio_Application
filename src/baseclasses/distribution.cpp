@@ -37,4 +37,4 @@ void Distribution::SetValue(int col, const wxVariant &v){
 
 
 std::vector<wxString> Distribution::columnNames = {"Distribution Date","Distribution Amount"};
-std::vector<int> Distribution::columnWidths = {100,100};
+std::vector<int> Distribution::columnWidths = {150,150};

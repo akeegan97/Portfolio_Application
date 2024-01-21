@@ -28,8 +28,33 @@ void InvestorPopout::SetUpLayout(){
     investorAssetDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
 
     topSizer->Add(investorAssetDisplayVirtualListControl, 3, wxALL, 10);
+    //next add notebook for distributions per asset vlistcontrols 
+    distributionsByAssetNoteBook = new wxNotebook(this, wxID_ANY);
+    processedAssets.clear();
+
+    for(const auto&position:investor->positions){
+        std::shared_ptr<Asset>asset = position->assetPtr;
+        if(processedAssets.find(asset) == processedAssets.end()){
+            processedAssets.insert(asset);
+            wxPanel *panel = new wxPanel(distributionsByAssetNoteBook, wxID_ANY);
+            panel->SetBackgroundColour(wxColor(0,0,0));
+            VListControl<Distribution> *netIncomeVLC = new VListControl<Distribution>(panel, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+            distributionsByAssetNoteBook->AddPage(panel, asset->assetName);
+            netIncomeVLC->SetBackgroundColour(wxColor(0,0,0));
+            std::vector<Distribution> mergeredDistributions;
+            for(const auto&position:investor->positions){
+                if(position->assetPtr == asset){
+                    mergeredDistributions.insert(mergeredDistributions.end(),position->netIncome.begin(),position->netIncome.end());
+                }
+            }
+            netIncomeVLC->setItems(mergeredDistributions);
+        }
+    }
+    topSizer->Add(distributionsByAssetNoteBook, 3, wxALL, 10);
+    
 
     mainSizer->Add(topSizer,3,wxALL|wxEXPAND, 10);
     this->SetSizer(mainSizer);
     this->Layout();
 }
+
