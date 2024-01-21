@@ -10,11 +10,20 @@ void to_json(json &j, const Portfolio &por) {
         assetsJson.push_back(assetJson);
     }
     j["Assets"] = assetsJson;
+
+    std::vector<json> investorsJson; 
+    for(const auto& investorPtr : por.allInvestorPtrs) {
+        json singleInvestorJson;
+        to_json(singleInvestorJson, *investorPtr);
+        investorsJson.push_back(singleInvestorJson); 
+    }
+    j["Investors"] = investorsJson; 
+
     json valuationArray = json::array();
-    for(const auto&pair:por.valuationVectorPlotting){
+    for(const auto& pair : por.valuationVectorPlotting) {
         std::string dateStr = pair.first.FormatISODate().ToStdString();
         double amount = pair.second;
-        json pairJson = {{"Date", dateStr},{"Amount",amount}};
+        json pairJson = {{"Date", dateStr}, {"Amount", amount}};
         valuationArray.push_back(pairJson);
     }
 
@@ -43,7 +52,7 @@ void from_json(const json &j, Portfolio &por) {
                 dateParse.ParseDate(dateStr);
                 asset->assetExitDate = dateParse;
             }
-            from_json(j["Assets"], *asset, por);
+            from_json(assetJson, *asset, por);
             por.assetPtrs.push_back(asset);
         }
     }

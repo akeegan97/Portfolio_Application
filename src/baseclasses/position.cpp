@@ -3,6 +3,7 @@
 void to_json(json&j, const Position &pos){
     j=json{
         {"AssetName", pos.assetPtr ? pos.assetPtr->assetName.ToStdString() : "Unknown"},//check to see if we are attempting to deref a nullPtr
+        {"InvestorName",pos.investorPtr? pos.investorPtr->clientName.ToStdString():"NoName"},
         {"Date Invested",pos.dateInvested.FormatISODate()},
         {"Subscribed", pos.subscribed},
         {"Paid", pos.paid},

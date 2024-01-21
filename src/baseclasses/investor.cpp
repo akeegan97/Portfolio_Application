@@ -3,6 +3,8 @@
 #include "baseclasses/portfolio.hpp"
 
 void to_json(json &j, const Investor &inv) {
+    std::cout << "Serializing Investor: " << inv.clientName.ToStdString() << ", Positions Count: " << inv.positions.size() << std::endl;
+
     j = {
         {"Client Name", inv.clientName.ToStdString()},
         {"Type", inv.type.ToStdString()},
@@ -10,6 +12,7 @@ void to_json(json &j, const Investor &inv) {
         {"Promote Fee Percentage",inv.promoteFeePercentage},
         {"Positions", json::array()}
     };
+
     for(const auto &pos: inv.positions){
         json posJson;
         to_json(posJson, *pos);
