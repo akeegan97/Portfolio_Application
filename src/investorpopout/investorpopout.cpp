@@ -30,6 +30,8 @@ void InvestorPopout::SetUpLayout(){
     topSizer->Add(investorAssetDisplayVirtualListControl, 3, wxALL, 10);
     //next add notebook for distributions per asset vlistcontrols 
     distributionsByAssetNoteBook = new wxNotebook(this, wxID_ANY);
+    distributionsByAssetNoteBook->SetForegroundColour(wxColor(250,0,0));
+    distributionsByAssetNoteBook->SetBackgroundColour(wxColor(0,0,0));
     processedAssets.clear();
 
     for(const auto&position:investor->positions){
@@ -51,9 +53,12 @@ void InvestorPopout::SetUpLayout(){
         }
     }
     topSizer->Add(distributionsByAssetNoteBook, 3, wxALL, 10);
-    
-
     mainSizer->Add(topSizer,3,wxALL|wxEXPAND, 10);
+    //add staticTexts
+    //add notes Notebook with multiline text edits
+    //potentially add chart specific for this investor's positions "Mini portfolio chart" like that on mainframe
+
+
     this->SetSizer(mainSizer);
     this->Layout();
 }
