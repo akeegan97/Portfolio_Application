@@ -330,71 +330,52 @@ double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asse
     return 0.0;
 }
 
-
 void Portfolio::PopulatePreviousQValuations() {
     previousQMap.clear();
-
     wxDateTime oldestInvestedDate = wxDateTime::Today();
-
     for(const auto&assetPtr: assetPtrs){
-        for(const auto&investorPtr: allInvestorPtrs){
-            for(const auto&pos:investorPtr->positions){
-                if(pos->assetPtr == assetPtr){
-                    if(pos->dateInvested.IsEarlierThan(oldestInvestedDate)){
-                        oldestInvestedDate = pos->dateInvested;
-                    }
-                }
+        for(const auto&pos:assetPtr->positions){
+            if(pos->dateInvested.IsEarlierThan(oldestInvestedDate)){
+                oldestInvestedDate = pos->dateInvested;
             }
         }
-    } 
-    //Getting the first date of deployed capital
-    //Get the End Date of the Q that corresponds to the oldest date
+    }
     wxDateTime qEndDate = GetQuarterEndDate(oldestInvestedDate);
-    wxDateTime today = wxDateTime::Today();
-    wxDateTime currentQStartDate = GetQuarterStartDate(today);
-    double lastQuarterValuation = 0.0; // Initialize to zero or a starting value
+    wxDateTime currentQDate = wxDateTime::Today();
+    wxDateTime currentQStartDate = GetQuarterStartDate(currentQDate);
+
+    for (const auto& assetPtr : assetPtrs) {
+        std::sort(assetPtr->valuations.begin(), assetPtr->valuations.end(),
+            [](const Valuation& a, const Valuation& b) {
+                return a.valuationDate < b.valuationDate;
+            });
+    }
 
     while (qEndDate.IsEarlierThan(currentQStartDate)) {
         double quarterValuation = 0.0;
-        bool hasNewDataInQuarter = false;
 
-        for (const auto& assetPointer : assetPtrs) {
-            bool hasValuationInQuarter = false;
-            double assetsValuation = 0.0;
+        for (const auto& assetPtr : assetPtrs) {
+            double assetQuarterValuation = 0.0;
+            bool valuationFound = false;
 
-            // Check for valuations in this quarter
-            for (const auto& valuation : assetPointer->valuations) {
-                if (IsWithinQuarter(valuation.valuationDate, qEndDate)) {
-                    assetsValuation += valuation.valuation;
-                    hasValuationInQuarter = true;
+            for (const auto& val : assetPtr->valuations) {
+                if ((val.valuationDate.IsEarlierThan(qEndDate))) {
+                    assetQuarterValuation = val.valuation;
+                    valuationFound = true;
+                } else if (val.valuationDate < qEndDate) {
+                    assetQuarterValuation = val.valuation;
                 }
             }
 
-            // If no valuation, check for deployed capital in this quarter
-            if (!hasValuationInQuarter) {
-                double deployedCapital = 0.0;
-                for (const auto& inv : allInvestorPtrs) {
-                    for (const auto& pos : inv->positions) {
-                        if (pos->assetPtr == assetPointer && IsWithinQuarter(pos->dateInvested, qEndDate)) {
-                            deployedCapital += pos->deployed;
-                        }
+            if (!valuationFound) {
+                for (const auto& pos : assetPtr->positions) {
+                    if ((pos->dateInvested.IsEarlierThan(qEndDate))) {
+                        assetQuarterValuation += pos->paid; 
                     }
                 }
-                if (deployedCapital > 0) {
-                    assetsValuation += deployedCapital;
-                    hasNewDataInQuarter = true;
-                }
             }
 
-            quarterValuation += assetsValuation;
-        }
-
-        // Update the quarter valuation
-        if (hasNewDataInQuarter) {
-            quarterValuation += lastQuarterValuation; // Add to previous quarter's valuation
-            lastQuarterValuation = quarterValuation;  // Update for next iteration
-        } else {
-            quarterValuation = lastQuarterValuation; // Carry forward if no new data
+            quarterValuation += assetQuarterValuation;
         }
 
         previousQMap[qEndDate] = quarterValuation;
@@ -404,17 +385,15 @@ void Portfolio::PopulatePreviousQValuations() {
 
 
 void Portfolio::PopulateAndProcessCurrentQValuations() {
-    std::map<wxString, double> assetLastValuationMap; // Last valuation for each asset
-    double currentValuation = previousQMap.rbegin()->second; // Start with the last quarter's valuation
+    std::map<wxString, double> assetLastValuationMap; 
+    double currentValuation = previousQMap.rbegin()->second; 
     wxDateTime today = wxDateTime::Today();
     wxDateTime currentQStartDate = GetQuarterStartDate(today);
 
-    // Initialize assetLastValuationMap with the deployed capital for each asset
     for (auto& asset : assetPtrs) {
         assetLastValuationMap[asset->assetName] = asset->CalculateDeployedCapital();
     }
 
-    // Sort all valuations within the current quarter
     std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> sortedValuations;
     for (auto& asset : assetPtrs) {
         for (auto& val : asset->valuations) {
@@ -426,14 +405,13 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::sort(sortedValuations.begin(), sortedValuations.end(), 
               [](const auto& a, const auto& b) { return a.first.IsEarlierThan(b.first); });
 
-    // Process sorted valuations
     for (auto& [date, assetVal] : sortedValuations) {
         const auto& [assetName, valuationAmount] = assetVal;
         double lastValuation = assetLastValuationMap[assetName];
         double differential = valuationAmount - lastValuation;
-        currentValuation += differential; // Update current total valuation
-        currentQMap[date] = currentValuation; // Store in map
-        assetLastValuationMap[assetName] = valuationAmount; // Update last valuation for the asset
+        currentValuation += differential; 
+        currentQMap[date] = currentValuation; 
+        assetLastValuationMap[assetName] = valuationAmount; 
     }
 }
 

@@ -34,7 +34,7 @@ void InvestorAssetDisplay::PopulateIRR(){
                 return a.valuationDate.IsEarlierThan(b.valuationDate);
             });
         newCashFlow.amount = assetPtr->valuations.back().valuation * ownership;
-        newCashFlow.date = assetPtr->valuations.back().valuationDate;
+        newCashFlow.date = wxDateTime::Today();
         cashFlow.push_back(newCashFlow);
     }else{
         CashFlow newCashFlow;

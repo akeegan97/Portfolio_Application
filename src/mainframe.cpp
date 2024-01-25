@@ -220,6 +220,7 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    UpdateEventListControl();
    this->Refresh();
 }
+
 Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    size_t count = portfolio.valuationVectorPlotting.size();
    if(count == 0){
