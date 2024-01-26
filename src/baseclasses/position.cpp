@@ -241,64 +241,68 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
     bool mgmtFeesCoveredThisQ = false;
 
     for (const auto& distribution : distributions) {
-        std::pair<wxDateTime, wxDateTime> currentQuarter = GetCurrentQuarterDates(distribution.distribution.first);
-        wxDateTime quarterStartDate = currentQuarter.first;
-        wxDateTime quarterEndDate = currentQuarter.second;
+        if(!distribution.distribution.first.IsEarlierThan(dateInvested)){
+            std::pair<wxDateTime, wxDateTime> currentQuarter = GetCurrentQuarterDates(distribution.distribution.first);
+            wxDateTime quarterStartDate = currentQuarter.first;
+            wxDateTime quarterEndDate = currentQuarter.second;
 
-        if (quarterEndDate != lastDistributionQuarterEnd) {
-            mgmtFeesCoveredThisQ = false;
-            mgmtFeesDue = unpaidMgmtFees;
-            unpaidMgmtFees = 0.0; 
-            for (const auto& fee : managementFees) {
-                if (fee.managementFeesAsset.first > lastDistributionQuarterEnd && fee.managementFeesAsset.first <= quarterEndDate) {
-                    mgmtFeesDue += fee.managementFeesAsset.second;
+            if (quarterEndDate != lastDistributionQuarterEnd) {
+                mgmtFeesCoveredThisQ = false;
+                mgmtFeesDue = unpaidMgmtFees;
+                unpaidMgmtFees = 0.0; 
+                for (const auto& fee : managementFees) {
+                    if (fee.managementFeesAsset.first > lastDistributionQuarterEnd && fee.managementFeesAsset.first <= quarterEndDate) {
+                        mgmtFeesDue += fee.managementFeesAsset.second;
+                    }
                 }
+                lastDistributionQuarterEnd = quarterEndDate;
+            }
+            double percentOwnershipInLoop = 0.0;
+            double totalPaidInLoop = 0.0;
+            for(const auto& pos:assetPtr->positions){
+                if(pos->dateInvested.IsEarlierThan(distribution.distribution.first)){
+                    totalPaidInLoop+= pos->paid;
+                }
+            }
+            percentOwnershipInLoop = paid / totalPaidInLoop;
+
+            double proportionalShare = distribution.distribution.second * percentOwnershipInLoop;
+            double totalFeesDue = mgmtFeesDue;
+
+            // Check if distribution covers the management fees
+            if (proportionalShare < totalFeesDue && !mgmtFeesCoveredThisQ) {
+                unpaidMgmtFees = totalFeesDue - proportionalShare; 
+                proportionalShare = 0.0; 
+            } else {
+                if(!mgmtFeesCoveredThisQ){
+                    unpaidMgmtFees = 0.0; 
+                    proportionalShare -= totalFeesDue; 
+                    mgmtFeesCoveredThisQ = true;
+                }
+            }
+
+            double promoteFee = 0.0;
+            double netIncomeAmount = 0.0;
+
+            if (proportionalShare > 0) {
+                promoteFee = proportionalShare * promoteFeePercentage;
+                netIncomeAmount = proportionalShare - promoteFee;
+            }
+
+            if (netIncomeAmount > 0) {
+                Distribution netIncomeDistribution;
+                netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
+                netIncome.push_back(netIncomeDistribution);
+            }
+
+            if (promoteFee > 0) {
+                PromoteFee newPromoteFee;
+                newPromoteFee.promotefee = std::make_pair(distribution.distribution.first, promoteFee);
+                promoteFees.push_back(newPromoteFee);
             }
             lastDistributionQuarterEnd = quarterEndDate;
         }
 
-        double proportionalShare = distribution.distribution.second * percentOwnership;
-        double totalFeesDue = mgmtFeesDue;
-
-        // Check if distribution covers the management fees
-        if (proportionalShare < totalFeesDue && !mgmtFeesCoveredThisQ) {
-            unpaidMgmtFees = totalFeesDue - proportionalShare; 
-            proportionalShare = 0.0; 
-        } else {
-            if(!mgmtFeesCoveredThisQ){
-                unpaidMgmtFees = 0.0; 
-                proportionalShare -= totalFeesDue; 
-                mgmtFeesCoveredThisQ = true;
-            }
-        }
-
-        double promoteFee = 0.0;
-        double netIncomeAmount = 0.0;
-
-        if (proportionalShare > 0) {
-            promoteFee = proportionalShare * promoteFeePercentage;
-            netIncomeAmount = proportionalShare - promoteFee;
-        }
-
-        if (netIncomeAmount > 0) {
-            Distribution netIncomeDistribution;
-            netIncomeDistribution.distribution = std::make_pair(distribution.distribution.first, netIncomeAmount);
-            netIncome.push_back(netIncomeDistribution);
-        }
-
-        if (promoteFee > 0) {
-            PromoteFee newPromoteFee;
-            newPromoteFee.promotefee = std::make_pair(distribution.distribution.first, promoteFee);
-            promoteFees.push_back(newPromoteFee);
-        }
-
-        std::cout << "Date of Distribution Processed: " << distribution.distribution.first.FormatISODate() << std::endl;
-        std::cout << "Proportional Share of Distribution: " << proportionalShare << std::endl;
-        std::cout << "Management Fees Due: " << mgmtFeesDue << std::endl;
-        std::cout << "Net Income After Fees: " << netIncomeAmount << std::endl;
-        std::cout << "Promote Fee: " << promoteFee << std::endl;
-
-        lastDistributionQuarterEnd = quarterEndDate;
     }
     wxDateTime currentQuarterEnd = GetCurrentQuarterDates(wxDateTime::Today()).second;
     if (!distributions.empty() && lastDistributionQuarterEnd < currentQuarterEnd) {

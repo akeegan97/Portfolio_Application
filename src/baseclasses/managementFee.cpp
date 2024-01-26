@@ -17,3 +17,21 @@ void from_json(const json&j, ManagementFee &fee){
         fee.managementFeesAsset = std::make_pair(date, amount);
     }
 }
+
+wxVariant ManagementFee::GetValue(int col)const{
+    switch(col){
+        case 0: return wxVariant(managementFeesAsset.first);break;
+        case 1: return wxVariant(managementFeesAsset.second);break;
+        default: return wxVariant();break;
+    }
+}
+
+void ManagementFee::SetValue(int col, const wxVariant &v){
+    switch(col){
+        case 0: managementFeesAsset.first = v.GetDateTime();break;
+        case 1: managementFeesAsset.second = v.GetDouble();break;
+    }
+}
+
+std::vector<wxString> ManagementFee::columnNames = {"Mgmt Fee Date","Mgmt Fee Amount"};
+std::vector<int> ManagementFee::columnWidths = {150,150};

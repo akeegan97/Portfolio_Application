@@ -3,9 +3,9 @@
 #include <unordered_set>
 
 void InvestorPopout::SetUpLayout(){
-    auto mainSizer = new wxBoxSizer(wxVERTICAL);
-    auto topSizer = new wxBoxSizer(wxHORIZONTAL);
-    auto middleSizer = new wxBoxSizer(wxHORIZONTAL);
+    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
+    auto rightSizer = new wxBoxSizer(wxVERTICAL);
+    auto leftSizer = new wxBoxSizer(wxVERTICAL);
     auto bottomSizer = new wxBoxSizer(wxHORIZONTAL);
 
     investor->displaysForInvestorPopout.clear();
@@ -27,7 +27,7 @@ void InvestorPopout::SetUpLayout(){
     investorAssetDisplayVirtualListControl->setItems(investor->displaysForInvestorPopout);
     investorAssetDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
 
-    topSizer->Add(investorAssetDisplayVirtualListControl, 3, wxALL, 10);
+    leftSizer->Add(investorAssetDisplayVirtualListControl, 1, wxALL, 10);
     //next add notebook for distributions per asset vlistcontrols 
     distributionsByAssetNoteBook = new wxNotebook(this, wxID_ANY);
     distributionsByAssetNoteBook->SetForegroundColour(wxColor(250,0,0));
@@ -39,21 +39,46 @@ void InvestorPopout::SetUpLayout(){
         if(processedAssets.find(asset) == processedAssets.end()){
             processedAssets.insert(asset);
             wxPanel *panel = new wxPanel(distributionsByAssetNoteBook, wxID_ANY);
+            auto panelSizer = new wxBoxSizer(wxVERTICAL);
             panel->SetBackgroundColour(wxColor(0,0,0));
             VListControl<Distribution> *netIncomeVLC = new VListControl<Distribution>(panel, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
             distributionsByAssetNoteBook->AddPage(panel, asset->assetName);
+            VListControl<ManagementFee> *mgmtFeeVLC = new VListControl<ManagementFee>(panel, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+            VListControl<PromoteFee> *promoteFeeVLC = new VListControl<PromoteFee>(panel, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+            mgmtFeeVLC->SetBackgroundColour(wxColor(0,0,0));
             netIncomeVLC->SetBackgroundColour(wxColor(0,0,0));
-            std::vector<Distribution> mergeredDistributions;
+            promoteFeeVLC->SetBackgroundColour(wxColor(0,0,0));
+            std::vector<Distribution> mergedDistributions;
             for(const auto&position:investor->positions){
                 if(position->assetPtr == asset){
-                    mergeredDistributions.insert(mergeredDistributions.end(),position->netIncome.begin(),position->netIncome.end());
+                    mergedDistributions.insert(mergedDistributions.end(),position->netIncome.begin(),position->netIncome.end());
                 }
             }
-            netIncomeVLC->setItems(mergeredDistributions);
+            std::vector<ManagementFee> mergedMgmtFees;
+            for(const auto&position:investor->positions){
+                if(position->assetPtr == asset){
+                    mergedMgmtFees.insert(mergedMgmtFees.begin(),position->managementFees.begin(), position->managementFees.end());
+                }
+            }
+            std::vector<PromoteFee> mergedPromoteFees;
+            for(const auto& position:investor->positions){
+                if(position->assetPtr == asset){
+                    mergedPromoteFees.insert(mergedPromoteFees.begin(),position->promoteFees.begin(), position->promoteFees.end());
+                }
+            }
+            mgmtFeeVLC->setItems(mergedMgmtFees);
+            netIncomeVLC->setItems(mergedDistributions);
+            promoteFeeVLC->setItems(mergedPromoteFees);
+            panelSizer->Add(netIncomeVLC, 1, wxALL|wxEXPAND, 10);
+            panelSizer->Add(mgmtFeeVLC, 1, wxALL|wxEXPAND, 10);
+            panelSizer->Add(promoteFeeVLC, 1, wxALL|wxEXPAND, 10);
+            panel->SetSizer(panelSizer);
+            panel->Layout();
         }
     }
-    topSizer->Add(distributionsByAssetNoteBook, 3, wxALL, 10);
-    mainSizer->Add(topSizer,3,wxALL|wxEXPAND, 10);
+    rightSizer->Add(distributionsByAssetNoteBook, 1, wxALL, 10);
+    mainSizer->Add(leftSizer,7,wxRIGHT, 5);
+    mainSizer->Add(rightSizer, 3, wxALL|wxEXPAND,5);
     //add staticTexts
     //add notes Notebook with multiline text edits
     //potentially add chart specific for this investor's positions "Mini portfolio chart" like that on mainframe
