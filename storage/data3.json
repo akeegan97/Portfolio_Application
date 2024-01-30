@@ -1,0 +1,356 @@
+{
+    "Assets": [
+        {
+            "Asset Exit Date": "2023-12-31",
+            "Asset Name": "Asset 1",
+            "Distributions": [
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-03-11"
+                }
+            ],
+            "Events": [
+                {
+                    "Event Date": "2024-01-08",
+                    "Event Details": "Testing Events",
+                    "Has Happened": false
+                }
+            ],
+            "Investors": [
+                {
+                    "Client Name": "Andrew Keegan",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 1",
+                            "Date Invested": "2023-01-01",
+                            "Deployed": 500000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 904.1095890410959,
+                                    "Management Fee Date": "2023-03-31"
+                                },
+                                {
+                                    "Management Fee Amount": 924.6575342465753,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 934.931506849315,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 934.931506849315,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 914.3835616438356,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 3708.904109589041,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Net Income": [
+                                {
+                                    "Distribution Amount": 3487.2386445565962,
+                                    "Distribution Date": "2023-03-11"
+                                }
+                            ],
+                            "Ownership": 0.5263157894736842,
+                            "Paid": 500000.0,
+                            "Promote Fees": [
+                                {
+                                    "Promote Fee Amount": 871.8096611391492,
+                                    "Promote Fee Date": "2023-03-11"
+                                }
+                            ],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 500000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Individual"
+                },
+                {
+                    "Client Name": "Jadi Keegan",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 1",
+                            "Date Invested": "2023-02-01",
+                            "Deployed": 450000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 813.6986301369864,
+                                    "Management Fee Date": "2023-03-31"
+                                },
+                                {
+                                    "Management Fee Amount": 832.1917808219177,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 841.4383561643835,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 841.4383561643835,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 822.945205479452,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 3338.013698630137,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Net Income": [
+                                {
+                                    "Distribution Amount": 3138.514780100937,
+                                    "Distribution Date": "2023-03-11"
+                                }
+                            ],
+                            "Ownership": 0.47368421052631576,
+                            "Paid": 450000.0,
+                            "Promote Fees": [
+                                {
+                                    "Promote Fee Amount": 784.6286950252343,
+                                    "Promote Fee Date": "2023-03-11"
+                                }
+                            ],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 450000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Individual"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 1000000.0,
+                    "Valuation Date": "2024-01-09"
+                }
+            ]
+        },
+        {
+            "Asset Exit Date": "2024-06-30",
+            "Asset Name": "Asset 2",
+            "Distributions": [],
+            "Events": [],
+            "Investors": [
+                {
+                    "Client Name": "Will Keegan",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 2",
+                            "Date Invested": "2023-03-01",
+                            "Deployed": 400000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 723.2876712328767,
+                                    "Management Fee Date": "2023-03-31"
+                                },
+                                {
+                                    "Management Fee Amount": 739.7260273972603,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 747.945205479452,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 747.945205479452,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 731.5068493150685,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 3690.4109589041095,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Ownership": 1.0,
+                            "Paid": 400000.0,
+                            "Promote Fees": [],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 400000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Individual"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 500000.0,
+                    "Valuation Date": "2024-01-08"
+                }
+            ]
+        },
+        {
+            "Asset Exit Date": "2025-12-31",
+            "Asset Name": "Asset 3",
+            "Distributions": [],
+            "Events": [],
+            "Investors": [
+                {
+                    "Client Name": "Investor D",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 3",
+                            "Date Invested": "2023-04-01",
+                            "Deployed": 600000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 1109.5890410958903,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1121.9178082191781,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1121.9178082191781,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 1097.2602739726028,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 4450.684931506849,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Ownership": 0.2926829268292683,
+                            "Paid": 600000.0,
+                            "Promote Fees": [],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 600000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Company"
+                },
+                {
+                    "Client Name": "Andrew Keegan",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 3",
+                            "Date Invested": "2023-01-01",
+                            "Deployed": 750000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 1356.164383561644,
+                                    "Management Fee Date": "2023-03-31"
+                                },
+                                {
+                                    "Management Fee Amount": 1386.986301369863,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1402.3972602739725,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1402.3972602739725,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 1371.5753424657535,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 6919.520547945205,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Ownership": 0.36585365853658536,
+                            "Paid": 500000.0,
+                            "Promote Fees": [],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 500000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Individual"
+                },
+                {
+                    "Client Name": "Investor E",
+                    "Management Fee Percentage": 0.0075,
+                    "Positions": [
+                        {
+                            "AssetName": "Asset 3",
+                            "Date Invested": "2023-05-01",
+                            "Deployed": 700000.0,
+                            "Management Fees": [
+                                {
+                                    "Management Fee Amount": 1294.5205479452054,
+                                    "Management Fee Date": "2023-06-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1308.9041095890411,
+                                    "Management Fee Date": "2023-09-30"
+                                },
+                                {
+                                    "Management Fee Amount": 1308.9041095890411,
+                                    "Management Fee Date": "2023-12-31"
+                                },
+                                {
+                                    "Management Fee Amount": 1280.13698630137,
+                                    "Management Fee Date": "2024-03-31"
+                                }
+                            ],
+                            "Management Fees Due": 5192.465753424658,
+                            "MovedOutDeploy": null,
+                            "MovedToDeploy": null,
+                            "Ownership": 0.34146341463414637,
+                            "Paid": 700000.0,
+                            "Promote Fees": [],
+                            "ROC": 0.0,
+                            "Reserve": 0.0,
+                            "Subscribed": 700000.0
+                        }
+                    ],
+                    "Promote Fee Percentage": 0.2,
+                    "Type": "Trust"
+                }
+            ],
+            "Valuations": []
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 2100000.0,
+            "Date": "2023-03-31"
+        },
+        {
+            "Amount": 3400000.0,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 3400000.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 3400000.0,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 3500000.0,
+            "Date": "2024-01-08"
+        },
+        {
+            "Amount": 3550000.0,
+            "Date": "2024-01-09"
+        }
+    ]
+}

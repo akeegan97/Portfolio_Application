@@ -1,5 +1,5 @@
 CMakeLists.txt
 build/
 .vscode/
-storage/
+storage/RugenBergQuotes.txt
 main.manifest
