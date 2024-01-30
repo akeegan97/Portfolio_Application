@@ -40,17 +40,17 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
         mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
         //Direction of Move:
         wxArrayString choices;
-        choices.Add("To Deploy");
-        choices.Add("From Deploy");
+        choices.Add("Reserve to Deploy");
+        choices.Add("Deploy to Reserve");
+        choices.Add("Reserve to Return of Capital");
+        choices.Add("Deploy to Return of Capital");
         directionOfMovement = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,choices);
         directionOfMovement->SetForegroundColour(wxColor(51,245,12));
         directionOfMovement->SetBackgroundColour(wxColor(0,0,0));
-
         directionOfMovementText = new wxStaticText(this, wxID_ANY, "Select Movement Type");
         directionOfMovementText->SetForegroundColour(wxColor(51,245,12));
         mainSizer->Add(directionOfMovementText, 0, wxALL | wxLEFT, 5);
         mainSizer->Add(directionOfMovement, 0, wxALL|wxEXPAND, 5);
-
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
         wxButton* okayButton = new wxButton(this, wxID_OK, "Okay");

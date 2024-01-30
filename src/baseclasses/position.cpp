@@ -179,9 +179,14 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     std::sort(quarterMovements.begin(), quarterMovements.end());
 
     wxDateTime segmentStartDate, segmentEndDate;
-    segmentStartDate = qdates.first;
-    double totalFee = 0;
+    
+    if(position.dateInvested > qdates.first && position.dateInvested <qdates.second){//checking if we are in the first Q that the position was entered if it is our starting date is == to the date invested else
+        segmentStartDate = position.dateInvested;
+    }else{
+        segmentStartDate = qdates.first;    
+    }
 
+    double totalFee = 0;
     for(const auto&movement:quarterMovements){
         if(movement.first!=segmentStartDate){
             segmentEndDate = movement.first;
@@ -218,9 +223,16 @@ void Position::CalculateHistoricalManagementFees(const double &managementFeePerc
     while(startingQDate < currentDate){
         std::pair<wxDateTime, wxDateTime> qDates = GetCurrentQuarterDates(startingQDate);
         endingQDate = qDates.second;
-        ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,startingQDate);
-        startingQDate = GetNextQuarterStartDate(endingQDate);
-        managementFees.push_back(feeForQuarter);
+        if(this->dateInvested > startingQDate && this->dateInvested < endingQDate){
+            ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,dateInvested);//might need a separate function to handle this case
+
+            startingQDate = GetNextQuarterStartDate(endingQDate);
+            managementFees.push_back(feeForQuarter);
+        }else{
+            ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,startingQDate);
+            startingQDate = GetNextQuarterStartDate(endingQDate);
+            managementFees.push_back(feeForQuarter);
+        }
     }
     ReCalculateTotalManagementFeesDue(startingQDate);
 }

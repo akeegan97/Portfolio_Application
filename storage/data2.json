@@ -59,7 +59,7 @@
                     "InvestorName": "Hector Ovalle",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 408.0648051369863,
+                            "Management Fee Amount": 204.03240256849315,
                             "Management Fee Date": "2023-06-30"
                         },
                         {
@@ -80,7 +80,7 @@
                     "MovedToDeploy": null,
                     "Net Income": [
                         {
-                            "Distribution Amount": 1242.4161558904111,
+                            "Distribution Amount": 1405.6420779452055,
                             "Distribution Date": "2023-06-16"
                         },
                         {
@@ -116,7 +116,7 @@
                     "Paid": 250000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": 310.6040389726028,
+                            "Promote Fee Amount": 351.4105194863014,
                             "Promote Fee Date": "2023-06-16"
                         },
                         {
@@ -167,7 +167,7 @@
                     "InvestorName": "Juan Jose Risoul",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 408.0648051369863,
+                            "Management Fee Amount": 204.03240256849315,
                             "Management Fee Date": "2023-06-30"
                         },
                         {
@@ -188,7 +188,7 @@
                     "MovedToDeploy": null,
                     "Net Income": [
                         {
-                            "Distribution Amount": 1242.4161558904111,
+                            "Distribution Amount": 1405.6420779452055,
                             "Distribution Date": "2023-06-16"
                         },
                         {
@@ -224,7 +224,7 @@
                     "Paid": 250000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": 310.6040389726028,
+                            "Promote Fee Amount": 351.4105194863014,
                             "Promote Fee Date": "2023-06-16"
                         },
                         {

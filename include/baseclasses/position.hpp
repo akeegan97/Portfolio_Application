@@ -50,7 +50,6 @@ class Position{
         void CalculateHistoricalManagementFees(const double &managementFeePercentage);
         void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
         void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
-
         std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
         wxDateTime GetNextQuarterStartDate(wxDateTime &date);
         double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);

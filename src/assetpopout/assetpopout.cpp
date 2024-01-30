@@ -84,7 +84,7 @@ void AssetPopout::setupLayout(){
     assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Asset Level Movement of Capital");
     assetLevelMovementOfCapitalButton->SetBackgroundColour(wxColor(0,0,0));
     assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
-    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnDeployMovement, this);
+    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
 
     addValuationButton = new wxButton(this, wxID_ANY, "Add Valuation");
     addValuationButton->SetBackgroundColour(wxColor(0,0,0));
@@ -104,7 +104,6 @@ void AssetPopout::setupLayout(){
     this->SetSizer(mainSizer);
 
     for(auto &pos: asset->positions){
-        ManagementFee mgmtFee;
         pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
         pos->UpdateFinancesPostDistributionChanges(asset->distributions,pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
     }
@@ -257,8 +256,8 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         this->Refresh();
     }
 }
-
-void AssetPopout::OnDeployMovement(wxCommandEvent &e){
+//Will need to change this if mgmt fees go to paid/committed regardless if in deployed/reserve and only omit fees on ROC
+void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
     MoveDeploy DeployMovementWindow(this);
     DeployMovementWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = DeployMovementWindow.ShowModal();
@@ -266,18 +265,31 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
         wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
         double amountMoved = DeployMovementWindow.GetAmountMoved();
         wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
-        if(selectedMovementDirection == "To Deploy"){
+        if(selectedMovementDirection == "Reserve to Deploy"){
             for(auto&pos:asset->positions){
-                pos->reserve -=amountMoved*pos->percentOwnership;
-                pos->deployed+=amountMoved*pos->percentOwnership;
+                pos->reserve -=amountMoved * pos->percentOwnership;
+                pos->deployed+=amountMoved * pos->percentOwnership;
                 pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
             }
-        }else if(selectedMovementDirection == "From Deploy"){
+        }else if(selectedMovementDirection == "Deploy to Reserve"){
             for(auto&pos:asset->positions){
-                pos->reserve+= amountMoved *pos->percentOwnership;
-                pos->deployed-=amountMoved* pos->percentOwnership;
-                pos->movedOutOfDeployed[dateOfMovement] = amountMoved *pos->percentOwnership;
+                pos->reserve+= amountMoved * pos->percentOwnership;
+                pos->deployed-=amountMoved * pos->percentOwnership;
+                pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
+                pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+            }
+        }else if(selectedMovementDirection == "Reserve to Return of Capital"){
+            for(auto& pos:asset->positions){
+                pos->reserve-= amountMoved * pos->percentOwnership;
+                pos->returnOfCapital+=amountMoved * pos->percentOwnership;
+            }
+        }else if(selectedMovementDirection == "Deploy to Return of Capital"){   
+            for(auto&pos:asset->positions){
+                pos->deployed-=amountMoved * pos->percentOwnership;
+                pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
+                pos->returnOfCapital += amountMoved * pos->percentOwnership;
+                //since mgmt fees are calculated based on deployed capital need to readjust them based on this movement as well
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
             }
         }
