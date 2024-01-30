@@ -12,18 +12,15 @@ void InvestorPopout::SetUpLayout(){
     std::unordered_set<std::shared_ptr<Asset>> processedAssets;
 
     for (const auto& position : investor->positions) {
-        std::cout<<"Number of positions: "<<investor->positions.size()<<std::endl;
         std::shared_ptr<Asset> asset = position->assetPtr;
-
+        //std::cout<<"Position: Paid Amount: "<<position->paid<<std::endl;
         if (processedAssets.find(asset) == processedAssets.end()) {
             processedAssets.insert(asset);
             auto investorAssetDisplay = std::make_shared<InvestorAssetDisplay>(asset, investor);
             investor->displaysForInvestorPopout.push_back(investorAssetDisplay);
-            std::cout<<"Pushed IAD To Vector: "<<investorAssetDisplay->investorPtr->clientName.ToStdString()<<std::endl;
         }
     }
     investorAssetDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorAssetDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    std::cout<<"Number of Elements in Investor->displaysForInvestorPopout: "<<investor->displaysForInvestorPopout.size()<<std::endl;
     investorAssetDisplayVirtualListControl->setItems(investor->displaysForInvestorPopout);
     investorAssetDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
 
@@ -82,7 +79,6 @@ void InvestorPopout::SetUpLayout(){
     //add staticTexts
     //add notes Notebook with multiline text edits
     //potentially add chart specific for this investor's positions "Mini portfolio chart" like that on mainframe
-
 
     this->SetSizer(mainSizer);
     this->Layout();

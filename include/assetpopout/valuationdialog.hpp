@@ -13,11 +13,11 @@
 
 class ValuationDialog : public wxDialog{
     public:
-        ValuationDialog(wxWindow *parentWindow, bool editMode);
+        ValuationDialog(wxWindow *parentWindow, bool editMode, wxDateTime &setDate, double &setValue);
         wxDateTime GetDate();
         double GetValuation();
         void SetUpOnAdd();
-        void SetUpOnEdit();
+        void SetUpOnEdit(wxDateTime &setDate, double &setValue);
         void OnDeleteButtonPress(wxCommandEvent &e);
     private:
         wxDatePickerCtrl *datePicker;

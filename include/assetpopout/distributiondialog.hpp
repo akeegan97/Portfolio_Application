@@ -13,11 +13,11 @@
 
 class DistributionDialog : public wxDialog{
     public:
-        DistributionDialog(wxWindow *parentWindow, bool isEditMode);
+        DistributionDialog(wxWindow *parentWindow, bool isEditMode, wxDateTime &setDate, double &setAmount);
         wxDateTime GetDistributionDate();
         double GetDistributionAmount();
         void SetUpOnAddDistribution();
-        void SetUpOnEditDistribution();
+        void SetUpOnEditDistribution(wxDateTime &setDate, double &setAmount);
         void OnDeleteButtonPress(wxCommandEvent &e);
     private:
         wxDatePickerCtrl* datePicker;

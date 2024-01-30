@@ -134,4 +134,4 @@ void InvestorAssetDisplay::SetValue(int col, const wxVariant &v){
 }
 
 std::vector<wxString> InvestorAssetDisplay::columnNames={"Asset Name","Subscribed","Paid","Deployed","ITD Net Distributions","IRR"};
-std::vector<int> InvestorAssetDisplay::columnWidths = {100,100,100,100,100,100};
+std::vector<int> InvestorAssetDisplay::columnWidths = {100,75,75,100,150,100};

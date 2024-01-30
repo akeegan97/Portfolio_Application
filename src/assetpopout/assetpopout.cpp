@@ -235,7 +235,9 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
 }
 
 void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
-    DistributionDialog addDistroWindow(this,false);
+    wxDateTime today = wxDateTime::Today();
+    double zero = 0.0;
+    DistributionDialog addDistroWindow(this,false,today, zero);
     addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = addDistroWindow.ShowModal();
     if(retValue == wxID_OK){
@@ -288,7 +290,9 @@ void AssetPopout::OnDeployMovement(wxCommandEvent &e){
 }
 
 void AssetPopout::OnAddValuation(wxCommandEvent &e){
-    ValuationDialog addValuationDialog(this, false);
+    wxDateTime today = wxDateTime::Today();
+    double setValue = 0.0;
+    ValuationDialog addValuationDialog(this, false,today, setValue);
     addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
     int retVal = addValuationDialog.ShowModal();
     if(retVal == wxID_OK){
@@ -338,7 +342,9 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     long listIndex = e.GetIndex();
     long dataIndex = distributionListControl->orderedIndices[listIndex];
     Distribution& selectedDistribution = asset->distributions[dataIndex];
-    DistributionDialog distributionEditwindow(this,true);
+    wxDateTime distributionDate = selectedDistribution.distribution.first;
+    double distributionAmount = selectedDistribution.distribution.second;
+    DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);
 
     distributionEditwindow.SetBackgroundColour(wxColor(0,0,0));
     int retVal = distributionEditwindow.ShowModal();
@@ -371,7 +377,9 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
     long listIndex = e.GetIndex();
     long dataIndex = valuationListControl->orderedIndices[listIndex];
     Valuation& valuationToEdit = asset->valuations[dataIndex];
-    ValuationDialog valuationWindow(this, true);
+    wxDateTime setDate  = valuationToEdit.valuationDate;
+    double setValue = valuationToEdit.valuation;
+    ValuationDialog valuationWindow(this, true, setDate, setValue);
     valuationWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = valuationWindow.ShowModal();
     if(retValue == wxID_OK){

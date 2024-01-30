@@ -1,8 +1,8 @@
 #include "assetpopout/distributiondialog.hpp"
-DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
+DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wxDateTime &setDate, double &setAmount):
     wxDialog(parentWindow, wxID_ANY, "Add Distribution", wxDefaultPosition,wxSize(300,250), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         if(isEditMode){
-            SetUpOnEditDistribution();
+            SetUpOnEditDistribution(setDate, setAmount);
         }else{
             SetUpOnAddDistribution();
         }
@@ -17,7 +17,20 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
     }
 
     void DistributionDialog::SetUpOnAddDistribution(){
-        wxTextValidator validator(wxFILTER_DIGITS);
+        wxArrayString includeList;
+        includeList.Add(wxT("0"));
+        includeList.Add(wxT("1"));
+        includeList.Add(wxT("2"));
+        includeList.Add(wxT("3"));
+        includeList.Add(wxT("4"));
+        includeList.Add(wxT("5"));
+        includeList.Add(wxT("6"));
+        includeList.Add(wxT("7"));
+        includeList.Add(wxT("8"));
+        includeList.Add(wxT("9"));
+        includeList.Add(wxT(".")); 
+        wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
+        validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //Date of Distribution
@@ -66,8 +79,21 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
         this->SetSizer(mainSizer);
     }
 
-    void DistributionDialog::SetUpOnEditDistribution(){
-        wxTextValidator validator(wxFILTER_DIGITS);
+    void DistributionDialog::SetUpOnEditDistribution(wxDateTime &setDate, double &setAmount){
+        wxArrayString includeList;
+        includeList.Add(wxT("0"));
+        includeList.Add(wxT("1"));
+        includeList.Add(wxT("2"));
+        includeList.Add(wxT("3"));
+        includeList.Add(wxT("4"));
+        includeList.Add(wxT("5"));
+        includeList.Add(wxT("6"));
+        includeList.Add(wxT("7"));
+        includeList.Add(wxT("8"));
+        includeList.Add(wxT("9"));
+        includeList.Add(wxT(".")); 
+        wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
+        validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //Date of Distribution
@@ -77,8 +103,7 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
         mainSizer->Add(warningText, 0, wxALL|wxLEFT,5);
 
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
-        wxDateTime today = wxDateTime::Today();
-        datePicker->SetValue(today);
+        datePicker->SetValue(setDate);
         datePicker->SetForegroundColour(wxColor(51,245,12));
 
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Distribution");
@@ -95,6 +120,8 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode):
         amountCtrl->SetBackgroundColour(wxColor(0,0,0));
         amountCtrl->SetMaxLength(12);
         amountCtrl->SetValidator(validator);
+        wxString setString = wxString::Format(wxT("%f"),setAmount);
+        amountCtrl->SetValue(setString);
         amountText = new wxStaticText(this, wxID_ANY, "Enter Distribution Amount");
         amountText->SetForegroundColour(wxColor(51,245,12));
         amountText->SetBackgroundColour(wxColor(0,0,0));

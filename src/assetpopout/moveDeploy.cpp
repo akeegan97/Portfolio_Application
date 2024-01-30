@@ -2,7 +2,20 @@
 
 MoveDeploy::MoveDeploy(wxWindow *parentWindow):
     wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxSize(300,300), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
-        wxTextValidator validator(wxFILTER_DIGITS);
+        wxArrayString includeList;
+        includeList.Add(wxT("0"));
+        includeList.Add(wxT("1"));
+        includeList.Add(wxT("2"));
+        includeList.Add(wxT("3"));
+        includeList.Add(wxT("4"));
+        includeList.Add(wxT("5"));
+        includeList.Add(wxT("6"));
+        includeList.Add(wxT("7"));
+        includeList.Add(wxT("8"));
+        includeList.Add(wxT("9"));
+        includeList.Add(wxT(".")); 
+        wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
+        validator.SetIncludes(includeList);
         wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //Date of Move

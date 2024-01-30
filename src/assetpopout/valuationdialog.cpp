@@ -1,20 +1,31 @@
 #include "assetpopout/valuationdialog.hpp"
 
-ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode):
+ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTime &setDate, double &setValue):
     wxDialog(parentWindow, wxID_ANY, "Add Valuation", wxDefaultPosition, wxSize(300,250), wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){
         if(editMode){
-            SetUpOnEdit();
+            SetUpOnEdit(setDate, setValue);
         }else{
             SetUpOnAdd();
         }
     }
     
     void ValuationDialog::SetUpOnAdd(){
-        wxTextValidator validator(wxFILTER_DIGITS);
+        wxArrayString includeList;
+        includeList.Add(wxT("0"));
+        includeList.Add(wxT("1"));
+        includeList.Add(wxT("2"));
+        includeList.Add(wxT("3"));
+        includeList.Add(wxT("4"));
+        includeList.Add(wxT("5"));
+        includeList.Add(wxT("6"));
+        includeList.Add(wxT("7"));
+        includeList.Add(wxT("8"));
+        includeList.Add(wxT("9"));
+        includeList.Add(wxT(".")); 
+        wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
+        validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
-
         //date of valuation
-
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         wxDateTime setDate = wxDateTime::Today();
         datePicker->SetValue(setDate);
@@ -62,8 +73,21 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode):
         this->SetSizer(mainSizer);
     }
 
-    void ValuationDialog::SetUpOnEdit(){
-        wxTextValidator validator(wxFILTER_DIGITS);
+    void ValuationDialog::SetUpOnEdit(wxDateTime &setDate, double &setValue){
+        wxArrayString includeList;
+        includeList.Add(wxT("0"));
+        includeList.Add(wxT("1"));
+        includeList.Add(wxT("2"));
+        includeList.Add(wxT("3"));
+        includeList.Add(wxT("4"));
+        includeList.Add(wxT("5"));
+        includeList.Add(wxT("6"));
+        includeList.Add(wxT("7"));
+        includeList.Add(wxT("8"));
+        includeList.Add(wxT("9"));
+        includeList.Add(wxT(".")); 
+        wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
+        validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //date of valuation
@@ -72,7 +96,6 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode):
         warningText->SetForegroundColour(wxColour(250,0,0));
 
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
-        wxDateTime setDate = wxDateTime::Today();
         datePicker->SetValue(setDate);
         datePicker->SetForegroundColour(wxColor(51,245,12));
 
@@ -90,6 +113,8 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode):
         valuationCtrl->SetBackgroundColour(wxColor(0,0,0));
         valuationCtrl->SetMaxLength(12);
         valuationCtrl->SetValidator(validator);
+        wxString myString = wxString::Format(wxT("%.2f"), setValue);
+        valuationCtrl->SetValue(myString);
 
         valuationText = new wxStaticText(this, wxID_ANY, "Enter Valuation Amount");
         valuationText->SetForegroundColour(wxColor(51,245,12));
