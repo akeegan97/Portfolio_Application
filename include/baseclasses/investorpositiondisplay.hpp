@@ -16,7 +16,8 @@ class InvestorPositionDisplay{
         static std::vector<int> columnWidths;
 
         InvestorPositionDisplay(std::shared_ptr<Position>positionPtr):
-        positionPtr(positionPtr){}
+        positionPtr(positionPtr){
+        }
 
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);

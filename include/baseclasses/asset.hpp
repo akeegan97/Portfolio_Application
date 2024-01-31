@@ -19,6 +19,7 @@ class Asset{
         double totalInvestedCapital;
         double countOfInvestors;
         double currentValue;
+        double totalMgmtFees;
 
         std::vector<Valuation> valuations;
         std::vector<Distribution> distributions;

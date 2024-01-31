@@ -44,7 +44,8 @@ class Position{
         const double &paid, const double &reserve,const double deployed, const double &returnOfCapital, 
         const double &percentOwnership): dateInvested(dateInvested), subscribed(subscribed),
         paid(paid), reserve(reserve), deployed(deployed),
-        returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){};
+        returnOfCapital(returnOfCapital),percentOwnership(percentOwnership){
+        };
 
         ManagementFee CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date);
         void CalculateHistoricalManagementFees(const double &managementFeePercentage);

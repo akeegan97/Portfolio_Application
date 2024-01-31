@@ -10,10 +10,14 @@ void InvestorPopout::SetUpLayout(){
 
     investor->displaysForInvestorPopout.clear();
     std::unordered_set<std::shared_ptr<Asset>> processedAssets;
+    for(auto &pos : investor->positions){
+        pos->CalculateHistoricalManagementFees(investor->managementFeePercentage);
+        pos->UpdateFinancesPostDistributionChanges(pos->assetPtr->distributions, investor->promoteFeePercentage,investor->managementFeePercentage);
+    }
 
     for (const auto& position : investor->positions) {
         std::shared_ptr<Asset> asset = position->assetPtr;
-        //std::cout<<"Position: Paid Amount: "<<position->paid<<std::endl;
+        std::cout<<"Called before asset popout: Length of Distributions: "<<asset->distributions.size()<<std::endl;
         if (processedAssets.find(asset) == processedAssets.end()) {
             processedAssets.insert(asset);
             auto investorAssetDisplay = std::make_shared<InvestorAssetDisplay>(asset, investor);

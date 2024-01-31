@@ -111,6 +111,7 @@ void Asset::UpdateDerivedValues(){
     countOfInvestors = CalculateNumberOfInvestors();
     totalInvestedCapital = CalculateDeployedCapital();
     currentValue = GetLastValuation();
+    totalMgmtFees = GetTotalMgmtFeesGenerated();
     SetOwnershipOfPositions();
 }
 

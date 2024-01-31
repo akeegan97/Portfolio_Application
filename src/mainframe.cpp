@@ -115,7 +115,6 @@ void MainFrame::setupLayout(){
    this->Update();
 }
 
-
 void MainFrame::UpdatePortfolioDisplayValues(){
    double totalInvested = portfolio.TotalInvestedCapital();
    std::string formattedTotalInvested = formatDollarAmount(totalInvested);
@@ -157,7 +156,6 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
    }
 
 }
-
 //Port of helpful Rust function I wrote
 template <typename T>
 std::string formatDollarAmount(T value) {
@@ -325,6 +323,7 @@ void MainFrame::UpdateAssetListControl(){
    allAssetVListControl->Update();
    this->Layout();
 }
+
 void MainFrame::UpdateEventListControl(){
    allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
    allAssetEventVListControl->Update();

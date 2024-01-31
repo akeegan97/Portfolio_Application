@@ -147,7 +147,7 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     ManagementFee feeThisQuarter;
     std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(date);
     double endingDeployedCapital = position.deployed;
-    double totalMovedToDeploy, totalMovedFromDeploy = 0;
+    double totalMovedToDeploy=0, totalMovedFromDeploy = 0;
 
     for(const auto &pair:position.movedToDeploy){
         if(pair.first>=qdates.first && pair.first <= qdates.second){
@@ -179,7 +179,7 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     std::sort(quarterMovements.begin(), quarterMovements.end());
 
     wxDateTime segmentStartDate, segmentEndDate;
-    
+
     if(position.dateInvested > qdates.first && position.dateInvested <qdates.second){//checking if we are in the first Q that the position was entered if it is our starting date is == to the date invested else
         segmentStartDate = position.dateInvested;
     }else{
@@ -225,7 +225,6 @@ void Position::CalculateHistoricalManagementFees(const double &managementFeePerc
         endingQDate = qDates.second;
         if(this->dateInvested > startingQDate && this->dateInvested < endingQDate){
             ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,dateInvested);//might need a separate function to handle this case
-
             startingQDate = GetNextQuarterStartDate(endingQDate);
             managementFees.push_back(feeForQuarter);
         }else{
