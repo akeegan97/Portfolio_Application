@@ -465,6 +465,38 @@ Chart* AssetPopout::PopulateDrawChart(){
         return nullptr;
     }
 
+    std::set<wxDateTime> allDates;
+    for (const auto& val : asset->valuationsForPlotting) {
+        allDates.insert(val.first);
+    }
+    for (const auto& dep : asset->deploymentsForPlotting) {
+        allDates.insert(dep.first);
+    }
+    std::vector<std::pair<wxDateTime, double>> newValuations, newDeployments;
+    double lastValuation = 0.0, lastDeployment = 0.0;
+
+    for (const auto& date : allDates) {
+        auto valIt = std::find_if(asset->valuationsForPlotting.begin(), asset->valuationsForPlotting.end(),
+                                [date](const std::pair<wxDateTime, double>& val) { return val.first == date; });
+        if (valIt != asset->valuationsForPlotting.end()) {
+            lastValuation = valIt->second;
+            newValuations.push_back(*valIt);
+        } else {
+            newValuations.push_back({date, lastValuation}); 
+        }
+
+        auto depIt = std::find_if(asset->deploymentsForPlotting.begin(), asset->deploymentsForPlotting.end(),
+                                [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
+        if (depIt != asset->deploymentsForPlotting.end()) {
+            lastDeployment = depIt->second;
+            newDeployments.push_back(*depIt);
+        } else {
+            newDeployments.push_back({date, lastDeployment}); 
+        }
+    }
+    asset->valuationsForPlotting = std::move(newValuations);
+    asset->deploymentsForPlotting = std::move(newDeployments);
+
     XYPlot *xyPlot = new XYPlot();
 
     if (!asset->valuationsForPlotting.empty()) {
@@ -474,7 +506,7 @@ Chart* AssetPopout::PopulateDrawChart(){
         for(size_t i = 0; i < count; i++) { 
             data[i] = asset->valuationsForPlotting[i].second;
             times[i] = asset->valuationsForPlotting[i].first.GetTicks();
-            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<times[i]<<std::endl;
+            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->valuationsForPlotting[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
@@ -491,7 +523,7 @@ Chart* AssetPopout::PopulateDrawChart(){
         for(size_t i = 0; i < count2; i++) {
             data2[i] = asset->deploymentsForPlotting[i].second;
             times2[i] = asset->deploymentsForPlotting[i].first.GetTicks();
-            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<times2[i]<<std::endl;
+            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->deploymentsForPlotting[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
@@ -523,7 +555,7 @@ Chart* AssetPopout::PopulateDrawChart(){
     bottomAxis->SetTitleColour(myColor);
     bottomAxis->SetLabelTextColour(myColor);
     bottomAxis->SetVerticalLabelText(true);
-    bottomAxis->SetDateFormat(wxT("%b-%Y"));
+    bottomAxis->SetDateFormat(wxT("%m-%d-%Y"));
     bottomAxis->SetMajorGridlinePen(chartGridLinePen);
     bottomAxis->SetLabelPen(chartGridLinePen);
 

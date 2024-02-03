@@ -64,41 +64,40 @@
                 {
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-05-16",
-                    "Deployed": 100000.0,
+                    "Deployed": 125000.0,
                     "InvestorName": "Hector Ovalle",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 92.46575342465754,
+                            "Management Fee Amount": 115.58219178082192,
                             "Management Fee Date": "2023-06-30"
                         },
                         {
-                            "Management Fee Amount": 186.986301369863,
+                            "Management Fee Amount": 233.73287671232876,
                             "Management Fee Date": "2023-09-30"
                         },
                         {
-                            "Management Fee Amount": 198.5445205479452,
+                            "Management Fee Amount": 245.29109589041096,
                             "Management Fee Date": "2023-12-31"
                         },
                         {
-                            "Management Fee Amount": 184.41780821917808,
+                            "Management Fee Amount": 220.37671232876713,
                             "Management Fee Date": "2024-03-31"
                         }
                     ],
                     "Management Fees Due": 0.0,
                     "MovedOutDeploy": {
-                        "2023-11-15": 12500.0,
-                        "2024-01-20": 25000.0
+                        "2023-11-15": 12500.0
                     },
                     "MovedToDeploy": {
                         "2024-02-02": 12500.0
                     },
                     "Net Income": [
                         {
-                            "Distribution Amount": 1494.895397260274,
+                            "Distribution Amount": 1476.4022465753426,
                             "Distribution Date": "2023-06-16"
                         },
                         {
-                            "Distribution Amount": 1341.4529589041097,
+                            "Distribution Amount": 1304.055698630137,
                             "Distribution Date": "2023-07-17"
                         },
                         {
@@ -110,7 +109,7 @@
                             "Distribution Date": "2023-09-08"
                         },
                         {
-                            "Distribution Amount": 1363.3803835616438,
+                            "Distribution Amount": 1325.983123287671,
                             "Distribution Date": "2023-10-03"
                         },
                         {
@@ -122,7 +121,7 @@
                             "Distribution Date": "2023-12-07"
                         },
                         {
-                            "Distribution Amount": 1478.0737534246575,
+                            "Distribution Amount": 1449.3066301369863,
                             "Distribution Date": "2024-01-05"
                         }
                     ],
@@ -130,11 +129,11 @@
                     "Paid": 250000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": 373.7238493150685,
+                            "Promote Fee Amount": 369.10056164383565,
                             "Promote Fee Date": "2023-06-16"
                         },
                         {
-                            "Promote Fee Amount": 335.3632397260274,
+                            "Promote Fee Amount": 326.0139246575343,
                             "Promote Fee Date": "2023-07-17"
                         },
                         {
@@ -146,7 +145,7 @@
                             "Promote Fee Date": "2023-09-08"
                         },
                         {
-                            "Promote Fee Amount": 340.84509589041096,
+                            "Promote Fee Amount": 331.49578082191783,
                             "Promote Fee Date": "2023-10-03"
                         },
                         {
@@ -158,12 +157,12 @@
                             "Promote Fee Date": "2023-12-07"
                         },
                         {
-                            "Promote Fee Amount": 369.5184383561644,
+                            "Promote Fee Amount": 362.3266575342466,
                             "Promote Fee Date": "2024-01-05"
                         }
                     ],
                     "ROC": 125000.0,
-                    "Reserve": 25000.0,
+                    "Reserve": 0.0,
                     "Subscribed": 250000.0
                 }
             ],
@@ -177,41 +176,40 @@
                 {
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-05-16",
-                    "Deployed": 100000.0,
+                    "Deployed": 125000.0,
                     "InvestorName": "Juan Jose Risoul",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 92.46575342465754,
+                            "Management Fee Amount": 115.58219178082192,
                             "Management Fee Date": "2023-06-30"
                         },
                         {
-                            "Management Fee Amount": 186.986301369863,
+                            "Management Fee Amount": 233.73287671232876,
                             "Management Fee Date": "2023-09-30"
                         },
                         {
-                            "Management Fee Amount": 198.5445205479452,
+                            "Management Fee Amount": 245.29109589041096,
                             "Management Fee Date": "2023-12-31"
                         },
                         {
-                            "Management Fee Amount": 184.41780821917808,
+                            "Management Fee Amount": 220.37671232876713,
                             "Management Fee Date": "2024-03-31"
                         }
                     ],
                     "Management Fees Due": 0.0,
                     "MovedOutDeploy": {
-                        "2023-11-15": 12500.0,
-                        "2024-01-20": 25000.0
+                        "2023-11-15": 12500.0
                     },
                     "MovedToDeploy": {
                         "2024-02-02": 12500.0
                     },
                     "Net Income": [
                         {
-                            "Distribution Amount": 1494.895397260274,
+                            "Distribution Amount": 1476.4022465753426,
                             "Distribution Date": "2023-06-16"
                         },
                         {
-                            "Distribution Amount": 1341.4529589041097,
+                            "Distribution Amount": 1304.055698630137,
                             "Distribution Date": "2023-07-17"
                         },
                         {
@@ -223,7 +221,7 @@
                             "Distribution Date": "2023-09-08"
                         },
                         {
-                            "Distribution Amount": 1363.3803835616438,
+                            "Distribution Amount": 1325.983123287671,
                             "Distribution Date": "2023-10-03"
                         },
                         {
@@ -235,7 +233,7 @@
                             "Distribution Date": "2023-12-07"
                         },
                         {
-                            "Distribution Amount": 1478.0737534246575,
+                            "Distribution Amount": 1449.3066301369863,
                             "Distribution Date": "2024-01-05"
                         }
                     ],
@@ -243,11 +241,11 @@
                     "Paid": 250000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": 373.7238493150685,
+                            "Promote Fee Amount": 369.10056164383565,
                             "Promote Fee Date": "2023-06-16"
                         },
                         {
-                            "Promote Fee Amount": 335.3632397260274,
+                            "Promote Fee Amount": 326.0139246575343,
                             "Promote Fee Date": "2023-07-17"
                         },
                         {
@@ -259,7 +257,7 @@
                             "Promote Fee Date": "2023-09-08"
                         },
                         {
-                            "Promote Fee Amount": 340.84509589041096,
+                            "Promote Fee Amount": 331.49578082191783,
                             "Promote Fee Date": "2023-10-03"
                         },
                         {
@@ -271,12 +269,12 @@
                             "Promote Fee Date": "2023-12-07"
                         },
                         {
-                            "Promote Fee Amount": 369.5184383561644,
+                            "Promote Fee Amount": 362.3266575342466,
                             "Promote Fee Date": "2024-01-05"
                         }
                     ],
                     "ROC": 125000.0,
-                    "Reserve": 25000.0,
+                    "Reserve": 0.0,
                     "Subscribed": 250000.0
                 }
             ],
@@ -290,33 +288,32 @@
                 {
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-07-01",
-                    "Deployed": 200000.0,
+                    "Deployed": 250000.0,
                     "InvestorName": "German Hernandez",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 373.972602739726,
+                            "Management Fee Amount": 467.4657534246575,
                             "Management Fee Date": "2023-09-30"
                         },
                         {
-                            "Management Fee Amount": 397.0890410958904,
+                            "Management Fee Amount": 490.5821917808219,
                             "Management Fee Date": "2023-12-31"
                         },
                         {
-                            "Management Fee Amount": 368.83561643835617,
+                            "Management Fee Amount": 440.75342465753425,
                             "Management Fee Date": "2024-03-31"
                         }
                     ],
                     "Management Fees Due": 0.0,
                     "MovedOutDeploy": {
-                        "2023-11-15": 25000.0,
-                        "2024-01-20": 50000.0
+                        "2023-11-15": 25000.0
                     },
                     "MovedToDeploy": {
                         "2024-02-02": 25000.0
                     },
                     "Net Income": [
                         {
-                            "Distribution Amount": 2682.9059178082193,
+                            "Distribution Amount": 2608.111397260274,
                             "Distribution Date": "2023-07-17"
                         },
                         {
@@ -328,7 +325,7 @@
                             "Distribution Date": "2023-09-08"
                         },
                         {
-                            "Distribution Amount": 2726.7607671232877,
+                            "Distribution Amount": 2651.966246575342,
                             "Distribution Date": "2023-10-03"
                         },
                         {
@@ -340,7 +337,7 @@
                             "Distribution Date": "2023-12-07"
                         },
                         {
-                            "Distribution Amount": 2956.147506849315,
+                            "Distribution Amount": 2898.6132602739726,
                             "Distribution Date": "2024-01-05"
                         }
                     ],
@@ -348,7 +345,7 @@
                     "Paid": 500000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": 670.7264794520548,
+                            "Promote Fee Amount": 652.0278493150686,
                             "Promote Fee Date": "2023-07-17"
                         },
                         {
@@ -360,7 +357,7 @@
                             "Promote Fee Date": "2023-09-08"
                         },
                         {
-                            "Promote Fee Amount": 681.6901917808219,
+                            "Promote Fee Amount": 662.9915616438357,
                             "Promote Fee Date": "2023-10-03"
                         },
                         {
@@ -372,12 +369,12 @@
                             "Promote Fee Date": "2023-12-07"
                         },
                         {
-                            "Promote Fee Amount": 739.0368767123288,
+                            "Promote Fee Amount": 724.6533150684932,
                             "Promote Fee Date": "2024-01-05"
                         }
                     ],
                     "ROC": 250000.0,
-                    "Reserve": 50000.0,
+                    "Reserve": 0.0,
                     "Subscribed": 500000.0
                 }
             ],
@@ -399,7 +396,7 @@
             "Date": "2023-12-31"
         },
         {
-            "Amount": 1350000.0,
+            "Amount": 1250000.0,
             "Date": "2024-01-02"
         }
     ]
