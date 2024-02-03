@@ -65,12 +65,10 @@ void AssetPopout::setupLayout(){
     if(chartPanel->GetChart()!=nullptr){
         delete chartPanel->GetChart();
     }
-    //call method to populate the assets information
-    asset->PopulateValuationDeploymentForPlotting();
     //populate and draw chart
     Chart* valuationDeployChart = PopulateDrawChart();
     if(valuationDeployChart!=nullptr){
-        chartPanel->SetChart(valuationDeployChart);//error occurs here?
+        chartPanel->SetChart(valuationDeployChart);
         holderSizer->Add(chartPanel,1,wxEXPAND);
     }
     bottomSizer->Add(chartPanelHolderPanel,3,wxEXPAND);
@@ -336,6 +334,8 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         asset->valuations.push_back(newValuation);
         valuationListControl->setItems(asset->valuations);
         portfolio.ValuationDialog();
+        UpdateChart();
+        this->Layout();
     }else if(retVal == wxID_CANCEL){
         //do nothing and exit
     }
@@ -419,6 +419,7 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationToEdit.valuationDate = valuationWindow.GetDate();
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
+        UpdateChart();
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
         if(dataIndex>=0 && dataIndex < asset->valuations.size()){
@@ -427,9 +428,9 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         }
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
+        UpdateChart();
         this->Refresh();
     }
-    UpdateChart();
     this->Refresh();
     this->Layout();
 }
@@ -460,6 +461,7 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
 }
 //Just Valuations Currently TODO Add DataSeries of Deployments
 Chart* AssetPopout::PopulateDrawChart(){
+    asset->PopulateValuationDeploymentForPlotting();
     if (asset->valuationsForPlotting.empty() && asset->deploymentsForPlotting.empty()) {
         // Both datasets are empty, return nullptr to indicate no chart should be drawn
         return nullptr;
@@ -591,16 +593,23 @@ Chart* AssetPopout::PopulateDrawChart(){
 }
 
 void AssetPopout::UpdateChart(){
-    chartPanelHolderPanel->DestroyChildren();
-    wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
-    chartPanelHolderPanel->SetSizer(holderSizer);
 
-    Chart* newChart = PopulateDrawChart();
-    wxChartPanel * newChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
-    newChartPanel->SetBackgroundColour(wxColor(0,0,0));
-    newChartPanel->SetChart(newChart);
+    Chart* updatedChart = PopulateDrawChart();
 
-    holderSizer->Add(newChartPanel,1,wxEXPAND);
-    chartPanelHolderPanel->Layout();
+    if(updatedChart!=nullptr){
+        chartPanelHolderPanel->DestroyChildren();
+
+        wxChartPanel *newChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
+        newChartPanel->SetBackgroundColour(wxColor(0,0,0));
+        newChartPanel->SetChart(updatedChart);
+
+        wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
+        chartPanelHolderPanel->SetSizer(holderSizer);
+
+        holderSizer->Add(newChartPanel, 1, wxEXPAND);
+
+        chartPanelHolderPanel->Update();
+        chartPanelHolderPanel->Layout();
+    }
     this->Layout();
 }
