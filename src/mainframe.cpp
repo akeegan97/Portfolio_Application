@@ -151,7 +151,7 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
       quoteOfTheDate->Wrap(width);
 
    }else{
-      quoteOfTheDate->SetLabel(wxString::Format("NO QUOTES FOUND"));
+      quoteOfTheDate->SetLabel(wxString::Format("Testing"));
       quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
    }
 
