@@ -244,6 +244,7 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
             ipd->positionPtr->assetPtr->SetOwnershipOfPositions();
         }
         investorPositionDisplayVirtualListControl->Refresh();
+        UpdateChart();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(returnValue == wxID_ANY){
@@ -289,6 +290,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->deployed+=amountMoved * pos->percentOwnership;
                 pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+                UpdateChart();
             }
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             for(auto&pos:asset->positions){
@@ -296,11 +298,13 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->deployed-=amountMoved * pos->percentOwnership;
                 pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+                UpdateChart();
             }
         }else if(selectedMovementDirection == "Reserve to Return of Capital"){
             for(auto& pos:asset->positions){
                 pos->reserve-= amountMoved * pos->percentOwnership;
                 pos->returnOfCapital+=amountMoved * pos->percentOwnership;
+                UpdateChart();
             }
         }else if(selectedMovementDirection == "Deploy to Return of Capital"){   
             for(auto&pos:asset->positions){
@@ -309,9 +313,11 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->returnOfCapital += amountMoved * pos->percentOwnership;
                 //since mgmt fees are calculated based on deployed capital need to readjust them based on this movement as well
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+                UpdateChart();
             }
         }
         investorPositionDisplayVirtualListControl->Refresh();
+        UpdateChart();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == wxID_CANCEL){
