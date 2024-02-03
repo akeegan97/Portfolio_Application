@@ -4,6 +4,14 @@
 #include "helpers/vlistcontrol.hpp"
 #include "baseclasses/portfolio.hpp"
 #include "baseclasses/asset.hpp"
+#include <wx/chart.h>
+#include <wx/xy/xyplot.h>
+#include <wx/xy/xydataset.h>
+#include <wx/xy/timeseriesdataset.h>
+#include <wx/chartpanel.h>
+#include <wx/xy/xylinerenderer.h>
+#include <wx/axis/dateaxis.h>
+#include <wx/colorscheme.h>
 
 class AssetPopout : public wxFrame{
     public:
@@ -38,6 +46,7 @@ class AssetPopout : public wxFrame{
         wxButton *assetLevelMovementOfCapitalButton;
         wxButton *addValuationButton;
         wxButton *addEventButton;
+        wxPanel *chartPanelHolderPanel;
         void setupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
@@ -49,6 +58,9 @@ class AssetPopout : public wxFrame{
         void OnDistributionEdit(wxListEvent &e);
         void OnValuationEdit(wxListEvent &e);
         void OnEventEdit(wxListEvent &e);
+        //for valuation+deployed capital chart
+        Chart* PopulateDrawChart();
+        void UpdateChart();
 };
 
 

@@ -44,7 +44,12 @@
                     "Has Happened": false
                 }
             ],
-            "Valuations": []
+            "Valuations": [
+                {
+                    "Valuation Amount": 1000000.0,
+                    "Valuation Date": "2023-07-02"
+                }
+            ]
         }
     ],
     "Investors": [

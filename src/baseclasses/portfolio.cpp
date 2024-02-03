@@ -192,7 +192,7 @@ void Portfolio::ValuationDialog() {
     }
 }
 //call this anytime there is an edit/addition/deletion of a valuation for any asset
-
+ 
 void Portfolio::PopulateValuationMaps(){
     currentQMap.clear();
     previousQMap.clear();
@@ -283,7 +283,6 @@ wxDateTime Portfolio::GetNextQuarterEndDate(wxDateTime &currentEndDate){
     }
     return nextEndingQuarter;
 }
-
 
 bool Portfolio::IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate){
     wxDateTime qStart, qEnd;
@@ -382,7 +381,6 @@ void Portfolio::PopulatePreviousQValuations() {
         qEndDate = GetNextQuarterEndDate(qEndDate);
     }
 }
-
 
 void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::map<wxString, double> assetLastValuationMap; 
