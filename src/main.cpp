@@ -11,7 +11,7 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data4.json");
+    portfolio.LoadFromFile("../storage/data2.json");
     portfolio.PopulateEvents();
     std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
     

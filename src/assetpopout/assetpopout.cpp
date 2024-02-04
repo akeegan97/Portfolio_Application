@@ -72,7 +72,7 @@ void AssetPopout::SetupLayout(){
     middleChartSizer->Add(distributionChartPanelHolder, 5, wxALL| wxEXPAND, 5);
 
     // Then add middleChartSizer to the main sizer
-    mainSizer->Add(middleChartSizer, 3, wxEXPAND, 5);
+    mainSizer->Add(middleChartSizer, 4, wxEXPAND, 5);
 
     //VLC areas
     //Valuations
@@ -161,7 +161,7 @@ void AssetPopout::SetupLayout(){
     buttonSizer->Add(addEventButton);
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
-    mainSizer->Add(bottomSizer,3,wxALL|wxEXPAND,5);
+    mainSizer->Add(bottomSizer,2,wxALL|wxEXPAND,5);
     this->SetSizer(mainSizer);
 
     for(auto &pos: asset->positions){
