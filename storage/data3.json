@@ -52,10 +52,6 @@
                 {
                     "Valuation Amount": 750000.0,
                     "Valuation Date": "2024-01-02"
-                },
-                {
-                    "Valuation Amount": 450000.0,
-                    "Valuation Date": "2024-03-15"
                 }
             ]
         }
@@ -402,10 +398,6 @@
         {
             "Amount": 1250000.0,
             "Date": "2024-01-02"
-        },
-        {
-            "Amount": 950000.0,
-            "Date": "2024-03-15"
         }
     ]
 }

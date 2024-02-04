@@ -41,6 +41,8 @@ class Asset{
         std::map<wxDateTime, double>previousQDeployMap;
         std::map<wxDateTime, double>currentQDeployMap;
 
+        std::vector<std::pair<wxDateTime, double>> distributionsForPlottingBarChart;
+
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
 
@@ -71,6 +73,8 @@ class Asset{
         void PopulateCurrentQValuations();
         void PopulatePreviousQDeploys();
         void PopulateCurrentQDeploys();
+
+        void PopulateDistributionsForPlotting();
 
         //functions to move to a single namespace 
         wxDateTime GetQuarterEndDate(wxDateTime &currentDate);

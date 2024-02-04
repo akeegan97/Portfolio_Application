@@ -6,6 +6,11 @@
 #include "baseclasses/asset.hpp"
 #include <wx/chart.h>
 #include <wx/xy/xyplot.h>
+#include <wx/bars/barplot.h>
+#include <wx/bars/barrenderer.h>
+#include <wx/category/categorysimpledataset.h>
+#include <wx/category/categoryrenderer.h>
+#include <wx/axis/categoryaxis.h>
 #include <wx/xy/xydataset.h>
 #include <wx/xy/timeseriesdataset.h>
 #include <wx/chartpanel.h>
@@ -21,7 +26,7 @@ class AssetPopout : public wxFrame{
             asset(asset),
             investorPositionDisplayVirtualListControl(nullptr),
             valuationListControl(nullptr){
-                setupLayout();
+                SetupLayout();
                 UpdateDisplayTextValues();
                 Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
             };
@@ -47,7 +52,9 @@ class AssetPopout : public wxFrame{
         wxButton *addValuationButton;
         wxButton *addEventButton;
         wxPanel *chartPanelHolderPanel;
+        wxPanel *distributionChartPanelHolder;
         void setupLayout();
+        void SetupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
         void OnAddDistributionClicked(wxCommandEvent &e);
@@ -59,8 +66,11 @@ class AssetPopout : public wxFrame{
         void OnValuationEdit(wxListEvent &e);
         void OnEventEdit(wxListEvent &e);
         //for valuation+deployed capital chart
-        Chart* PopulateDrawChart();
-        void UpdateChart();
+        Chart* PopulateDrawChartValuationDeploy();
+        void UpdateChartValuationDeploy();
+        //for distributions chart
+        Chart* PopulateDrawChartDistribution();
+        void UpdateChartDistribution();
 };
 
 

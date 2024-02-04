@@ -175,7 +175,6 @@ void Asset::SetOwnershipOfPositions(){
     }
 }
 
-
 void Asset::PopulateValuationDeploymentForPlotting(){
     currentQDeployMap.clear();
     previousQDeployMap.clear();
@@ -396,6 +395,7 @@ wxDateTime Asset::GetQuarterStartDate(wxDateTime &date){
     }
     return quarterStartDate;
 }
+
 wxDateTime Asset::GetNextQuarterEndDate(wxDateTime &currentEndDate){
     wxDateTime nextEndingQuarter;
     int year = currentEndDate.GetYear();
@@ -409,4 +409,32 @@ wxDateTime Asset::GetNextQuarterEndDate(wxDateTime &currentEndDate){
         nextEndingQuarter = wxDateTime(31, wxDateTime::Mar, year+1);
     }
     return nextEndingQuarter;
+}
+
+//populating barchart vector
+
+void Asset::PopulateDistributionsForPlotting(){
+    distributionsForPlottingBarChart.clear();
+    if(distributions.empty()){
+        return;
+    }
+    std::sort(distributions.begin(),distributions.end(),
+            [](const Distribution &a, const Distribution &b){
+                return a.distribution.first.IsEarlierThan(b.distribution.first);
+            });
+    wxDateTime oldestDistribution = distributions.front().distribution.first;
+    wxDateTime newestDistribution = distributions.back().distribution.first;
+    wxDateTime qEndDate = GetQuarterEndDate(oldestDistribution);
+    wxDateTime lastQEndDate = GetQuarterEndDate(newestDistribution);
+    while(qEndDate <= lastQEndDate){
+        wxDateTime currentQStartDate = GetQuarterStartDate(qEndDate);
+        double currentQDistributedAmount = 0.0;
+        for(const auto&dist:distributions){
+            if(dist.distribution.first >= currentQStartDate && dist.distribution.first <=qEndDate){
+                currentQDistributedAmount+=dist.distribution.second;
+            }
+        }
+        distributionsForPlottingBarChart.push_back({qEndDate,currentQDistributedAmount});
+        qEndDate = GetNextQuarterEndDate(qEndDate);
+    }
 }

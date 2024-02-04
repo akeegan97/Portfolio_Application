@@ -66,13 +66,26 @@ void AssetPopout::setupLayout(){
         delete chartPanel->GetChart();
     }
     //populate and draw chart
-    Chart* valuationDeployChart = PopulateDrawChart();
+    Chart* valuationDeployChart = PopulateDrawChartValuationDeploy();
     if(valuationDeployChart!=nullptr){
         chartPanel->SetChart(valuationDeployChart);
         holderSizer->Add(chartPanel,1,wxEXPAND);
     }
     bottomSizer->Add(chartPanelHolderPanel,3,wxEXPAND);
 
+    distributionChartPanelHolder = new wxPanel(this, wxID_ANY);
+    distributionChartPanelHolder->SetBackgroundColour(wxColor(0,0,0));
+    auto distrPanelSizer = new wxBoxSizer(wxVERTICAL);
+    distributionChartPanelHolder->SetSizer(distrPanelSizer);
+    wxChartPanel* barchartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
+    barchartPanel->SetBackgroundColour(wxColor(0,0,0));
+    Chart* distributionChart  = PopulateDrawChartDistribution();
+    if(distributionChart!=nullptr){
+        barchartPanel->SetChart(distributionChart);
+        distrPanelSizer->Add(barchartPanel, 1, wxEXPAND);
+    }
+    bottomSizer->Add(distributionChartPanelHolder, 3, wxEXPAND);
+    
     auto textSizer = new wxBoxSizer(wxVERTICAL);
 
     totalSubscribedText = new wxStaticText(this, wxID_ANY, "");
@@ -129,6 +142,163 @@ void AssetPopout::setupLayout(){
     this->Layout();
 }
 
+void AssetPopout::SetupLayout(){
+    wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *middleVLCSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
+
+    asset->investorsPositionsDisplays.clear();
+    asset->SetOwnershipOfPositions();
+
+    for(auto&pos:asset->positions){
+        auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(pos);
+        asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
+    }
+    //top for the IPD VLC
+    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
+    if(!asset->investorsPositionsDisplays.empty()){
+        investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
+    }
+    investorPositionDisplayVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnInvestorPositionClick, this);
+    topSizer->Add(investorPositionDisplayVirtualListControl, wxALL|wxEXPAND, 5);
+    mainSizer->Add(topSizer,2,wxALL|wxEXPAND,5);
+    //two charts one for deployVSvaluation and one for Distributions
+    //DV CHART SET UP AND POPULATION
+    chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
+    chartPanelHolderPanel->SetBackgroundColour(wxColor(0,0,0));
+    wxBoxSizer* vdChartPanelSizer = new wxBoxSizer(wxVERTICAL);
+    chartPanelHolderPanel->SetSizer(vdChartPanelSizer);
+    wxChartPanel * valuationDeployChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
+    valuationDeployChartPanel->SetBackgroundColour(wxColor(0,0,0));
+    //incase of reopening of assetpopout want to destroy previous chart to draw new one
+    if(valuationDeployChartPanel->GetChart()!= nullptr){
+        delete valuationDeployChartPanel->GetChart();
+    }
+    Chart* valuationDeployChart = PopulateDrawChartValuationDeploy();
+    if(valuationDeployChart!=nullptr){
+        valuationDeployChartPanel->SetChart(valuationDeployChart);
+        vdChartPanelSizer->Add(valuationDeployChartPanel,1,wxALL| wxEXPAND,5);
+    }
+    //DISTRIBUTION CHART SET UP AND POPULATION
+    distributionChartPanelHolder = new wxPanel(this, wxID_ANY);
+    distributionChartPanelHolder->SetBackgroundColour(wxColor(0,0,0));
+    wxBoxSizer* dChartPanelSizer = new wxBoxSizer(wxVERTICAL);
+    distributionChartPanelHolder->SetSizer(dChartPanelSizer);
+    wxChartPanel *distributionChartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
+    distributionChartPanel->SetBackgroundColour(wxColor(0,0,0));
+    //incase of reopening of assetpopout want to destroy previous chart to draw new one
+    if(distributionChartPanel->GetChart()!=nullptr){
+        delete distributionChartPanel->GetChart();
+    }
+    Chart* distributionChart = PopulateDrawChartDistribution();
+    if(distributionChart!=nullptr){
+        distributionChartPanel->SetChart(distributionChart);
+        dChartPanelSizer->Add(distributionChartPanel,1, wxALL | wxEXPAND,5);
+    }
+    //Add both charts to the sizer and then sizer to main sizer
+    middleChartSizer->Add(chartPanelHolderPanel, 5, wxALL| wxEXPAND, 5);
+    middleChartSizer->Add(distributionChartPanelHolder, 5, wxALL| wxEXPAND, 5);
+
+    // Then add middleChartSizer to the main sizer
+    mainSizer->Add(middleChartSizer, 3, wxEXPAND, 5);
+
+    //VLC areas
+    //Valuations
+    valuationListControl = new VListControl<Valuation>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    if(!asset->valuations.empty()){
+        valuationListControl->setItems(asset->valuations);
+    }
+    valuationListControl->SetBackgroundColour(wxColor(0,0,0));
+    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
+    //Events
+    eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    if(!asset->events.empty()){
+        eventsVirtualListControl->setItems(asset->events);
+    }
+    eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
+    eventsVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnEventEdit, this);
+    //Distributions
+    distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
+    if(!asset->distributions.empty()){
+        distributionListControl->setItems(asset->distributions);
+    }
+    distributionListControl->SetBackgroundColour(wxColor(0,0,0));
+    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
+    //add vlc to middle sizers
+    middleVLCSizer->Add(valuationListControl, 3, wxALL|wxEXPAND,5);
+    middleVLCSizer->Add(eventsVirtualListControl, 3, wxALL|wxEXPAND,5);
+    middleVLCSizer->Add(distributionListControl, 3,wxALL|wxEXPAND,5);
+    //add to main sizer
+    mainSizer->Add(middleVLCSizer,2, wxALL|wxEXPAND,5);
+
+    wxBoxSizer* staticTextSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* halfTextSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* otherHalfTextSizer = new wxBoxSizer(wxVERTICAL);
+    //static texts
+    numInvestorsText = new wxStaticText(this, wxID_ANY, "");
+    totalSubscribedText = new wxStaticText(this, wxID_ANY, "");
+    totalPaidText = new wxStaticText(this, wxID_ANY, "");
+    totalReturnedCapitalText = new wxStaticText(this, wxID_ANY, "");
+    //TODO add IRR for asset gross
+    totalDeployedCapitalText = new wxStaticText(this, wxID_ANY,"");
+    totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
+    totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
+    //TODO add mgmtfees due also
+    totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
+
+    halfTextSizer->Add(numInvestorsText,1,wxEXPAND,3);
+    halfTextSizer->Add(totalSubscribedText,1,wxEXPAND,3);
+    halfTextSizer->Add(totalPaidText,1,wxEXPAND,3);
+    halfTextSizer->Add(totalReturnedCapitalText,1,wxEXPAND,3);
+
+    otherHalfTextSizer->Add(totalDeployedCapitalText,1,wxEXPAND,3);
+    otherHalfTextSizer->Add(totalReserveCapitalText,1,wxEXPAND,3);
+    otherHalfTextSizer->Add(totalMgmtFeesGeneratedText,1,wxEXPAND,3);
+    otherHalfTextSizer->Add(totalPromoteFeesGeneratedText,1,wxEXPAND,3);
+
+    staticTextSizer->Add(halfTextSizer,1,wxALL|wxEXPAND,3);
+    staticTextSizer->Add(otherHalfTextSizer,1,wxALL|wxEXPAND,3);
+
+    bottomSizer->Add(staticTextSizer,5,wxALL|wxEXPAND,3);
+    //buttons
+    wxBoxSizer * buttonSizer = new wxBoxSizer(wxVERTICAL);
+    addDistributionButton = new wxButton(this, wxID_ANY, "Add Distribution");
+    addDistributionButton->SetBackgroundColour(wxColor(0,0,0));
+    addDistributionButton->SetForegroundColour(wxColor(51,245,12));
+    addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked, this);
+
+    assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Asset Level Movement of Capital");
+    assetLevelMovementOfCapitalButton->SetBackgroundColour(wxColor(0,0,0));
+    assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
+    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
+
+    addValuationButton = new wxButton(this, wxID_ANY, "Add Valuation");
+    addValuationButton->SetBackgroundColour(wxColor(0,0,0));
+    addValuationButton->SetForegroundColour(wxColor(51,245,12));
+    addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
+
+    addEventButton = new wxButton(this, wxID_ANY, "Add Event");
+    addEventButton->SetBackgroundColour(wxColor(0,0,0));
+    addEventButton->SetForegroundColour(wxColor(51,245,12));
+    addEventButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddEvent, this);
+    buttonSizer->Add(addDistributionButton);
+    buttonSizer->Add(assetLevelMovementOfCapitalButton);
+    buttonSizer->Add(addValuationButton);
+    buttonSizer->Add(addEventButton);
+    bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
+
+    mainSizer->Add(bottomSizer,3,wxALL|wxEXPAND,5);
+    this->SetSizer(mainSizer);
+
+    for(auto &pos: asset->positions){
+        pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
+        pos->UpdateFinancesPostDistributionChanges(asset->distributions,pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
+    }
+    this->Layout();
+}
 template <typename T>
 std::string formatDollarAmount(T value) {
     std::stringstream stream;
@@ -244,7 +414,7 @@ void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
             ipd->positionPtr->assetPtr->SetOwnershipOfPositions();
         }
         investorPositionDisplayVirtualListControl->Refresh();
-        UpdateChart();
+        UpdateChartValuationDeploy();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(returnValue == wxID_ANY){
@@ -272,6 +442,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();
         UpdateDisplayTextValues();
+        UpdateChartDistribution();
         this->Refresh();
     }
 }
@@ -290,7 +461,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->deployed+=amountMoved * pos->percentOwnership;
                 pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-                UpdateChart();
+                UpdateChartValuationDeploy();
             }
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             for(auto&pos:asset->positions){
@@ -298,13 +469,13 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->deployed-=amountMoved * pos->percentOwnership;
                 pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-                UpdateChart();
+                UpdateChartValuationDeploy();
             }
         }else if(selectedMovementDirection == "Reserve to Return of Capital"){
             for(auto& pos:asset->positions){
                 pos->reserve-= amountMoved * pos->percentOwnership;
                 pos->returnOfCapital+=amountMoved * pos->percentOwnership;
-                UpdateChart();
+                UpdateChartValuationDeploy();
             }
         }else if(selectedMovementDirection == "Deploy to Return of Capital"){   
             for(auto&pos:asset->positions){
@@ -313,11 +484,11 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
                 pos->returnOfCapital += amountMoved * pos->percentOwnership;
                 //since mgmt fees are calculated based on deployed capital need to readjust them based on this movement as well
                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-                UpdateChart();
+                UpdateChartValuationDeploy();
             }
         }
         investorPositionDisplayVirtualListControl->Refresh();
-        UpdateChart();
+        UpdateChartValuationDeploy();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == wxID_CANCEL){
@@ -340,7 +511,7 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         asset->valuations.push_back(newValuation);
         valuationListControl->setItems(asset->valuations);
         portfolio.ValuationDialog();
-        UpdateChart();
+        UpdateChartValuationDeploy();
         this->Layout();
     }else if(retVal == wxID_CANCEL){
         //do nothing and exit
@@ -395,6 +566,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();
         UpdateDisplayTextValues();
+        UpdateChartDistribution();
         this->Refresh();
     }else if(retVal == MY_CUSTOM_DELETE_CODE){
         if(dataIndex >= 0 && dataIndex < asset->distributions.size()){
@@ -407,8 +579,10 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         distributionListControl->setItems(asset->distributions);
         distributionListControl->Update();
         UpdateDisplayTextValues();
+        UpdateChartDistribution();
         this->Refresh();
     }
+    UpdateChartDistribution();
 }
 
 void AssetPopout::OnValuationEdit(wxListEvent &e){
@@ -425,7 +599,7 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationToEdit.valuationDate = valuationWindow.GetDate();
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
-        UpdateChart();
+        UpdateChartValuationDeploy();
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
         if(dataIndex>=0 && dataIndex < asset->valuations.size()){
@@ -434,7 +608,7 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         }
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
-        UpdateChart();
+        UpdateChartValuationDeploy();
         this->Refresh();
     }
     this->Refresh();
@@ -466,7 +640,7 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
     }
 }
 //Just Valuations Currently TODO Add DataSeries of Deployments
-Chart* AssetPopout::PopulateDrawChart(){
+Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     asset->PopulateValuationDeploymentForPlotting();
     if (asset->valuationsForPlotting.empty() && asset->deploymentsForPlotting.empty()) {
         // Both datasets are empty, return nullptr to indicate no chart should be drawn
@@ -598,9 +772,9 @@ Chart* AssetPopout::PopulateDrawChart(){
     return myChart;
 }
 
-void AssetPopout::UpdateChart(){
+void AssetPopout::UpdateChartValuationDeploy(){
 
-    Chart* updatedChart = PopulateDrawChart();
+    Chart* updatedChart = PopulateDrawChartValuationDeploy();
 
     if(updatedChart!=nullptr){
         chartPanelHolderPanel->DestroyChildren();
@@ -619,3 +793,99 @@ void AssetPopout::UpdateChart(){
     }
     this->Layout();
 }
+
+Chart* AssetPopout::PopulateDrawChartDistribution(){
+    asset->PopulateDistributionsForPlotting();
+
+    if(asset->distributions.empty()){
+        return nullptr;
+    }
+    BarPlot *barPlot = new BarPlot();
+
+    size_t count = asset->distributionsForPlottingBarChart.size();
+    wxString* names = new wxString[count];
+    double* values = new double[count];
+    for(size_t i = 0;i<count; i++){
+        values[i] = asset->distributionsForPlottingBarChart[i].second;
+        names[i] = asset->distributionsForPlottingBarChart[i].first.FormatISODate();
+        std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->valuationsForPlotting[i].first.FormatISODate()<<std::endl;
+    }
+
+    CategorySimpleDataset* distributionDataSet = new CategorySimpleDataset(names,count);
+    wxString barSerie = "BAR SERIES";
+    CategorySerie* distributionBarSerie = new CategorySerie(barSerie, values, count);
+    distributionDataSet->AddSerie(distributionBarSerie);
+    BarType *barType = new NormalBarType(5);
+    BarRenderer *barRender = new BarRenderer(barType);
+    wxColor *myColor = new wxColor(0,0,252);
+    wxPen*barPen = new wxPen(*myColor);
+    wxBrush* barBrush = new wxBrush(*myColor);
+    FillAreaDraw *barAreas = new FillAreaDraw(*barPen, *barBrush);
+    barRender->SetBarDraw(0,barAreas);
+    distributionDataSet->SetRenderer(barRender);
+
+    wxPen* chartBorderPen = new wxPen(wxColor(51,245,12));
+    wxBrush* chartFillBrush = new wxBrush(wxColor(0,0,0));
+    FillAreaDraw* chartFillArea = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
+    wxPen chartGridLinePen(wxColor(51,245,12),1,wxPENSTYLE_SOLID);
+
+    NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+    leftAxis->SetTitle("Amount in $");
+    leftAxis->SetTitleColour(*myColor);
+    //leftAxis->SetMargins(5, 0);
+    leftAxis->SetLabelTextColour(*myColor);
+    leftAxis->SetLabelPen(chartGridLinePen);
+    leftAxis->SetMajorGridlinePen(chartGridLinePen);
+    barPlot->AddAxis(leftAxis);
+
+    CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM);
+    bottomAxis->SetTitle("Dates");
+    bottomAxis->SetTitleColour(*myColor);
+    bottomAxis->SetVerticalLabelText(true);
+    bottomAxis->SetLabelTextColour(*myColor);
+    bottomAxis->SetLabelPen(chartGridLinePen);
+    barPlot->AddAxis(bottomAxis);
+
+    barPlot->AddDataset(distributionDataSet);
+
+    barPlot->SetBackground(chartFillArea);
+    barPlot->LinkDataHorizontalAxis(0, 0);
+    barPlot->LinkDataVerticalAxis(0, 0);
+    Chart* chart = new Chart(barPlot, "");
+    wxString titleText = "Distributions By Q";
+    wxFont titleFont = *wxNORMAL_FONT;
+    titleFont.SetPointSize(14);
+    TextElement *chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
+    chartTitle->SetColour(*myColor);
+    Header *myHeader = new Header(*chartTitle);
+    chart->SetHeader(myHeader);
+    wxPen *chartPen = new wxPen(*myColor);
+    wxBrush *chartBrush = new wxBrush(wxColor(0,0,0));
+    FillAreaDraw *chartFillArea2 = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
+    chart->SetBackground(chartFillArea2);
+    
+    return chart;
+}
+
+void AssetPopout::UpdateChartDistribution(){
+    
+    Chart* updatedChart = PopulateDrawChartDistribution();
+
+    if(updatedChart!=nullptr){
+        distributionChartPanelHolder->DestroyChildren();
+
+        wxChartPanel *newChartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
+        newChartPanel->SetBackgroundColour(wxColor(0,0,0));
+        newChartPanel->SetChart(updatedChart);
+
+        wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
+        distributionChartPanelHolder->SetSizer(holderSizer);
+
+        holderSizer->Add(newChartPanel, 1, wxEXPAND);
+
+        distributionChartPanelHolder->Update();
+        distributionChartPanelHolder->Layout();
+    }
+    this->Layout();
+}
+
