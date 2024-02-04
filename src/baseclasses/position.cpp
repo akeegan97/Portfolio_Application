@@ -108,31 +108,6 @@ void from_json(const json &j, Position &pos, Portfolio &porf){
     }
 }
 
-std::pair<wxDateTime, wxDateTime> Position::GetCurrentQuarterDates(const wxDateTime &currentDate){
-    int year = currentDate.GetYear();
-    wxDateTime quarterStart, quarterEnd;
-
-    if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
-        // Q1
-        quarterStart = wxDateTime(1, wxDateTime::Jan, year);
-        quarterEnd = wxDateTime(31, wxDateTime::Mar, year);
-    } else if (currentDate >= wxDateTime(1, wxDateTime::Apr, year) && currentDate < wxDateTime(1, wxDateTime::Jul, year)) {
-        // Q2
-        quarterStart = wxDateTime(1, wxDateTime::Apr, year);
-        quarterEnd = wxDateTime(30, wxDateTime::Jun, year);
-    } else if (currentDate >= wxDateTime(1, wxDateTime::Jul, year) && currentDate < wxDateTime(1, wxDateTime::Oct, year)) {
-        // Q3
-        quarterStart = wxDateTime(1, wxDateTime::Jul, year);
-        quarterEnd = wxDateTime(30, wxDateTime::Sep, year);
-    } else {
-        // Q4
-        quarterStart = wxDateTime(1, wxDateTime::Oct, year);
-        quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
-    }
-
-    return {quarterStart, quarterEnd};
-}
-
 void Position::ReCalculateTotalManagementFeesDue(wxDateTime distributionDate) {
     double feesDueUpToDistribution = 0.0;
     for (const auto& fee : managementFees) {
@@ -145,7 +120,7 @@ void Position::ReCalculateTotalManagementFeesDue(wxDateTime distributionDate) {
 
 ManagementFee Position::CalculatePositionManagementFees(Position&position, const double &managementFeePercentage, wxDateTime &date){
     ManagementFee feeThisQuarter;
-    std::pair<wxDateTime, wxDateTime> qdates = GetCurrentQuarterDates(date);
+    std::pair<wxDateTime, wxDateTime> qdates = utilities::GetCurrentQuarterDates(date);
     double endingDeployedCapital = position.deployed;
     double totalMovedToDeploy=0, totalMovedFromDeploy = 0;
 
@@ -190,7 +165,7 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     for(const auto&movement:quarterMovements){
         if(movement.first!=segmentStartDate){
             segmentEndDate = movement.first;
-            double daysInSegment = calculateDaysBetween(segmentStartDate, segmentEndDate);
+            double daysInSegment = utilities::CalculateDaysBetween(segmentStartDate, segmentEndDate);
             double feeForSegment = deployedCapital * managementFeePercentage *(daysInSegment/365);
             totalFee+=feeForSegment;
             segmentStartDate=segmentEndDate;
@@ -201,7 +176,7 @@ ManagementFee Position::CalculatePositionManagementFees(Position&position, const
     }
 
     if(qdates.second>segmentStartDate){
-        double daysInFinalSegment = calculateDaysBetween(segmentStartDate, qdates.second);
+        double daysInFinalSegment = utilities::CalculateDaysBetween(segmentStartDate, qdates.second);
         double finalSegmentFees = deployedCapital * managementFeePercentage * (daysInFinalSegment/365);
         totalFee+=finalSegmentFees;
     }
@@ -216,20 +191,20 @@ void Position::CalculateHistoricalManagementFees(const double &managementFeePerc
     managementFees.clear();
     wxDateTime dateInvested = this->dateInvested;
     wxDateTime currentDate = wxDateTime::Today();
-    std::pair<wxDateTime, wxDateTime> startingQDates = GetCurrentQuarterDates(dateInvested);
+    std::pair<wxDateTime, wxDateTime> startingQDates = utilities::GetCurrentQuarterDates(dateInvested);
     wxDateTime startingQDate = startingQDates.first;
     wxDateTime endingQDate;
 
     while(startingQDate < currentDate){
-        std::pair<wxDateTime, wxDateTime> qDates = GetCurrentQuarterDates(startingQDate);
+        std::pair<wxDateTime, wxDateTime> qDates = utilities::GetCurrentQuarterDates(startingQDate);
         endingQDate = qDates.second;
         if(this->dateInvested > startingQDate && this->dateInvested < endingQDate){
             ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,dateInvested);//might need a separate function to handle this case
-            startingQDate = GetNextQuarterStartDate(endingQDate);
+            startingQDate = utilities::GetNextQuarterStartDate(endingQDate);
             managementFees.push_back(feeForQuarter);
         }else{
             ManagementFee feeForQuarter = CalculatePositionManagementFees(*this, managementFeePercentage,startingQDate);
-            startingQDate = GetNextQuarterStartDate(endingQDate);
+            startingQDate = utilities::GetNextQuarterStartDate(endingQDate);
             managementFees.push_back(feeForQuarter);
         }
     }
@@ -253,7 +228,7 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
 
     for (const auto& distribution : distributions) {
         if(!distribution.distribution.first.IsEarlierThan(dateInvested)){
-            std::pair<wxDateTime, wxDateTime> currentQuarter = GetCurrentQuarterDates(distribution.distribution.first);
+            std::pair<wxDateTime, wxDateTime> currentQuarter = utilities::GetCurrentQuarterDates(distribution.distribution.first);
             wxDateTime quarterStartDate = currentQuarter.first;
             wxDateTime quarterEndDate = currentQuarter.second;
 
@@ -315,9 +290,9 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
         }
 
     }
-    wxDateTime currentQuarterEnd = GetCurrentQuarterDates(wxDateTime::Today()).second;
+    wxDateTime currentQuarterEnd = utilities::GetCurrentQuarterDates(wxDateTime::Today()).second;
     if (!distributions.empty() && lastDistributionQuarterEnd < currentQuarterEnd) {
-        wxDateTime nextQuarterStartDate = GetNextQuarterStartDate(lastDistributionQuarterEnd);
+        wxDateTime nextQuarterStartDate = utilities::GetNextQuarterStartDate(lastDistributionQuarterEnd);
         for (const auto& fee : managementFees) {
             if (fee.managementFeesAsset.first >= nextQuarterStartDate && fee.managementFeesAsset.first <= currentQuarterEnd) {
                 unpaidMgmtFees += fee.managementFeesAsset.second;
@@ -329,30 +304,5 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
         }
     }
     mgmtFeesDue = unpaidMgmtFees;
-}
-
-double Position::calculateDaysBetween(const wxDateTime &start, const wxDateTime &end){
-
-    if(end.IsEarlierThan(start)){
-        return 0;
-    }else{
-        wxTimeSpan span = end - start;
-        return span.GetDays();
-    }
-}
-
-wxDateTime Position::GetNextQuarterStartDate(wxDateTime &date){
-    wxDateTime nextQStartDate;
-    int year =date.GetYear();
-    if(date.GetMonth()<= wxDateTime::Mar){
-        nextQStartDate = wxDateTime(1, wxDateTime::Apr, year);
-    }else if(date.GetMonth()<=wxDateTime::Jun){
-        nextQStartDate = wxDateTime(1, wxDateTime::Jul, year);
-    }else if(date.GetMonth()<=wxDateTime::Sep){
-        nextQStartDate = wxDateTime(1,wxDateTime::Oct, year);
-    }else if(date.GetMonth()<=wxDateTime::Dec){
-        nextQStartDate = wxDateTime(1, wxDateTime::Jan, year+1);
-    }
-    return nextQStartDate;
 }
 

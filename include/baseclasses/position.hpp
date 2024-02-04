@@ -15,6 +15,7 @@
 #include "promoteFee.hpp"
 #include "distribution.hpp"
 #include "investor.hpp"
+#include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -51,9 +52,7 @@ class Position{
         void CalculateHistoricalManagementFees(const double &managementFeePercentage);
         void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
         void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
-        std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
-        wxDateTime GetNextQuarterStartDate(wxDateTime &date);
-        double calculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
+
 };
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);

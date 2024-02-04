@@ -227,87 +227,6 @@ void Portfolio::PopulateValuationMaps(){
               });
 }
 
-
-
-wxDateTime Portfolio::GetQuarterEndDate(wxDateTime &currentDate){
-    int year = currentDate.GetYear();
-
-    wxDateTime quarterEnd;
-    if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
-        // Q1
-        quarterEnd = wxDateTime(31, wxDateTime::Mar, year);
-    } else if (currentDate >= wxDateTime(1, wxDateTime::Apr, year) && currentDate < wxDateTime(1, wxDateTime::Jul, year)) {
-        // Q2
-        quarterEnd = wxDateTime(30, wxDateTime::Jun, year);
-    } else if (currentDate >= wxDateTime(1, wxDateTime::Jul, year) && currentDate < wxDateTime(1, wxDateTime::Oct, year)) {
-        // Q3
-        quarterEnd = wxDateTime(30, wxDateTime::Sep, year);
-    } else {
-        // Q4
-        quarterEnd = wxDateTime(31, wxDateTime::Dec, year);
-    }
-    return quarterEnd;
-}
-
-wxDateTime Portfolio::GetQuarterStartDate(wxDateTime &date){
-    int year = date.GetYear();
-
-    wxDateTime quarterStartDate;
-    if (date >= wxDateTime(1, wxDateTime::Jan, year) && date < wxDateTime(1, wxDateTime::Apr, year)) {
-        // Q1
-        quarterStartDate = wxDateTime(1, wxDateTime::Jan, year);
-    } else if (date >= wxDateTime(1, wxDateTime::Apr, year) && date < wxDateTime(1, wxDateTime::Jul, year)) {
-        // Q2
-        quarterStartDate = wxDateTime(1, wxDateTime::Apr, year);
-    } else if (date >= wxDateTime(1, wxDateTime::Jul, year) && date < wxDateTime(1, wxDateTime::Oct, year)) {
-        // Q3
-        quarterStartDate = wxDateTime(1, wxDateTime::Jul, year);
-    } else {
-        // Q4
-        quarterStartDate = wxDateTime(1, wxDateTime::Oct, year);
-    }
-    return quarterStartDate;
-}
-
-wxDateTime Portfolio::GetNextQuarterEndDate(wxDateTime &currentEndDate){
-    wxDateTime nextEndingQuarter;
-    int year = currentEndDate.GetYear();
-    if(currentEndDate.GetMonth()<= wxDateTime::Mar){
-        nextEndingQuarter = wxDateTime(30, wxDateTime::Jun, year);
-    }else if(currentEndDate.GetMonth()<=wxDateTime::Jun){
-        nextEndingQuarter = wxDateTime(30, wxDateTime::Sep, year);
-    }else if(currentEndDate.GetMonth()<=wxDateTime::Sep){
-        nextEndingQuarter = wxDateTime(31,wxDateTime::Dec, year);
-    }else if(currentEndDate.GetMonth()<=wxDateTime::Dec){
-        nextEndingQuarter = wxDateTime(31, wxDateTime::Mar, year+1);
-    }
-    return nextEndingQuarter;
-}
-
-bool Portfolio::IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate){
-    wxDateTime qStart, qEnd;
-    int year = quarterEndDate.GetYear();
-    if (quarterEndDate >= wxDateTime(1, wxDateTime::Jan, year) && quarterEndDate < wxDateTime(1, wxDateTime::Apr, year)) {
-        // Q1
-        qStart = wxDateTime(1, wxDateTime::Jan, year);
-        qEnd = wxDateTime(31, wxDateTime::Mar, year);
-    } else if (quarterEndDate >= wxDateTime(1, wxDateTime::Apr, year) && quarterEndDate < wxDateTime(1, wxDateTime::Jul, year)) {
-        // Q2
-        qStart = wxDateTime(1, wxDateTime::Apr, year);
-        qEnd = wxDateTime(30, wxDateTime::Jun, year);
-    } else if (quarterEndDate >= wxDateTime(1, wxDateTime::Jul, year) && quarterEndDate < wxDateTime(1, wxDateTime::Oct, year)) {
-        // Q3
-        qStart = wxDateTime(1, wxDateTime::Jul, year);
-        qEnd = wxDateTime(30, wxDateTime::Sep, year);
-    } else {
-        // Q4
-        qStart = wxDateTime(1, wxDateTime::Oct, year);
-        qEnd = wxDateTime(31, wxDateTime::Dec, year);
-    }
-
-    return date.IsBetween(qStart, qEnd);
-}
-
 double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asset, const wxDateTime& date) {
     if (asset->valuations.empty()) {
         return asset->CalculateDeployedCapital();
@@ -339,9 +258,9 @@ void Portfolio::PopulatePreviousQValuations() {
             }
         }
     }
-    wxDateTime qEndDate = GetQuarterEndDate(oldestInvestedDate);
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestInvestedDate);
     wxDateTime currentQDate = wxDateTime::Today();
-    wxDateTime currentQStartDate = GetQuarterStartDate(currentQDate);
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
 
     for (const auto& assetPtr : assetPtrs) {
         std::sort(assetPtr->valuations.begin(), assetPtr->valuations.end(),
@@ -378,7 +297,7 @@ void Portfolio::PopulatePreviousQValuations() {
         }
 
         previousQMap[qEndDate] = quarterValuation;
-        qEndDate = GetNextQuarterEndDate(qEndDate);
+        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
     }
 }
 
@@ -386,7 +305,7 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::map<wxString, double> assetLastValuationMap; 
     double currentValuation = previousQMap.rbegin()->second; 
     wxDateTime today = wxDateTime::Today();
-    wxDateTime currentQStartDate = GetQuarterStartDate(today);
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
 
     for (auto& asset : assetPtrs) {
         assetLastValuationMap[asset->assetName] = asset->CalculateDeployedCapital();
@@ -395,7 +314,7 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> sortedValuations;
     for (auto& asset : assetPtrs) {
         for (auto& val : asset->valuations) {
-            if (IsWithinQuarter(val.valuationDate, today)) {
+            if (utilities::IsWithinQuarter(val.valuationDate, today)) {
                 sortedValuations.push_back({val.valuationDate, {asset->assetName, val.valuation}});
             }
         }

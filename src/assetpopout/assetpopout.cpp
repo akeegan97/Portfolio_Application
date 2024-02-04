@@ -10,138 +10,6 @@
 #include "assetpopout/valuationdialog.hpp"
 #include "assetpopout/EventDialog.hpp"
 
-
-void AssetPopout::setupLayout(){
-    auto mainSizer = new wxBoxSizer(wxVERTICAL);
-    auto topSizer = new wxBoxSizer(wxHORIZONTAL);//only the IPD
-    auto middleSizer = new wxBoxSizer(wxHORIZONTAL);//Valuations/Events/Distributions
-    auto bottomSizer = new wxBoxSizer(wxHORIZONTAL);//Text values + future buttons + valuation chart
-    asset->investorsPositionsDisplays.clear();
-    for(auto&pos:asset->positions){
-        asset->SetOwnershipOfPositions();
-        auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(pos);
-        asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
-    }
-    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
-    investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
-    investorPositionDisplayVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnInvestorPositionClick, this);
-
-    topSizer->Add(investorPositionDisplayVirtualListControl,wxALL|wxEXPAND, 10);
-    mainSizer->Add(topSizer, 3, wxALL|wxEXPAND,10);
-
-    valuationListControl = new VListControl<Valuation>(this, wxID_ANY, FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
-    valuationListControl->setItems(asset->valuations);
-    valuationListControl->SetBackgroundColour(wxColor(0,0,0));
-    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
-
-    middleSizer->Add(valuationListControl, 3, wxALL, 10);
-
-    eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    eventsVirtualListControl->setItems(asset->events);
-    eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
-    eventsVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnEventEdit, this);
-
-    middleSizer->Add(eventsVirtualListControl, 3, wxALL, 10);
-    
-    distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    distributionListControl->setItems(asset->distributions);
-    distributionListControl->SetBackgroundColour(wxColor(0,0,0));
-    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
-
-    middleSizer->Add(distributionListControl, 3, wxALL, 10);
-
-    mainSizer->Add(middleSizer, 3, wxALL|wxEXPAND, 10);
-    //create the holder panel
-    chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
-    chartPanelHolderPanel->SetBackgroundColour(wxColor(0,0,0));
-    //create sizer for holder panel
-    auto holderSizer = new wxBoxSizer(wxVERTICAL);
-    chartPanelHolderPanel->SetSizer(holderSizer);
-    //create chartPanel
-    wxChartPanel* chartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
-    chartPanel->SetBackgroundColour(wxColor(0,0,0));
-    //if existing chart delete
-    if(chartPanel->GetChart()!=nullptr){
-        delete chartPanel->GetChart();
-    }
-    //populate and draw chart
-    Chart* valuationDeployChart = PopulateDrawChartValuationDeploy();
-    if(valuationDeployChart!=nullptr){
-        chartPanel->SetChart(valuationDeployChart);
-        holderSizer->Add(chartPanel,1,wxEXPAND);
-    }
-    bottomSizer->Add(chartPanelHolderPanel,3,wxEXPAND);
-
-    distributionChartPanelHolder = new wxPanel(this, wxID_ANY);
-    distributionChartPanelHolder->SetBackgroundColour(wxColor(0,0,0));
-    auto distrPanelSizer = new wxBoxSizer(wxVERTICAL);
-    distributionChartPanelHolder->SetSizer(distrPanelSizer);
-    wxChartPanel* barchartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
-    barchartPanel->SetBackgroundColour(wxColor(0,0,0));
-    Chart* distributionChart  = PopulateDrawChartDistribution();
-    if(distributionChart!=nullptr){
-        barchartPanel->SetChart(distributionChart);
-        distrPanelSizer->Add(barchartPanel, 1, wxEXPAND);
-    }
-    bottomSizer->Add(distributionChartPanelHolder, 3, wxEXPAND);
-    
-    auto textSizer = new wxBoxSizer(wxVERTICAL);
-
-    totalSubscribedText = new wxStaticText(this, wxID_ANY, "");
-    totalPaidText = new wxStaticText(this, wxID_ANY, "");
-    totalDeployedCapitalText = new wxStaticText(this, wxID_ANY,"");
-    numInvestorsText = new wxStaticText(this, wxID_ANY, "");
-    totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
-    totalReturnedCapitalText = new wxStaticText(this, wxID_ANY, "");
-    totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
-    totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
-
-    textSizer->Add(numInvestorsText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalSubscribedText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalPaidText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalDeployedCapitalText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalReserveCapitalText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalReturnedCapitalText,1,wxEXPAND|wxALL,10);
-    textSizer->Add(totalMgmtFeesGeneratedText, 1, wxEXPAND| wxALL, 10);
-    textSizer->Add(totalPromoteFeesGeneratedText, 1, wxEXPAND | wxALL, 10);
-
-    bottomSizer->Add(textSizer);
-
-    addDistributionButton = new wxButton(this, wxID_ANY, "Add Distribution");
-    addDistributionButton->SetBackgroundColour(wxColor(0,0,0));
-    addDistributionButton->SetForegroundColour(wxColor(51,245,12));
-    addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked, this);
-
-    assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Asset Level Movement of Capital");
-    assetLevelMovementOfCapitalButton->SetBackgroundColour(wxColor(0,0,0));
-    assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
-    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
-
-    addValuationButton = new wxButton(this, wxID_ANY, "Add Valuation");
-    addValuationButton->SetBackgroundColour(wxColor(0,0,0));
-    addValuationButton->SetForegroundColour(wxColor(51,245,12));
-    addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
-
-    addEventButton = new wxButton(this, wxID_ANY, "Add Event");
-    addEventButton->SetBackgroundColour(wxColor(0,0,0));
-    addEventButton->SetForegroundColour(wxColor(51,245,12));
-    addEventButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddEvent, this);
-
-    bottomSizer->Add(addDistributionButton);
-    bottomSizer->Add(assetLevelMovementOfCapitalButton);
-    bottomSizer->Add(addValuationButton);
-    bottomSizer->Add(addEventButton);
-    mainSizer->Add(bottomSizer, 3, wxALL|wxEXPAND, 10);
-    this->SetSizer(mainSizer);
-
-    for(auto &pos: asset->positions){
-        pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-        pos->UpdateFinancesPostDistributionChanges(asset->distributions,pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
-    }
-    this->Layout();
-}
-
 void AssetPopout::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -639,7 +507,7 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
         this->Update();
     }
 }
-//Just Valuations Currently TODO Add DataSeries of Deployments
+
 Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     asset->PopulateValuationDeploymentForPlotting();
     if (asset->valuationsForPlotting.empty() && asset->deploymentsForPlotting.empty()) {

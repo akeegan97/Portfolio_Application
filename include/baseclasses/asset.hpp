@@ -11,6 +11,7 @@
 #include "position.hpp"
 #include <utility>
 #include <set>
+#include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
@@ -75,12 +76,7 @@ class Asset{
         void PopulateCurrentQDeploys();
 
         void PopulateDistributionsForPlotting();
-
-        //functions to move to a single namespace 
-        wxDateTime GetQuarterEndDate(wxDateTime &currentDate);
-        bool IsWithinQuarter(const wxDateTime &date, const wxDateTime &quarterEndDate);
-        wxDateTime GetQuarterStartDate(wxDateTime &date);
-        wxDateTime GetNextQuarterEndDate(wxDateTime &currentEndDate);
+        
 };  
 
 void to_json(json &j, const Asset &as);

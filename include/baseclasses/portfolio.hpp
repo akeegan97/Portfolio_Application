@@ -12,6 +12,7 @@
 #include <utility>
 #include <memory>
 #include <set>
+#include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
 class Asset;
@@ -39,15 +40,14 @@ class Portfolio{
         void SetAssetPositions();        
         void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
+        
         //functions for portfolio to calculate key figures used in the mainframe wxStaticText control
+
         double TotalInvestedCapital();
         double TotalInvestors();
         double TotalValuation();
-        wxDateTime GetQuarterEndDate(wxDateTime &currentdate);
-        wxDateTime GetNextQuarterEndDate(wxDateTime &currentEndDate);
-        bool IsWithinQuarter(const wxDateTime&date,const wxDateTime &quarterEndDate);
+
         double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
-        wxDateTime GetQuarterStartDate(wxDateTime &date);
         void PopulatePreviousQValuations();
         void PopulateAndProcessCurrentQValuations();
 };

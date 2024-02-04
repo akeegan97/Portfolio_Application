@@ -53,7 +53,6 @@ class AssetPopout : public wxFrame{
         wxButton *addEventButton;
         wxPanel *chartPanelHolderPanel;
         wxPanel *distributionChartPanelHolder;
-        void setupLayout();
         void SetupLayout();
         void UpdateDisplayTextValues();
         void OnInvestorPositionClick(wxListEvent &e);
