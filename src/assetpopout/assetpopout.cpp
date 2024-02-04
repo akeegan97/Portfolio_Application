@@ -170,49 +170,23 @@ void AssetPopout::SetupLayout(){
     }
     this->Layout();
 }
-template <typename T>
-std::string formatDollarAmount(T value) {
-    std::stringstream stream;
-    stream << std::fixed << std::setprecision(2) << std::abs(value);
-    std::string formatted = stream.str();
-
-    size_t dotPos = formatted.find('.');
-    std::string intPart = formatted.substr(0, dotPos);
-    std::string decimalPart = formatted.substr(dotPos + 1);
-
-    std::string formattedWithCommas;
-    int count = 0;
-    for (auto it = intPart.rbegin(); it != intPart.rend(); ++it) {
-        if (count == 3) {
-            formattedWithCommas.push_back(',');
-            count = 0;
-        }
-        count++;
-        formattedWithCommas.push_back(*it);
-    }
-
-    std::reverse(formattedWithCommas.begin(), formattedWithCommas.end());
-    
-    std::string prefix = value < 0 ? "-$" : "$";
-    return prefix + formattedWithCommas + '.' + decimalPart;
-}
 
 void AssetPopout::UpdateDisplayTextValues(){
     double numInvestors = asset->CalculateNumberOfInvestors();
     double totalPaid = asset->CalculatePaidCapital();
-    std::string formattedTotalPaid = formatDollarAmount(totalPaid);
+    std::string formattedTotalPaid = utilities::formatDollarAmount(totalPaid);
     double totalDeployed = asset->CalculateDeployedCapital();
-    std::string formattedTotalDeployed = formatDollarAmount(totalDeployed);
+    std::string formattedTotalDeployed = utilities::formatDollarAmount(totalDeployed);
     double totalSubscribed = asset->CalculateSubscribedCapital();
-    std::string formattedSubscribed = formatDollarAmount(totalSubscribed);
+    std::string formattedSubscribed = utilities::formatDollarAmount(totalSubscribed);
     double totalReserveCapital = asset->CalculateReserveCapital();
-    std::string formattedReserve = formatDollarAmount(totalReserveCapital);
+    std::string formattedReserve = utilities::formatDollarAmount(totalReserveCapital);
     double totalReturnedCapital = asset->CalculateReturnedCapital();
-    std::string formattedReturnedCapital = formatDollarAmount(totalReturnedCapital);
+    std::string formattedReturnedCapital = utilities::formatDollarAmount(totalReturnedCapital);
     double totalPromoteFees = asset->GetTotalPromoteFeesGenerated();
-    std::string formatedPromoteFees = formatDollarAmount(totalPromoteFees);
+    std::string formatedPromoteFees = utilities::formatDollarAmount(totalPromoteFees);
     double totalMgmtFees = asset->GetTotalMgmtFeesGenerated();
-    std::string formatedTotalMgmtFees = formatDollarAmount(totalMgmtFees);
+    std::string formatedTotalMgmtFees = utilities::formatDollarAmount(totalMgmtFees);
 
     std::string assetIRRformated = std::to_string(asset->irr);
 
@@ -580,7 +554,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
-        wxPen* assetValuationPen = new wxPen(wxColor(51,245,12)); // Green for valuation
+        wxPen* assetValuationPen = new wxPen(wxColor(51,245,12),2); // Green for valuation
         assetValuationLineRender->SetSeriePen(0, assetValuationPen);
         assetValuationTimeSeries->SetRenderer(assetValuationLineRender);
         xyPlot->AddDataset(assetValuationTimeSeries);
@@ -597,7 +571,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
-        wxPen* assetDeployLinePen = new wxPen(wxColor(0,0,252)); // blue for deployment
+        wxPen* assetDeployLinePen = new wxPen(wxColor(0,0,252),2); // blue for deployment
         assetDeployLineRender->SetSeriePen(0, assetDeployLinePen);
         assetDeployTimeSeries->SetRenderer(assetDeployLineRender);
         xyPlot->AddDataset(assetDeployTimeSeries);

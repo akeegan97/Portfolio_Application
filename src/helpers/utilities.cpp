@@ -129,4 +129,32 @@ namespace utilities{
         return nextQStartDate;
     }
 
+    template <typename T>
+    std::string formatDollarAmount(T value) {
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(2) << std::abs(value);
+        std::string formatted = stream.str();
+
+        size_t dotPos = formatted.find('.');
+        std::string intPart = formatted.substr(0, dotPos);
+        std::string decimalPart = formatted.substr(dotPos + 1);
+
+        std::string formattedWithCommas;
+        int count = 0;
+        for (auto it = intPart.rbegin(); it != intPart.rend(); ++it) {
+            if (count == 3) {
+                formattedWithCommas.push_back(',');
+                count = 0;
+            }
+            count++;
+            formattedWithCommas.push_back(*it);
+        }
+
+        std::reverse(formattedWithCommas.begin(), formattedWithCommas.end());
+        
+        std::string prefix = value < 0 ? "-$" : "$";
+        return prefix + formattedWithCommas + '.' + decimalPart;
+    }
+
 }
+template std::string utilities::formatDollarAmount<double>(double);

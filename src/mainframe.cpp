@@ -7,8 +7,6 @@
 #include <iomanip>
 #include <cmath>
 
-template <typename T>
-std::string formatDollarAmount(T value);
 void MainFrame::setupLayout(){
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -118,10 +116,10 @@ void MainFrame::setupLayout(){
 
 void MainFrame::UpdatePortfolioDisplayValues(){
    double totalInvested = portfolio.TotalInvestedCapital();
-   std::string formattedTotalInvested = formatDollarAmount(totalInvested);
+   std::string formattedTotalInvested = utilities::formatDollarAmount(totalInvested);
    double totalInvestors = portfolio.TotalInvestors();
    double totalValuation_value = portfolio.TotalValuation();
-   std::string formattedTotalvaluation = formatDollarAmount(totalValuation_value);
+   std::string formattedTotalvaluation = utilities::formatDollarAmount(totalValuation_value);
 
    totalInvestedText->SetLabel("Total Invested Capital: "+formattedTotalInvested);
    totalInvestedText->SetForegroundColour(wxColor(51, 245, 12));
@@ -157,38 +155,6 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
    }
 
 }
-//Port of helpful Rust function I wrote
-template <typename T>
-std::string formatDollarAmount(T value) {
-    std::stringstream stream;
-    stream << std::fixed << std::setprecision(2) << std::abs(value);
-    std::string formatted = stream.str();
-
-    size_t dotPos = formatted.find('.');
-    std::string intPart = formatted.substr(0, dotPos);
-    std::string decimalPart = formatted.substr(dotPos + 1);
-
-    std::string formattedWithCommas;
-    int count = 0;
-    for (auto it = intPart.rbegin(); it != intPart.rend(); ++it) {
-        if (count == 3) {
-            formattedWithCommas.push_back(',');
-            count = 0;
-        }
-        count++;
-        formattedWithCommas.push_back(*it);
-    }
-
-    std::reverse(formattedWithCommas.begin(), formattedWithCommas.end());
-    
-    std::string prefix = value < 0 ? "-$" : "$";
-    return prefix + formattedWithCommas + '.' + decimalPart;
-}
-
-///TODO
-/*
-Find way to find panel width of quote of the day panel and call wrap on quote of the day with that width
-*/
 
 void MainFrame::OnAssetVLCClick(wxListEvent&e){
    long listIndex = e.GetIndex();
@@ -236,7 +202,7 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
 
    XYLineRenderer* customColoredLine = new XYLineRenderer();
-   wxPen* myPen = new wxPen(wxColor(51,245,12));
+   wxPen* myPen = new wxPen(wxColor(51,245,12),2);
    customColoredLine->SetSeriePen(0,myPen);
    valuationTimeSeries->SetRenderer(customColoredLine);
 

@@ -4,6 +4,9 @@
 #include "baseclasses/cashflow.hpp"
 #include "baseclasses/investor.hpp"
 #include <math.h>
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
 
 
 namespace utilities{
@@ -15,6 +18,10 @@ namespace utilities{
     wxDateTime GetNextQuarterStartDate(wxDateTime &date);
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
     double CalculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
+
+    template <typename T>
+    std::string formatDollarAmount(T value);
+
 
 }
 

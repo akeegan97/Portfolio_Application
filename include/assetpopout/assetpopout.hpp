@@ -17,6 +17,7 @@
 #include <wx/xy/xylinerenderer.h>
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
+#include "helpers/utilities.hpp"
 
 class AssetPopout : public wxFrame{
     public:
