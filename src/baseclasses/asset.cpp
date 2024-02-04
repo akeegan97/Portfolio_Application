@@ -359,3 +359,81 @@ void Asset::PopulateDistributionsForPlotting(){
         qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
     }
 }
+
+void Asset::PopulateIRR(){
+    std::vector<CashFlow> cashflows;
+    //get the initial deployed amount each investor -negative for asset XIRR calculation
+    for(const auto&pos:positions){
+        double initialDeployment = pos->deployed;
+        for(const auto&movement:pos->movedToDeploy){
+            initialDeployment-=movement.second;
+        }
+        for(const auto&movement:pos->movedOutOfDeployed){
+            initialDeployment+=movement.second;
+        }
+        CashFlow newCashFlow;
+        newCashFlow.date = pos->dateInvested;
+        newCashFlow.amount = -initialDeployment;
+        cashflows.push_back(newCashFlow);
+    }
+    //get positive cashflows ie gross distributions
+    for(const auto&dist : distributions){
+        CashFlow newCashFlow;
+        newCashFlow.amount = dist.distribution.second;
+        newCashFlow.date = dist.distribution.first;
+        cashflows.push_back(newCashFlow);
+    }
+    //get either last valuation or summed currently deployed amount
+    if(!valuations.empty()){
+        std::sort(valuations.begin(), valuations.end(),
+                [](const Valuation &a, const Valuation &b){
+                    return a.valuationDate.IsEarlierThan(b.valuationDate);
+                });
+        CashFlow newCashflow;
+        newCashflow.amount = valuations.back().valuation;
+        newCashflow.date = wxDateTime::Today();
+        cashflows.push_back(newCashflow);
+    }else{
+        CashFlow newCashFlow;
+        double totalDeployed = 0.0;
+        for(const auto &pos:positions){
+            totalDeployed+=pos->deployed;
+        }
+        newCashFlow.amount = totalDeployed;
+        newCashFlow.date = wxDateTime::Today();
+        cashflows.push_back(newCashFlow);
+    }
+    //now that we have a full cashflow list 
+    for(const auto&cf:cashflows){
+        std::cout<<"Asset: Cashflow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cashflow Amount: "<<cf.amount<<std::endl;
+    //debug prints
+    }
+    irr = 0.0;
+    double guess = 0.1;
+    double x1 = 0.0;
+    int maxIterations = 100;
+    double precision = 0.000001;
+    for(int i =0;i<maxIterations;i++){
+        double npv = CalculateNPV(cashflows,guess);
+        double guessAddPrecision = guess+precision;
+        double npvPrime = (CalculateNPV(cashflows, guessAddPrecision)-npv)/precision;
+        x1 = guess - npv / npvPrime;
+        if(std::fabs(x1-guess)<=precision){
+            irr= x1;
+            break;
+        }
+        guess = x1;
+    }
+
+}
+
+double Asset::CalculateNPV(std::vector<CashFlow>&cashflows, double &rate){
+    double npv = 0.0;
+    wxDateTime firstDate = cashflows[0].date;
+    for(const auto&cf:cashflows){
+        wxTimeSpan timespan = cf.date-firstDate;
+        double years = timespan.GetDays()/365.25;
+        npv+=cf.amount /std::pow(1+rate, years);
+    }
+    return npv;
+}

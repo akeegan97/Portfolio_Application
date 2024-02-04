@@ -19,6 +19,7 @@ void AssetPopout::SetupLayout(){
 
     asset->investorsPositionsDisplays.clear();
     asset->SetOwnershipOfPositions();
+    asset->PopulateIRR();
 
     for(auto&pos:asset->positions){
         auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(pos);
@@ -114,9 +115,11 @@ void AssetPopout::SetupLayout(){
     totalDeployedCapitalText = new wxStaticText(this, wxID_ANY,"");
     totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
     totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
+    assetIRR = new wxStaticText(this, wxID_ANY,"");
     //TODO add mgmtfees due also
     totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
 
+    halfTextSizer->Add(assetIRR,1,wxEXPAND,3);
     halfTextSizer->Add(numInvestorsText,1,wxEXPAND,3);
     halfTextSizer->Add(totalSubscribedText,1,wxEXPAND,3);
     halfTextSizer->Add(totalPaidText,1,wxEXPAND,3);
@@ -210,6 +213,11 @@ void AssetPopout::UpdateDisplayTextValues(){
     std::string formatedPromoteFees = formatDollarAmount(totalPromoteFees);
     double totalMgmtFees = asset->GetTotalMgmtFeesGenerated();
     std::string formatedTotalMgmtFees = formatDollarAmount(totalMgmtFees);
+
+    std::string assetIRRformated = std::to_string(asset->irr);
+
+    assetIRR->SetLabel("Asset Gross IRR: "+assetIRRformated);
+    assetIRR->SetForegroundColour(wxColor(51,245,12));
 
     totalSubscribedText->SetLabel("Total Subscribed Amount: "+formattedSubscribed);
     totalSubscribedText->SetForegroundColour(wxColor(51,245,12));
@@ -311,6 +319,8 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         distributionListControl->Update();
         UpdateDisplayTextValues();
         UpdateChartDistribution();
+        asset->PopulateIRR();
+        UpdateDisplayTextValues();
         this->Refresh();
     }
 }
@@ -357,6 +367,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
         }
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
+        asset->PopulateIRR();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == wxID_CANCEL){
@@ -380,6 +391,8 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         valuationListControl->setItems(asset->valuations);
         portfolio.ValuationDialog();
         UpdateChartValuationDeploy();
+        asset->PopulateIRR();
+        UpdateDisplayTextValues();
         this->Layout();
     }else if(retVal == wxID_CANCEL){
         //do nothing and exit
@@ -448,6 +461,8 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         distributionListControl->Update();
         UpdateDisplayTextValues();
         UpdateChartDistribution();
+        asset->PopulateIRR();
+        UpdateDisplayTextValues();
         this->Refresh();
     }
     UpdateChartDistribution();
@@ -468,6 +483,8 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
         UpdateChartValuationDeploy();
+        asset->PopulateIRR();
+        UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
         if(dataIndex>=0 && dataIndex < asset->valuations.size()){
@@ -477,6 +494,8 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationListControl->setItems(asset->valuations);
         valuationListControl->Update();
         UpdateChartValuationDeploy();
+        asset->PopulateIRR();
+        UpdateDisplayTextValues();
         this->Refresh();
     }
     this->Refresh();
@@ -503,6 +522,7 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
             asset->events.pop_back();
         }
         eventsVirtualListControl->setItems(asset->events);
+        eventsVirtualListControl->Refresh();
         eventsVirtualListControl->Update();
         this->Update();
     }
@@ -683,7 +703,7 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     wxString barSerie = "BAR SERIES";
     CategorySerie* distributionBarSerie = new CategorySerie(barSerie, values, count);
     distributionDataSet->AddSerie(distributionBarSerie);
-    BarType *barType = new NormalBarType(5);
+    BarType *barType = new NormalBarType(15);
     BarRenderer *barRender = new BarRenderer(barType);
     wxColor *myColor = new wxColor(0,0,252);
     wxPen*barPen = new wxPen(*myColor);

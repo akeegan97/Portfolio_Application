@@ -12,6 +12,7 @@
 #include <utility>
 #include <set>
 #include "helpers/utilities.hpp"
+#include <math.h>
 
 using json = nlohmann::json;
 class Portfolio;
@@ -24,6 +25,7 @@ class Asset{
         double countOfInvestors;
         double currentValue;
         double totalMgmtFees;
+        double irr;
 
         std::vector<Valuation> valuations;
         std::vector<Distribution> distributions;
@@ -54,7 +56,7 @@ class Asset{
             return assetName < other.assetName; 
         }
 
-        wxVariant GetValue(int col)const;///<
+        wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);
 
         double CalculateNumberOfInvestors()const;
@@ -76,6 +78,11 @@ class Asset{
         void PopulateCurrentQDeploys();
 
         void PopulateDistributionsForPlotting();
+
+        void PopulateIRR();
+        double CalculateNPV(std::vector<CashFlow> &cashflows, double &rate);
+
+
         
 };  
 

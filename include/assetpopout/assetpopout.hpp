@@ -44,6 +44,7 @@ class AssetPopout : public wxFrame{
         wxStaticText *numInvestorsText;//
         wxStaticText *totalReserveCapitalText;//
         wxStaticText *totalReturnedCapitalText;//
+        wxStaticText *assetIRR;
         //New static text lines?
         wxStaticText *totalMgmtFeesGeneratedText;
         wxStaticText *totalPromoteFeesGeneratedText;

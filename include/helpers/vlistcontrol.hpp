@@ -50,6 +50,9 @@ public:
 
 
         this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt){
+            if(this->GetItemCount()==0){
+                return;
+            }
             auto selectedListIndex = getFirstSelectedIndex();
             long selectedDataIndex;
 

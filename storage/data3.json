@@ -37,13 +37,7 @@
                     "Distribution Date": "2024-01-05"
                 }
             ],
-            "Events": [
-                {
-                    "Event Date": "2024-03-29",
-                    "Event Details": "Potential additional called capital due",
-                    "Has Happened": false
-                }
-            ],
+            "Events": [],
             "Valuations": [
                 {
                     "Valuation Amount": 1000000.0,
