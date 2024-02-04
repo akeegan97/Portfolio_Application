@@ -35,8 +35,8 @@ class MainFrame : public wxFrame{
             quoteOfTheDate(nullptr)
             {
                 setupLayout();
-                UpdatePortfolioDisplayValues();
                 ReadPickQuote("../storage/RugenBergQuotes.txt");
+                UpdatePortfolioDisplayValues();
                 Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
             };
         Portfolio &portfolio;
@@ -51,6 +51,7 @@ class MainFrame : public wxFrame{
         wxPanel* chartPanelHolderPanel;
         wxStaticText * quoteOfTheDate;
         wxPanel* quoteOftheDatePanel;
+        std::string originalQuoteText;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
@@ -61,6 +62,7 @@ class MainFrame : public wxFrame{
         void UpdateAssetListControl();
         void UpdateEventListControl();
         void OnInvestorVLCClick(wxListEvent &e);
+        void OnFrameResizeForQuote(wxSizeEvent &e);
 };
 
 

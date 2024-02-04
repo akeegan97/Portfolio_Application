@@ -109,6 +109,7 @@ void MainFrame::setupLayout(){
    mainSizer->Add(rSideSizer, 5, wxEXPAND | wxALL,10);
    mainSizer->Layout();
    //set mainframe sizer to be the main sizer here
+   this->Bind(wxEVT_SIZE, &MainFrame::OnFrameResizeForQuote, this);
    this->SetSizer(mainSizer);
    this->Layout();
    this->Refresh();
@@ -143,11 +144,11 @@ void MainFrame::ReadPickQuote(const std::string&filePath){
       std::uniform_int_distribution<> distrib(0,lines.size()-1);
       int randomIndex = distrib(gen);
 
-      std::string pickedQuote = lines[randomIndex];
+      originalQuoteText = lines[randomIndex];
 
-      quoteOfTheDate->SetLabel(pickedQuote);
+      quoteOfTheDate->SetLabel(originalQuoteText);
       quoteOfTheDate->SetForegroundColour(wxColor(51,245,12));
-      int width = this->GetMaxWidth();
+      int width = quoteOftheDatePanel->GetClientSize().GetWidth();
       quoteOfTheDate->Wrap(width);
 
    }else{
@@ -328,4 +329,17 @@ void MainFrame::UpdateEventListControl(){
    allAssetEventVListControl->setItems(portfolio.assetEventPtrs);
    allAssetEventVListControl->Update();
    this->Layout();
+}
+
+void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
+   e.Skip();
+
+   quoteOfTheDate->SetLabel(originalQuoteText); 
+   int newWidth = quoteOftheDatePanel->GetClientSize().GetWidth();
+
+   quoteOfTheDate->Wrap(newWidth);
+   
+   quoteOftheDatePanel->Layout();
+   quoteOfTheDate->Refresh();
+   quoteOfTheDate->Update();
 }
