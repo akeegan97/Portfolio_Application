@@ -113,6 +113,7 @@ void Asset::UpdateDerivedValues(){
     currentValue = GetLastValuation();
     totalMgmtFees = GetTotalMgmtFeesGenerated();
     SetOwnershipOfPositions();
+    totalMgmtFeesDue = GetTotalMgmtFeesDue();
 }
 
 double Asset::CalculateReserveCapital(){
@@ -153,6 +154,14 @@ double Asset::GetTotalMgmtFeesGenerated(){
         }
     }
     return totalMgmtFees;
+}
+
+double Asset::GetTotalMgmtFeesDue(){
+    double totalDue = 0;
+    for(const auto&pos:positions){
+        totalDue+=pos->mgmtFeesDue;
+    }
+    return totalDue;
 }
 
 double Asset::GetTotalPromoteFeesGenerated(){
@@ -383,6 +392,7 @@ void Asset::PopulateIRR(){
         newCashFlow.date = dist.distribution.first;
         cashflows.push_back(newCashFlow);
     }
+    //need to also include the negative amounts/positive amounts that come from deploy movements
     //get either last valuation or summed currently deployed amount
     if(!valuations.empty()){
         std::sort(valuations.begin(), valuations.end(),

@@ -25,6 +25,7 @@ class Asset{
         double countOfInvestors;
         double currentValue;
         double totalMgmtFees;
+        double totalMgmtFeesDue;
         double irr;
 
         std::vector<Valuation> valuations;
@@ -68,6 +69,7 @@ class Asset{
         double GetLastValuation()const;
         void UpdateDerivedValues();
         double GetTotalMgmtFeesGenerated();
+        double GetTotalMgmtFeesDue();
         double GetTotalPromoteFeesGenerated();
         void SetOwnershipOfPositions();
 

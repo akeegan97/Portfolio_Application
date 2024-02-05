@@ -116,6 +116,7 @@ void AssetPopout::SetupLayout(){
     totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
     totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
     assetIRR = new wxStaticText(this, wxID_ANY,"");
+    totalMgmtFeesDueText = new  wxStaticText(this, wxID_ANY,"");
     //TODO add mgmtfees due also
     totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
 
@@ -128,6 +129,7 @@ void AssetPopout::SetupLayout(){
     otherHalfTextSizer->Add(totalDeployedCapitalText,1,wxEXPAND,3);
     otherHalfTextSizer->Add(totalReserveCapitalText,1,wxEXPAND,3);
     otherHalfTextSizer->Add(totalMgmtFeesGeneratedText,1,wxEXPAND,3);
+    otherHalfTextSizer->Add(totalMgmtFeesDueText,1,wxEXPAND,3);
     otherHalfTextSizer->Add(totalPromoteFeesGeneratedText,1,wxEXPAND,3);
 
     staticTextSizer->Add(halfTextSizer,1,wxALL|wxEXPAND,3);
@@ -187,6 +189,8 @@ void AssetPopout::UpdateDisplayTextValues(){
     std::string formatedPromoteFees = utilities::formatDollarAmount(totalPromoteFees);
     double totalMgmtFees = asset->GetTotalMgmtFeesGenerated();
     std::string formatedTotalMgmtFees = utilities::formatDollarAmount(totalMgmtFees);
+    double totalMgmtFeesDue = asset->GetTotalMgmtFeesDue();
+    std::string formattedTotalMgmtFeesDue = utilities::formatDollarAmount(totalMgmtFeesDue);
 
     std::string assetIRRformated = std::to_string(asset->irr);
 
@@ -213,6 +217,9 @@ void AssetPopout::UpdateDisplayTextValues(){
 
     totalMgmtFeesGeneratedText->SetLabel("Total Management Fees Earned: "+formatedTotalMgmtFees);
     totalMgmtFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
+
+    totalMgmtFeesDueText->SetLabel("Total Management Fees Due: "+ formattedTotalMgmtFeesDue);
+    totalMgmtFeesDueText->SetForegroundColour(wxColor(51,245,12));
 
     totalPromoteFeesGeneratedText->SetLabel("Total Promote Fees Earned: "+formatedPromoteFees);
     totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
@@ -670,7 +677,7 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     for(size_t i = 0;i<count; i++){
         values[i] = asset->distributionsForPlottingBarChart[i].second;
         names[i] = asset->distributionsForPlottingBarChart[i].first.FormatISODate();
-        std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->valuationsForPlotting[i].first.FormatISODate()<<std::endl;
+        std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->distributionsForPlottingBarChart[i].first.FormatISODate()<<std::endl;
     }
 
     CategorySimpleDataset* distributionDataSet = new CategorySimpleDataset(names,count);
