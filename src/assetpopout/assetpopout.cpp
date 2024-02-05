@@ -8,7 +8,7 @@
 #include "assetpopout/distributiondialog.hpp"
 #include "assetpopout/moveDeploy.hpp"
 #include "assetpopout/valuationdialog.hpp"
-#include "assetpopout/EventDialog.hpp"
+#include "assetpopout/eventdialog.hpp"
 
 void AssetPopout::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
@@ -686,7 +686,7 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     distributionDataSet->AddSerie(distributionBarSerie);
     BarType *barType = new NormalBarType(15);
     BarRenderer *barRender = new BarRenderer(barType);
-    wxColor *myColor = new wxColor(0,0,252);
+    wxColor *myColor = new wxColor(127, 197, 250);
     wxPen*barPen = new wxPen(*myColor);
     wxBrush* barBrush = new wxBrush(*myColor);
     FillAreaDraw *barAreas = new FillAreaDraw(*barPen, *barBrush);

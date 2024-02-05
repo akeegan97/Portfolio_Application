@@ -413,7 +413,11 @@ void Asset::PopulateIRR(){
         newCashFlow.date = wxDateTime::Today();
         cashflows.push_back(newCashFlow);
     }
-    //now that we have a full cashflow list 
+    //now that we have a full cashflow list
+    std::sort(cashflows.begin(), cashflows.end(),
+    [](const CashFlow &a, const CashFlow &b) {
+        return a.date < b.date;
+    });
     for(const auto&cf:cashflows){
         std::cout<<"Asset: Cashflow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cashflow Amount: "<<cf.amount<<std::endl;
     //debug prints
