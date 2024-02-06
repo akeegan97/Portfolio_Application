@@ -88,3 +88,10 @@ void InvestorPopout::SetUpLayout(){
     this->Layout();
 }
 
+Chart* InvestorPopout::PopulateInvestorsValuationDeployChart(){
+
+}
+
+Chart* InvestorPopout::PopulateInvestorsDistributionChart(){
+    
+}

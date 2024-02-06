@@ -48,3 +48,20 @@ void Investor::SetValue(int col, const wxVariant &v){
 
 std::vector<wxString> Investor::columnNames = {"Name", "Type","Management Fee", "Promote Fee"};
 std::vector<int> Investor::columnWidths = {100,100,150,150};
+
+
+
+void Investor::PopulateDeploymentsForPlotting(){
+
+}
+
+void Investor::PopulateDistributionsForPlotting(){
+
+}
+
+void Investor::PopulateValuationsForPlotting(){
+    valuationsForPlotting.clear();
+    std::vector<wxString> uniqueAssets;
+    std::map<wxString, std::map<wxDateTime, double>> lastValuationofAsset;
+
+}

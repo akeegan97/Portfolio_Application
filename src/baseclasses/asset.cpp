@@ -218,9 +218,9 @@ void Asset::PopulateValuationDeploymentForPlotting(){
                 });
 
     std::sort(deploymentsForPlotting.begin(), deploymentsForPlotting.end(),
-            [](const std::pair<wxDateTime, double>&a, const std::pair<wxDateTime, double>&b){
+                [](const std::pair<wxDateTime, double>&a, const std::pair<wxDateTime, double>&b){
                 return a.first.IsEarlierThan(b.first);
-            });
+                });
 }
 
 void Asset::PopulatePreviousQValuations(){
@@ -238,10 +238,9 @@ void Asset::PopulatePreviousQValuations(){
 
     //sorting valuations for this asset
     std::sort(valuations.begin(), valuations.end(),
-        [](const Valuation& a, const Valuation& b) {
+            [](const Valuation& a, const Valuation& b) {
             return a.valuationDate < b.valuationDate;
-        }
-    );
+            });
 
     while(qEndDate.IsEarlierThan(currentQStartDate)){
         double quarterValuation = 0.0;

@@ -27,12 +27,22 @@ class Investor{
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
         std::vector<std::shared_ptr<InvestorAssetDisplay>> displaysForInvestorPopout;
+
+        //for plotting
+        std::vector<std::pair<wxDateTime, double>> valuationsForPlotting;
+        std::vector<std::pair<wxDateTime, double>> deploymentsForPlotting;
+
+        std::vector<std::pair<wxDateTime, double>> distributionsForPlotting;
         
         Investor()=default;
         Investor(const wxString &clientName, const wxString &type):
                 clientName(clientName),type(type){};
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);
+
+        void PopulateDistributionsForPlotting();
+        void PopulateValuationsForPlotting();
+        void PopulateDeploymentsForPlotting();
 };
 
 void to_json(json &j, const Investor &inv);
