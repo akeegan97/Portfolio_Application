@@ -83,15 +83,24 @@ void InvestorPopout::SetUpLayout(){
     //add staticTexts
     //add notes Notebook with multiline text edits
     //potentially add chart specific for this investor's positions "Mini portfolio chart" like that on mainframe
-
+    for(const auto &pos:investor->positions){
+        pos->assetPtr->PopulatePositionsHistoricalValuation();
+    }
+    for(const auto&pos:investor->positions){
+        std::cout<<"Asset: "<<pos->assetPtr->assetName<<"Investor: "<<investor->clientName<<std::endl;
+        for(const auto& val: pos->historicalValuation){
+            std::cout<<" Date: "<<val.valuationDate.FormatISODate()<<" Amount: "<<val.valuation<<std::endl;
+        }
+    }
     this->SetSizer(mainSizer);
     this->Layout();
 }
 
 Chart* InvestorPopout::PopulateInvestorsValuationDeployChart(){
-
+    return nullptr;
 }
 
 Chart* InvestorPopout::PopulateInvestorsDistributionChart(){
-    
+    return nullptr;
+
 }

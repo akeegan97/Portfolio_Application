@@ -305,4 +305,3 @@ void Position::UpdateFinancesPostDistributionChanges(std::vector<Distribution>& 
     }
     mgmtFeesDue = unpaidMgmtFees;
 }
-

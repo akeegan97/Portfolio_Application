@@ -84,6 +84,8 @@ class Asset{
         void PopulateIRR();
         double CalculateNPV(std::vector<CashFlow> &cashflows, double &rate);
 
+        void PopulatePositionsHistoricalValuation();
+
 
         
 };  

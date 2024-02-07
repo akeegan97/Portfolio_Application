@@ -44,7 +44,12 @@
                     "Has Happened": false
                 }
             ],
-            "Valuations": []
+            "Valuations": [
+                {
+                    "Valuation Amount": 600000.0,
+                    "Valuation Date": "2023-06-15"
+                }
+            ]
         }
     ],
     "Investors": [
@@ -363,15 +368,15 @@
     ],
     "valuationVectorPlotting": [
         {
-            "Amount": 500000.0,
+            "Amount": 600000.0,
             "Date": "2023-06-30"
         },
         {
-            "Amount": 1000000.0,
+            "Amount": 600000.0,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 1000000.0,
+            "Amount": 600000.0,
             "Date": "2023-12-31"
         }
     ]

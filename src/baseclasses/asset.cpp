@@ -450,3 +450,97 @@ double Asset::CalculateNPV(std::vector<CashFlow>&cashflows, double &rate){
     }
     return npv;
 }
+
+void Asset::PopulatePositionsHistoricalValuation() {
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
+    
+        std::sort(valuations.begin(),valuations.end(),[](const Valuation &a, const Valuation &b){
+            return a.valuationDate<b.valuationDate;
+        });
+
+    // Loop through each quarter from the earliest investment date to the current quarter
+    wxDateTime oldestInvestedPositionDate = wxDateTime::Today();
+    wxDateTime lastInvestedPositionDate = wxDateTime::Today();
+    for(const auto& pos:positions){
+        if(pos->dateInvested.IsEarlierThan(oldestInvestedPositionDate)){
+            oldestInvestedPositionDate = pos->dateInvested;
+        }
+        pos->historicalValuation.clear();
+
+        pos->currentlyDeployed = pos->deployed;
+    }
+    for(const auto&pos:positions){
+        for(const auto&movement:pos->movedToDeploy){
+            pos->currentlyDeployed-=movement.second;
+        }
+        for(const auto&movement:pos->movedOutOfDeployed){
+            pos->currentlyDeployed+=movement.second;
+        }
+    }
+    
+    for (wxDateTime quarterDate = utilities::GetQuarterStartDate(oldestInvestedPositionDate); 
+        quarterDate <= currentQEndDate; 
+        quarterDate = utilities::GetNextQuarterStartDate(quarterDate)) {
+
+        double totalCapitalEndOfQuarter = 0.0;
+        wxDateTime quarterEnd = utilities::GetQuarterEndDate(quarterDate);
+        double quarterValuation = 0.0;
+        wxDateTime lastValuationDate;
+
+        // Determine the last valuation within or before the current quarter
+        for (const auto& val : valuations) {
+            if (val.valuationDate <= quarterEnd) {
+                quarterValuation = val.valuation; // This keeps updating to the last one within/before the quarter
+                lastValuationDate = val.valuationDate;
+            }
+        }
+
+        // Calculate total deployed capital for all positions up to the quarter end
+        for (auto& position : positions) {
+            double deployedCapital = position->deployed;
+            wxDateTime positionLastMovementDate = position->dateInvested;
+            // Adjust for movements
+            for (const auto& movement : position->movedToDeploy) {
+                if (movement.first <= quarterEnd) {
+                    deployedCapital += movement.second;
+                    positionLastMovementDate = std::max(positionLastMovementDate, movement.first);
+                }
+            }
+            for (const auto& movement : position->movedOutOfDeployed) {
+                if (movement.first <= quarterEnd) {
+                    deployedCapital -= movement.second;
+                    positionLastMovementDate = std::max(positionLastMovementDate, movement.first);
+                }
+            }
+
+            position->currentlyDeployed = deployedCapital;
+            if (positionLastMovementDate <= quarterEnd) {
+                totalCapitalEndOfQuarter += deployedCapital;
+            }
+        }
+
+        // If no valuation within the quarter, adjust for new investments after the last valuation date
+        if (lastValuationDate < quarterDate) {
+            double newInvestmentsAfterLastValuation = 0.0;
+            for (const auto& position : positions) {
+                if (position->dateInvested > lastValuationDate && position->dateInvested <= quarterEnd) {
+                    newInvestmentsAfterLastValuation += position->currentlyDeployed;
+                }
+            }
+            quarterValuation += newInvestmentsAfterLastValuation; // Adjust the last known valuation
+        }
+
+        // Calculate and assign valuation share for each position
+        for (auto& position : positions) {
+            if (position->dateInvested <= quarterEnd) {
+                double ownershipPercentage = (totalCapitalEndOfQuarter > 0) ? 
+                                            position->currentlyDeployed / totalCapitalEndOfQuarter : 
+                                            0.0;
+                double positionValuation = quarterValuation * ownershipPercentage;
+                Valuation positionValuationObject{quarterEnd, positionValuation};
+                position->historicalValuation.push_back(positionValuationObject);
+            }
+        }
+    }
+}

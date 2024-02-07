@@ -16,11 +16,13 @@
 #include "distribution.hpp"
 #include "investor.hpp"
 #include "helpers/utilities.hpp"
+#include "baseclasses/valuation.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
 class Asset;
 class Investor;
+class Valuation;
 
 class Position{
     public:
@@ -39,6 +41,8 @@ class Position{
         std::map<wxDateTime, double> movedToDeploy;
         std::map<wxDateTime, double> movedOutOfDeployed;
         std::vector<Distribution> netIncome;
+        std::vector<Valuation> historicalValuation;
+        double currentlyDeployed;
     
         Position() = default;
         Position(const wxDateTime &dateInvested, const double &subscribed, 
@@ -52,8 +56,7 @@ class Position{
         void CalculateHistoricalManagementFees(const double &managementFeePercentage);
         void ReCalculateTotalManagementFeesDue(wxDateTime distributionDate);
         void UpdateFinancesPostDistributionChanges(std::vector<Distribution>& distributions, double& promoteFeePercentage, double&mgmtFeePercentage);
-
-};
+};  
 void to_json(json &j, const Position &pos);
 void from_json(const json &j, Position &pos,Portfolio &porf);
 

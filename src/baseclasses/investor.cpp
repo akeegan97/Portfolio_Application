@@ -61,7 +61,28 @@ void Investor::PopulateDistributionsForPlotting(){
 
 void Investor::PopulateValuationsForPlotting(){
     valuationsForPlotting.clear();
-    std::vector<wxString> uniqueAssets;
-    std::map<wxString, std::map<wxDateTime, double>> lastValuationofAsset;
+    std::map<wxString, std::vector<Valuation>> allAssetValuations;
+    std::map<wxString, std::vector<Valuation>> filledAllAssetValuations;
+    std::set<wxString> uniqueInvestedAssets;
+    for(const auto&pos:positions){
+        uniqueInvestedAssets.insert(pos->assetPtr->assetName);
+    }
+    for(const auto&key:uniqueInvestedAssets){
+        for(const auto& pos:positions){
+            allAssetValuations[key] = pos->assetPtr->valuations;
+        }        
+    }
+    for(const auto&key: allAssetValuations){
+        wxDateTime initialInvestedDate = wxDateTime::Today();
+        for(const auto&pos: positions){
+            if(pos->assetPtr->assetName == key.first){
+                initialInvestedDate = pos->dateInvested;
+            }
+        }
+        
+        for(const auto &val: key.second){
+            
+        }    
+    }
 
 }
