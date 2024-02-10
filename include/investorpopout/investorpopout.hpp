@@ -37,6 +37,7 @@ class InvestorPopout : public wxFrame{
         Chart* PopulateInvestorsDistributionChart();
         void UpdateInvestorsValuationDeployChart();
         void UpdateInvestorsDistributionChart();
+        
 };
 
 #endif

@@ -18,6 +18,7 @@
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
 #include "helpers/utilities.hpp"
+#include "baseclasses/structdetails.hpp"
 
 class AssetPopout : public wxFrame{
     public:
@@ -67,12 +68,15 @@ class AssetPopout : public wxFrame{
         void OnDistributionEdit(wxListEvent &e);
         void OnValuationEdit(wxListEvent &e);
         void OnEventEdit(wxListEvent &e);
+        void OnAddPosition(wxCommandEvent &e);
         //for valuation+deployed capital chart
         Chart* PopulateDrawChartValuationDeploy();
         void UpdateChartValuationDeploy();
         //for distributions chart
         Chart* PopulateDrawChartDistribution();
         void UpdateChartDistribution();
+        void CreateNewInvestor();
+        void AddNewPositionToInvestor();
 };
 
 

@@ -49,6 +49,7 @@ void InvestorAssetDisplay::PopulateIRR(){
         cashFlow.push_back(newCashFlow);
     }
     //starting calculation around XIRR:
+    std::cout<<"Called From InvestorAssetDisplay"<<std::endl;
     for(const auto&cf:cashFlow){
         std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
     }

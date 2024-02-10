@@ -20,7 +20,13 @@ class Portfolio;
 class Asset{
     public:
         wxString assetName;
+        wxString assetSponserName;
         wxDateTime assetExitDate;
+        double assetCommittedCapital;
+        double assetDeployedCapital;
+        double assetReserveCapital;
+        double assetReturnOfCapital;
+
         double totalInvestedCapital;
         double countOfInvestors;
         double currentValue;
@@ -85,8 +91,6 @@ class Asset{
         double CalculateNPV(std::vector<CashFlow> &cashflows, double &rate);
 
         void PopulatePositionsHistoricalValuation();
-
-
         
 };  
 

@@ -758,3 +758,9 @@ void AssetPopout::UpdateChartDistribution(){
     this->Layout();
 }
 
+void AssetPopout::OnAddPosition(wxCommandEvent &e){
+    
+}
+void AssetPopout::CreateNewInvestor(){
+
+}
