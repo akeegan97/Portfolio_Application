@@ -3,6 +3,7 @@
 #include <wx/datetime.h>
 #include "baseclasses/cashflow.hpp"
 #include "baseclasses/investor.hpp"
+#include "baseclasses/distribution.hpp"
 #include <math.h>
 #include <sstream>
 #include <iomanip>
@@ -18,7 +19,7 @@ namespace utilities{
     wxDateTime GetNextQuarterStartDate(wxDateTime &date);
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
     double CalculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-
+    void SortDistributions(std::vector<Distribution> &distributions);
     template <typename T>
     std::string formatDollarAmount(T value);
 

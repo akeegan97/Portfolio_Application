@@ -3,13 +3,15 @@
 #include <wx/datetime.h>
 #include <wx/string.h>
 #include <json.hpp>
+#include <wx/variant.h>
 #include <utility>
 #include <set>
 #include <math.h>
 #include <memory>
+#include <unordered_set>
 #include "baseclasses/valuation.hpp"
 #include "baseclasses/portfolio.hpp"
-#include "baseclasses/position.hpp"
+#include "baseclasses/position2.hpp"
 #include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
@@ -31,11 +33,12 @@ class Asset2{
         double m_countOfInvestors;
         double m_totalMgmtFeesEarned;
         double m_totalMgmtFeesDue;
+        double m_totalPromoteFeesEarned;
         double m_irr;
     //collections 
         std::vector<Valuation> m_valuations;
         std::vector<Distribution> m_distributions;
-        std::vector<std::shared_ptr<Position>> m_positions;
+        std::vector<std::shared_ptr<Position2>> m_positions;
     //for plotting
         std::vector<std::pair<wxDateTime, double>> m_valuationsForPlotting;
         std::vector<std::pair<wxDateTime, double>> m_deploymentsForPlotting;
@@ -54,6 +57,9 @@ class Asset2{
         void UpdateTotalPromoteFeesEarned();
         void UpdateTotalCountOfInvestors();
         void UpdateTotalInvestedCapital();
+        void ProcessDistributionsForPosition();
+        void UpdatePositionValuations();
+        void UpdateCurrentvalue();
 
     public:
         Asset2() = default;
@@ -69,10 +75,21 @@ class Asset2{
         double GetTotalInvestedCapital()const;
         double GetTotalAssetDeployed()const;
         double GetTotalAssetReserve()const;
-        double GetTotalReturnOfCapital();const;
+        double GetTotalReturnOfCapital()const;
+        const std::vector<std::shared_ptr<Position2>>& GetPositions()const;
+        double GetValuationInQuarter(wxDateTime &date)const;
+        const std::vector<Valuation>& GetValuations()const;
+
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
         void SetValue(int col, const wxVariant &v);
+        static std::vector<wxString> columnNames;
+        static std::vector<int> columnWidths;
+    //other public methods
+        void SortDistributions(std::vector<Distribution> &distributions);
+        void SortValuations(std::vector<Valuation> &valuations);
+        void AddNewValuation(const wxDateTime &valuationDate, double valuationAmount);
+
 };
 
 #endif
