@@ -163,3 +163,49 @@ void Asset2::UpdateCurrentvalue(){
     }
     
 }
+
+void Asset2::DeserializeSetAssetName(wxString &assetName){
+    m_assetName = assetName;
+}
+void Asset2::DeserializeSetAssetSponser(wxString &assetSponserName){
+    m_assetSponserName = assetSponserName;
+}
+void Asset2::DeserializeSetAssetExitDate(wxDateTime &exitDate){
+    m_assetExitDate = exitDate;
+}
+void Asset2::DeserializeSetAssetCommittedCapital(double &committedCapital){
+    m_assetCommittedCapital = committedCapital;
+}
+void Asset2::DeserializeSetAssetDeployedCapital(double &deployedCapital){
+    m_assetDeployedCapital = deployedCapital;
+}
+void Asset2::DeserializeSetAssetReserveCapital(double &reserveCapital){
+    m_assetReserveCapital = reserveCapital;
+}
+void Asset2::DeserializeSetAssetReturnOfCapital(double &returnOfCapital){
+    m_assetReturnOfCapital = returnOfCapital;
+}
+void Asset2::DeserializeSetValuations(std::vector<Valuation> &valuations){
+    m_valuations.clear();
+    m_valuations = valuations;
+}
+void Asset2::DeserializeSetDistributions(std::vector<Distribution> &distributions){
+    m_distributions.clear();
+    m_distributions = distributions;
+}
+void Asset2::DeserializeSetPositions(std::vector<std::shared_ptr<Position2>> &positions){
+    m_positions.clear();
+    m_positions = positions;
+}
+
+
+void from_json(const json&j, Asset2 &asset, Portfolio &port){
+    if(j.contains("Valuations") && j["Valuations"].is_array()){
+        std::vector<Valuation> valuations = j["Valuations"].get<std::vector<Valuation>>();
+        asset.DeserializeSetValuations(valuations);
+    }
+    if(j.contains("Distributions") && j["Distributions"].is_array()){
+        std::vector<Distribution> distributions = j["Distributions"].get<std::vector<Distribution>>();
+        asset.DeserializeSetDistributions(distributions);
+    }
+}

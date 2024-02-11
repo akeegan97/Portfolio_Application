@@ -79,6 +79,17 @@ class Asset2{
         const std::vector<std::shared_ptr<Position2>>& GetPositions()const;
         double GetValuationInQuarter(wxDateTime &date)const;
         const std::vector<Valuation>& GetValuations()const;
+    //public setters
+        void DeserializeSetAssetName(wxString &assetName);
+        void DeserializeSetAssetSponser(wxString &assetSponserName);
+        void DeserializeSetAssetExitDate(wxDateTime &exitDate);
+        void DeserializeSetAssetCommittedCapital(double &committedCapital);
+        void DeserializeSetAssetDeployedCapital(double &deployedCapital);
+        void DeserializeSetAssetReserveCapital(double &reserveCapital);
+        void DeserializeSetAssetReturnOfCapital(double &returnOfCapital);
+        void DeserializeSetValuations(std::vector<Valuation> &valuations);
+        void DeserializeSetDistributions(std::vector<Distribution> &distributions);
+        void DeserializeSetPositions(std::vector<std::shared_ptr<Position2>> &positions);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
@@ -91,5 +102,8 @@ class Asset2{
         void AddNewValuation(const wxDateTime &valuationDate, double valuationAmount);
 
 };
+
+void to_json(json &j, const Asset2 &asset);
+void from_json(const json &j, Asset2 &asset, Portfolio &port);
 
 #endif

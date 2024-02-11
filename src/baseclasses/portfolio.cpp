@@ -34,7 +34,7 @@ void to_json(json &j, const Portfolio &por) {
 void from_json(const json &j, Portfolio &por) {
     if(j.contains("Investors") && j["Investors"].is_array()){
         for(const auto& investorJson: j["Investors"]){
-            std::shared_ptr<Investor> investor= std::make_shared<Investor>();
+            std::shared_ptr<Investor2> investor= std::make_shared<Investor2>();
             from_json(investorJson, *investor, por);
             por.allInvestorPtrs.push_back(investor);
         }
@@ -42,10 +42,12 @@ void from_json(const json &j, Portfolio &por) {
 
     if(j.contains("Assets") && j["Assets"].is_array()){
         for(const auto &assetJson : j["Assets"]){
-            auto asset = std::make_shared<Asset>();
+            auto asset = std::make_shared<Asset2>();
             if(assetJson.contains("Asset Name")){
-                asset->assetName = assetJson["Asset Name"].get<std::string>().c_str();
+                wxString assetName = assetJson["Asset Name"].get<std::string>().c_str();
+                asset->DeserializeSetAssetName(assetName);
             }
+            
             if(assetJson.contains("Asset Exit Date")){
                 wxString dateStr = wxString::FromUTF8(assetJson["Asset Exit Date"].get<std::string>().c_str());
                 wxDateTime dateParse;
@@ -78,8 +80,8 @@ void from_json(const json &j, Portfolio &por) {
 
                 if (asset != por.assetPtrs.end()) {
                     position->assetPtr = *asset;
-                    (*investor)->positions.push_back(position);
-                    (*asset)->positions.push_back(position);
+                    (*investor)->m_positions.push_back(position);
+                    (*asset)->m_positions.push_back(position);
                 }
             }
         }

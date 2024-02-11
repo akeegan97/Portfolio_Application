@@ -6,8 +6,8 @@
 #include <wx/datetime.h>
 #include <wx/variant.h>
 #include "json.hpp"
-#include "investor.hpp"
-#include "asset.hpp"
+#include "baseclasses/investor2.hpp"
+#include "baseclasses/asset2.hpp"
 #include "asset_event.hpp"
 #include <utility>
 #include <memory>
@@ -20,8 +20,8 @@ class AssetEvent;
 class Investor;
 class Portfolio{
     public:
-        std::vector<std::shared_ptr<Asset>> assetPtrs;
-        std::vector<std::shared_ptr<Investor>> allInvestorPtrs;
+        std::vector<std::shared_ptr<Asset2>> assetPtrs;
+        std::vector<std::shared_ptr<Investor2>> allInvestorPtrs;
 
         std::vector<std::shared_ptr<AssetEvent>> assetEventPtrs;
         std::vector<std::pair<wxDateTime, double>> valuationVectorPlotting;

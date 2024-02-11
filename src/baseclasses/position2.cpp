@@ -65,8 +65,8 @@ double Position2::CalculateOwnershipAtDate(const wxDateTime &date){
     double totalPaidCapitalAtDate = 0.0;
     double committed = CalculateCommittedUpToDate(date);
     for(auto&pos:m_assetPtr->GetPositions()){
-        if(pos.GetDateInvested() <= date){
-            totalPaidCapitalAtDate += pos.CalculateCommittedUpToDate(date);
+        if(pos->GetDateInvested() <= date){
+            totalPaidCapitalAtDate += pos->CalculateCommittedUpToDate(date);
         }
     }
     return (totalPaidCapitalAtDate >0)? committed / totalPaidCapitalAtDate: 0.0;

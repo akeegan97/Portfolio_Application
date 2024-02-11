@@ -34,8 +34,13 @@ class Investor2{
         double GetPromoteFeePercentage()const;
         double GetManagementFeePercentage()const;
         std::string GetName()const;
+    //public setters
+        void SetInvestorName(wxString &clientName);
+        void SetInvestorType(wxString &clientType);
+        void SetInvestorMgmtFee(double &mgmtFee);
+        void SetInvestorPromoteFee(double &promoteFee);
 
 };
-void to_json(json &j, const Investor &inv);
-void from_json(const json &j, Investor &inv, Portfolio &port);
+void to_json(json &j, const Investor2 &inv);
+void from_json(const json &j, Investor2 &inv, Portfolio &port);
 #endif 
