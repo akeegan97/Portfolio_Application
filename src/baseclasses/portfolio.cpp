@@ -52,7 +52,11 @@ void from_json(const json &j, Portfolio &por) {
                 wxString dateStr = wxString::FromUTF8(assetJson["Asset Exit Date"].get<std::string>().c_str());
                 wxDateTime dateParse;
                 dateParse.ParseDate(dateStr);
-                asset->assetExitDate = dateParse;
+                asset->DeserializeSetAssetExitDate(dateParse);
+            }
+            if(assetJson.contains("Asset Sponser")){
+                wxString sponser = assetJson["Asset Sponser"].get<std::string>().c_str();
+                asset->DeserializeSetAssetSponser(sponser);
             }
             from_json(assetJson, *asset, por);
             por.assetPtrs.push_back(asset);
@@ -61,27 +65,28 @@ void from_json(const json &j, Portfolio &por) {
     for (auto& investorJson : j["Investors"]) {
         auto investorName = investorJson["Client Name"].get<std::string>();
         auto investor = std::find_if(por.allInvestorPtrs.begin(), por.allInvestorPtrs.end(),
-                                     [&investorName](const std::shared_ptr<Investor>& inv) {
-                                         return inv->clientName == investorName;
+                                     [&investorName](const std::shared_ptr<Investor2>& inv) {
+                                         return inv->GetName() == investorName;
                                      });
 
         if (investor != por.allInvestorPtrs.end()) {
             for (const auto& positionJson : investorJson["Positions"]) {
-                auto position = std::make_shared<Position>();
+                auto position = std::make_shared<Position2>();
                 from_json(positionJson, *position, por);
 
-                position->investorPtr = *investor;
+                position->SetInvestorPtr(*investor);
 
                 auto assetName = positionJson["AssetName"].get<std::string>();
                 auto asset = std::find_if(por.assetPtrs.begin(), por.assetPtrs.end(),
-                                          [&assetName](const std::shared_ptr<Asset>& as) {
-                                              return as->assetName == assetName;
+                                          [&assetName](const std::shared_ptr<Asset2>& as) {
+                                              return as->GetAssetName() == assetName;
                                           });
 
                 if (asset != por.assetPtrs.end()) {
-                    position->assetPtr = *asset;
-                    (*investor)->m_positions.push_back(position);
-                    (*asset)->m_positions.push_back(position);
+                    position->SetAssetPtr(*asset);
+                    (*investor)->AddPosition(position);
+                    (*asset)->AddPosition(position);
+                    
                 }
             }
         }
@@ -98,7 +103,6 @@ void from_json(const json &j, Portfolio &por) {
             por.valuationVectorPlotting.push_back(std::make_pair(date, amount));
         }
     }
-    //por.SetAssetPositions();
 }
 
 
@@ -130,20 +134,10 @@ void Portfolio::LoadFromFile(const std::string &filePath) {
 }
 
 
-void Portfolio::PopulateEvents(){
-    assetEventPtrs.clear();
-    for(const auto& asset:assetPtrs){
-        for(const auto& eventPtr : asset->events){
-            assetEventPtrs.push_back(eventPtr);
-        }
-    }
-}//call this any time there is an edit/deletion/addition of an event 
-
-
 double Portfolio::TotalInvestedCapital(){
     double totalInvestedCapital = 0;
     for(const auto &asset: assetPtrs){
-        totalInvestedCapital+= asset->CalculateDeployedCapital();
+        totalInvestedCapital+= asset->GetTotalAssetDeployed();
     }
     return totalInvestedCapital;
 }
@@ -151,7 +145,7 @@ double Portfolio::TotalInvestedCapital(){
 double Portfolio::TotalInvestors(){
     double totalInvestors = 0;
     for(const auto &asset:assetPtrs){
-        totalInvestors+=asset->CalculateNumberOfInvestors();
+        totalInvestors+=asset->GetTotalInvestors();
     }
     return totalInvestors;
 }
@@ -159,7 +153,7 @@ double Portfolio::TotalInvestors(){
 double Portfolio::TotalValuation(){
     double totalValuation = 0;
     for(const auto&asset:assetPtrs){
-        totalValuation+=asset->GetLastValuation();
+        totalValuation+=asset->GetLastValuationAmountOrCommittedCapital();
     }
     return totalValuation;
 }
@@ -170,15 +164,20 @@ void Portfolio::ValuationDialog() {
 
     for (auto& assetPtr : assetPtrs) {
         double assetValuation = 0.0;
-        if (!assetPtr->valuations.empty()) {
-            Valuation& lastValuation = assetPtr->valuations.back();
+        if (!assetPtr->GetValuations().empty()) {
+            std::vector<Valuation> valuationCopy = assetPtr->GetValuations();
+            std::sort(valuationCopy.begin(),valuationCopy.end(),
+                        [](const Valuation &a, const Valuation &b){
+                            return a.valuationDate.IsEarlierThan(b.valuationDate);
+                        });
+            Valuation& lastValuation = valuationCopy.back();
             assetValuation = lastValuation.valuation;
             if (lastValuation.valuationDate.IsLaterThan(latestDate)) {
                 latestDate = lastValuation.valuationDate;
             }
         } else {
             // If no valuation, use deployed capital
-            assetValuation = assetPtr->CalculateDeployedCapital();
+            assetValuation = assetPtr->GetLastValuationAmountOrCommittedCapital();
         }
         totalValuation += assetValuation;
     }
@@ -254,9 +253,9 @@ void Portfolio::PopulatePreviousQValuations() {
     previousQMap.clear();
     wxDateTime oldestInvestedDate = wxDateTime::Today();
     for(const auto&assetPtr: assetPtrs){
-        for(const auto&pos:assetPtr->positions){
-            if(pos->dateInvested.IsEarlierThan(oldestInvestedDate)){
-                oldestInvestedDate = pos->dateInvested;
+        for(const auto&pos:assetPtr->GetPositions()){
+            if(pos->GetDateInvested().IsEarlierThan(oldestInvestedDate)){
+                oldestInvestedDate = pos->GetDateInvested();
             }
         }
     }
@@ -264,12 +263,12 @@ void Portfolio::PopulatePreviousQValuations() {
     wxDateTime currentQDate = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
 
-    for (const auto& assetPtr : assetPtrs) {
-        std::sort(assetPtr->valuations.begin(), assetPtr->valuations.end(),
-            [](const Valuation& a, const Valuation& b) {
-                return a.valuationDate < b.valuationDate;
-            });
-    }
+    // for (const auto& assetPtr : assetPtrs) {
+    //     std::sort(assetPtr->valuations.begin(), assetPtr->valuations.end(),
+    //         [](const Valuation& a, const Valuation& b) {
+    //             return a.valuationDate < b.valuationDate;
+    //         });
+    // }
 
     while (qEndDate.IsEarlierThan(currentQStartDate)) {
         double quarterValuation = 0.0;
@@ -278,7 +277,7 @@ void Portfolio::PopulatePreviousQValuations() {
             double assetQuarterValuation = 0.0;
             bool valuationFound = false;
 
-            for (const auto& val : assetPtr->valuations) {
+            for (const auto& val : assetPtr->GetValuations()) {
                 if ((val.valuationDate.IsEarlierThan(qEndDate))) {
                     assetQuarterValuation = val.valuation;
                     valuationFound = true;
@@ -288,9 +287,9 @@ void Portfolio::PopulatePreviousQValuations() {
             }
 
             if (!valuationFound) {
-                for (const auto& pos : assetPtr->positions) {
-                    if ((pos->dateInvested.IsEarlierThan(qEndDate))) {
-                        assetQuarterValuation += pos->paid; 
+                for (const auto& pos : assetPtr->GetPositions()) {
+                    if ((pos->GetDateInvested().IsEarlierThan(qEndDate))) {
+                        assetQuarterValuation += pos->GetPaid(); 
                     }
                 }
             }
@@ -310,14 +309,14 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
 
     for (auto& asset : assetPtrs) {
-        assetLastValuationMap[asset->assetName] = asset->CalculateDeployedCapital();
+        assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalInvestedCapital();
     }
 
     std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> sortedValuations;
     for (auto& asset : assetPtrs) {
-        for (auto& val : asset->valuations) {
+        for (auto& val : asset->GetValuations()) {
             if (utilities::IsWithinQuarter(val.valuationDate, today)) {
-                sortedValuations.push_back({val.valuationDate, {asset->assetName, val.valuation}});
+                sortedValuations.push_back({val.valuationDate, {asset->GetAssetName(), val.valuation}});
             }
         }
     }
@@ -334,15 +333,5 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     }
 }
 
-void Portfolio::SetAssetPositions(){
-    for(auto& asset:assetPtrs){
-        for(auto& investor: allInvestorPtrs){
-            for(auto&position: investor->positions){
-                if(position->assetPtr->assetName == asset->assetName){
-                    asset->positions.push_back(position);
-                }
-            }
-        }
-    }
-}
+
 

@@ -34,11 +34,13 @@ class Investor2{
         double GetPromoteFeePercentage()const;
         double GetManagementFeePercentage()const;
         std::string GetName()const;
+        const std::vector<std::shared_ptr<Position2>> GetPositions()const;
     //public setters
         void SetInvestorName(wxString &clientName);
         void SetInvestorType(wxString &clientType);
         void SetInvestorMgmtFee(double &mgmtFee);
         void SetInvestorPromoteFee(double &promoteFee);
+        void AddPosition(std::shared_ptr<Position2> position);
 
 };
 void to_json(json &j, const Investor2 &inv);

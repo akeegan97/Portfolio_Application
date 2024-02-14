@@ -4,11 +4,11 @@
 wxDateTime Position2::GetDateInvested()const{
     return m_dateInvested;
 }
-double Position2::GetSubscribed()const{
-    return m_subscribed;
-}
 double Position2::GetReserve()const{
     return m_reserve;
+}
+double Position2::GetPaid()const{
+    return m_paid;
 }
 double Position2::GetDeployed()const{
     return m_deployed;
@@ -49,6 +49,9 @@ void Position2::SetReserve(double reserve){
 }
 void Position2::SetReturnOfCapital(double returnOfCapital){
     m_returnOfCapital = returnOfCapital;
+}
+std::shared_ptr<Asset2> Position2::GetAssetPointer()const{
+    return m_assetPtr;
 }
 //methods
 double Position2::CalculateCommittedUpToDate(const wxDateTime &date)const{
@@ -99,6 +102,31 @@ double Position2::GetInvestorPromoteFee(){
 void Position2::ClearNetIncomePromoteFees(){
     m_netIncome.clear();
     m_promoteFees.clear();
+}
+
+void Position2::SetAssetPtr(std::shared_ptr<Asset2> &assetPointer){
+    m_assetPtr = assetPointer;
+}
+void Position2::SetInvestorPtr(std::shared_ptr<Investor2> &investorPointer){
+    m_investorPtr = investorPointer;
+}
+void Position2::SetDateInvested(wxDateTime &date){
+    m_dateInvested = date;
+}
+void Position2::SetPaid(double &paid){
+    m_paid = paid;
+}
+void Position2::SetManagementFeesDue(double &mgmtFeeDue){
+    m_managementFeesDue = mgmtFeeDue;
+}
+void Position2::AddMovedFromDeployEntry(std::pair<wxDateTime, double> &movement){
+    m_movedOutOfDeploy[movement.first] = movement.second;
+}
+void Position2::AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement){
+    m_movedToDeploy[movement.first] = movement.second;
+}
+void Position2::AddRocMovement(std::pair<wxDateTime, double> &movement){
+    m_returnOfCapitalMap[movement.first] = movement.second;
 }
 
 void Position2::PopulateManagementFeeVector() {
@@ -197,4 +225,60 @@ std::vector<Distribution> Position2::GetNetIncome()const{
 
 std::shared_ptr<Investor2> Position2::GetInvestorPtr()const{
     return m_investorPtr;
+}
+
+
+void from_json(const json&j, Position2 &position, Portfolio &port){
+    wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
+    for(auto &assetPointer : port.assetPtrs){
+        if(assetPointer->GetAssetName() == assetName){
+            position.SetAssetPtr(assetPointer);
+            break;
+        }
+    }
+    wxString investorName = wxString::FromUTF8(j["InvestorName"].get<std::string>().c_str());
+    for(auto& investorPointer : port.allInvestorPtrs){
+        if(investorPointer->GetName()==investorName){
+            position.SetInvestorPtr(investorPointer);
+            break;
+        }
+    }
+    wxString dateStr = wxString::FromUTF8(j["Date Invested"].get<std::string>().c_str());
+    wxDateTime dateParse;
+    dateParse.ParseDate(dateStr);
+    position.SetDateInvested(dateParse);
+    double paid = j["Paid"].get<double>();
+    position.SetPaid(paid);
+    double mgmtFeesDue = j["Management Fees Due"].get<double>();
+    position.SetManagementFeesDue(mgmtFeesDue);
+    double returnOfCapital = j["ROC"].get<double>();
+    position.SetReturnOfCapital(returnOfCapital);
+    if(j.contains("MovedToDeploy")){
+        for(const auto&[dateStr, amount]: j["MovedToDeploy"].items()){
+            wxDateTime date;
+            date.ParseISODate(dateStr);
+            double amountMoved = amount;
+            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+            position.AddMovedToDeployEntry(movement);
+        }
+    }
+    if(j.contains("MovedOutDeploy")){
+        for(const auto&[dateStr, amount]: j["MovedOutDeploy"].items()){
+            wxDateTime date;
+            date.ParseISODate(dateStr);
+            double amountMoved = amount;
+            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+            position.AddMovedFromDeployEntry(movement);
+        }
+    }
+    if(j.contains("ROC Movements")){
+        for(const auto&[dateStr, amount]:j["ROC Movements"].items()){
+            wxDateTime date;
+            date.ParseISODate(dateStr);
+            double amountMoved = amount;
+            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+            position.AddRocMovement(movement);
+        }
+    }
+
 }

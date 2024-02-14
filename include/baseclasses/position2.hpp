@@ -38,7 +38,6 @@ class Position2{
         std::map<wxDateTime, double> m_returnOfCapitalMap;
     //positional specifics 
         wxDateTime m_dateInvested;
-        double m_subscribed;
         double m_paid;//this is for the actual initial money sent
         double m_committed;//this is the amount that is still in the asset (deploy + reserve)
         double m_reserve;
@@ -57,13 +56,13 @@ class Position2{
         Position2(const wxDateTime &dateInvested, const double &subscribed,
         const double &paid, const double &reserve, const double &deployed,
         const double &returnOfCapital, const double &percentOwnership):
-        m_dateInvested(dateInvested),m_subscribed(subscribed),m_paid(paid),
+        m_dateInvested(dateInvested),m_paid(paid),
         m_reserve(reserve),m_deployed(deployed),m_returnOfCapital(returnOfCapital),
         m_percentOwnership(percentOwnership),m_assetPtr(nullptr),m_investorPtr(nullptr){
         };
     //public getters
         wxDateTime GetDateInvested()const;
-        double GetSubscribed()const;
+        double GetPaid()const;
         double GetReserve()const;
         double GetCommitted()const;
         double GetDeployed()const;
@@ -77,11 +76,20 @@ class Position2{
         std::map<wxDateTime, double> GetMovedFromDeploy()const;
         std::map<wxDateTime, double> GetMovedToDeploy()const;
         std::shared_ptr<Investor2> GetInvestorPtr()const;
+        std::shared_ptr<Asset2> GetAssetPointer()const;
     //public setters
         void SetDeployed(double deployed);
         void SetReserve(double reserve);
         void SetReturnOfCapital(double returnOfCapital);
         void TriggerUpdateOfManagementFeeVector();
+        void SetAssetPtr(std::shared_ptr<Asset2> &assetPointer);
+        void SetInvestorPtr(std::shared_ptr<Investor2> &investorPointer);
+        void SetDateInvested(wxDateTime &date);
+        void SetPaid(double &paid);
+        void SetManagementFeesDue(double &mgmtFeeDue);
+        void AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement);
+        void AddMovedFromDeployEntry(std::pair<wxDateTime, double> &movement);
+        void AddRocMovement(std::pair<wxDateTime, double> &movement);
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);

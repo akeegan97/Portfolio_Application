@@ -39,6 +39,7 @@ class Asset2{
         std::vector<Valuation> m_valuations;
         std::vector<Distribution> m_distributions;
         std::vector<std::shared_ptr<Position2>> m_positions;
+        std::map<wxDateTime,double> m_rocMovements;
     //for plotting
         std::vector<std::pair<wxDateTime, double>> m_valuationsForPlotting;
         std::vector<std::pair<wxDateTime, double>> m_deploymentsForPlotting;
@@ -79,6 +80,8 @@ class Asset2{
         const std::vector<std::shared_ptr<Position2>>& GetPositions()const;
         double GetValuationInQuarter(wxDateTime &date)const;
         const std::vector<Valuation>& GetValuations()const;
+        double GetTotalInvestors()const;
+        double GetLastValuationAmountOrCommittedCapital()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);
@@ -89,7 +92,8 @@ class Asset2{
         void DeserializeSetAssetReturnOfCapital(double &returnOfCapital);
         void DeserializeSetValuations(std::vector<Valuation> &valuations);
         void DeserializeSetDistributions(std::vector<Distribution> &distributions);
-        void DeserializeSetPositions(std::vector<std::shared_ptr<Position2>> &positions);
+        void AddPosition(std::shared_ptr<Position2> &position);
+        void DeserializeSetRocMovements(std::map<wxDateTime, double> &movements);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

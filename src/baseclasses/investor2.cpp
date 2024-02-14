@@ -1,13 +1,11 @@
 #include "baseclasses/investor2.hpp"
 
-
 double Investor2::GetPromoteFeePercentage()const{
     return m_managementFeePercentage;
 }
 double Investor2::GetManagementFeePercentage()const{
     return m_promoteFeePercentage;
 }
-
 std::string Investor2::GetName()const{
     return m_clientName.ToStdString();
 }
@@ -23,8 +21,12 @@ void Investor2::SetInvestorName(wxString &clientName){
 void Investor2::SetInvestorType(wxString &clientType){
     m_type = clientType;
 }
-
-
+void Investor2::AddPosition(std::shared_ptr<Position2> position){
+    m_positions.push_back(position);
+}
+const std::vector<std::shared_ptr<Position2>> Investor2::GetPositions()const{
+    return m_positions;
+}
 wxVariant Investor2::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(m_clientName);break;

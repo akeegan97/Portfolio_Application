@@ -7,6 +7,7 @@ void Asset2::SortDistributions(std::vector<Distribution> &distributions){
     });  
 }
 
+
 void Asset2::ProcessDistributionsForPosition(){
     SortDistributions(m_distributions);
     for(auto &pos:m_positions){
@@ -193,11 +194,31 @@ void Asset2::DeserializeSetDistributions(std::vector<Distribution> &distribution
     m_distributions.clear();
     m_distributions = distributions;
 }
-void Asset2::DeserializeSetPositions(std::vector<std::shared_ptr<Position2>> &positions){
-    m_positions.clear();
-    m_positions = positions;
+void Asset2::AddPosition(std::shared_ptr<Position2> &position){
+    m_positions.push_back(position);
 }
 
+void Asset2::DeserializeSetRocMovements(std::map<wxDateTime, double> &movements){
+    m_rocMovements.clear();
+    m_rocMovements = movements;
+}
+
+double Asset2::GetTotalInvestors()const{
+    return m_countOfInvestors;
+}
+
+double Asset2::GetLastValuationAmountOrCommittedCapital()const{
+    if(m_valuations.empty()){
+        double committedCapital = 0.0;
+        for(const auto&pos:m_positions){
+            committedCapital += pos->GetCommitted();
+        }
+        return committedCapital;
+    }else{
+        double lastValuation = 0.0;
+        return lastValuation = m_valuations.back().valuation;
+    }
+}
 
 void from_json(const json&j, Asset2 &asset, Portfolio &port){
     if(j.contains("Valuations") && j["Valuations"].is_array()){
@@ -207,5 +228,25 @@ void from_json(const json&j, Asset2 &asset, Portfolio &port){
     if(j.contains("Distributions") && j["Distributions"].is_array()){
         std::vector<Distribution> distributions = j["Distributions"].get<std::vector<Distribution>>();
         asset.DeserializeSetDistributions(distributions);
+    }
+    if(j.contains("Asset Committed")){
+        double committed = j["Asset Committed"].get<double>();
+        asset.DeserializeSetAssetCommittedCapital(committed);
+    }
+    if(j.contains("Asset Deployed")){
+        double deployed = j["Asset Deployed"].get<double>();
+        asset.DeserializeSetAssetDeployedCapital(deployed);
+    }
+    if(j.contains("Asset Reserve")){
+        double reserve = j["Asset Reserve"].get<double>();
+        asset.DeserializeSetAssetReserveCapital(reserve);
+    }
+    if(j.contains("Asset ROC")){
+        double returnOfCapital = j["Asset ROC"].get<double>();
+        asset.DeserializeSetAssetReturnOfCapital(returnOfCapital);
+    }
+    if(j.contains("Asset ROC Movements") && j["Asset ROC Movements"].is_array()){
+        std::map<wxDateTime, double> movements = j["Asset ROC Movements"].get<std::map<wxDateTime, double>>();
+        asset.DeserializeSetRocMovements(movements);
     }
 }
