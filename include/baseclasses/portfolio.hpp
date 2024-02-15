@@ -8,22 +8,18 @@
 #include "json.hpp"
 #include "baseclasses/investor2.hpp"
 #include "baseclasses/asset2.hpp"
-#include "asset_event.hpp"
 #include <utility>
 #include <memory>
 #include <set>
 #include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
-class Asset;
-class AssetEvent;
-class Investor;
+class Asset2;
+class Investor2;
 class Portfolio{
     public:
         std::vector<std::shared_ptr<Asset2>> assetPtrs;
         std::vector<std::shared_ptr<Investor2>> allInvestorPtrs;
-
-        std::vector<std::shared_ptr<AssetEvent>> assetEventPtrs;
         std::vector<std::pair<wxDateTime, double>> valuationVectorPlotting;
 
         std::set<std::string> addedInvestorsName;
@@ -36,7 +32,6 @@ class Portfolio{
         void LoadFromFile(const std::string &filePath);
 
         //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display
-        void PopulateEvents();
         void SetAssetPositions();        
         void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
@@ -47,7 +42,7 @@ class Portfolio{
         double TotalInvestors();
         double TotalValuation();
 
-        double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
+        double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset2> &asset, const wxDateTime &date);
         void PopulatePreviousQValuations();
         void PopulateAndProcessCurrentQValuations();
 };

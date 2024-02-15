@@ -19,6 +19,8 @@
 
 class Portfolio;
 class Distribution;
+class Asset2;
+class Investor2;
 using json = nlohmann::json;
 
 

@@ -1,16 +1,16 @@
 #include "baseclasses/investorpositiondisplay.hpp"
-#include "baseclasses/investor.hpp"
-#include "baseclasses/position.hpp"
+#include "baseclasses/investor2.hpp"
+#include "baseclasses/position2.hpp"
 
 
 wxVariant InvestorPositionDisplay::GetValue(int col)const{
     switch (col)
     {
-    case 0: return wxVariant(positionPtr->investorPtr->clientName);break;
-    case 1: return wxVariant(positionPtr->investorPtr->type);break;
-    case 2: return wxVariant(positionPtr->dateInvested);break;
-    case 3: return wxVariant(positionPtr->subscribed);break;
-    case 4: return wxVariant(positionPtr->paid);break;
+    case 0: return wxVariant(positionPtr->GetInvestorPtr()->GetName());break;
+    case 1: return wxVariant(positionPtr->GetInvestorPtr()->GetType());break;
+    case 2: return wxVariant(positionPtr->GetDateInvested());break;
+    case 3: return wxVariant(positionPtr->GetCommitted());break;
+    case 4: return wxVariant(positionPtr->Get);break;
     case 5: return wxVariant(positionPtr->deployed);break;
     case 6: return wxVariant(positionPtr->reserve);break;
     case 7: return wxVariant(positionPtr->returnOfCapital);break;

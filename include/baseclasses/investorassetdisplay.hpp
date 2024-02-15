@@ -3,24 +3,24 @@
 #include <wx/variant.h>
 #include "json.hpp"
 #include <memory>
-#include "baseclasses/investor.hpp"
-#include "baseclasses/position.hpp"
-#include "baseclasses/asset.hpp"
+#include "baseclasses/investor2.hpp"
+#include "baseclasses/position2.hpp"
+#include "baseclasses/asset2.hpp"
 #include "baseclasses/cashflow.hpp"
 
-class Investor;
-class Position;
+class Investor2;
+class Position2;
 
 class InvestorAssetDisplay{
     public:
-        InvestorAssetDisplay(std::shared_ptr<Asset>assetPtr, std::shared_ptr<Investor>investorPtr):
+        InvestorAssetDisplay(std::shared_ptr<Asset2>assetPtr, std::shared_ptr<Investor2>investorPtr):
         assetPtr(std::move(assetPtr)),investorPtr(std::move(investorPtr)){
             PopulateITDNetDistribution();
             SetDerivedValues();
             PopulateIRR();
         };
-        std::shared_ptr<Asset> assetPtr;
-        std::shared_ptr<Investor> investorPtr;
+        std::shared_ptr<Asset2> assetPtr;
+        std::shared_ptr<Investor2> investorPtr;
         double totalSubscribed;
         double totalDeployed;
         double totalReserve;

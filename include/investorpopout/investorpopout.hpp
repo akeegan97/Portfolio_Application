@@ -5,7 +5,7 @@
 #include <wx/notebook.h>
 #include "helpers/vlistcontrol.hpp"
 #include "baseclasses/portfolio.hpp"
-#include "baseclasses/investor.hpp"
+#include "baseclasses/investor2.hpp"
 #include "baseclasses/investorassetdisplay.hpp"
 #include <wx/chart.h>
 #include <wx/xy/xyplot.h>
@@ -20,14 +20,14 @@
 class InvestorPopout : public wxFrame{
     public:
         InvestorPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size,
-        Portfolio &port, std::shared_ptr<Investor> investor):
+        Portfolio &port, std::shared_ptr<Investor2> investor):
         wxFrame(parentWindow, wxID_ANY, title, pos, size),
         portfolio(port),
         investor(investor){
             SetUpLayout();
         };
         Portfolio &portfolio;
-        std::shared_ptr<Investor> investor;
+        std::shared_ptr<Investor2> investor;
     private:
         VListControl<std::shared_ptr<InvestorAssetDisplay>> *investorAssetDisplayVirtualListControl;
         wxNotebook* distributionsByAssetNoteBook;

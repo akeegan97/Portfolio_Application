@@ -3,17 +3,17 @@
 void InvestorAssetDisplay::PopulateIRR(){
     std::vector<CashFlow> cashFlow;
     //Getting Initial Dates of investment and amounts
-    for(const auto&pos:investorPtr->positions){
-        if(pos->assetPtr == assetPtr){
+    for(const auto&pos:investorPtr->GetPositions()){
+        if(pos->GetAssetPointer() == assetPtr){
             CashFlow newCashFlow;
-            newCashFlow.amount = -pos->paid;
-            newCashFlow.date = pos->dateInvested;
+            newCashFlow.amount = -pos->GetPaid();
+            newCashFlow.date = pos->GetDateInvested();
             cashFlow.push_back(newCashFlow);
         }
     }//getting dates and amounts of net distributions
-    for(const auto& pos: investorPtr->positions){
-        if(pos->assetPtr == assetPtr){
-            for(const auto& dis : pos->netIncome){
+    for(const auto& pos: investorPtr->GetPositions()){
+        if(pos->GetAssetPointer() == assetPtr){
+            for(const auto& dis : pos->GetNetIncome()){
                 CashFlow newCashFlow;
                 newCashFlow.amount = dis.distribution.second;
                 newCashFlow.date = dis.distribution.first;
@@ -73,10 +73,10 @@ void InvestorAssetDisplay::PopulateIRR(){
 
 void InvestorAssetDisplay::PopulateITDNetDistribution(){
     double returns = 0;
-    for(const auto pos: investorPtr->positions){
-        std::cout<<"Investor Ptr Position Size: "<<investorPtr->positions.size()<<std::endl;
-        if(pos->assetPtr == assetPtr){
-            for(auto&income : pos->netIncome){
+    for(const auto pos: investorPtr->GetPositions()){
+        std::cout<<"Investor Ptr Position Size: "<<investorPtr->GetPositions().size()<<std::endl;
+        if(pos->GetAssetPointer() == assetPtr){
+            for(auto&income : pos->GetNetIncome()){
                 returns+=income.distribution.second;
             }
         }
@@ -89,13 +89,13 @@ void InvestorAssetDisplay::SetDerivedValues(){
     totalSubscribed=0;
     totalReserve=0;
     totalReturnOfCapital=0;
-    for(const auto pos:investorPtr->positions){
-        if(pos->assetPtr == assetPtr){
-            totalSubscribed +=pos->subscribed;
-            totalDeployed +=pos->deployed;
-            totalReserve +=pos->reserve;
-            totalReturnOfCapital +=pos->returnOfCapital;
-            totalPaid +=pos->paid;
+    for(const auto pos:investorPtr->GetPositions()){
+        if(pos->GetAssetPointer() == assetPtr){
+            totalSubscribed +=pos->GetCommitted();
+            totalDeployed +=pos->GetDeployed();
+            totalReserve +=pos->GetDeployed();
+            totalReturnOfCapital +=pos->GetReturnOfCapital();
+            totalPaid +=pos->GetPaid();
         }
     }
 }
@@ -113,7 +113,7 @@ double InvestorAssetDisplay::CalculateNPV(std::vector<CashFlow> &cashFlows, doub
 
 wxVariant InvestorAssetDisplay::GetValue(int col)const{
     switch(col){
-        case 0: return wxVariant(assetPtr->assetName);break;
+        case 0: return wxVariant(assetPtr->GetAssetName());break;
         case 1: return wxVariant(totalSubscribed);break;
         case 2: return wxVariant(totalPaid);break;
         case 3: return wxVariant(totalDeployed);break;
@@ -125,7 +125,7 @@ wxVariant InvestorAssetDisplay::GetValue(int col)const{
 
 void InvestorAssetDisplay::SetValue(int col, const wxVariant &v){
     switch(col){
-        case 0: assetPtr->assetName = v.GetString();break;
+        case 0: assetPtr->GetAssetName() = v.GetString();break;
         case 1: totalSubscribed = v.GetDouble();break;
         case 2: totalPaid = v.GetDouble();break;
         case 3: totalDeployed = v.GetDouble();break;

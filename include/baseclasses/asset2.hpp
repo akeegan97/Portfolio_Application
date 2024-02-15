@@ -50,9 +50,6 @@ class Asset2{
 
         std::map<wxDateTime, double> m_previousQDeploymentMap;
         std::map<wxDateTime, double> m_currentQDeploymentMap;
-    //needed variables for VLC interface
-        static std::vector<wxString> columnNames;
-        static std::vector<int> columnWidths;
     //private helper functions 
         void UpdateTotalMgmtFeesEarned();
         void UpdateTotalPromoteFeesEarned();

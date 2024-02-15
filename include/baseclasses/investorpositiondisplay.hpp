@@ -5,17 +5,17 @@
 #include <memory>
 
 
-class Investor;
-class Position;
+class Investor2;
+class Position2;
 using json = nlohmann::json;
 
 class InvestorPositionDisplay{
     public:
-        std::shared_ptr<Position> positionPtr;
+        std::shared_ptr<Position2> positionPtr;
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
 
-        InvestorPositionDisplay(std::shared_ptr<Position>positionPtr):
+        InvestorPositionDisplay(std::shared_ptr<Position2>positionPtr):
         positionPtr(positionPtr){
         }
 

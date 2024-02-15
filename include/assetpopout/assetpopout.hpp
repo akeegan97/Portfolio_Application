@@ -3,7 +3,7 @@
 #include <wx/wx.h>
 #include "helpers/vlistcontrol.hpp"
 #include "baseclasses/portfolio.hpp"
-#include "baseclasses/asset.hpp"
+#include "baseclasses/asset2.hpp"
 #include <wx/chart.h>
 #include <wx/xy/xyplot.h>
 #include <wx/bars/barplot.h>
@@ -22,7 +22,7 @@
 
 class AssetPopout : public wxFrame{
     public:
-        AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset)
+        AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset2> asset)
         : wxFrame(parentWindow, wxID_ANY, title, pos, size),
             portfolio(port),
             asset(asset),
@@ -34,11 +34,10 @@ class AssetPopout : public wxFrame{
             };
         
         Portfolio &portfolio;
-        std::shared_ptr<Asset> asset;
+        std::shared_ptr<Asset2> asset;
     private:
         VListControl<std::shared_ptr<InvestorPositionDisplay>>* investorPositionDisplayVirtualListControl;
         VListControl<Valuation>* valuationListControl;
-        VListControl<std::shared_ptr<AssetEvent>>*eventsVirtualListControl;
         VListControl<Distribution>* distributionListControl;
         wxStaticText *totalSubscribedText;//
         wxStaticText *totalPaidText;//

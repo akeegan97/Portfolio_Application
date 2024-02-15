@@ -5,9 +5,9 @@
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
 #include "helpers/customevents.hpp"
-#include "baseclasses/asset.hpp"
-#include "baseclasses/investor.hpp"
-#include "baseclasses/position.hpp"
+#include "baseclasses/asset2.hpp"
+#include "baseclasses/investor2.hpp"
+#include "baseclasses/position2.hpp"
 #include "baseclasses/valuation.hpp"
 #include "baseclasses/portfolio.hpp"
 #include "baseclasses/investorpositiondisplay.hpp"
@@ -28,7 +28,6 @@ class MainFrame : public wxFrame{
         : wxFrame(NULL, wxID_ANY, title, pos, size),
             portfolio(port),
             allAssetVListControl(nullptr),
-            allAssetEventVListControl(nullptr),
             totalInvestedText(nullptr),
             totalInvestorCountText(nullptr),
             totalValuationText(nullptr),
@@ -43,9 +42,8 @@ class MainFrame : public wxFrame{
         Portfolio &portfolio;
     
     private:
-        VListControl<std::shared_ptr<Asset>>* allAssetVListControl;
-        VListControl<std::shared_ptr<AssetEvent>> *allAssetEventVListControl;
-        VListControl<std::shared_ptr<Investor>>* allInvestorVListControl;
+        VListControl<std::shared_ptr<Asset2>>* allAssetVListControl;
+        VListControl<std::shared_ptr<Investor2>>* allInvestorVListControl;
         wxStaticText * totalInvestedText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;

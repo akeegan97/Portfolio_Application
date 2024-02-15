@@ -2,7 +2,7 @@
 #define UTILITIES_HPP
 #include <wx/datetime.h>
 #include "baseclasses/cashflow.hpp"
-#include "baseclasses/investor.hpp"
+#include "baseclasses/investor2.hpp"
 #include "baseclasses/distribution.hpp"
 #include <math.h>
 #include <sstream>
@@ -22,8 +22,6 @@ namespace utilities{
     void SortDistributions(std::vector<Distribution> &distributions);
     template <typename T>
     std::string formatDollarAmount(T value);
-
-
 }
 
 #endif

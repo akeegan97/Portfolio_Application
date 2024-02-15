@@ -1,5 +1,5 @@
 #include "baseclasses/portfolio.hpp"
-#include "baseclasses/asset.hpp"
+#include "baseclasses/asset2.hpp"
 
 
 void to_json(json &j, const Portfolio &por) {
@@ -228,7 +228,7 @@ void Portfolio::PopulateValuationMaps(){
               });
 }
 
-double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asset, const wxDateTime& date) {
+double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asse2t>& asset, const wxDateTime& date) {
     if (asset->valuations.empty()) {
         return asset->CalculateDeployedCapital();
     }
