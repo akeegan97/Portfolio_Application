@@ -1,17 +1,10 @@
 #ifndef MAINFRAME_HPP
 #define MAINFRAME_HPP
 #include <random>
+
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
-#include "helpers/customevents.hpp"
-#include "baseclasses/asset2.hpp"
-#include "baseclasses/investor2.hpp"
-#include "baseclasses/position2.hpp"
-#include "baseclasses/valuation.hpp"
-#include "baseclasses/portfolio.hpp"
-#include "baseclasses/investorpositiondisplay.hpp"
-#include "helpers/vlistcontrol.hpp"
 #include <wx/xy/xyplot.h>
 #include <wx/xy/xydataset.h>
 #include <wx/xy/timeseriesdataset.h>
@@ -19,6 +12,16 @@
 #include <wx/xy/xylinerenderer.h>
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
+
+#include "helpers/customevents.hpp"
+#include "models/entities/position.hpp"
+#include "models/entities/investor.hpp"
+#include "models/entities/asset.hpp"
+#include "models/supporting/valuation.hpp"
+#include "models/entities/portfolio.hpp"
+#include "models/components/investorassetdisplay.hpp"
+
+#include "helpers/vlistcontrol.hpp"
 #include "helpers/utilities.hpp"
 
 

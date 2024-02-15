@@ -1,4 +1,4 @@
-#include "baseclasses/investorassetdisplay.hpp"
+#include "models/components/investorassetdisplay.hpp"
 
 void InvestorAssetDisplay::PopulateIRR(){
     std::vector<CashFlow> cashFlow;

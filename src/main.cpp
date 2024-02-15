@@ -1,7 +1,8 @@
 #include <iostream>
 #include <wx/wx.h>
-#include "baseclasses/portfolio.hpp"
-#include "mainframe.hpp"
+#include "models/entities/portfolio.hpp"
+#include "ui/mainframe/mainframe.hpp"
+
 
 class RugenBerg : public wxApp{
     public:
@@ -12,7 +13,6 @@ class RugenBerg : public wxApp{
 
 bool RugenBerg::OnInit(){
     portfolio.LoadFromFile("../storage/data2.json");
-    portfolio.PopulateEvents();
     std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
     
     if(!portfolio.allInvestorPtrs.empty()){

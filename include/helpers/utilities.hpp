@@ -1,9 +1,8 @@
 #ifndef UTILITIES_HPP
 #define UTILITIES_HPP
 #include <wx/datetime.h>
-#include "baseclasses/cashflow.hpp"
-#include "baseclasses/investor2.hpp"
-#include "baseclasses/distribution.hpp"
+#include "models/supporting/cashflow.hpp"
+#include "models/supporting/distribution.hpp"
 #include <math.h>
 #include <sstream>
 #include <iomanip>

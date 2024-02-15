@@ -3,10 +3,10 @@
 #include <wx/variant.h>
 #include "json.hpp"
 #include <memory>
-#include "baseclasses/investor2.hpp"
-#include "baseclasses/position2.hpp"
-#include "baseclasses/asset2.hpp"
-#include "baseclasses/cashflow.hpp"
+#include "models/entities/investor.hpp"
+#include "models/entities/position.hpp"
+#include "models/entities/asset.hpp"
+#include "models/supporting/distribution.hpp"
 
 class Investor;
 class Position;
