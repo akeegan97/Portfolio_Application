@@ -2,8 +2,8 @@
 #define ASSETPOPOUT_HPP
 #include <wx/wx.h>
 #include "helpers/vlistcontrol.hpp"
-#include "baseclasses/portfolio.hpp"
-#include "baseclasses/asset2.hpp"
+#include "models/entities/portfolio.hpp"
+#include "models/entities/asset.hpp"
 #include <wx/chart.h>
 #include <wx/xy/xyplot.h>
 #include <wx/bars/barplot.h>
@@ -18,7 +18,7 @@
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
 #include "helpers/utilities.hpp"
-#include "baseclasses/structdetails.hpp"
+
 
 class AssetPopout : public wxFrame{
     public:

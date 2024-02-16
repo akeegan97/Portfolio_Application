@@ -139,15 +139,6 @@ wxVariant Asset::GetValue(int col)const{
     }
 }
 
-void Asset::SetValue(int col, const wxVariant &v){
-    switch(col){
-        case 0: m_assetName = v.GetString();break;
-        case 1: m_assetExitDate = v.GetDateTime();break;
-        case 2: m_totalInvestedCapital = v.GetDouble();break;
-        case 3: m_countOfInvestors = v.GetDouble();break;
-        case 4: m_currentValue = v.GetDouble();break;
-    }
-}
 void Asset::SortValuations(std::vector<Valuation> &valuations){
     std::sort(valuations.begin(),valuations.end(),
         [](const Valuation &a, const Valuation &b){

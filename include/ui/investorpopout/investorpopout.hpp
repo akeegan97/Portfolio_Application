@@ -4,9 +4,9 @@
 #include <wx/stattext.h>
 #include <wx/notebook.h>
 #include "helpers/vlistcontrol.hpp"
-#include "baseclasses/portfolio.hpp"
-#include "baseclasses/investor2.hpp"
-#include "baseclasses/investorassetdisplay.hpp"
+#include "models/entities/portfolio.hpp"
+#include "models/entities/asset.hpp"
+#include "models/components/investorassetdisplay.hpp"
 #include <wx/chart.h>
 #include <wx/xy/xyplot.h>
 #include <wx/bars/barplot.h>

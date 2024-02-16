@@ -24,7 +24,7 @@ void InvestorAssetDisplay::PopulateIRR(){
     if(!assetPtr->GetValuations().empty()){
         double ownership = 0;
         CashFlow newCashFlow;
-        for(const auto&pos : investorPtr->positions){
+        for(const auto&pos : investorPtr->GetPositions()){
             if(pos->assetPtr == assetPtr){
                 ownership += pos->percentOwnership;
             }

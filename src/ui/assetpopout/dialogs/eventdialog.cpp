@@ -1,4 +1,4 @@
-#include "assetpopout/eventdialog.hpp"
+#include "ui/assetpopout/dialogs/eventdialog.hpp"
 
 EventDialog::EventDialog(wxWindow *parentWindow, bool isEditMode):
     wxDialog(parentWindow, wxID_ANY, "Add Event", wxDefaultPosition, wxSize(300,500), wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){

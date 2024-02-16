@@ -1,11 +1,11 @@
-
-#include "mainframe.hpp"
-#include "assetpopout/assetpopout.hpp"
-#include "investorpopout/investorpopout.hpp"
 #include <string>
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include "ui/mainframe/mainframe.hpp"
+#include "ui/assetpopout/assetpopout.hpp"
+#include "ui/investorpopout/investorpopout.hpp"
+
 
 void MainFrame::setupLayout(){
    //main sizer for the page
