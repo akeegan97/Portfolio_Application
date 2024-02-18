@@ -36,6 +36,7 @@ class Investor{
         double GetManagementFeePercentage()const;
         std::string GetName()const;
         const std::vector<std::shared_ptr<Position>> GetPositions()const;
+        std::string GetType()const;
     //public setters
         void SetInvestorName(wxString &clientName);
         void SetInvestorType(wxString &clientType);

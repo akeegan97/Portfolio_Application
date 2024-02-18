@@ -27,6 +27,9 @@ void Investor::AddPosition(std::shared_ptr<Position> position){
 const std::vector<std::shared_ptr<Position>> Investor::GetPositions()const{
     return m_positions;
 }
+std::string Investor::GetType()const{
+    return m_type.ToStdString();
+}
 wxVariant Investor::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(m_clientName);break;

@@ -21,7 +21,7 @@ class InvestorAssetDisplay{
         };
         std::shared_ptr<Asset> assetPtr;
         std::shared_ptr<Investor> investorPtr;
-        double totalSubscribed;
+        double totalCommitted;
         double totalDeployed;
         double totalReserve;
         double totalPaid;
@@ -33,7 +33,7 @@ class InvestorAssetDisplay{
         static std::vector<int> columnWidths;
 
         wxVariant GetValue(int col)const;
-        void SetValue(int col, const wxVariant &v);
+        
     private:
         void PopulateIRR();
         void PopulateITDNetDistribution();

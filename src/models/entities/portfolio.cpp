@@ -229,18 +229,18 @@ void Portfolio::PopulateValuationMaps(){
 }
 
 double Portfolio::GetLastValuationOrDeployedCapital(std::shared_ptr<Asset>& asset, const wxDateTime& date) {
-    if (asset->valuations.empty()) {
-        return asset->CalculateDeployedCapital();
+    if (asset->GetValuations().empty()) {
+        return asset->GetTotalAssetDeployed();
     }
     // Sort valuations by date
-    std::sort(asset->valuations.begin(), asset->valuations.end(), 
+    std::sort(asset->GetValuations().begin(), asset->GetValuations().end(), 
               [](const Valuation& a, const Valuation& b) {
                   return a.valuationDate.IsEarlierThan(b.valuationDate);
               });
 
     // Find the last valuation before the given date
-    double lastValuationAmount = asset->CalculateDeployedCapital();
-    for (const auto& valuation : asset->valuations) {
+    double lastValuationAmount = asset->GetTotalAssetDeployed();
+    for (const auto& valuation : asset->GetValuations()) {
         if (valuation.valuationDate.IsSameDate(date) || valuation.valuationDate.IsLaterThan(date)) {
             break;
         }

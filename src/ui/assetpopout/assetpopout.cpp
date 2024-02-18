@@ -72,192 +72,90 @@ void AssetPopout::SetupLayout(){
     }
     middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
     middleVLCSizer->Add(distributionListControl,5,wxALL|wxEXPAND,5);
-    
-}
 
-void AssetPopout::SetupLayout(){
-    wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer *middleVLCSizer = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
+    mainSizer->Add(middleVLCSizer, 2, wxALL|wxEXPAND, 5);
 
-    asset->investorsPositionsDisplays.clear();
-    asset->SetOwnershipOfPositions();
-    asset->PopulateIRR();
+    wxBoxSizer *staticTextSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *rHalfTextSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *lHalfTextSizer = new wxBoxSizer(wxVERTICAL);
 
-    for(auto&pos:asset->positions){
-        auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(pos);
-        asset->investorsPositionsDisplays.push_back(investorPositionDisplay);
-    }
-    //top for the IPD VLC
-    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    investorPositionDisplayVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
-    if(!asset->investorsPositionsDisplays.empty()){
-        investorPositionDisplayVirtualListControl->setItems(asset->investorsPositionsDisplays);
-    }
-    investorPositionDisplayVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnInvestorPositionClick, this);
-    topSizer->Add(investorPositionDisplayVirtualListControl, wxALL|wxEXPAND, 5);
-    mainSizer->Add(topSizer,2,wxALL|wxEXPAND,5);
-    //two charts one for deployVSvaluation and one for Distributions
-    //DV CHART SET UP AND POPULATION
-    chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
-    chartPanelHolderPanel->SetBackgroundColour(wxColor(0,0,0));
-    wxBoxSizer* vdChartPanelSizer = new wxBoxSizer(wxVERTICAL);
-    chartPanelHolderPanel->SetSizer(vdChartPanelSizer);
-    wxChartPanel * valuationDeployChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
-    valuationDeployChartPanel->SetBackgroundColour(wxColor(0,0,0));
-    //incase of reopening of assetpopout want to destroy previous chart to draw new one
-    if(valuationDeployChartPanel->GetChart()!= nullptr){
-        delete valuationDeployChartPanel->GetChart();
-    }
-    Chart* valuationDeployChart = PopulateDrawChartValuationDeploy();
-    if(valuationDeployChart!=nullptr){
-        valuationDeployChartPanel->SetChart(valuationDeployChart);
-        vdChartPanelSizer->Add(valuationDeployChartPanel,1,wxALL| wxEXPAND,5);
-    }
-    //DISTRIBUTION CHART SET UP AND POPULATION
-    distributionChartPanelHolder = new wxPanel(this, wxID_ANY);
-    distributionChartPanelHolder->SetBackgroundColour(wxColor(0,0,0));
-    wxBoxSizer* dChartPanelSizer = new wxBoxSizer(wxVERTICAL);
-    distributionChartPanelHolder->SetSizer(dChartPanelSizer);
-    wxChartPanel *distributionChartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
-    distributionChartPanel->SetBackgroundColour(wxColor(0,0,0));
-    //incase of reopening of assetpopout want to destroy previous chart to draw new one
-    if(distributionChartPanel->GetChart()!=nullptr){
-        delete distributionChartPanel->GetChart();
-    }
-    Chart* distributionChart = PopulateDrawChartDistribution();
-    if(distributionChart!=nullptr){
-        distributionChartPanel->SetChart(distributionChart);
-        dChartPanelSizer->Add(distributionChartPanel,1, wxALL | wxEXPAND,5);
-    }
-    //Add both charts to the sizer and then sizer to main sizer
-    middleChartSizer->Add(chartPanelHolderPanel, 5, wxALL| wxEXPAND, 5);
-    middleChartSizer->Add(distributionChartPanelHolder, 5, wxALL| wxEXPAND, 5);
-
-    // Then add middleChartSizer to the main sizer
-    mainSizer->Add(middleChartSizer, 4, wxEXPAND, 5);
-
-    //VLC areas
-    //Valuations
-    valuationListControl = new VListControl<Valuation>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    if(!asset->valuations.empty()){
-        valuationListControl->setItems(asset->valuations);
-    }
-    valuationListControl->SetBackgroundColour(wxColor(0,0,0));
-    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
-    //Events
-    //Distributions
-    distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    if(!asset->distributions.empty()){
-        distributionListControl->setItems(asset->distributions);
-    }
-    distributionListControl->SetBackgroundColour(wxColor(0,0,0));
-    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
-    //add vlc to middle sizers
-    middleVLCSizer->Add(valuationListControl, 3, wxALL|wxEXPAND,5);
-    middleVLCSizer->Add(eventsVirtualListControl, 3, wxALL|wxEXPAND,5);
-    middleVLCSizer->Add(distributionListControl, 3,wxALL|wxEXPAND,5);
-    //add to main sizer
-    mainSizer->Add(middleVLCSizer,2, wxALL|wxEXPAND,5);
-
-    wxBoxSizer* staticTextSizer = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer* halfTextSizer = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer* otherHalfTextSizer = new wxBoxSizer(wxVERTICAL);
     //static texts
-    numInvestorsText = new wxStaticText(this, wxID_ANY, "");
-    totalSubscribedText = new wxStaticText(this, wxID_ANY, "");
+    numInvestorsText = new wxStaticText(this, wxID_ANY,"");//
+    totalCommittedText = new wxStaticText(this, wxID_ANY,"");//
     totalPaidText = new wxStaticText(this, wxID_ANY, "");
     totalReturnedCapitalText = new wxStaticText(this, wxID_ANY, "");
-    //TODO add IRR for asset gross
-    totalDeployedCapitalText = new wxStaticText(this, wxID_ANY,"");
-    totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");
-    totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
-    assetIRR = new wxStaticText(this, wxID_ANY,"");
-    totalMgmtFeesDueText = new  wxStaticText(this, wxID_ANY,"");
-    //TODO add mgmtfees due also
-    totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");
+    
+    totalDeployedCapitalText = new wxStaticText(this, wxID_ANY, "");//
+    totalReserveCapitalText = new wxStaticText(this, wxID_ANY, "");//
+    totalMgmtFeesGeneratedText = new wxStaticText(this, wxID_ANY, "");//
+    totalMgmtFeesDueText = new wxStaticText(this, wxID_ANY, "");///
+    totalPromoteFeesGeneratedText = new wxStaticText(this, wxID_ANY,"");//
+    assetIRR = new wxStaticText(this, wxID_ANY, "");//
 
-    halfTextSizer->Add(assetIRR,1,wxEXPAND,3);
-    halfTextSizer->Add(numInvestorsText,1,wxEXPAND,3);
-    halfTextSizer->Add(totalSubscribedText,1,wxEXPAND,3);
-    halfTextSizer->Add(totalPaidText,1,wxEXPAND,3);
-    halfTextSizer->Add(totalReturnedCapitalText,1,wxEXPAND,3);
+    lHalfTextSizer->Add(assetIRR, 1, wxEXPAND,3);
+    lHalfTextSizer->Add(numInvestorsText,1,wxEXPAND,3);
+    lHalfTextSizer->Add(totalCommittedText, 1, wxEXPAND,3);
+    lHalfTextSizer->Add(totalDeployedCapitalText, 1, wxEXPAND,3);
+    lHalfTextSizer->Add(totalReserveCapitalText, 1, wxEXPAND,3);
 
-    otherHalfTextSizer->Add(totalDeployedCapitalText,1,wxEXPAND,3);
-    otherHalfTextSizer->Add(totalReserveCapitalText,1,wxEXPAND,3);
-    otherHalfTextSizer->Add(totalMgmtFeesGeneratedText,1,wxEXPAND,3);
-    otherHalfTextSizer->Add(totalMgmtFeesDueText,1,wxEXPAND,3);
-    otherHalfTextSizer->Add(totalPromoteFeesGeneratedText,1,wxEXPAND,3);
+    rHalfTextSizer->Add(totalPromoteFeesGeneratedText,1,wxEXPAND,3);
+    rHalfTextSizer->Add(totalMgmtFeesGeneratedText,1,wxEXPAND,3);
+    rHalfTextSizer->Add(totalMgmtFeesDueText,1,wxEXPAND,3);
+    rHalfTextSizer->Add(totalPaidText, 1, wxEXPAND,3);
+    rHalfTextSizer->Add(totalReturnedCapitalText,1,wxEXPAND,3);
+    
+    staticTextSizer->Add(lHalfTextSizer, 1, wxALL|wxEXPAND,3);
+    staticTextSizer->Add(rHalfTextSizer, 1, wxALL|wxEXPAND,3);
+    bottomSizer->Add(staticTextSizer, 5, wxALL|wxEXPAND,3);
 
-    staticTextSizer->Add(halfTextSizer,1,wxALL|wxEXPAND,3);
-    staticTextSizer->Add(otherHalfTextSizer,1,wxALL|wxEXPAND,3);
-
-    bottomSizer->Add(staticTextSizer,5,wxALL|wxEXPAND,3);
     //buttons
-    wxBoxSizer * buttonSizer = new wxBoxSizer(wxVERTICAL);
-    addDistributionButton = new wxButton(this, wxID_ANY, "Add Distribution");
-    addDistributionButton->SetBackgroundColour(wxColor(0,0,0));
-    addDistributionButton->SetForegroundColour(wxColor(51,245,12));
-    addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked, this);
-
-    assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Asset Level Movement of Capital");
-    assetLevelMovementOfCapitalButton->SetBackgroundColour(wxColor(0,0,0));
-    assetLevelMovementOfCapitalButton->SetForegroundColour(wxColor(51,245,12));
-    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
-
-    addValuationButton = new wxButton(this, wxID_ANY, "Add Valuation");
-    addValuationButton->SetBackgroundColour(wxColor(0,0,0));
-    addValuationButton->SetForegroundColour(wxColor(51,245,12));
-    addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
-
-    addEventButton = new wxButton(this, wxID_ANY, "Add Event");
-    addEventButton->SetBackgroundColour(wxColor(0,0,0));
-    addEventButton->SetForegroundColour(wxColor(51,245,12));
-    addEventButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddEvent, this);
+    wxBoxSizer *buttonSizer = new wxBoxSizer(wxVERTICAL);
+    addDistributionButton = new wxButton(this, wxID_ANY, "Distribution");
+    assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Movement Of Capital");
+    addValuationButton = new wxButton(this, wxID_ANY, "Valuation");
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
-    buttonSizer->Add(addEventButton);
+
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
     mainSizer->Add(bottomSizer,2,wxALL|wxEXPAND,5);
     this->SetSizer(mainSizer);
-
-    for(auto &pos: asset->positions){
-        pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-        pos->UpdateFinancesPostDistributionChanges(asset->distributions,pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
-    }
     this->Layout();
+
+    //TODO hookup bindings for buttons/vlcs
+
 }
 
 void AssetPopout::UpdateDisplayTextValues(){
-    double numInvestors = asset->CalculateNumberOfInvestors();
-    double totalPaid = asset->CalculatePaidCapital();
+    double numInvestors = asset->GetTotalInvestors();
+    double totalPaid = 0.0;
+    for(const auto&pos:asset->GetPositions()){
+        totalPaid+=pos->GetPaid();
+    }
     std::string formattedTotalPaid = utilities::formatDollarAmount(totalPaid);
-    double totalDeployed = asset->CalculateDeployedCapital();
+    double totalDeployed = asset->GetTotalAssetDeployed();
     std::string formattedTotalDeployed = utilities::formatDollarAmount(totalDeployed);
-    double totalSubscribed = asset->CalculateSubscribedCapital();
-    std::string formattedSubscribed = utilities::formatDollarAmount(totalSubscribed);
-    double totalReserveCapital = asset->CalculateReserveCapital();
+    double totalCommitted = asset->GetTotalCommitted();
+    std::string formattedCommitted = utilities::formatDollarAmount(totalCommitted);
+    double totalReserveCapital = asset->GetTotalAssetReserve();
     std::string formattedReserve = utilities::formatDollarAmount(totalReserveCapital);
-    double totalReturnedCapital = asset->CalculateReturnedCapital();
+    double totalReturnedCapital = asset->GetTotalReturnOfCapital();
     std::string formattedReturnedCapital = utilities::formatDollarAmount(totalReturnedCapital);
-    double totalPromoteFees = asset->GetTotalPromoteFeesGenerated();
+    double totalPromoteFees = asset->GetTotalPromoteFeesEarned();
     std::string formatedPromoteFees = utilities::formatDollarAmount(totalPromoteFees);
-    double totalMgmtFees = asset->GetTotalMgmtFeesGenerated();
+    double totalMgmtFees = asset->GetTotalMgmtFeesEarned();
     std::string formatedTotalMgmtFees = utilities::formatDollarAmount(totalMgmtFees);
     double totalMgmtFeesDue = asset->GetTotalMgmtFeesDue();
     std::string formattedTotalMgmtFeesDue = utilities::formatDollarAmount(totalMgmtFeesDue);
 
-    std::string assetIRRformated = std::to_string(asset->irr);
+    std::string assetIRRformated = std::to_string(asset->GetIrr());
 
     assetIRR->SetLabel("Asset Gross IRR: "+assetIRRformated);
     assetIRR->SetForegroundColour(wxColor(51,245,12));
 
-    totalSubscribedText->SetLabel("Total Subscribed Amount: "+formattedSubscribed);
-    totalSubscribedText->SetForegroundColour(wxColor(51,245,12));
+    totalCommittedText->SetLabel("Total Subscribed Amount: "+formattedCommitted);
+    totalCommittedText->SetForegroundColour(wxColor(51,245,12));
 
     totalPaidText->SetLabel("Total Paid Amount: "+formattedTotalPaid);
     totalPaidText->SetForegroundColour(wxColor(51,245,12));

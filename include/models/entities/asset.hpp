@@ -83,6 +83,7 @@ class Asset{
         double GetTotalAssetDeployed()const;
         double GetTotalAssetReserve()const;
         double GetTotalReturnOfCapital()const;
+        double GetTotalCommitted()const;
         const std::vector<std::shared_ptr<Position>>& GetPositions()const;
         double GetValuationInQuarter(wxDateTime &date)const;
         const std::vector<Valuation>& GetValuations()const;
@@ -93,6 +94,10 @@ class Asset{
         const std::vector<std::pair<wxDateTime, double>>& GetDeploymentsForPlotting();
         const std::vector<Distribution>& GetDistributions();
         const std::vector<std::pair<wxDateTime, double>>& GetDistributionsForPlotting();
+        double GetTotalPromoteFeesEarned()const;
+        double GetTotalMgmtFeesDue()const;
+        double GetTotalMgmtFeesEarned()const;
+        double GetIrr()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);
@@ -116,6 +121,7 @@ class Asset{
         void SortValuations(std::vector<Valuation> &valuations);
         void AddNewValuation(const wxDateTime &valuationDate, double valuationAmount);
         void SortValuations2();
+        void SortDistributions2();
         void PopulateValuationsDeploymentsForPlotting();
         void PopulateDistributionForPlotting();
         void UpdateValuationsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newValuations);

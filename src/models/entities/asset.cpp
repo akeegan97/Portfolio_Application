@@ -1,12 +1,17 @@
 #include "models/entities/asset.hpp"
 
 void Asset::SortDistributions(std::vector<Distribution> &distributions){
+    std::sort(distributions.begin(), distributions.end(),
+    [](const Distribution &a, const Distribution &b) {
+        return a.distribution.first < b.distribution.first;
+    });  
+}
+void Asset::SortDistributions2(){
     std::sort(m_distributions.begin(), m_distributions.end(),
     [](const Distribution &a, const Distribution &b) {
         return a.distribution.first < b.distribution.first;
     });  
 }
-
 
 void Asset::ProcessDistributionsForPosition(){
     SortDistributions(m_distributions);
@@ -276,7 +281,44 @@ const std::vector<Distribution> & Asset::GetDistributions(){
 const std::vector<std::pair<wxDateTime, double>>& Asset::GetDistributionsForPlotting(){
     return m_distributionsForBarChart;
 }
+double Asset::GetTotalPromoteFeesEarned()const{
+    double promoteFees = 0.0;
+    for(const auto&position:m_positions){
+        for(const auto&pf:position->GetPromoteFees()){
+            promoteFees+=pf.promotefee.second;
+        }
+    }
+    return promoteFees;
+}
+double Asset::GetTotalMgmtFeesDue()const{
+    double totalMgmtFeesDue = 0.0;
+    for(const auto&position:m_positions){
+        totalMgmtFeesDue+=position->GetManagementFeesDue();
+    }
+    return totalMgmtFeesDue;
+}
+double Asset::GetTotalMgmtFeesEarned()const{
+    double totalMgmtFeesDue = 0.0;
+    if(m_distributions.empty()){
+        return totalMgmtFeesDue;
+    }
+    for(const auto&position:m_positions){
+        for(const auto&mf:position->GetManagementFees()){
+            if(mf.managementFeesAsset.first <= m_distributions.back().distribution.second){
+                totalMgmtFeesDue+=mf.managementFeesAsset.second;
+            }
+        }
+    }
+    return totalMgmtFeesDue;
+    //questionable this assumes there will always be a distribution that can take care of
+    //all mgmtfees eventually might not actually happen in production 
+    //might require keeping a second vector<ManagementFee> in position
+    //that tracks when a mf was paid once a distribution happens
+}
 
+double Asset::GetIrr()const{
+    return m_irr;
+}
 
 void Asset::PopulatePreviousQValuations(){
     m_previousQValuationMap.clear();

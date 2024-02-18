@@ -25,25 +25,25 @@ void InvestorAssetDisplay::PopulateIRR(){
         double ownership = 0;
         CashFlow newCashFlow;
         for(const auto&pos : investorPtr->GetPositions()){
-            if(pos->assetPtr == assetPtr){
-                ownership += pos->percentOwnership;
+            if(pos->GetAssetPointer() == assetPtr){
+                ownership += pos->GetOwnership();
             }
         }
         assetPtr->SortDistributions2();
         auto valuations = assetPtr->GetValuations();
 
-        newCashFlow.amount = assetPtr->valuations.back().valuation * ownership;
+        newCashFlow.amount = assetPtr->GetValuations().back().valuation * ownership;
         newCashFlow.date = wxDateTime::Today();
         cashFlow.push_back(newCashFlow);
     }else{
         CashFlow newCashFlow;
-        double paidCapital = 0;
-        for(const auto&pos:investorPtr->positions){
-            if(pos->assetPtr == assetPtr){
-                paidCapital += pos->paid;
+        double committedCapital = 0;
+        for(const auto&pos:investorPtr->GetPositions()){
+            if(pos->GetAssetPointer() == assetPtr){
+                committedCapital += pos->GetCommitted();
             }
         }
-        newCashFlow.amount = paidCapital;
+        newCashFlow.amount = committedCapital;
         newCashFlow.date = wxDateTime::Today();
         cashFlow.push_back(newCashFlow);
     }
@@ -85,12 +85,12 @@ void InvestorAssetDisplay::PopulateITDNetDistribution(){
 
 void InvestorAssetDisplay::SetDerivedValues(){
     totalDeployed=0;
-    totalSubscribed=0;
+    totalCommitted=0;
     totalReserve=0;
     totalReturnOfCapital=0;
     for(const auto pos:investorPtr->GetPositions()){
         if(pos->GetAssetPointer() == assetPtr){
-            totalSubscribed +=pos->GetCommitted();
+            totalCommitted +=pos->GetCommitted();
             totalDeployed +=pos->GetDeployed();
             totalReserve +=pos->GetDeployed();
             totalReturnOfCapital +=pos->GetReturnOfCapital();
@@ -113,7 +113,7 @@ double InvestorAssetDisplay::CalculateNPV(std::vector<CashFlow> &cashFlows, doub
 wxVariant InvestorAssetDisplay::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(assetPtr->GetAssetName());break;
-        case 1: return wxVariant(totalSubscribed);break;
+        case 1: return wxVariant(totalCommitted);break;
         case 2: return wxVariant(totalPaid);break;
         case 3: return wxVariant(totalDeployed);break;
         case 4: return wxVariant(itdNetDistribution);break;
