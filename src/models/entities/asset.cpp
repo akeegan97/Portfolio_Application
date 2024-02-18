@@ -248,3 +248,165 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         asset.DeserializeSetRocMovements(movements);
     }
 }
+
+
+std::vector<std::shared_ptr<InvestorPositionDisplay>> Asset::GetIPDVector(){
+    return m_investorPositionDisplays;
+}
+
+void Asset::AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &idp){
+    m_investorPositionDisplays.push_back(idp);
+}
+
+const std::vector<std::pair<wxDateTime, double>>& Asset::GetValuationsForPlotting(){
+    return m_valuationsForPlotting;
+}
+const std::vector<std::pair<wxDateTime, double>>& Asset::GetDeploymentsForPlotting(){
+    return m_deploymentsForPlotting;
+}
+void Asset::UpdateValuationsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newValuations){
+    m_valuationsForPlotting = std::move(newValuations);
+}
+void Asset::UpdateDeploymentsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newDeployments){
+    m_deploymentsForPlotting = std::move(newDeployments);
+}
+const std::vector<Distribution> & Asset::GetDistributions(){
+    return m_distributions;
+}
+const std::vector<std::pair<wxDateTime, double>>& Asset::GetDistributionsForPlotting(){
+    return m_distributionsForBarChart;
+}
+
+
+void Asset::PopulatePreviousQValuations(){
+    m_previousQValuationMap.clear();
+    wxDateTime oldestInvestedDate = wxDateTime::Today();
+
+    for(const auto& position: m_positions){
+        if(position->GetDateInvested().IsEarlierThan(oldestInvestedDate)){
+            oldestInvestedDate = position->GetDateInvested();
+        }
+    }
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestInvestedDate);
+    wxDateTime currentQDate = wxDateTime::Today();
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
+
+    SortValuations2();
+
+    while(qEndDate.IsEarlierThan(currentQStartDate)){
+        double qValuation = 0.0;
+        for(const auto&valuation:m_valuations){
+            if(valuation.valuationDate.IsEarlierThan(qEndDate)|| valuation.valuationDate == qEndDate){
+                qValuation = valuation.valuation;
+            }
+        }
+        m_previousQValuationMap[qEndDate] = qValuation;
+        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
+    }
+}
+
+void Asset::PopulateCurrentQValuations(){
+    m_currentQValuationMap.clear();
+    double currentValuation = m_previousQDeploymentMap.rbegin()->second;
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
+    std::vector<std::pair<wxDateTime, double>> valuationsInCurrentQ;
+
+    double lastValuation = currentValuation;
+    for(auto &val:m_valuations){
+        if(val.valuationDate>=currentQStartDate){
+            double differential = val.valuation-lastValuation;
+            currentValuation +=differential;
+            m_currentQValuationMap[val.valuationDate] = currentValuation;
+            lastValuation = val.valuation;
+        }
+    }
+}
+
+void Asset::PopulatePreviousQDeploys(){
+    m_previousQDeploymentMap.clear();
+    wxDateTime oldestInvestedDate = wxDateTime::Today();
+    for(const auto&position:m_positions){
+        if(position->GetDateInvested().IsEarlierThan(oldestInvestedDate)){
+            oldestInvestedDate = position->GetDateInvested();
+        }
+    }
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestInvestedDate);
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
+    while(qEndDate.IsEarlierThan(currentQStartDate)){
+        double adjustedDeployedCapiatl = m_assetDeployedCapital;//currently deployed today
+        for(auto& movement: m_movementsToFromDeploy){
+            //reverse all movements out if they happened on or after the Q end date to get the ending balance
+            if(movement.first >= qEndDate){
+                adjustedDeployedCapiatl+=movement.second;
+            }
+        }
+        m_previousQDeploymentMap[qEndDate] = adjustedDeployedCapiatl;
+        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
+    }
+}
+
+void Asset::PopulateCurrentQDeploys(){
+    m_currentQDeploymentMap.clear();
+    double currentDeploy = m_previousQDeploymentMap.rbegin()->second;
+    wxDateTime today = wxDateTime::Today();
+    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
+    wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
+
+    for(const auto& movement: m_movementsToFromDeploy){
+        if(movement.first>=currentQStartDate){
+            currentDeploy+=movement.second;
+            m_currentQDeploymentMap[movement.first] = currentDeploy;
+        }
+    }
+}
+
+void Asset::PopulateValuationsDeploymentsForPlotting(){
+
+    m_valuationsForPlotting.clear();
+    m_deploymentsForPlotting.clear();
+    PopulatePreviousQValuations();
+    PopulateCurrentQValuations();
+    PopulatePreviousQDeploys();
+    PopulateCurrentQDeploys();
+
+    for(const auto&entry:m_previousQValuationMap){
+        m_valuationsForPlotting.push_back(entry);
+    }
+    for(const auto&entry:m_currentQValuationMap){
+        m_valuationsForPlotting.push_back(entry);
+    }
+    for(const auto&entry:m_previousQDeploymentMap){
+        m_deploymentsForPlotting.push_back(entry);
+    }
+    for(const auto&entry:m_currentQDeploymentMap){
+        m_deploymentsForPlotting.push_back(entry);
+    }
+}
+
+void Asset::PopulateDistributionForPlotting(){
+    m_distributionsForBarChart.clear();
+    if(m_distributions.empty()){
+        return;
+    }
+    SortDistributions(m_distributions);
+    wxDateTime oldestDistribution = m_distributions.front().distribution.first;
+    wxDateTime newestDistribution = m_distributions.back().distribution.first;
+
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestDistribution);
+    wxDateTime lastQEndDate = utilities::GetQuarterEndDate(newestDistribution);
+
+    while(qEndDate <= lastQEndDate){
+        wxDateTime currentQStartDate = utilities::GetQuarterStartDate(qEndDate);
+        double currentQDistributedAmount = 0.0;
+        for(const auto& distribution:m_distributions){
+            if(distribution.distribution.first >= currentQStartDate && 
+                distribution.distribution.first <=qEndDate){
+                    currentQDistributedAmount+=distribution.distribution.second;
+            }
+        }
+        m_distributionsForBarChart.push_back({qEndDate,currentQDistributedAmount});
+        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
+    }
+}

@@ -4,6 +4,7 @@
 #include <wx/string.h>
 #include <json.hpp>
 #include <wx/variant.h>
+#include <wx/chart.h>
 #include <utility>
 #include <set>
 #include <math.h>
@@ -12,10 +13,12 @@
 #include "models/supporting/valuation.hpp"
 #include "models/entities/portfolio.hpp"
 #include "models/entities/position.hpp"
+#include "models/components/investorpositiondisplay.hpp"
 #include "helpers/utilities.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
+class InvestorPositionDisplay;
 
 class Asset{
     private:
@@ -28,6 +31,7 @@ class Asset{
         double m_assetReserveCapital;
         double m_assetReturnOfCapital;
         double m_currentValue;
+        std::vector<std::shared_ptr<InvestorPositionDisplay>> m_investorPositionDisplays;
     //positional specifics
         double m_totalInvestedCapital;
         double m_countOfInvestors;
@@ -40,6 +44,7 @@ class Asset{
         std::vector<Distribution> m_distributions;
         std::vector<std::shared_ptr<Position>> m_positions;
         std::map<wxDateTime,double> m_rocMovements;
+        std::map<wxDateTime, double> m_movementsToFromDeploy;
     //for plotting
         std::vector<std::pair<wxDateTime, double>> m_valuationsForPlotting;
         std::vector<std::pair<wxDateTime, double>> m_deploymentsForPlotting;
@@ -58,6 +63,10 @@ class Asset{
         void ProcessDistributionsForPosition();
         void UpdatePositionValuations();
         void UpdateCurrentvalue();
+        void PopulatePreviousQValuations();
+        void PopulateCurrentQValuations();
+        void PopulatePreviousQDeploys();
+        void PopulateCurrentQDeploys();
 
     public:
         Asset() = default;
@@ -79,6 +88,11 @@ class Asset{
         const std::vector<Valuation>& GetValuations()const;
         double GetTotalInvestors()const;
         double GetLastValuationAmountOrCommittedCapital()const;
+        std::vector<std::shared_ptr<InvestorPositionDisplay>> GetIPDVector();
+        const std::vector<std::pair<wxDateTime, double>>& GetValuationsForPlotting();
+        const std::vector<std::pair<wxDateTime, double>>& GetDeploymentsForPlotting();
+        const std::vector<Distribution>& GetDistributions();
+        const std::vector<std::pair<wxDateTime, double>>& GetDistributionsForPlotting();
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);
@@ -91,6 +105,7 @@ class Asset{
         void DeserializeSetDistributions(std::vector<Distribution> &distributions);
         void AddPosition(std::shared_ptr<Position> &position);
         void DeserializeSetRocMovements(std::map<wxDateTime, double> &movements);
+        void AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &ipd);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
@@ -101,6 +116,10 @@ class Asset{
         void SortValuations(std::vector<Valuation> &valuations);
         void AddNewValuation(const wxDateTime &valuationDate, double valuationAmount);
         void SortValuations2();
+        void PopulateValuationsDeploymentsForPlotting();
+        void PopulateDistributionForPlotting();
+        void UpdateValuationsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newValuations);
+        void UpdateDeploymentsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newDeployments);
 
 };
 

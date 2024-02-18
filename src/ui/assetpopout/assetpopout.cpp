@@ -11,6 +11,71 @@
 
 
 void AssetPopout::SetupLayout(){
+    //sizers
+    wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *middleVLCSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
+
+    for(auto& position : asset->GetPositions()){
+        auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
+        asset->AddInvestorPositionDisplay(investorPositionDisplay);
+    }
+    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this,wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    if(!asset->GetIPDVector().empty()){
+        investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
+    }
+    topSizer->Add(investorPositionDisplayVirtualListControl, wxALL| wxEXPAND,5);
+    mainSizer->Add(topSizer,2,wxALL|wxEXPAND);
+
+    chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
+    //change colors here
+    wxBoxSizer * vdChartPanelSizer = new wxBoxSizer(wxVERTICAL);
+    chartPanelHolderPanel->SetSizer(vdChartPanelSizer);
+    wxChartPanel *valuationDeployChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
+    //change color here
+    if(valuationDeployChartPanel->GetChart()!= nullptr){
+        delete valuationDeployChartPanel->GetChart();
+    }
+    Chart* valuationDeployChart = PopulateDrawChartValuationDeploy();//change colors inside function
+    if(valuationDeployChart!=nullptr){
+        valuationDeployChartPanel->SetChart(valuationDeployChart);
+        vdChartPanelSizer->Add(valuationDeployChartPanel,1,wxALL|wxEXPAND,5);
+    }
+    
+    distributionChartPanelHolder = new wxPanel(this, wxID_ANY);
+    wxBoxSizer *dChartPanelSizer = new wxBoxSizer(wxVERTICAL); 
+    distributionChartPanelHolder->SetSizer(dChartPanelSizer);
+    wxChartPanel *distributionChartPanel = new wxChartPanel(distributionChartPanelHolder, wxID_ANY);
+    if(distributionChartPanel->GetChart()!=nullptr){
+        delete distributionChartPanel->GetChart();
+    }
+    Chart* distributionChart = PopulateDrawChartDistribution();
+    if(distributionChart!=nullptr){
+        distributionChartPanel->SetChart(distributionChart);
+        dChartPanelSizer->Add(distributionChartPanel,1,wxALL|wxEXPAND,5);
+    }
+    middleChartSizer->Add(chartPanelHolderPanel,5,wxALL|wxEXPAND,5);
+    middleChartSizer->Add(distributionChartPanelHolder,5,wxALL|wxEXPAND,5);
+
+    mainSizer->Add(middleChartSizer,4,wxEXPAND,5);
+
+    //add VLCs for Valuations/Distributions removal of Events
+    valuationListControl = new VListControl<Valuation>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    if(!asset->GetValuations().empty()){
+        valuationListControl->setItems(asset->GetValuations());
+    }
+    distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    if(!asset->GetDistributions().empty()){
+        distributionListControl->setItems(asset->GetDistributions());
+    }
+    middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
+    middleVLCSizer->Add(distributionListControl,5,wxALL|wxEXPAND,5);
+    
+}
+
+void AssetPopout::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -83,12 +148,6 @@ void AssetPopout::SetupLayout(){
     valuationListControl->SetBackgroundColour(wxColor(0,0,0));
     valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     //Events
-    eventsVirtualListControl = new VListControl<std::shared_ptr<AssetEvent>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
-    if(!asset->events.empty()){
-        eventsVirtualListControl->setItems(asset->events);
-    }
-    eventsVirtualListControl->SetBackgroundColour(wxColor(0,0,0));
-    eventsVirtualListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnEventEdit, this);
     //Distributions
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     if(!asset->distributions.empty()){
@@ -510,54 +569,54 @@ void AssetPopout::OnEventEdit(wxListEvent &e){
 }
 
 Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
-    asset->PopulateValuationDeploymentForPlotting();
-    if (asset->valuationsForPlotting.empty() && asset->deploymentsForPlotting.empty()) {
+    asset->PopulateValuationsDeploymentsForPlotting();
+    if (asset->GetValuationsForPlotting().empty() && asset->GetDeploymentsForPlotting().empty()) {
         // Both datasets are empty, return nullptr to indicate no chart should be drawn
         return nullptr;
     }
 
     std::set<wxDateTime> allDates;
-    for (const auto& val : asset->valuationsForPlotting) {
+    for (const auto& val : asset->GetValuationsForPlotting()) {
         allDates.insert(val.first);
     }
-    for (const auto& dep : asset->deploymentsForPlotting) {
+    for (const auto& dep : asset->GetDeploymentsForPlotting()) {
         allDates.insert(dep.first);
     }
     std::vector<std::pair<wxDateTime, double>> newValuations, newDeployments;
     double lastValuation = 0.0, lastDeployment = 0.0;
 
     for (const auto& date : allDates) {
-        auto valIt = std::find_if(asset->valuationsForPlotting.begin(), asset->valuationsForPlotting.end(),
+        auto valIt = std::find_if(asset->GetValuationsForPlotting().begin(), asset->GetValuationsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& val) { return val.first == date; });
-        if (valIt != asset->valuationsForPlotting.end()) {
+        if (valIt != asset->GetValuationsForPlotting().end()) {
             lastValuation = valIt->second;
             newValuations.push_back(*valIt);
         } else {
             newValuations.push_back({date, lastValuation}); 
         }
 
-        auto depIt = std::find_if(asset->deploymentsForPlotting.begin(), asset->deploymentsForPlotting.end(),
+        auto depIt = std::find_if(asset->GetDeploymentsForPlotting().begin(), asset->GetDeploymentsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
-        if (depIt != asset->deploymentsForPlotting.end()) {
+        if (depIt != asset->GetDeploymentsForPlotting().end()) {
             lastDeployment = depIt->second;
             newDeployments.push_back(*depIt);
         } else {
             newDeployments.push_back({date, lastDeployment}); 
         }
     }
-    asset->valuationsForPlotting = std::move(newValuations);
-    asset->deploymentsForPlotting = std::move(newDeployments);
+    asset->UpdateValuationsForPlotting(std::move(newValuations));
+    asset->UpdateDeploymentsForPlotting(std::move(newDeployments));
 
     XYPlot *xyPlot = new XYPlot();
 
-    if (!asset->valuationsForPlotting.empty()) {
-        size_t count = asset->valuationsForPlotting.size();
+    if (!asset->GetValuationsForPlotting().empty()) {
+        size_t count = asset->GetValuationsForPlotting().size();
         double *data = new double[count];
         time_t* times = new time_t[count];
         for(size_t i = 0; i < count; i++) { 
-            data[i] = asset->valuationsForPlotting[i].second;
-            times[i] = asset->valuationsForPlotting[i].first.GetTicks();
-            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->valuationsForPlotting[i].first.FormatISODate()<<std::endl;
+            data[i] = asset->GetValuationsForPlotting()[i].second;
+            times[i] = asset->GetValuationsForPlotting()[i].first.GetTicks();
+            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->GetValuationsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
@@ -567,14 +626,14 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         xyPlot->AddDataset(assetValuationTimeSeries);
     }
 
-    if (!asset->deploymentsForPlotting.empty()) {
-        size_t count2 = asset->deploymentsForPlotting.size();
+    if (!asset->GetDeploymentsForPlotting().empty()) {
+        size_t count2 = asset->GetDeploymentsForPlotting().size();
         double *data2 = new double[count2];
         time_t *times2 = new time_t[count2];
         for(size_t i = 0; i < count2; i++) {
-            data2[i] = asset->deploymentsForPlotting[i].second;
-            times2[i] = asset->deploymentsForPlotting[i].first.GetTicks();
-            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->deploymentsForPlotting[i].first.FormatISODate()<<std::endl;
+            data2[i] = asset->GetDeploymentsForPlotting()[i].second;
+            times2[i] = asset->GetDeploymentsForPlotting()[i].first.GetTicks();
+            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->GetDeploymentsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
@@ -664,20 +723,20 @@ void AssetPopout::UpdateChartValuationDeploy(){
 }
 
 Chart* AssetPopout::PopulateDrawChartDistribution(){
-    asset->PopulateDistributionsForPlotting();
+    asset->PopulateDistributionForPlotting();
 
-    if(asset->distributions.empty()){
+    if(asset->GetDistributions().empty()){
         return nullptr;
     }
     BarPlot *barPlot = new BarPlot();
 
-    size_t count = asset->distributionsForPlottingBarChart.size();
+    size_t count = asset->GetDistributionsForPlotting().size();
     wxString* names = new wxString[count];
     double* values = new double[count];
     for(size_t i = 0;i<count; i++){
-        values[i] = asset->distributionsForPlottingBarChart[i].second;
-        names[i] = asset->distributionsForPlottingBarChart[i].first.FormatISODate();
-        std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->distributionsForPlottingBarChart[i].first.FormatISODate()<<std::endl;
+        values[i] = asset->GetDistributionsForPlotting()[i].second;
+        names[i] = asset->GetDistributionsForPlotting()[i].first.FormatISODate();
+        std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->GetDistributionsForPlotting()[i].first.FormatISODate()<<std::endl;
     }
 
     CategorySimpleDataset* distributionDataSet = new CategorySimpleDataset(names,count);
