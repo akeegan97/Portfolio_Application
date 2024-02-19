@@ -24,7 +24,6 @@ class InvestorPopout : public wxFrame{
         wxFrame(parentWindow, wxID_ANY, title, pos, size),
         portfolio(port),
         investor(investor){
-            SetUpLayout();
         };
         Portfolio &portfolio;
         std::shared_ptr<Investor> investor;

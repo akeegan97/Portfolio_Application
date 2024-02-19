@@ -201,9 +201,12 @@ void Asset::AddPosition(std::shared_ptr<Position> &position){
     m_positions.push_back(position);
 }
 
-void Asset::DeserializeSetRocMovements(std::map<wxDateTime, double> &movements){
-    m_rocMovements.clear();
-    m_rocMovements = movements;
+void Asset::DeserializeSetRocMovements(std::map<std::string, double> &movements){
+    for(const auto&[dateStr, value]: movements){
+        wxDateTime date;
+        date.ParseISODate(dateStr);
+        m_rocMovements[date] = value;
+    }
 }
 
 double Asset::GetTotalInvestors()const{
@@ -248,8 +251,12 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         double returnOfCapital = j["Asset ROC"].get<double>();
         asset.DeserializeSetAssetReturnOfCapital(returnOfCapital);
     }
-    if(j.contains("Asset ROC Movements") && j["Asset ROC Movements"].is_array()){
-        std::map<wxDateTime, double> movements = j["Asset ROC Movements"].get<std::map<wxDateTime, double>>();
+    if(j.contains("Asset ROC Movements")) {
+        const auto& rocMovementsJson = j["Asset ROC Movements"];
+        std::map<std::string, double> movements;
+        for (auto it = rocMovementsJson.begin(); it != rocMovementsJson.end(); ++it) {
+            movements[it.key()] = it.value();
+        }
         asset.DeserializeSetRocMovements(movements);
     }
 }
@@ -349,7 +356,7 @@ void Asset::PopulatePreviousQValuations(){
 
 void Asset::PopulateCurrentQValuations(){
     m_currentQValuationMap.clear();
-    double currentValuation = m_previousQDeploymentMap.rbegin()->second;
+    double currentValuation = m_previousQValuationMap.rbegin()->second;
     wxDateTime today = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
     std::vector<std::pair<wxDateTime, double>> valuationsInCurrentQ;
@@ -409,10 +416,13 @@ void Asset::PopulateValuationsDeploymentsForPlotting(){
     m_valuationsForPlotting.clear();
     m_deploymentsForPlotting.clear();
     PopulatePreviousQValuations();
-    PopulateCurrentQValuations();
+    if(!m_previousQValuationMap.empty()){
+        PopulateCurrentQValuations();
+    }
     PopulatePreviousQDeploys();
-    PopulateCurrentQDeploys();
-
+    if(!m_previousQDeploymentMap.empty()){
+        PopulateCurrentQDeploys(); 
+    }
     for(const auto&entry:m_previousQValuationMap){
         m_valuationsForPlotting.push_back(entry);
     }
@@ -451,4 +461,15 @@ void Asset::PopulateDistributionForPlotting(){
         m_distributionsForBarChart.push_back({qEndDate,currentQDistributedAmount});
         qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
     }
+}
+
+
+void Asset::AddDistribution(Distribution &distribution){
+    m_distributions.push_back(distribution);
+    SortDistributions2();
+}
+
+
+double Asset::GetTotalCommitted()const{
+    return m_assetCommittedCapital;
 }

@@ -168,7 +168,7 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    UpdateChart();
    UpdateAssetListControl();
    UpdatePortfolioDisplayValues();
-   UpdateEventListControl();
+
    this->Refresh();
 }
 

@@ -3,7 +3,7 @@
         {
             "Asset Exit Date": "2024-12-31",
             "Asset Name": "Collins Park",
-            "Asset Sponser":"Kawa",
+            "Asset Sponsor":"Kawa",
             "Asset Committed":500000,
             "Asset Deployed":400000,
             "Asset Reserve":10000,

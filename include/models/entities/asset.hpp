@@ -109,8 +109,9 @@ class Asset{
         void DeserializeSetValuations(std::vector<Valuation> &valuations);
         void DeserializeSetDistributions(std::vector<Distribution> &distributions);
         void AddPosition(std::shared_ptr<Position> &position);
-        void DeserializeSetRocMovements(std::map<wxDateTime, double> &movements);
+        void DeserializeSetRocMovements(std::map<std::string, double> &movements);
         void AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &ipd);
+        void AddDistribution(Distribution &distribution);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
