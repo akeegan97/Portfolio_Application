@@ -129,6 +129,29 @@ void Position::AddRocMovement(std::pair<wxDateTime, double> &movement){
     m_returnOfCapitalMap[movement.first] = movement.second;
 }
 
+void Position::SetCommitted(){
+    m_committed = m_paid - m_returnOfCapital;
+}
+
+void Position::SetReserve(){
+    m_reserve = m_assetPtr->GetTotalAssetReserve() * m_percentOwnership;
+}
+
+void Position::SetDeployed(){
+    m_deployed = m_assetPtr->GetTotalAssetDeployed() * m_percentOwnership;
+}
+
+void Position::SetOwnership(){
+    m_percentOwnership = m_committed / m_assetPtr->GetTotalCommitted();
+}
+
+void Position::SetCurrentValue(){
+    m_currentValue = m_percentOwnership * m_assetPtr->GetCurrentValue();
+}
+
+
+
+
 void Position::PopulateManagementFeeVector() {
     double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
     wxDateTime investmentStartDate = utilities::GetQuarterStartDate(m_dateInvested); // Ensure starting from the beginning of the quarter of investment

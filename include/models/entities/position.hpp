@@ -50,6 +50,7 @@ class Position{
         double m_returnOfCapital;
         double m_percentOwnership;
         double m_managementFeesDue;
+        double m_currentValue;
     //private Setter
         void PopulateManagementFeeVector();
     //private Methods
@@ -95,6 +96,11 @@ class Position{
         void AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement);
         void AddMovedFromDeployEntry(std::pair<wxDateTime, double> &movement);
         void AddRocMovement(std::pair<wxDateTime, double> &movement);
+        void SetCommitted();
+        void SetReserve();
+        void SetDeployed();
+        void SetCurrentValue();
+        void SetOwnership();
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);

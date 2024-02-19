@@ -1,10 +1,10 @@
 #include "models/entities/investor.hpp"
 
 double Investor::GetPromoteFeePercentage()const{
-    return m_managementFeePercentage;
+    return m_promoteFeePercentage;
 }
 double Investor::GetManagementFeePercentage()const{
-    return m_promoteFeePercentage;
+    return m_managementFeePercentage;
 }
 std::string Investor::GetName()const{
     return m_clientName.ToStdString();

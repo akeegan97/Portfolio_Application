@@ -8,6 +8,13 @@
 
 
 void MainFrame::setupLayout(){
+
+   for(auto&asset:portfolio.assetPtrs){
+      asset->SetPositionValues();
+      for(auto&position:asset->GetPositions()){
+         position->TriggerUpdateOfManagementFeeVector();
+      }
+   }
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
    //left sizer for the left side of the page needs to be vertical 

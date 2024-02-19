@@ -98,6 +98,7 @@ class Asset{
         double GetTotalMgmtFeesDue()const;
         double GetTotalMgmtFeesEarned()const;
         double GetIrr()const;
+        double GetCurrentValue()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);
@@ -127,7 +128,7 @@ class Asset{
         void PopulateDistributionForPlotting();
         void UpdateValuationsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newValuations);
         void UpdateDeploymentsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newDeployments);
-
+        void SetPositionValues();
 };
 
 void to_json(json &j, const Asset &asset);

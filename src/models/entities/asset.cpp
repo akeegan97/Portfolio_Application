@@ -54,6 +54,10 @@ void Asset::UpdatePositionValuations(){
     }
 }
 
+double Asset::GetCurrentValue()const{
+    return m_currentValue;
+}
+
 double Asset::GetValuationInQuarter(wxDateTime &date)const{
     auto quarterEnd = utilities::GetQuarterEndDate(date);
     double valuationAmount = 0;
@@ -124,7 +128,7 @@ double Asset::GetTotalAssetReserve()const{
     return m_assetReserveCapital;
 }
 double Asset::GetTotalReturnOfCapital()const{
-    return m_assetReserveCapital;
+    return m_assetReturnOfCapital;
 }
 
 const std::vector<std::shared_ptr<Position>>& Asset::GetPositions()const{
@@ -472,4 +476,15 @@ void Asset::AddDistribution(Distribution &distribution){
 
 double Asset::GetTotalCommitted()const{
     return m_assetCommittedCapital;
+}
+
+
+void Asset::SetPositionValues(){
+    for(auto&pos:m_positions){
+        pos->SetCommitted();
+        pos->SetOwnership();
+        pos->SetReserve();
+        pos->SetDeployed();
+        pos->SetCurrentValue();
+    }
 }
