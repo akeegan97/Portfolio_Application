@@ -113,6 +113,7 @@ class Asset{
         void DeserializeSetRocMovements(std::map<std::string, double> &movements);
         void AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &ipd);
         void AddDistribution(Distribution &distribution);
+        void TriggerUpdateOfDistributionsForPositions();
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

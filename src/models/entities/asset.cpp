@@ -30,10 +30,14 @@ void Asset::ProcessDistributionsForPosition(){
             newPromoteFee.promotefee.second = remainder * promoteFeePercentage;
             Distribution newDistribution;
             newDistribution.distribution.first = distribution.distribution.first;
-            newDistribution.distribution.second = remainder * - newPromoteFee.promotefee.second;
+            newDistribution.distribution.second = remainder - newPromoteFee.promotefee.second;
             position->UpdateFinancesPostDistributionChanges(newDistribution, newPromoteFee);
         }
     }
+}
+
+void Asset::TriggerUpdateOfDistributionsForPositions(){
+    ProcessDistributionsForPosition();
 }
 
 const std::vector<Valuation>& Asset::GetValuations()const{

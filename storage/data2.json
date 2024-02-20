@@ -40,7 +40,9 @@
                     "Management Fees Due": 0.0,
                     "Ownership": 0.25,
                     "ROC": 250000,
-                    "ROC Movements":[],
+                    "ROC Movements":{
+                        "2023-07-01":250000
+                    },
                     "Management Fees": [],
                     "MovedOutDeploy": [],
                     "MovedToDeploy": [],
@@ -65,6 +67,9 @@
                     "Management Fees Due": 0.0,
                     "MovedOutDeploy": null,
                     "MovedToDeploy": null,
+                    "ROC Movements":{
+                        "2023-07-01":250000
+                    },
                     "Net Income": [
                     ],
                     "Ownership": 0.25,

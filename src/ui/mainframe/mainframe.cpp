@@ -14,6 +14,7 @@ void MainFrame::setupLayout(){
       for(auto&position:asset->GetPositions()){
          position->TriggerUpdateOfManagementFeeVector();
       }
+      asset->TriggerUpdateOfDistributionsForPositions();
    }
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
