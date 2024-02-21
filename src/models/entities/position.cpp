@@ -55,6 +55,9 @@ std::shared_ptr<Asset> Position::GetAssetPointer()const{
 }
 //methods
 double Position::CalculateCommittedUpToDate(const wxDateTime &date)const{
+    if(m_dateInvested > date){
+        return 0.0;
+    }
     double committed = m_paid;
     for(const auto& rocEvent : m_returnOfCapitalMap){
         if(rocEvent.first<=date){
@@ -80,20 +83,36 @@ void Position::UpdateFinancesPostDistributionChanges(Distribution &distribution,
     m_promoteFees.push_back(promoteFee);
 }
 
-double Position::CalculateManagementFeesDue(const Distribution &currentDistribution){
+double Position::CalculateManagementFeesDue(const Distribution &currentDistribution) {
+    // Determine the quarter end date of the distribution
     wxDateTime distributionDate = currentDistribution.distribution.first;
-    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(distributionDate);
-    wxDateTime lastDistributionDate = !m_netIncome.empty() ? m_netIncome.back().distribution.first : m_dateInvested;
-    wxDateTime lastQuarterStart = utilities::GetQuarterStartDate(lastDistributionDate);
+    wxDateTime distributionQEndDate = utilities::GetQuarterEndDate(distributionDate);
+    
+    // Initialize total fees due
     double totalFeesDue = 0.0;
-    for (const auto& fee : m_managementFees) {
-        if ((m_netIncome.empty() && fee.managementFeesAsset.first <= currentQStartDate) || 
-            (!m_netIncome.empty() && fee.managementFeesAsset.first > lastQuarterStart && fee.managementFeesAsset.first <= currentQStartDate)) {
-            totalFeesDue += fee.managementFeesAsset.second;
+    
+    // Determine if this is the first distribution of the quarter
+    bool isFirstDistributionOfQuarter = true;
+    for (const auto& pastDistribution : m_netIncome) {
+        if (utilities::AreSameQuarter(pastDistribution.distribution.first, distributionDate)) {
+            isFirstDistributionOfQuarter = false;
+            break; // Already had a distribution this quarter
         }
     }
+
+    // Apply fees only if this is the first distribution of the quarter
+    if (isFirstDistributionOfQuarter) {
+        for (const auto& fee : m_managementFees) {
+            // Apply fees from the start of the investment quarter to the end of the distribution quarter
+            wxDateTime feeDate = fee.managementFeesAsset.first;
+            if (feeDate >= utilities::GetQuarterStartDate(m_dateInvested) && feeDate <= distributionQEndDate) {
+                totalFeesDue += fee.managementFeesAsset.second;
+            }
+        }
+    }
+
     return totalFeesDue;
-}   
+} 
 
 double Position::GetInvestorPromoteFee(){
     return m_investorPtr->GetPromoteFeePercentage();
@@ -149,8 +168,34 @@ void Position::SetCurrentValue(){
     m_currentValue = m_percentOwnership * m_assetPtr->GetCurrentValue();
 }
 
+void Position::SetRocMovements(){
+    for(auto movement: m_assetPtr->GetROCMovements()){
+        if(movement.first > m_dateInvested){
+            m_returnOfCapitalMap[movement.first] = movement.second * CalculateOwnershipAtDate(movement.first);
+            SetReturnOfCapital(movement.second * CalculateOwnershipAtDate(movement.first));
+        }
+    }
+}
 
+void Position::SetMovedToDeploy(){
+    for(auto movement:m_assetPtr->GetMovementsToFromDeploy()){
+        if(movement.first > m_dateInvested){
+            if(movement.second > 0){
+                m_movedToDeploy[movement.first] = movement.second * CalculateOwnershipAtDate(movement.first);
+            }
+        }
+    }
+}
 
+void Position::SetMovedFromDeploy(){
+    for(auto movement:m_assetPtr->GetMovementsToFromDeploy()){
+        if(movement.first > m_dateInvested){
+            if(movement.second < 0){
+                m_movedOutOfDeploy[movement.first] = movement.second * CalculateOwnershipAtDate(movement.first);
+            }
+        }
+    }
+}
 
 void Position::PopulateManagementFeeVector() {
     double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
@@ -250,7 +295,9 @@ std::shared_ptr<Investor> Position::GetInvestorPtr()const{
     return m_investorPtr;
 }
 
-
+double Position::GetPositionValue()const{
+    return m_currentValue;
+}
 void from_json(const json&j, Position &position, Portfolio &port){
     wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
     for(auto &assetPointer : port.assetPtrs){

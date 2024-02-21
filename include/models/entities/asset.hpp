@@ -44,7 +44,7 @@ class Asset{
         std::vector<Distribution> m_distributions;
         std::vector<std::shared_ptr<Position>> m_positions;
         std::map<wxDateTime,double> m_rocMovements;
-        std::map<wxDateTime, double> m_movementsToFromDeploy;
+        std::map<wxDateTime, double> m_movementsToFromDeploy;//negative for movements out of deploy to reserve, positive for movements in to deploy and out of reserve
     //for plotting
         std::vector<std::pair<wxDateTime, double>> m_valuationsForPlotting;
         std::vector<std::pair<wxDateTime, double>> m_deploymentsForPlotting;
@@ -99,6 +99,8 @@ class Asset{
         double GetTotalMgmtFeesEarned()const;
         double GetIrr()const;
         double GetCurrentValue()const;
+        const std::map<wxDateTime, double> GetROCMovements()const;
+        const std::map<wxDateTime, double> GetMovementsToFromDeploy()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);
@@ -114,6 +116,11 @@ class Asset{
         void AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &ipd);
         void AddDistribution(Distribution &distribution);
         void TriggerUpdateOfDistributionsForPositions();
+        void MoveReserveToDeploy(wxDateTime &date, double amount);
+        void MoveDeployToReserve(wxDateTime &date, double amount);
+        void MoveReserveToReturnOfCapital(wxDateTime &date, double amount);
+        void MoveDeployToReturnOfCapital(wxDateTime &date,double amount);
+        void SetCurrentValue();
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
@@ -122,7 +129,7 @@ class Asset{
     //other public methods
         void SortDistributions(std::vector<Distribution> &distributions);
         void SortValuations(std::vector<Valuation> &valuations);
-        void AddNewValuation(const wxDateTime &valuationDate, double valuationAmount);
+        void AddNewValuation(Valuation &newValuation);
         void SortValuations2();
         void SortDistributions2();
         void PopulateValuationsDeploymentsForPlotting();
@@ -130,6 +137,7 @@ class Asset{
         void UpdateValuationsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newValuations);
         void UpdateDeploymentsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newDeployments);
         void SetPositionValues();
+        void ClearInvestorPositionDisplays();
 };
 
 void to_json(json &j, const Asset &asset);

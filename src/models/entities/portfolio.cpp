@@ -281,10 +281,11 @@ void Portfolio::PopulatePreviousQValuations() {
                 }
             }
 
-            if (!valuationFound) {
+            if (!valuationFound) {//currently looping assets->positions->GetPaid(); should instead be just loop asset->GetDeployedInQ(); new method that looks at the movements in asset to return
+    //the amount that was deployed in the current Q we are interested in walks the movementToFromDeploy map in asset
                 for (const auto& pos : assetPtr->GetPositions()) {
                     if ((pos->GetDateInvested().IsEarlierThan(qEndDate))) {
-                        assetQuarterValuation += pos->GetPaid(); 
+                        assetQuarterValuation += pos->GetDeployed(); 
                     }
                 }
             }

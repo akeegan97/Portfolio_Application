@@ -15,6 +15,7 @@ wxVariant InvestorPositionDisplay::GetValue(int col)const{
     case 6: return wxVariant(positionPtr->GetDeployed());break;
     case 7: return wxVariant(positionPtr->GetReserve());break;
     case 8: return wxVariant(positionPtr->GetOwnership());break;
+    case 9: return wxVariant(positionPtr->GetPositionValue());break;
     default: return wxVariant();
         break;
     }
@@ -22,5 +23,5 @@ wxVariant InvestorPositionDisplay::GetValue(int col)const{
 
 
 
-std::vector<wxString> InvestorPositionDisplay::columnNames = {"Investor", "Type","Date Invested","Paid", "Returned Capital", "Committed","Deployed","Reserve","Ownership %"};
-std::vector<int> InvestorPositionDisplay::columnWidths = {120,100,150,100,100,100,100,125,150};
+std::vector<wxString> InvestorPositionDisplay::columnNames = {"Investor", "Type","Date Invested","Paid", "Returned Capital", "Committed","Deployed","Reserve","Ownership %","Current Value"};
+std::vector<int> InvestorPositionDisplay::columnWidths = {120,100,150,100,100,100,100,125,150,100};

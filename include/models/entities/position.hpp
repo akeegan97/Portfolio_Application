@@ -83,6 +83,7 @@ class Position{
         std::map<wxDateTime, double> GetMovedToDeploy()const;
         std::shared_ptr<Investor> GetInvestorPtr()const;
         std::shared_ptr<Asset> GetAssetPointer()const;
+        double GetPositionValue()const;
     //public setters
         void SetDeployed(double deployed);
         void SetReserve(double reserve);
@@ -101,6 +102,8 @@ class Position{
         void SetDeployed();
         void SetCurrentValue();
         void SetOwnership();
+        void SetMovedToDeploy();
+        void SetMovedFromDeploy();
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);
@@ -109,6 +112,7 @@ class Position{
         void ClearNetIncomePromoteFees();
         double CalculateCommittedUpToDate(const wxDateTime &date)const;
         void RepopulateValuations();
+        void SetRocMovements();
 };
 
 void to_json(json &j, const Position &pos);

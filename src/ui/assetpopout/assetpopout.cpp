@@ -17,7 +17,7 @@ void AssetPopout::SetupLayout(){
     wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *middleVLCSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
-
+    asset->ClearInvestorPositionDisplays();
     for(auto& position : asset->GetPositions()){
         auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
         asset->AddInvestorPositionDisplay(investorPositionDisplay);
@@ -111,7 +111,9 @@ void AssetPopout::SetupLayout(){
     //buttons
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxVERTICAL);
     addDistributionButton = new wxButton(this, wxID_ANY, "Distribution");
+    addDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddDistributionClicked,this);
     assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Movement Of Capital");
+    assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
     addValuationButton = new wxButton(this, wxID_ANY, "Valuation");
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
@@ -236,106 +238,87 @@ void AssetPopout::UpdateDisplayTextValues(){
 //     }
 // }
 
-// void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
-//     wxDateTime today = wxDateTime::Today();
-//     double zero = 0.0;
-//     DistributionDialog addDistroWindow(this,false,today, zero);
-//     addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
-//     int retValue = addDistroWindow.ShowModal();
-//     if(retValue == wxID_OK){
-//         Distribution newDistribution;
-//         newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
-//         newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
-//         //here specify if multiple distributions per Q are okay
-//         asset->AddDistribution(newDistribution);
-//         for(auto&pos:asset->positions){
-//             pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-//             pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
-//         }
+void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
+    wxDateTime today = wxDateTime::Today();
+    double zero = 0.0;
+    DistributionDialog addDistroWindow(this,false,today, zero);
+    addDistroWindow.SetBackgroundColour(wxColor(0,0,0));
+    int retValue = addDistroWindow.ShowModal();
+    if(retValue == wxID_OK){
+        Distribution newDistribution;
+        newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
+        newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
+        //here specify if multiple distributions per Q are okay
+        asset->AddDistribution(newDistribution);
+        for(auto&pos:asset->GetPositions()){
+            asset->TriggerUpdateOfDistributionsForPositions();
+        }
 
-//         distributionListControl->setItems(asset->distributions);
-//         distributionListControl->Update();
-//         UpdateDisplayTextValues();
-//         UpdateChartDistribution();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }
-// }
-//Will need to change this if mgmt fees go to paid/committed regardless if in deployed/reserve and only omit fees on ROC
-// void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
-//     MoveDeploy DeployMovementWindow(this);
-//     DeployMovementWindow.SetBackgroundColour(wxColor(0,0,0));
-//     int retValue = DeployMovementWindow.ShowModal();
-//     if(retValue == wxID_OK){
-//         wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
-//         double amountMoved = DeployMovementWindow.GetAmountMoved();
-//         wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
-//         if(selectedMovementDirection == "Reserve to Deploy"){
-//             for(auto&pos:asset->positions){
-//                 pos->reserve -=amountMoved * pos->percentOwnership;
-//                 pos->deployed+=amountMoved * pos->percentOwnership;
-//                 pos->movedToDeploy[dateOfMovement] = amountMoved * pos->percentOwnership;
-//                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-//                 UpdateChartValuationDeploy();
-//             }
-//         }else if(selectedMovementDirection == "Deploy to Reserve"){
-//             for(auto&pos:asset->positions){
-//                 pos->reserve+= amountMoved * pos->percentOwnership;
-//                 pos->deployed-=amountMoved * pos->percentOwnership;
-//                 pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
-//                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-//                 UpdateChartValuationDeploy();
-//             }
-//         }else if(selectedMovementDirection == "Reserve to Return of Capital"){
-//             for(auto& pos:asset->positions){
-//                 pos->reserve-= amountMoved * pos->percentOwnership;
-//                 pos->returnOfCapital+=amountMoved * pos->percentOwnership;
-//                 UpdateChartValuationDeploy();
-//             }
-//         }else if(selectedMovementDirection == "Deploy to Return of Capital"){   
-//             for(auto&pos:asset->positions){
-//                 pos->deployed-=amountMoved * pos->percentOwnership;
-//                 pos->movedOutOfDeployed[dateOfMovement] = amountMoved * pos->percentOwnership;
-//                 pos->returnOfCapital += amountMoved * pos->percentOwnership;
-//                 //since mgmt fees are calculated based on deployed capital need to readjust them based on this movement as well
-//                 pos->CalculateHistoricalManagementFees(pos->investorPtr->managementFeePercentage);
-//                 UpdateChartValuationDeploy();
-//             }
-//         }
-//         investorPositionDisplayVirtualListControl->Refresh();
-//         UpdateChartValuationDeploy();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }else if(retValue == wxID_CANCEL){
-//         //do nothing close
-//     }
-// }
+        distributionListControl->setItems(asset->GetDistributions());
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        UpdateChartDistribution();
+        //asset->PopulateIRR(); TODO Implement new IRR function 
+        UpdateDisplayTextValues();
+        this->Refresh();
+        for(const auto&position:asset->GetPositions()){
+            std::cout<<"Investor: "<<position->GetInvestorPtr()->GetName()<<std::endl;
+            std::cout<<"Invested Date: "<<position->GetDateInvested().FormatISODate()<<std::endl;
+            for(const auto&netIncome:position->GetNetIncome()){
+                std::cout<<"Net Income: Date: "<<netIncome.distribution.first.FormatISODate()<<"Amount: "<<netIncome.distribution.second<<std::endl;
+            }
+        }
+    }
+}
 
-// void AssetPopout::OnAddValuation(wxCommandEvent &e){
-//     wxDateTime today = wxDateTime::Today();
-//     double setValue = 0.0;
-//     ValuationDialog addValuationDialog(this, false,today, setValue);
-//     addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
-//     int retVal = addValuationDialog.ShowModal();
-//     if(retVal == wxID_OK){
-//         wxDateTime valuationDate = addValuationDialog.GetDate();
-//         double valuationAmount = addValuationDialog.GetValuation();
-//         Valuation newValuation;
-//         newValuation.valuationDate = valuationDate;
-//         newValuation.valuation = valuationAmount;
-//         asset->valuations.push_back(newValuation);
-//         valuationListControl->setItems(asset->valuations);
-//         portfolio.ValuationDialog();
-//         UpdateChartValuationDeploy();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Layout();
-//     }else if(retVal == wxID_CANCEL){
-//         //do nothing and exit
-//     }
-// }
+void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//only to/from deploy/reserve not ROC ROC handled differently
+    MoveDeploy DeployMovementWindow(this);
+    DeployMovementWindow.SetBackgroundColour(wxColor(0,0,0));
+    int retValue = DeployMovementWindow.ShowModal();
+    if(retValue == wxID_OK){
+        wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
+        double amountMoved = DeployMovementWindow.GetAmountMoved();
+        wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
+        if(selectedMovementDirection == "Reserve to Deploy"){
+            asset->MoveReserveToDeploy(dateOfMovement,amountMoved);
+            asset->SetPositionValues();
+        }else if(selectedMovementDirection == "Deploy to Reserve"){
+            asset->MoveDeployToReserve(dateOfMovement,amountMoved);
+            asset->SetPositionValues();
+        }
+        investorPositionDisplayVirtualListControl->Refresh();
+        UpdateChartValuationDeploy();
+        // asset->PopulateIRR();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }else if(retValue == wxID_CANCEL){
+        //do nothing close
+    }
+}
+
+void AssetPopout::OnAddValuation(wxCommandEvent &e){
+    wxDateTime today = wxDateTime::Today();
+    double setValue = 0.0;
+    ValuationDialog addValuationDialog(this, false,today, setValue);
+    addValuationDialog.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = addValuationDialog.ShowModal();
+    if(retVal == wxID_OK){
+        wxDateTime valuationDate = addValuationDialog.GetDate();
+        double valuationAmount = addValuationDialog.GetValuation();
+        Valuation newValuation;
+        newValuation.valuationDate = valuationDate;
+        newValuation.valuation = valuationAmount;
+        asset->AddNewValuation(newValuation);
+        valuationListControl->setItems(asset->GetValuations());
+        portfolio.ValuationDialog();
+        UpdateChartValuationDeploy();
+        //asset->PopulateIRR();
+        UpdateDisplayTextValues();
+        this->Layout();
+    }else if(retVal == wxID_CANCEL){
+        //do nothing and exit
+    }
+}
 
 
 

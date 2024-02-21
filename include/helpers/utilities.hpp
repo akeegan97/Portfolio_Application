@@ -18,7 +18,7 @@ namespace utilities{
     wxDateTime GetNextQuarterStartDate(wxDateTime &date);
     std::pair<wxDateTime, wxDateTime> GetCurrentQuarterDates(const wxDateTime &currentDate);
     double CalculateDaysBetween(const wxDateTime &start, const wxDateTime &end);
-    void SortDistributions(std::vector<Distribution> &distributions);
+    bool AreSameQuarter(const wxDateTime &date1, const wxDateTime &date2);
     template <typename T>
     std::string formatDollarAmount(T value);
 }

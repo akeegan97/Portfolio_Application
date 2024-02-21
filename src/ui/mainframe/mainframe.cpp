@@ -8,8 +8,8 @@
 
 
 void MainFrame::setupLayout(){
-
    for(auto&asset:portfolio.assetPtrs){
+      asset->SetCurrentValue();
       asset->SetPositionValues();
       for(auto&position:asset->GetPositions()){
          position->TriggerUpdateOfManagementFeeVector();
@@ -281,7 +281,6 @@ void MainFrame::UpdateAssetListControl(){
    allAssetVListControl->Update();
    this->Layout();
 }
-
 
 void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
    e.Skip();

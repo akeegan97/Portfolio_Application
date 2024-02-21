@@ -44,10 +44,7 @@ const std::vector<Valuation>& Asset::GetValuations()const{
     return m_valuations;
 }
 
-void Asset::AddNewValuation(const wxDateTime &valuationDate, double valuationAmount){
-    Valuation newValuation;
-    newValuation.valuation=valuationAmount;
-    newValuation.valuationDate=valuationDate;
+void Asset::AddNewValuation(Valuation &newValuation){
     m_valuations.push_back(newValuation);
     UpdatePositionValuations();
 }
@@ -55,6 +52,14 @@ void Asset::AddNewValuation(const wxDateTime &valuationDate, double valuationAmo
 void Asset::UpdatePositionValuations(){
     for(auto& position: m_positions){
         position->RepopulateValuations();
+    }
+}
+
+void Asset::SetCurrentValue(){
+    if(m_valuations.empty()){
+        m_currentValue = m_assetDeployedCapital;
+    }else{
+        m_currentValue = m_valuations.back().valuation;
     }
 }
 
@@ -482,6 +487,9 @@ double Asset::GetTotalCommitted()const{
     return m_assetCommittedCapital;
 }
 
+void Asset::ClearInvestorPositionDisplays(){
+    m_investorPositionDisplays.clear();
+}
 
 void Asset::SetPositionValues(){
     for(auto&pos:m_positions){
@@ -490,5 +498,50 @@ void Asset::SetPositionValues(){
         pos->SetReserve();
         pos->SetDeployed();
         pos->SetCurrentValue();
+    }
+}
+
+const std::map<wxDateTime, double> Asset::GetROCMovements()const{
+    return m_rocMovements;
+}
+const std::map<wxDateTime, double> Asset::GetMovementsToFromDeploy()const{
+    return m_movementsToFromDeploy;
+}
+
+void Asset::MoveReserveToDeploy(wxDateTime &date, double amount){
+    m_assetReserveCapital -= amount;
+    m_assetDeployedCapital +=amount;
+    m_movementsToFromDeploy[date] = amount;
+    for(auto&pos:m_positions){
+        pos->SetMovedToDeploy();
+
+    }
+}
+
+void Asset::MoveDeployToReserve(wxDateTime &date, double amount){
+    m_assetReserveCapital += amount;
+    m_assetDeployedCapital -= amount;
+    m_movementsToFromDeploy[date] = -amount;
+    for(auto&pos:m_positions){
+        pos->SetMovedFromDeploy();
+    }
+
+}
+
+void Asset::MoveReserveToReturnOfCapital(wxDateTime &date, double amount){
+    m_assetReserveCapital -= amount;
+    m_assetReturnOfCapital += amount;
+    m_rocMovements[date] = amount;
+    for(auto&pos:m_positions){
+        pos->SetRocMovements();
+    }
+}
+
+void Asset::MoveDeployToReturnOfCapital(wxDateTime &date, double amount){
+    m_assetDeployedCapital -=amount;
+    m_assetReturnOfCapital +=amount;
+    m_rocMovements[date] = amount;
+    for(auto&pos:m_positions){
+        pos->SetRocMovements();
     }
 }

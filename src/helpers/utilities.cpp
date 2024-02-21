@@ -129,6 +129,19 @@ namespace utilities{
         return nextQStartDate;
     }
 
+    bool AreSameQuarter(const wxDateTime &date1, const wxDateTime &date2){
+        int year1 = date1.GetYear();
+        int year2 = date2.GetYear();
+
+        int month1 = date1.GetMonth()+1;
+        int month2 = date2.GetMonth()+1;
+
+        int q1 = (month1-1)/3 + 1;
+        int q2 = (month2-1)/3 + 1;
+
+        return year1 == year2 && q1==q2;
+    }
+
     template <typename T>
     std::string formatDollarAmount(T value) {
         std::stringstream stream;

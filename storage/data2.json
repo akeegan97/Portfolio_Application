@@ -4,9 +4,9 @@
             "Asset Exit Date": "2024-12-31",
             "Asset Name": "Collins Park",
             "Asset Sponsor":"Kawa",
-            "Asset Committed":1000000,
-            "Asset Deployed":800000,
-            "Asset Reserve":200000,
+            "Asset Committed":500000,
+            "Asset Deployed":200000,
+            "Asset Reserve":300000,
             "Asset ROC":0,
             "Asset ROC Movements":[],
             "Distributions": [
@@ -38,7 +38,7 @@
                     "InvestorName": "Hector Ovalle",
                     "Paid":500000.0,
                     "Management Fees Due": 0.0,
-                    "Ownership": 0.25,
+                    "Ownership": 0,
                     "ROC": 250000,
                     "ROC Movements":{
                         "2023-07-01":250000
@@ -60,53 +60,19 @@
                 {
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-05-16",
-                    "Deployed": 220657.265,
                     "InvestorName": "Juan Jose Risoul",
-                    "Management Fees": [
-                    ],
+                    "Paid":500000.0,
                     "Management Fees Due": 0.0,
-                    "MovedOutDeploy": null,
-                    "MovedToDeploy": null,
+                    "Ownership": 0,
+                    "ROC": 250000,
                     "ROC Movements":{
                         "2023-07-01":250000
                     },
-                    "Net Income": [
-                    ],
-                    "Ownership": 0.25,
-                    "Paid": 500000.0,
-                    "Promote Fees": [
-                    ],
-                    "ROC": 250000,
-                    "Reserve": 29342.735,
-                    "Subscribed": 250000.0
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "German Hernandez",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2023-07-01",
-                    "Deployed": 441314.53,
-                    "InvestorName": "German Hernandez",
-                    "Management Fees": [
-                    ],
-                    "Management Fees Due": 0.0,
-                    "MovedOutDeploy": null,
-                    "MovedToDeploy": null,
-                    "Net Income": [
-                    ],
-                    "Ownership": 0.5,
-                    "Paid": 500000.0,
-                    "Promote Fees": [
-                    ],
-                    "ROC": 0.0,
-                    "Reserve": 58685.47,
-                    "Subscribed": 500000.0
+                    "Management Fees": [],
+                    "MovedOutDeploy": [],
+                    "MovedToDeploy": [],
+                    "Net Income": [],
+                    "Promote Fees": []
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -114,21 +80,6 @@
         }
     ],
     "valuationVectorPlotting": [
-        {
-            "Amount": 500000.0,
-            "Date": "2023-06-30"
-        },
-        {
-            "Amount": 1000000.0,
-            "Date": "2023-09-30"
-        },
-        {
-            "Amount": 1000000.0,
-            "Date": "2023-12-31"
-        },
-        {
-            "Amount": 1367370.94,
-            "Date": "2024-02-02"
-        }
+
     ]
 }
