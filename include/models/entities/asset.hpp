@@ -85,6 +85,7 @@ class Asset{
         double GetTotalReturnOfCapital()const;
         double GetTotalCommitted()const;
         const std::vector<std::shared_ptr<Position>>& GetPositions()const;
+        std::vector<std::shared_ptr<Position>>& GetPositionsForIDP();
         double GetValuationInQuarter(wxDateTime &date)const;
         const std::vector<Valuation>& GetValuations()const;
         double GetTotalInvestors()const;
@@ -138,6 +139,7 @@ class Asset{
         void UpdateDeploymentsForPlotting(std::vector<std::pair<wxDateTime, double>> &&newDeployments);
         void SetPositionValues();
         void ClearInvestorPositionDisplays();
+        void RemoveValuation(size_t index);
 };
 
 void to_json(json &j, const Asset &asset);

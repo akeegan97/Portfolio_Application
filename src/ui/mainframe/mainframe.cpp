@@ -16,6 +16,9 @@ void MainFrame::setupLayout(){
       }
       asset->TriggerUpdateOfDistributionsForPositions();
    }
+   if(!portfolio.allInvestorPtrs.empty()){
+        portfolio.PopulateValuationMaps();    
+   }
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
    //left sizer for the left side of the page needs to be vertical 
@@ -196,7 +199,7 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
 
    XYLineRenderer* customColoredLine = new XYLineRenderer();
-   wxPen* myPen = new wxPen(wxColor(51,245,12),2);
+   wxPen* myPen = new wxPen(wxColor(52, 219, 235),2);
    customColoredLine->SetSeriePen(0,myPen);
    valuationTimeSeries->SetRenderer(customColoredLine);
 

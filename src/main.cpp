@@ -15,9 +15,6 @@ bool RugenBerg::OnInit(){
     portfolio.LoadFromFile("../storage/data2.json");
     std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
     
-    if(!portfolio.allInvestorPtrs.empty()){
-        portfolio.PopulateValuationMaps();    
-    }
     MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
     frame->SetBackgroundColour(wxColor(0,0,0));
     frame->Show(true);

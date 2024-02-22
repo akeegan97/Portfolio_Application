@@ -18,7 +18,7 @@ void AssetPopout::SetupLayout(){
     wxBoxSizer *middleVLCSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
     asset->ClearInvestorPositionDisplays();
-    for(auto& position : asset->GetPositions()){
+    for(auto& position : asset->GetPositionsForIDP()){
         auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
         asset->AddInvestorPositionDisplay(investorPositionDisplay);
     }
@@ -66,6 +66,7 @@ void AssetPopout::SetupLayout(){
     if(!asset->GetValuations().empty()){
         valuationListControl->setItems(asset->GetValuations());
     }
+    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     if(!asset->GetDistributions().empty()){
         distributionListControl->setItems(asset->GetDistributions());
@@ -115,6 +116,7 @@ void AssetPopout::SetupLayout(){
     assetLevelMovementOfCapitalButton = new wxButton(this, wxID_ANY, "Movement Of Capital");
     assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
     addValuationButton = new wxButton(this, wxID_ANY, "Valuation");
+    addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
@@ -253,7 +255,6 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         for(auto&pos:asset->GetPositions()){
             asset->TriggerUpdateOfDistributionsForPositions();
         }
-
         distributionListControl->setItems(asset->GetDistributions());
         distributionListControl->Update();
         UpdateDisplayTextValues();
@@ -310,6 +311,9 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         newValuation.valuation = valuationAmount;
         asset->AddNewValuation(newValuation);
         valuationListControl->setItems(asset->GetValuations());
+        asset->SetCurrentValue();
+        asset->SetPositionValues();
+        investorPositionDisplayVirtualListControl->Refresh();
         portfolio.ValuationDialog();
         UpdateChartValuationDeploy();
         //asset->PopulateIRR();
@@ -368,39 +372,46 @@ void AssetPopout::OnClose(wxCloseEvent &e){
 //     UpdateChartDistribution();
 // }
 
-// void AssetPopout::OnValuationEdit(wxListEvent &e){
-//     long listIndex = e.GetIndex();
-//     long dataIndex = valuationListControl->orderedIndices[listIndex];
-//     Valuation& valuationToEdit = asset->valuations[dataIndex];
-//     wxDateTime setDate  = valuationToEdit.valuationDate;
-//     double setValue = valuationToEdit.valuation;
-//     ValuationDialog valuationWindow(this, true, setDate, setValue);
-//     valuationWindow.SetBackgroundColour(wxColor(0,0,0));
-//     int retValue = valuationWindow.ShowModal();
-//     if(retValue == wxID_OK){
-//         valuationToEdit.valuation = valuationWindow.GetValuation();
-//         valuationToEdit.valuationDate = valuationWindow.GetDate();
-//         valuationListControl->setItems(asset->valuations);
-//         valuationListControl->Update();
-//         UpdateChartValuationDeploy();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }else if(retValue == MY_VALUATION_DELETE_CODE){
-//         if(dataIndex>=0 && dataIndex < asset->valuations.size()){
-//             std::swap(asset->valuations[dataIndex], asset->valuations.back());
-//             asset->valuations.pop_back();
-//         }
-//         valuationListControl->setItems(asset->valuations);
-//         valuationListControl->Update();
-//         UpdateChartValuationDeploy();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }
-//     this->Refresh();
-//     this->Layout();
-// }
+void AssetPopout::OnValuationEdit(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    long dataIndex = valuationListControl->orderedIndices[listIndex];
+    Valuation valuationToEdit = asset->GetValuations()[dataIndex];
+    wxDateTime setDate  = valuationToEdit.valuationDate;
+    double setValue = valuationToEdit.valuation;
+    ValuationDialog valuationWindow(this, true, setDate, setValue);
+    valuationWindow.SetBackgroundColour(wxColor(0,0,0));
+    int retValue = valuationWindow.ShowModal();
+    if(retValue == wxID_OK){
+        valuationToEdit.valuation = valuationWindow.GetValuation();
+        valuationToEdit.valuationDate = valuationWindow.GetDate();
+        asset->RemoveValuation(dataIndex);
+        asset->AddNewValuation(valuationToEdit);
+        valuationListControl->setItems(asset->GetValuations());
+        valuationListControl->Update();
+        asset->SetCurrentValue();
+        asset->SetPositionValues();
+        investorPositionDisplayVirtualListControl->Refresh();
+        UpdateChartValuationDeploy();
+        //asset->PopulateIRR();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }else if(retValue == MY_VALUATION_DELETE_CODE){
+        if(dataIndex>=0 && dataIndex < asset->GetValuations().size()){
+            asset->RemoveValuation(dataIndex);
+        }
+        valuationListControl->setItems(asset->GetValuations());
+        valuationListControl->Update();
+        asset->SetCurrentValue();
+        asset->SetPositionValues();
+        investorPositionDisplayVirtualListControl->Refresh();
+        UpdateChartValuationDeploy();
+        //asset->PopulateIRR();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }
+    this->Refresh();
+    this->Layout();
+}
 
 
 

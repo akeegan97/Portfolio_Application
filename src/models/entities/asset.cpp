@@ -545,3 +545,16 @@ void Asset::MoveDeployToReturnOfCapital(wxDateTime &date, double amount){
         pos->SetRocMovements();
     }
 }
+
+
+void Asset::RemoveValuation(size_t index){
+    std::swap(m_valuations[index],m_valuations.back());
+    m_valuations.pop_back();
+}
+
+
+
+
+std::vector<std::shared_ptr<Position>>& Asset::GetPositionsForIDP(){
+    return m_positions;
+}
