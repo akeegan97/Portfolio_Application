@@ -64,7 +64,7 @@ void AssetPopout::SetupLayout(){
     //add VLCs for Valuations/Distributions removal of Events
     valuationListControl = new VListControl<Valuation>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     if(!asset->GetValuations().empty()){
-        valuationListControl->setItems(asset->GetValuations());
+        valuationListControl->setItems(asset->GetValuationsNonConst());
     }
     valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
@@ -310,7 +310,7 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         newValuation.valuationDate = valuationDate;
         newValuation.valuation = valuationAmount;
         asset->AddNewValuation(newValuation);
-        valuationListControl->setItems(asset->GetValuations());
+        valuationListControl->setItems(asset->GetValuationsNonConst());
         asset->SetCurrentValue();
         asset->SetPositionValues();
         investorPositionDisplayVirtualListControl->Refresh();
@@ -375,7 +375,8 @@ void AssetPopout::OnClose(wxCloseEvent &e){
 void AssetPopout::OnValuationEdit(wxListEvent &e){
     long listIndex = e.GetIndex();
     long dataIndex = valuationListControl->orderedIndices[listIndex];
-    Valuation valuationToEdit = asset->GetValuations()[dataIndex];
+    Valuation valuationToEdit = asset->GetValuationsNonConst()[dataIndex];
+    std::cout<<"List Index: "<<listIndex<<" Data Index: "<<dataIndex<<std::endl;
     wxDateTime setDate  = valuationToEdit.valuationDate;
     double setValue = valuationToEdit.valuation;
     ValuationDialog valuationWindow(this, true, setDate, setValue);
@@ -386,7 +387,7 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         valuationToEdit.valuationDate = valuationWindow.GetDate();
         asset->RemoveValuation(dataIndex);
         asset->AddNewValuation(valuationToEdit);
-        valuationListControl->setItems(asset->GetValuations());
+        valuationListControl->setItems(asset->GetValuationsNonConst());
         valuationListControl->Update();
         asset->SetCurrentValue();
         asset->SetPositionValues();

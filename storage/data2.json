@@ -5,8 +5,8 @@
             "Asset Name": "Collins Park",
             "Asset Sponsor":"Kawa",
             "Asset Committed":500000,
-            "Asset Deployed":200000,
-            "Asset Reserve":300000,
+            "Asset Deployed":450000,
+            "Asset Reserve":50000,
             "Asset ROC":0,
             "Asset ROC Movements":[],
             "Distributions": [

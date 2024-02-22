@@ -88,6 +88,7 @@ class Asset{
         std::vector<std::shared_ptr<Position>>& GetPositionsForIDP();
         double GetValuationInQuarter(wxDateTime &date)const;
         const std::vector<Valuation>& GetValuations()const;
+        std::vector<Valuation>& GetValuationsNonConst();
         double GetTotalInvestors()const;
         double GetLastValuationAmountOrCommittedCapital()const;
         std::vector<std::shared_ptr<InvestorPositionDisplay>> GetIPDVector();
@@ -129,7 +130,7 @@ class Asset{
         static std::vector<int> columnWidths;
     //other public methods
         void SortDistributions(std::vector<Distribution> &distributions);
-        void SortValuations(std::vector<Valuation> &valuations);
+        std::vector<Valuation>& SortValuations(std::vector<Valuation> &valuations);
         void AddNewValuation(Valuation &newValuation);
         void SortValuations2();
         void SortDistributions2();

@@ -157,11 +157,12 @@ wxVariant Asset::GetValue(int col)const{
     }
 }
 
-void Asset::SortValuations(std::vector<Valuation> &valuations){
+std::vector<Valuation>& Asset::SortValuations(std::vector<Valuation> &valuations){
     std::sort(valuations.begin(),valuations.end(),
         [](const Valuation &a, const Valuation &b){
             return a.valuationDate < b.valuationDate;
         });
+    return valuations;
 }
 
 void Asset::SortValuations2(){
@@ -352,18 +353,19 @@ void Asset::PopulatePreviousQValuations(){
     wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestInvestedDate);
     wxDateTime currentQDate = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
-
-    SortValuations2();
-
-    while(qEndDate.IsEarlierThan(currentQStartDate)){
-        double qValuation = 0.0;
-        for(const auto&valuation:m_valuations){
-            if(valuation.valuationDate.IsEarlierThan(qEndDate)|| valuation.valuationDate == qEndDate){
-                qValuation = valuation.valuation;
+    if(!m_valuations.empty()){
+        std::vector<Valuation> valuations = GetValuations();
+        std::vector<Valuation> sortedValuations = SortValuations(valuations);
+        while(qEndDate.IsEarlierThan(currentQStartDate)){
+            double qValuation = 0.0;
+            for(const auto&valuation:sortedValuations){
+                if(valuation.valuationDate.IsEarlierThan(qEndDate)|| valuation.valuationDate == qEndDate){
+                    qValuation = valuation.valuation;
+                }
             }
+            m_previousQValuationMap[qEndDate] = qValuation;
+            qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
         }
-        m_previousQValuationMap[qEndDate] = qValuation;
-        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
     }
 }
 
@@ -557,4 +559,9 @@ void Asset::RemoveValuation(size_t index){
 
 std::vector<std::shared_ptr<Position>>& Asset::GetPositionsForIDP(){
     return m_positions;
+}
+
+
+std::vector<Valuation>& Asset::GetValuationsNonConst(){
+    return m_valuations;
 }

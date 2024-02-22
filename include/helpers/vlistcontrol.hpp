@@ -127,28 +127,37 @@ public:
         this->Refresh();
     }
     void sortByColumn(int column) {
-    std::sort(items.begin(), items.end(),
-                [this, column](const T& a, const T& b) {
-                    const auto& derefA = DerefHelper<T>::deref(a);
-                    const auto& derefB = DerefHelper<T>::deref(b);
-                    wxVariant aValue = derefA.GetValue(column);
-                    wxVariant bValue = derefB.GetValue(column);
+        std::vector<std::pair<int, T>> indexItemPairs;
+        for (size_t i = 0; i < items.size(); ++i) {
+            indexItemPairs.emplace_back(i, items[i]);
+        }
+        std::sort(indexItemPairs.begin(), indexItemPairs.end(),
+            [this, column](const std::pair<int, T>& aPair, const std::pair<int, T>& bPair) {
+                const auto& derefA = DerefHelper<T>::deref(aPair.second);
+                const auto& derefB = DerefHelper<T>::deref(bPair.second);
+                wxVariant aValue = derefA.GetValue(column);
+                wxVariant bValue = derefB.GetValue(column);
 
-                    if (aValue.GetType() == "string" && bValue.GetType() == "string") {
-                        return sortAscending ? aValue.GetString() < bValue.GetString() 
-                                            : aValue.GetString() > bValue.GetString();
-                    }else if (aValue.GetType() == "datetime" && bValue.GetType() == "datetime") {
-                        return sortAscending ? aValue.GetDateTime() < bValue.GetDateTime() 
-                                                    : aValue.GetDateTime() > bValue.GetDateTime();
-                    }
-                    else {  
-                        double aNumeric = aValue.GetDouble();
-                        double bNumeric = bValue.GetDouble();
-                        return sortAscending ? aNumeric < bNumeric 
-                                            : aNumeric > bNumeric;
-                    }
-                } 
-            );
+                if (aValue.GetType() == "string" && bValue.GetType() == "string") {
+                    return sortAscending ? aValue.GetString() < bValue.GetString() 
+                                        : aValue.GetString() > bValue.GetString();
+                }else if (aValue.GetType() == "datetime" && bValue.GetType() == "datetime") {
+                    return sortAscending ? aValue.GetDateTime() < bValue.GetDateTime() 
+                                                : aValue.GetDateTime() > bValue.GetDateTime();
+                }
+                else {  
+                    double aNumeric = aValue.GetDouble();
+                    double bNumeric = bValue.GetDouble();
+                    return sortAscending ? aNumeric < bNumeric 
+                                        : aNumeric > bNumeric;
+                }
+            });
+
+        for (size_t i = 0; i < indexItemPairs.size(); ++i) {
+            orderedIndices[i] = indexItemPairs[i].first;
+        }
+        
+        RefreshAfterUpdate();
     }
 
     virtual int OnGetItemColumnImage(long item, long column) const wxOVERRIDE {
