@@ -335,7 +335,7 @@ void AssetPopout::OnClose(wxCloseEvent &e){
 // void AssetPopout::OnDistributionEdit(wxListEvent &e){
 //     long listIndex = e.GetIndex();
 //     long dataIndex = distributionListControl->orderedIndices[listIndex];
-//     Distribution& selectedDistribution = asset->distributions[dataIndex];
+//     Distribution selectedDistribution = asset->GetDistributions()[dataIndex];
 //     wxDateTime distributionDate = selectedDistribution.distribution.first;
 //     double distributionAmount = selectedDistribution.distribution.second;
 //     DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);

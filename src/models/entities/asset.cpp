@@ -355,10 +355,9 @@ void Asset::PopulatePreviousQValuations(){
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
     if(!m_valuations.empty()){
         std::vector<Valuation> valuations = GetValuations();
-        std::vector<Valuation> sortedValuations = SortValuations(valuations);
         while(qEndDate.IsEarlierThan(currentQStartDate)){
             double qValuation = 0.0;
-            for(const auto&valuation:sortedValuations){
+            for(const auto&valuation:valuations){
                 if(valuation.valuationDate.IsEarlierThan(qEndDate)|| valuation.valuationDate == qEndDate){
                     qValuation = valuation.valuation;
                 }
