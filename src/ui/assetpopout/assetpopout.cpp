@@ -71,6 +71,7 @@ void AssetPopout::SetupLayout(){
     if(!asset->GetDistributions().empty()){
         distributionListControl->setItems(asset->GetDistributions());
     }
+    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
     middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
     middleVLCSizer->Add(distributionListControl,5,wxALL|wxEXPAND,5);
 
@@ -262,11 +263,12 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         //asset->PopulateIRR(); TODO Implement new IRR function 
         UpdateDisplayTextValues();
         this->Refresh();
-        for(const auto&position:asset->GetPositions()){
-            std::cout<<"Investor: "<<position->GetInvestorPtr()->GetName()<<std::endl;
-            std::cout<<"Invested Date: "<<position->GetDateInvested().FormatISODate()<<std::endl;
-            for(const auto&netIncome:position->GetNetIncome()){
-                std::cout<<"Net Income: Date: "<<netIncome.distribution.first.FormatISODate()<<"Amount: "<<netIncome.distribution.second<<std::endl;
+        std::cout<<"New Distribution Occured!"<<std::endl;
+        for(const auto& pos: asset->GetPositions()){
+            std::cout<<"Position InvestorPtr: "<<pos->GetInvestorPtr()->GetName()<<std::endl;
+            for(auto& netIncome: pos->GetNetIncome()){
+                std::cout<<"Net Income: "<<"Date: "<<netIncome.distribution.first.FormatISODate()<<
+                "Amount: "<<netIncome.distribution.second<<std::endl;
             }
         }
     }
@@ -332,45 +334,48 @@ void AssetPopout::OnClose(wxCloseEvent &e){
     e.Skip();
 }
 
-// void AssetPopout::OnDistributionEdit(wxListEvent &e){
-//     long listIndex = e.GetIndex();
-//     long dataIndex = distributionListControl->orderedIndices[listIndex];
-//     Distribution selectedDistribution = asset->GetDistributions()[dataIndex];
-//     wxDateTime distributionDate = selectedDistribution.distribution.first;
-//     double distributionAmount = selectedDistribution.distribution.second;
-//     DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);
+void AssetPopout::OnDistributionEdit(wxListEvent &e){
+    long listIndex = e.GetIndex();
+    long dataIndex = distributionListControl->orderedIndices[listIndex];
+    std::cout<<"List Index: "<<listIndex<<" Data Index: "<<dataIndex<<std::endl;
+    Distribution selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
+    wxDateTime distributionDate = selectedDistribution.distribution.first;
+    double distributionAmount = selectedDistribution.distribution.second;
+    DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);
 
-//     distributionEditwindow.SetBackgroundColour(wxColor(0,0,0));
-//     int retVal = distributionEditwindow.ShowModal();
-//     if(retVal == wxID_OK){
-//         selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
-//         selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
-//         for(auto &pos:asset->positions){
-//             pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
-//         }
-//         distributionListControl->setItems(asset->distributions);
-//         distributionListControl->Update();
-//         UpdateDisplayTextValues();
-//         UpdateChartDistribution();
-//         this->Refresh();
-//     }else if(retVal == MY_CUSTOM_DELETE_CODE){
-//         if(dataIndex >= 0 && dataIndex < asset->distributions.size()){
-//             std::swap(asset->distributions[dataIndex], asset->distributions.back());
-//             asset->distributions.pop_back();
-//         }
-//         for(auto&pos : asset->positions){
-//             pos->UpdateFinancesPostDistributionChanges(asset->distributions, pos->investorPtr->promoteFeePercentage, pos->investorPtr->managementFeePercentage);
-//         }
-//         distributionListControl->setItems(asset->distributions);
-//         distributionListControl->Update();
-//         UpdateDisplayTextValues();
-//         UpdateChartDistribution();
-//         asset->PopulateIRR();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }
-//     UpdateChartDistribution();
-// }
+    distributionEditwindow.SetBackgroundColour(wxColor(0,0,0));
+    int retVal = distributionEditwindow.ShowModal();
+    if(retVal == wxID_OK){
+        selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
+        selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
+        asset->TriggerUpdateOfDistributionsForPositions();
+        distributionListControl->setItems(asset->GetDistributions());
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        UpdateChartDistribution();
+        this->Refresh();
+    }else if(retVal == MY_CUSTOM_DELETE_CODE){
+        if(dataIndex >= 0 && dataIndex < asset->GetDistributions().size()){
+            asset->RemoveDistribution(dataIndex);
+        }
+        asset->TriggerUpdateOfDistributionsForPositions();
+        distributionListControl->setItems(asset->GetDistributions());
+        distributionListControl->Update();
+        UpdateDisplayTextValues();
+        UpdateChartDistribution();
+        //asset->PopulateIRR();
+        UpdateDisplayTextValues();
+        this->Refresh();
+        for(const auto& pos: asset->GetPositions()){
+            std::cout<<"Position InvestorPtr: "<<pos->GetInvestorPtr()->GetName()<<std::endl;
+            for(auto& netIncome: pos->GetNetIncome()){
+                std::cout<<"Net Income: "<<"Date: "<<netIncome.distribution.first.FormatISODate()<<
+                "Amount: "<<netIncome.distribution.second<<std::endl;
+            }
+        }
+    }
+    UpdateChartDistribution();
+}
 
 void AssetPopout::OnValuationEdit(wxListEvent &e){
     long listIndex = e.GetIndex();

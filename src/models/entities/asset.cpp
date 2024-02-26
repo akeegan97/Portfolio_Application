@@ -564,3 +564,12 @@ std::vector<std::shared_ptr<Position>>& Asset::GetPositionsForIDP(){
 std::vector<Valuation>& Asset::GetValuationsNonConst(){
     return m_valuations;
 }
+
+std::vector<Distribution>& Asset::GetDistributionsNonConst(){
+    return m_distributions;
+}
+
+void Asset::RemoveDistribution(size_t index){
+    std::swap(m_distributions[index],m_distributions.back());
+    m_distributions.pop_back();
+}

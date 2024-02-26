@@ -95,6 +95,7 @@ class Asset{
         const std::vector<std::pair<wxDateTime, double>>& GetValuationsForPlotting();
         const std::vector<std::pair<wxDateTime, double>>& GetDeploymentsForPlotting();
         const std::vector<Distribution>& GetDistributions();
+        std::vector<Distribution>& GetDistributionsNonConst();
         const std::vector<std::pair<wxDateTime, double>>& GetDistributionsForPlotting();
         double GetTotalPromoteFeesEarned()const;
         double GetTotalMgmtFeesDue()const;
@@ -141,6 +142,7 @@ class Asset{
         void SetPositionValues();
         void ClearInvestorPositionDisplays();
         void RemoveValuation(size_t index);
+        void RemoveDistribution(size_t index);
 };
 
 void to_json(json &j, const Asset &asset);
