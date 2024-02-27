@@ -20,6 +20,7 @@ void Asset::ProcessDistributionsForPosition(){
     }
     for(const auto& distribution : m_distributions){
         for(auto &position: m_positions){
+            std::cout<<"Investor: "<<position->GetInvestorPtr()->GetName()<<std::endl;
             double ownershipForThisDistribution = position->CalculateOwnershipAtDate(distribution.distribution.first);
             double feesForThisDistribution = position->CalculateManagementFeesDue(distribution);
             double proportionalShareGross = distribution.distribution.second * ownershipForThisDistribution;
@@ -32,6 +33,18 @@ void Asset::ProcessDistributionsForPosition(){
             newDistribution.distribution.first = distribution.distribution.first;
             newDistribution.distribution.second = remainder - newPromoteFee.promotefee.second;
             position->UpdateFinancesPostDistributionChanges(newDistribution, newPromoteFee);
+            // std::cout<<"NET INCOME"<<std::endl;
+            // for(auto ni : position->GetNetIncome()){
+            //     std::cout<<"Net Income: Date: "<< ni.distribution.first.FormatISODate()<<" Amount: "<<ni.distribution.second<<std::endl;
+            // }
+            // std::cout<<"MGMT FEES"<<std::endl;
+            // for(auto f:position->GetManagementFees()){
+            //     std::cout<<"Fee Date: "<<f.managementFeesAsset.first.FormatISODate()<<" Amount: "<<f.managementFeesAsset.second<<std::endl;
+            // }
+            // std::cout<<"Promote FEES"<<std::endl;
+            // for(auto pf: position->GetPromoteFees()){
+            //     std::cout<<"Promote FEE DATE: "<<pf.promotefee.first.FormatISODate()<<" Amount: "<<pf.promotefee.second<<std::endl;
+            // }
         }
     }
 }
@@ -572,4 +585,11 @@ std::vector<Distribution>& Asset::GetDistributionsNonConst(){
 void Asset::RemoveDistribution(size_t index){
     std::swap(m_distributions[index],m_distributions.back());
     m_distributions.pop_back();
+}
+
+
+void Asset::AddNewPositionAdditionalCapital(Position &position){
+    std::shared_ptr<Position> newPosition = std::make_shared<Position>(position);
+    m_positions.push_back(newPosition);
+
 }

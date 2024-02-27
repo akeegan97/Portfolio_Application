@@ -199,7 +199,7 @@ void Position::SetMovedFromDeploy(){
 
 void Position::PopulateManagementFeeVector() {
     double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
-    wxDateTime investmentStartDate = utilities::GetQuarterStartDate(m_dateInvested); // Ensure starting from the beginning of the quarter of investment
+    wxDateTime investmentStartDate = m_dateInvested; 
     wxDateTime currentDate = wxDateTime::Today();
     wxDateTime currentQuarterEndDate = utilities::GetQuarterEndDate(currentDate);
 

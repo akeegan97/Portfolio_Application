@@ -143,6 +143,7 @@ class Asset{
         void ClearInvestorPositionDisplays();
         void RemoveValuation(size_t index);
         void RemoveDistribution(size_t index);
+        void AddNewPositionAdditionalCapital(Position &position);
 };
 
 void to_json(json &j, const Asset &asset);

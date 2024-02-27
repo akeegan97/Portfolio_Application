@@ -46,6 +46,8 @@ class Portfolio{
         double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
         void PopulatePreviousQValuations();
         void PopulateAndProcessCurrentQValuations();
+
+        std::vector<std::shared_ptr<Investor>>& GetInvestors();
 };
 void to_json(json &j, const Portfolio &por);
 void from_json(const json &j, Portfolio &por);

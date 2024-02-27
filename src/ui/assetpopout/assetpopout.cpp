@@ -471,7 +471,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         for(size_t i = 0; i < count; i++) { 
             data[i] = asset->GetValuationsForPlotting()[i].second;
             times[i] = asset->GetValuationsForPlotting()[i].first.GetTicks();
-            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->GetValuationsForPlotting()[i].first.FormatISODate()<<std::endl;
+            // std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->GetValuationsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
@@ -488,7 +488,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         for(size_t i = 0; i < count2; i++) {
             data2[i] = asset->GetDeploymentsForPlotting()[i].second;
             times2[i] = asset->GetDeploymentsForPlotting()[i].first.GetTicks();
-            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->GetDeploymentsForPlotting()[i].first.FormatISODate()<<std::endl;
+            // std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->GetDeploymentsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
@@ -591,7 +591,7 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     for(size_t i = 0;i<count; i++){
         values[i] = asset->GetDistributionsForPlotting()[i].second;
         names[i] = asset->GetDistributionsForPlotting()[i].first.FormatISODate();
-        std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->GetDistributionsForPlotting()[i].first.FormatISODate()<<std::endl;
+        // std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->GetDistributionsForPlotting()[i].first.FormatISODate()<<std::endl;
     }
 
     CategorySimpleDataset* distributionDataSet = new CategorySimpleDataset(names,count);
