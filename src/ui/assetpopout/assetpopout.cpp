@@ -69,7 +69,7 @@ void AssetPopout::SetupLayout(){
     valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     if(!asset->GetDistributions().empty()){
-        distributionListControl->setItems(asset->GetDistributions());
+        distributionListControl->setItems(asset->GetDistributionsNonConst());
     }
     distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
     middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
@@ -338,7 +338,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     long listIndex = e.GetIndex();
     long dataIndex = distributionListControl->orderedIndices[listIndex];
     std::cout<<"List Index: "<<listIndex<<" Data Index: "<<dataIndex<<std::endl;
-    Distribution selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
+    auto selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
     wxDateTime distributionDate = selectedDistribution.distribution.first;
     double distributionAmount = selectedDistribution.distribution.second;
     DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);
@@ -348,8 +348,10 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     if(retVal == wxID_OK){
         selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
         selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
+        asset->RemoveDistribution(dataIndex);
+        asset->AddDistribution(selectedDistribution);
         asset->TriggerUpdateOfDistributionsForPositions();
-        distributionListControl->setItems(asset->GetDistributions());
+        distributionListControl->setItems(asset->GetDistributionsNonConst());
         distributionListControl->Update();
         UpdateDisplayTextValues();
         UpdateChartDistribution();
