@@ -32,8 +32,7 @@ class Portfolio{
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
         void LoadFromFile(const std::string &filePath);
 
-        //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display
-        void SetAssetPositions();        
+        //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display       
         void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
         
@@ -42,6 +41,8 @@ class Portfolio{
         double TotalInvestedCapital();
         double TotalInvestors();
         double TotalValuation();
+
+        void AddInvestor(std::shared_ptr<Investor> &investor);
 
         double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
         void PopulatePreviousQValuations();

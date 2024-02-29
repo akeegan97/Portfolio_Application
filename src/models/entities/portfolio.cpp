@@ -334,3 +334,7 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
 std::vector<std::shared_ptr<Investor>>& Portfolio::GetInvestors(){
     return allInvestorPtrs;
 }
+
+void Portfolio::AddInvestor(std::shared_ptr<Investor> &investor){
+    allInvestorPtrs.push_back(investor);
+}

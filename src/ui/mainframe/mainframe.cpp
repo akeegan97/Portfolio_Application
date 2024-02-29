@@ -178,6 +178,7 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    portfolio.PopulateValuationMaps();
    UpdateChart();
    UpdateAssetListControl();
+   UpdateInvestorListControl();
    UpdatePortfolioDisplayValues();
 
    this->Refresh();
@@ -285,6 +286,12 @@ void MainFrame::UpdateAssetListControl(){
    this->Layout();
 }
 
+void MainFrame::UpdateInvestorListControl(){
+   allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
+   allInvestorVListControl->Update();
+   this->Layout();
+}
+
 void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
    e.Skip();
 
@@ -297,3 +304,4 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
    quoteOfTheDate->Refresh();
    quoteOfTheDate->Update();
 }
+

@@ -12,32 +12,27 @@
 #include <wx/choice.h>
 #include <wx/arrstr.h>
 #include "models/entities/portfolio.hpp"
+#include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 class Portfolio;
 class AddPositionDialog : public wxDialog{
     public:
         AddPositionDialog(wxWindow *parentWindow, Portfolio &portfolio);
         void SetupLayout();
-        void SetupLayoutStandalone();
-        void SetupLayoutComponent();
-        void SetupLayoutHybrid();
 
-        void OnConfirmPositionType(wxCommandEvent &e);
-        void OnConfirmAssociatedInvestor(wxCommandEvent &e);
+        std::string& GetAssociatedInvestor();
+        std::string& GetTypeOfNewPosition();
+        
         void AddInvestor(wxCommandEvent &e);
+        void UpdateInvestorChoice();
     private:
-        wxDatePickerCtrl* datePicker;
-        wxStaticText* datePickerText;
-        wxTextCtrl* newCapitalCtrl;
-        wxStaticText* newCapitalTextCtrl;
-        wxTextCtrl* donorCapitalText;
-        wxButton* lockInChoiceButton;
-        wxButton* lockInInvestorButton;
-        wxButton* addNewInvestorButton;
-        wxChoice *typeOfNewPositionChoice;
-        wxChoice *associatedInvestor;
-        std::string m_associatedInvestorName;
-        std::string m_typeOfPosition;
         Portfolio& m_portfolio;
+        std::string m_associatedInvestor;
+        std::string m_typeOfNewPosition;
+
+        wxChoice* typeOfNewPositionChoice;
+        wxChoice* associatedInvestorChoice;
+        wxButton* addNewInvestorButton;
+        wxButton* confirmSelectionsLaunchButton;
 };
 
 

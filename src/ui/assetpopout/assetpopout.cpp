@@ -118,9 +118,12 @@ void AssetPopout::SetupLayout(){
     assetLevelMovementOfCapitalButton->Bind(wxEVT_BUTTON, &AssetPopout::OnCapitalMovement, this);
     addValuationButton = new wxButton(this, wxID_ANY, "Valuation");
     addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
+    addPositionButton = new wxButton(this, wxID_ANY, "Add New Position");
+    addPositionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddPosition, this);
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
+    buttonSizer->Add(addPositionButton);
 
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
@@ -673,6 +676,8 @@ void AssetPopout::UpdateChartDistribution(){
 }
 
 void AssetPopout::OnAddPosition(wxCommandEvent &e){
+    AddPositionDialog addPositionDialog(this, portfolio);
+    int retvalue = addPositionDialog.ShowModal();
     
 }
 void AssetPopout::CreateNewInvestor(){

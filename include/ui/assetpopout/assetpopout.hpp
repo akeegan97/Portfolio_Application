@@ -18,6 +18,7 @@
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
 #include "helpers/utilities.hpp"
+#include "ui/assetpopout/dialogs/addposition.hpp"
 
 
 class AssetPopout : public wxFrame{
@@ -54,6 +55,7 @@ class AssetPopout : public wxFrame{
         wxButton *assetLevelMovementOfCapitalButton;
         wxButton *addValuationButton;
         wxButton *addEventButton;
+        wxButton *addPositionButton;
         wxPanel *chartPanelHolderPanel;
         wxPanel *distributionChartPanelHolder;
         void SetupLayout();
