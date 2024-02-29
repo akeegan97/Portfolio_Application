@@ -16,26 +16,31 @@ class Portfolio;
 class AddPositionDialog : public wxDialog{
     public:
         AddPositionDialog(wxWindow *parentWindow, Portfolio &portfolio);
-        wxDateTime GetInvestedDate();
-        double GetSubscribedAmount();
-        double GetPaidAmount();
-        double GetDeployedAmount();
-        double GetReserveAmount();
-        double GetReturnOfCapital();
         void SetupLayout();
         void SetupLayoutStandalone();
         void SetupLayoutComponent();
         void SetupLayoutHybrid();
+
+        void OnConfirmPositionType(wxCommandEvent &e);
+        void OnConfirmAssociatedInvestor(wxCommandEvent &e);
+        void AddInvestor(wxCommandEvent &e);
     private:
         wxDatePickerCtrl* datePicker;
         wxStaticText* datePickerText;
         wxTextCtrl* newCapitalCtrl;
         wxStaticText* newCapitalTextCtrl;
         wxTextCtrl* donorCapitalText;
-
-
+        wxButton* lockInChoiceButton;
+        wxButton* lockInInvestorButton;
+        wxButton* addNewInvestorButton;
+        wxChoice *typeOfNewPositionChoice;
+        wxChoice *associatedInvestor;
+        std::string m_associatedInvestorName;
+        std::string m_typeOfPosition;
         Portfolio& m_portfolio;
 };
+
+
 
 
 #endif
