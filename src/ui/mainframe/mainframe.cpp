@@ -17,7 +17,7 @@ void MainFrame::setupLayout(){
       asset->TriggerUpdateOfDistributionsForPositions();
    }
    if(!portfolio.allInvestorPtrs.empty()){
-        portfolio.PopulateValuationMaps();    
+         portfolio.PopulateValuationMaps();    
    }
    //main sizer for the page
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -186,7 +186,11 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
 
 Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    size_t count = portfolio.valuationVectorPlotting.size();
-   if(count == 0){
+   double greatestValue=0;
+   for(const auto value : portfolio.valuationVectorPlotting){
+      greatestValue += value.second;
+   }
+   if(count == 0 || greatestValue == 0){
       return nullptr;
    }
    double * data = new double[count];

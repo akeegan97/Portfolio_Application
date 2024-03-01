@@ -676,7 +676,7 @@ void AssetPopout::UpdateChartDistribution(){
 }
 
 void AssetPopout::OnAddPosition(wxCommandEvent &e){
-    AddPositionDialog addPositionDialog(this, portfolio);
+    AddPositionDialog addPositionDialog(this, portfolio, asset);
     int retvalue = addPositionDialog.ShowModal();
     
 }

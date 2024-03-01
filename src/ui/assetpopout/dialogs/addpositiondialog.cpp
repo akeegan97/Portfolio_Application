@@ -1,9 +1,9 @@
-#include "ui/assetpopout/dialogs/addposition.hpp"
+#include "ui/assetpopout/dialogs/addpositiondialog.hpp"
 
 
-AddPositionDialog::AddPositionDialog(wxWindow* parentWindow, Portfolio &portfolio):
+AddPositionDialog::AddPositionDialog(wxWindow* parentWindow, Portfolio &portfolio, std::shared_ptr<Asset> asset):
     wxDialog(parentWindow, wxID_ANY, "Add Position",wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
-    m_portfolio(portfolio){
+    m_portfolio(portfolio),m_asset(asset){
         SetupLayout();
     }
 
@@ -34,6 +34,7 @@ void AddPositionDialog::SetupLayout(){
     addNewInvestorButton = new wxButton(this, wxID_ANY, "Add New Investor");
     addNewInvestorButton->Bind(wxEVT_BUTTON, &AddPositionDialog::AddInvestor, this);
     confirmSelectionsLaunchButton = new wxButton(this, wxID_ANY, "Confirm");
+    confirmSelectionsLaunchButton->Bind(wxEVT_BUTTON, &AddPositionDialog::OnConfirmPosition, this);
     buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND, 5);
     buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND,5);
 
@@ -62,6 +63,33 @@ void AddPositionDialog::AddInvestor(wxCommandEvent &e){
     }
 }
 
+void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
+    SetTypeOfPosition();
+    SetInvestorName();
+    std::string positionType = GetTypeOfNewPosition();
+    std::string investorName = GetAssociatedInvestor();
+    auto associatedInvestorPointer = m_portfolio.GetInvestorByName(investorName);
+    if(positionType == "Standalone"){
+        AddStandalonePositionDialog dialog(this->GetParent(), m_portfolio);
+        int retValue = dialog.ShowModal();
+        if(retValue == wxID_OK){
+            Position newPosition;
+            std::shared_ptr<Position> newPositionPtr = std::make_shared<Position>();
+            newPositionPtr->SetInvestorPtr(associatedInvestorPointer);
+            newPositionPtr->SetAssetPtr(m_asset);
+            wxDateTime dateInvested = dialog.GetDateValue();
+            double amountPaid = dialog.GetPaidAmount();
+            newPositionPtr->SetDateInvested(dateInvested);
+            newPositionPtr->SetPaid(amountPaid);
+            m_asset->AddPosition(newPositionPtr);
+            m_asset->SetNewCommittedOnNewPosition(amountPaid);
+            m_asset->SetPositionValues();
+            associatedInvestorPointer->AddPosition(newPositionPtr);
+        }
+    }
+}
+
+
 void AddPositionDialog::UpdateInvestorChoice(){
     wxArrayString investorChoices;
     for(auto& inv:m_portfolio.GetInvestors()){
@@ -83,4 +111,12 @@ std::string& AddPositionDialog::GetAssociatedInvestor(){
 }
 std::string& AddPositionDialog::GetTypeOfNewPosition(){
     return m_typeOfNewPosition;
+}
+
+void AddPositionDialog::SetTypeOfPosition(){
+    m_typeOfNewPosition = typeOfNewPositionChoice->GetStringSelection().ToStdString();
+}
+
+void AddPositionDialog::SetInvestorName(){
+    m_associatedInvestor = associatedInvestorChoice->GetStringSelection().ToStdString();
 }

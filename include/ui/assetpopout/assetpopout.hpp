@@ -18,7 +18,7 @@
 #include <wx/axis/dateaxis.h>
 #include <wx/colorscheme.h>
 #include "helpers/utilities.hpp"
-#include "ui/assetpopout/dialogs/addposition.hpp"
+#include "ui/assetpopout/dialogs/addpositiondialog.hpp"
 
 
 class AssetPopout : public wxFrame{

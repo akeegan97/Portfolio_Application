@@ -593,3 +593,7 @@ void Asset::AddNewPositionAdditionalCapital(Position &position){
     m_positions.push_back(newPosition);
 
 }
+
+void Asset::SetNewCommittedOnNewPosition(double additionalCapital){
+    m_assetCommittedCapital += additionalCapital;
+}

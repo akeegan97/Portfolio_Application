@@ -338,3 +338,12 @@ std::vector<std::shared_ptr<Investor>>& Portfolio::GetInvestors(){
 void Portfolio::AddInvestor(std::shared_ptr<Investor> &investor){
     allInvestorPtrs.push_back(investor);
 }
+
+std::shared_ptr<Investor> Portfolio::GetInvestorByName(const std::string &investorName) const{
+    for (const auto& investorPtr : allInvestorPtrs) { 
+        if (investorPtr->GetName() == investorName) {
+            return investorPtr;
+        }
+    }
+    return nullptr; 
+}

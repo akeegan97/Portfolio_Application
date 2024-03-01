@@ -5,19 +5,11 @@
             "Asset Name": "Collins Park",
             "Asset Sponsor":"Kawa",
             "Asset Committed":500000,
-            "Asset Deployed":450000,
+            "Asset Deployed":0,
             "Asset Reserve":50000,
             "Asset ROC":0,
             "Asset ROC Movements":[],
             "Distributions": [
-                {
-                    "Distribution Date":"2023-10-01",
-                    "Distribution Amount": 15000
-                },
-                {
-                    "Distribution Date":"2024-01-01",
-                    "Distribution Amount": 15000 
-                }
             ],
             "Valuations": [
             ]
@@ -35,10 +27,8 @@
                     "Paid":500000.0,
                     "Management Fees Due": 0.0,
                     "Ownership": 0,
-                    "ROC": 250000,
-                    "ROC Movements":{
-                        "2023-07-01":250000
-                    },
+                    "ROC": 0,
+                    "ROC Movements":{},
                     "Management Fees": [],
                     "MovedOutDeploy": [],
                     "MovedToDeploy": [],
@@ -60,10 +50,8 @@
                     "Paid":500000.0,
                     "Management Fees Due": 0.0,
                     "Ownership": 0,
-                    "ROC": 250000,
-                    "ROC Movements":{
-                        "2023-07-01":250000
-                    },
+                    "ROC": 0,
+                    "ROC Movements":{},
                     "Management Fees": [],
                     "MovedOutDeploy": [],
                     "MovedToDeploy": [],
