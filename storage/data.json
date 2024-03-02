@@ -1,202 +1,62 @@
 {
     "Assets": [
         {
-            "Asset Exit Date": "2023-12-31",
-            "Asset Name": "Asset 1",
+            "Asset Exit Date": "2024-12-31",
+            "Asset Name": "Collins Park",
+            "Asset Sponsor":"Kawa",
+            "Asset Committed":500000,
+            "Asset Deployed":0,
+            "Asset Reserve":0,
+            "Asset ROC":0,
+            "Asset ROC Movements":[],
             "Distributions": [
-                {
-                    "Distribution Amount": 15000.0,
-                    "Distribution Date": "2023-03-17"
-                },
-                {
-                    "Distribution Amount": 12000.0,
-                    "Distribution Date": "2023-06-21"
-                },
-                {
-                    "Distribution Amount": 20000.0,
-                    "Distribution Date": "2024-01-21"
-                }
-            ],
-            "Events": [
-                {
-                    "Event Date": "2024-01-20",
-                    "Event Details": "Test",
-                    "Has Happened": false
-                }
             ],
             "Valuations": [
-                {
-                    "Valuation Amount": 1000000.0,
-                    "Valuation Date": "2023-05-25"
-                },
-                {
-                    "Valuation Amount": 800000.0,
-                    "Valuation Date": "2023-07-25"
-                }
-            ]
-        },
-        {
-            "Asset Exit Date": "2023-12-31",
-            "Asset Name": "Asset 2",
-            "Distributions": [
-                {
-                    "Distribution Amount": 15000.0,
-                    "Distribution Date": "2023-06-21"
-                },
-                {
-                    "Distribution Amount": 15000.0,
-                    "Distribution Date": "2023-09-21"
-                },
-                {
-                    "Distribution Amount": 20000.0,
-                    "Distribution Date": "2024-01-21"
-                }
-            ],
-            "Events": [],
-            "Valuations": [
-                {
-                    "Valuation Amount": 275000.0,
-                    "Valuation Date": "2023-08-25"
-                },
-                {
-                    "Valuation Amount": 300000.0,
-                    "Valuation Date": "2024-01-25"
-                }
             ]
         }
     ],
     "Investors": [
         {
-            "Client Name": "Andrew Keegan",
+            "Client Name": "Hector Ovalle",
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Asset 1",
-                    "Date Invested": "2023-01-01",
-                    "Deployed": 500000.0,
-                    "InvestorName": "Andrew Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 904.1095890410959,
-                            "Management Fee Date": "2023-03-31"
-                        },
-                        {
-                            "Management Fee Amount": 924.6575342465753,
-                            "Management Fee Date": "2023-06-30"
-                        },
-                        {
-                            "Management Fee Amount": 934.931506849315,
-                            "Management Fee Date": "2023-09-30"
-                        },
-                        {
-                            "Management Fee Amount": 934.931506849315,
-                            "Management Fee Date": "2023-12-31"
-                        },
-                        {
-                            "Management Fee Amount": 914.3835616438356,
-                            "Management Fee Date": "2024-03-31"
-                        }
-                    ],
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Hector Ovalle",
+                    "Paid":250000.0,
                     "Management Fees Due": 0.0,
-                    "MovedOutDeploy": null,
-                    "MovedToDeploy": null,
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 11276.712328767124,
-                            "Distribution Date": "2023-03-17"
-                        },
-                        {
-                            "Distribution Amount": 8860.27397260274,
-                            "Distribution Date": "2023-06-21"
-                        },
-                        {
-                            "Distribution Amount": 13772.602739726028,
-                            "Distribution Date": "2024-01-21"
-                        }
-                    ],
-                    "Ownership": 1.0,
-                    "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 2819.178082191781,
-                            "Promote Fee Date": "2023-03-17"
-                        },
-                        {
-                            "Promote Fee Amount": 2215.0684931506853,
-                            "Promote Fee Date": "2023-06-21"
-                        },
-                        {
-                            "Promote Fee Amount": 3443.150684931507,
-                            "Promote Fee Date": "2024-01-21"
-                        }
-                    ],
-                    "ROC": 0.0,
-                    "Reserve": 0.0,
-                    "Subscribed": 500000.0
-                },
+                    "Ownership": 0,
+                    "ROC": 0,
+                    "ROC Movements":{},
+                    "Management Fees": [],
+                    "MovedOutDeploy": [],
+                    "MovedToDeploy": [],
+                    "Net Income": [],
+                    "Promote Fees": []
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Juan Jose Risoul",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
                 {
-                    "AssetName": "Asset 2",
-                    "Date Invested": "2023-03-01",
-                    "Deployed": 250000.0,
-                    "InvestorName": "Andrew Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 452.05479452054794,
-                            "Management Fee Date": "2023-03-31"
-                        },
-                        {
-                            "Management Fee Amount": 462.32876712328766,
-                            "Management Fee Date": "2023-06-30"
-                        },
-                        {
-                            "Management Fee Amount": 467.4657534246575,
-                            "Management Fee Date": "2023-09-30"
-                        },
-                        {
-                            "Management Fee Amount": 467.4657534246575,
-                            "Management Fee Date": "2023-12-31"
-                        },
-                        {
-                            "Management Fee Amount": 457.1917808219178,
-                            "Management Fee Date": "2024-03-31"
-                        }
-                    ],
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Paid":250000.0,
                     "Management Fees Due": 0.0,
-                    "MovedOutDeploy": null,
-                    "MovedToDeploy": null,
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 11268.493150684932,
-                            "Distribution Date": "2023-06-21"
-                        },
-                        {
-                            "Distribution Amount": 11626.027397260274,
-                            "Distribution Date": "2023-09-21"
-                        },
-                        {
-                            "Distribution Amount": 15260.27397260274,
-                            "Distribution Date": "2024-01-21"
-                        }
-                    ],
-                    "Ownership": 1.0,
-                    "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 2817.123287671233,
-                            "Promote Fee Date": "2023-06-21"
-                        },
-                        {
-                            "Promote Fee Amount": 2906.5068493150684,
-                            "Promote Fee Date": "2023-09-21"
-                        },
-                        {
-                            "Promote Fee Amount": 3815.068493150685,
-                            "Promote Fee Date": "2024-01-21"
-                        }
-                    ],
-                    "ROC": 0.0,
-                    "Reserve": 0.0,
-                    "Subscribed": 250000.0
+                    "Ownership": 0,
+                    "ROC": 0,
+                    "ROC Movements":{},
+                    "Management Fees": [],
+                    "MovedOutDeploy": [],
+                    "MovedToDeploy": [],
+                    "Net Income": [],
+                    "Promote Fees": []
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -204,25 +64,6 @@
         }
     ],
     "valuationVectorPlotting": [
-        {
-            "Amount": 750000.0,
-            "Date": "2023-03-31"
-        },
-        {
-            "Amount": 1250000.0,
-            "Date": "2023-06-30"
-        },
-        {
-            "Amount": 1075000.0,
-            "Date": "2023-09-30"
-        },
-        {
-            "Amount": 1075000.0,
-            "Date": "2023-12-31"
-        },
-        {
-            "Amount": 1125000.0,
-            "Date": "2024-01-25"
-        }
+
     ]
 }

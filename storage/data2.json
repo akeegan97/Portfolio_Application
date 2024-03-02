@@ -4,9 +4,9 @@
             "Asset Exit Date": "2024-12-31",
             "Asset Name": "Collins Park",
             "Asset Sponsor":"Kawa",
-            "Asset Committed":500000,
+            "Asset Committed":0,
             "Asset Deployed":0,
-            "Asset Reserve":50000,
+            "Asset Reserve":0,
             "Asset ROC":0,
             "Asset ROC Movements":[],
             "Distributions": [
@@ -16,52 +16,6 @@
         }
     ],
     "Investors": [
-        {
-            "Client Name": "Hector Ovalle",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2023-05-16",
-                    "InvestorName": "Hector Ovalle",
-                    "Paid":500000.0,
-                    "Management Fees Due": 0.0,
-                    "Ownership": 0,
-                    "ROC": 0,
-                    "ROC Movements":{},
-                    "Management Fees": [],
-                    "MovedOutDeploy": [],
-                    "MovedToDeploy": [],
-                    "Net Income": [],
-                    "Promote Fees": []
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "Juan Jose Risoul",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2023-05-16",
-                    "InvestorName": "Juan Jose Risoul",
-                    "Paid":500000.0,
-                    "Management Fees Due": 0.0,
-                    "Ownership": 0,
-                    "ROC": 0,
-                    "ROC Movements":{},
-                    "Management Fees": [],
-                    "MovedOutDeploy": [],
-                    "MovedToDeploy": [],
-                    "Net Income": [],
-                    "Promote Fees": []
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        }
     ],
     "valuationVectorPlotting": [
 

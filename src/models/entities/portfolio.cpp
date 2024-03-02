@@ -300,6 +300,9 @@ void Portfolio::PopulatePreviousQValuations() {
 
 void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::map<wxString, double> assetLastValuationMap; 
+    if(previousQMap.empty()){
+        return;
+    }
     double currentValuation = previousQMap.rbegin()->second; 
     wxDateTime today = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);

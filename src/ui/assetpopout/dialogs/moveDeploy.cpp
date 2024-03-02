@@ -42,8 +42,6 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
         wxArrayString choices;
         choices.Add("Reserve to Deploy");
         choices.Add("Deploy to Reserve");
-        choices.Add("Reserve to Return of Capital");
-        choices.Add("Deploy to Return of Capital");
         directionOfMovement = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,choices);
         directionOfMovement->SetForegroundColour(wxColor(51,245,12));
         directionOfMovement->SetBackgroundColour(wxColor(0,0,0));

@@ -8,6 +8,7 @@
 #include "ui/assetpopout/dialogs/distributiondialog.hpp"
 #include "ui/assetpopout/dialogs/moveDeploy.hpp"
 #include "ui/assetpopout/dialogs/valuationdialog.hpp"
+#include "ui/assetpopout/dialogs/setassetdeployreservedialog.hpp"
 
 
 void AssetPopout::SetupLayout(){
@@ -120,10 +121,13 @@ void AssetPopout::SetupLayout(){
     addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
     addPositionButton = new wxButton(this, wxID_ANY, "Add New Position");
     addPositionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddPosition, this);
+    wxButton *setAssetValues = new wxButton(this, wxID_ANY, "Set Asset Values");
+    setAssetValues->Bind(wxEVT_BUTTON, &AssetPopout::OnSetAssetValues, this);
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
     buttonSizer->Add(addPositionButton);
+    buttonSizer->Add(setAssetValues);
 
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
@@ -277,7 +281,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
     }
 }
 
-void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//only to/from deploy/reserve not ROC ROC handled differently
+void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//Changing to be the "Setter" from the UI that controls what the assets deployed/reserve values are
     MoveDeploy DeployMovementWindow(this);
     DeployMovementWindow.SetBackgroundColour(wxColor(0,0,0));
     int retValue = DeployMovementWindow.ShowModal();
@@ -328,8 +332,6 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         //do nothing and exit
     }
 }
-
-
 
 void AssetPopout::OnClose(wxCloseEvent &e){
     wxCommandEvent evt(ASSET_POPOUT_CLOSED, wxID_ANY);
@@ -423,8 +425,6 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
     this->Refresh();
     this->Layout();
 }
-
-
 
 Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     asset->PopulateValuationsDeploymentsForPlotting();
@@ -555,7 +555,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     FillAreaDraw *chartFillArea2 = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
     myChart->SetBackground(chartFillArea2);
 
-    return myChart;
+    return nullptr;
 }
 
 void AssetPopout::UpdateChartValuationDeploy(){
@@ -678,8 +678,36 @@ void AssetPopout::UpdateChartDistribution(){
 void AssetPopout::OnAddPosition(wxCommandEvent &e){
     AddPositionDialog addPositionDialog(this, portfolio, asset);
     int retvalue = addPositionDialog.ShowModal();
+    if(retvalue == wxID_OK){
+        asset->ClearInvestorPositionDisplays();
+        for(auto& position : asset->GetPositionsForIDP()){
+            std::cout<<"Position: "<<position->GetInvestorPtr()->GetName()<<std::endl;
+            auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
+            asset->AddInvestorPositionDisplay(investorPositionDisplay);
+            investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
+        }
+        UpdateChartValuationDeploy();
+        UpdateChartDistribution();
+        UpdateDisplayTextValues();
+        this->Refresh();
+    }
     
 }
-void AssetPopout::CreateNewInvestor(){
 
+void AssetPopout::OnSetAssetValues(wxCommandEvent &e){
+    SetAssetDeployReserveDialog dialog(this);
+    int retValue = dialog.ShowModal();
+    if(retValue == wxID_OK){
+        wxDateTime dateOfDeploy = dialog.GetDate();
+        double amountDeploy = dialog.GetDeploy();
+        double amountReserve = dialog.GetReserve();
+        std::pair<wxDateTime, double> movement = std::make_pair(dateOfDeploy, amountDeploy);
+        asset->AddMovement(movement);
+        asset->SetDeployedCapital(amountDeploy);
+        asset->SetReserveCapital(amountReserve);
+        asset->SetPositionValues();
+        this->Refresh();
+        
+        std::cout<<"Asset: Deployed "<<asset->GetTotalAssetDeployed()<<std::endl;
+    }
 }

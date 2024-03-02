@@ -64,20 +64,17 @@ class AssetPopout : public wxFrame{
         void OnAddDistributionClicked(wxCommandEvent &e);
         void OnCapitalMovement(wxCommandEvent &e);
         void OnAddValuation(wxCommandEvent &e);
-        void OnAddEvent(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
         void OnDistributionEdit(wxListEvent &e);
         void OnValuationEdit(wxListEvent &e);
-        void OnEventEdit(wxListEvent &e);
         void OnAddPosition(wxCommandEvent &e);
+        void OnSetAssetValues(wxCommandEvent &e);
         //for valuation+deployed capital chart
         Chart* PopulateDrawChartValuationDeploy();
         void UpdateChartValuationDeploy();
         //for distributions chart
         Chart* PopulateDrawChartDistribution();
         void UpdateChartDistribution();
-        void CreateNewInvestor();
-        void AddNewPositionToInvestor();
 };
 
 

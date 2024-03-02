@@ -125,6 +125,9 @@ class Asset{
         void MoveDeployToReturnOfCapital(wxDateTime &date,double amount);
         void SetCurrentValue();
         void SetNewCommittedOnNewPosition(double additionalCapital);
+        void SetDeployedCapital(double &startingDeployed);
+        void SetReserveCapital(double &startingReserve);
+        void AddMovement(std::pair<wxDateTime, double>& movement);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

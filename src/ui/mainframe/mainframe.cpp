@@ -11,6 +11,7 @@ void MainFrame::setupLayout(){
    for(auto&asset:portfolio.assetPtrs){
       asset->SetCurrentValue();
       asset->SetPositionValues();
+      std::cout<<"Asset Total Commit: "<<asset->GetTotalCommitted();
       for(auto&position:asset->GetPositions()){
          position->TriggerUpdateOfManagementFeeVector();
       }

@@ -597,3 +597,16 @@ void Asset::AddNewPositionAdditionalCapital(Position &position){
 void Asset::SetNewCommittedOnNewPosition(double additionalCapital){
     m_assetCommittedCapital += additionalCapital;
 }
+
+void Asset::SetDeployedCapital(double &startingDeployed){
+    m_assetDeployedCapital = startingDeployed;
+}
+void Asset::SetReserveCapital(double &startingReserve){
+    m_assetReserveCapital = startingReserve;
+}
+
+void Asset::AddMovement(std::pair<wxDateTime, double>& movement){
+    m_movementsToFromDeploy[movement.first] = movement.second;
+}
+
+

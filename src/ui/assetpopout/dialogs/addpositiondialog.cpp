@@ -35,8 +35,10 @@ void AddPositionDialog::SetupLayout(){
     addNewInvestorButton->Bind(wxEVT_BUTTON, &AddPositionDialog::AddInvestor, this);
     confirmSelectionsLaunchButton = new wxButton(this, wxID_ANY, "Confirm");
     confirmSelectionsLaunchButton->Bind(wxEVT_BUTTON, &AddPositionDialog::OnConfirmPosition, this);
+    wxButton *okayButton = new wxButton(this, wxID_OK, "Done");
     buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND, 5);
     buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND,5);
+    buttonSizer->Add(okayButton, 1, wxALL|wxEXPAND,5);
 
 
     mainSizer->Add(buttonSizer, 1, wxALL|wxEXPAND,5);
@@ -85,6 +87,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             m_asset->SetNewCommittedOnNewPosition(amountPaid);
             m_asset->SetPositionValues();
             associatedInvestorPointer->AddPosition(newPositionPtr);
+            newPositionPtr->TriggerUpdateOfManagementFeeVector();
+            m_asset->TriggerUpdateOfDistributionsForPositions();
         }
     }
 }
