@@ -5,6 +5,7 @@
 #include "ui/mainframe/mainframe.hpp"
 #include "ui/assetpopout/assetpopout.hpp"
 #include "ui/investorpopout/investorpopout.hpp"
+#include "ui/mainframe/dialogs/addassetdialog.hpp"
 
 
 void MainFrame::setupLayout(){
@@ -31,8 +32,11 @@ void MainFrame::setupLayout(){
    if(!portfolio.assetPtrs.empty()){
       allAssetVListControl->setItems(portfolio.assetPtrs);
    }
+   addAssetButton = new wxButton(this, wxID_ANY, "Add Asset");
+   addAssetButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddAsset, this);
 
    lSideSizer->Add(allAssetVListControl, 4, wxEXPAND | wxALL, 10);
+   lSideSizer->Add(addAssetButton, 1, wxEXPAND, 10);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -310,3 +314,17 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
    quoteOfTheDate->Update();
 }
 
+void MainFrame::OnAddAsset(wxCommandEvent &e){
+   AddAssetDialog dialog(this);
+   int retValue = dialog.ShowModal();
+   if(retValue == wxID_OK){
+      wxDateTime newAssetExitDate = dialog.GetExitDate();
+      wxString newAssetName = dialog.GetAssetName();
+      wxString newAssetSponser = dialog.GetAssetSponser();
+      Asset newAsset(newAssetName, newAssetSponser, newAssetExitDate);
+      std::shared_ptr<Asset> newAssetPtr = std::make_shared<Asset>(newAsset);
+      portfolio.AddAsset(newAssetPtr);
+      allAssetVListControl->setItems(portfolio.assetPtrs);
+      this->Refresh();
+   }
+}

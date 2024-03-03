@@ -71,7 +71,20 @@ class Asset{
     public:
         Asset() = default;
         Asset(const wxString &assetName, const wxString &assetSponserName, wxDateTime &assetExitDate):
-            m_assetName(assetName),m_assetSponserName(assetSponserName),m_assetExitDate(assetExitDate){};
+            m_assetName(assetName),
+            m_assetSponserName(assetSponserName),
+            m_assetExitDate(assetExitDate),
+            m_assetCommittedCapital(0.0),
+            m_assetDeployedCapital(0.0),
+            m_assetReserveCapital(0.0),
+            m_assetReturnOfCapital(0.0),
+            m_currentValue(0.0),
+            m_totalInvestedCapital(0.0),
+            m_countOfInvestors(0),
+            m_totalMgmtFeesEarned(0.0),
+            m_totalMgmtFeesDue(0.0),
+            m_totalPromoteFeesEarned(0.0),
+            m_irr(0.0){};
         bool operator < (const Asset & other)const{
             return m_assetName < other.m_assetName;
         }

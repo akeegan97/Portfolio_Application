@@ -54,6 +54,7 @@ class MainFrame : public wxFrame{
         wxStaticText * quoteOfTheDate;
         wxPanel* quoteOftheDatePanel;
         std::string originalQuoteText;
+        wxButton *addAssetButton;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
@@ -65,6 +66,7 @@ class MainFrame : public wxFrame{
         void UpdateInvestorListControl();
         void OnInvestorVLCClick(wxListEvent &e);
         void OnFrameResizeForQuote(wxSizeEvent &e);
+        void OnAddAsset(wxCommandEvent &e);
 };
 
 

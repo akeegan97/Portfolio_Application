@@ -350,3 +350,7 @@ std::shared_ptr<Investor> Portfolio::GetInvestorByName(const std::string &invest
     }
     return nullptr; 
 }
+
+void Portfolio::AddAsset(std::shared_ptr<Asset> &newAsset){
+    assetPtrs.push_back(newAsset);
+}

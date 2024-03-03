@@ -43,6 +43,7 @@ class Portfolio{
         double TotalValuation();
 
         void AddInvestor(std::shared_ptr<Investor> &investor);
+        void AddAsset(std::shared_ptr<Asset> &newAsset);
 
         double GetLastValuationOrDeployedCapital(std::shared_ptr<Asset> &asset, const wxDateTime &date);
         void PopulatePreviousQValuations();
