@@ -6,12 +6,14 @@
 #include "ui/assetpopout/assetpopout.hpp"
 #include "ui/investorpopout/investorpopout.hpp"
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
+#include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 
 
 void MainFrame::setupLayout(){
    for(auto&asset:portfolio.assetPtrs){
       asset->SetCurrentValue();
       asset->SetPositionValues();
+      asset->TriggerUpdateDerivedValues();
       std::cout<<"Asset Total Commit: "<<asset->GetTotalCommitted();
       for(auto&position:asset->GetPositions()){
          position->TriggerUpdateOfManagementFeeVector();
@@ -25,6 +27,7 @@ void MainFrame::setupLayout(){
    auto mainSizer = new wxBoxSizer(wxHORIZONTAL);
    //left sizer for the left side of the page needs to be vertical 
    wxBoxSizer* lSideSizer = new wxBoxSizer(wxVERTICAL);
+   auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
    allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
    allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
@@ -33,10 +36,14 @@ void MainFrame::setupLayout(){
       allAssetVListControl->setItems(portfolio.assetPtrs);
    }
    addAssetButton = new wxButton(this, wxID_ANY, "Add Asset");
+   addInvestorButton = new wxButton(this, wxID_ANY, "Add Investor");
+   addInvestorButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddInvestor, this);
    addAssetButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddAsset, this);
 
-   lSideSizer->Add(allAssetVListControl, 4, wxEXPAND | wxALL, 10);
-   lSideSizer->Add(addAssetButton, 1, wxEXPAND, 10);
+   lSideSizer->Add(allAssetVListControl, 3, wxEXPAND | wxALL, 10);
+   buttonSizer->Add(addAssetButton,1, wxEXPAND,10);
+   buttonSizer->Add(addInvestorButton, 1, wxEXPAND,10);
+   lSideSizer->Add(buttonSizer, 2, wxEXPAND,10);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -47,7 +54,7 @@ void MainFrame::setupLayout(){
    }
    allInvestorVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnInvestorVLCClick, this);
 
-   lSideSizer->Add(allInvestorVListControl, 4, wxEXPAND | wxALL, 10);
+   lSideSizer->Add(allInvestorVListControl, 3, wxEXPAND | wxALL, 10);
    mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -182,6 +189,11 @@ void MainFrame::OnInvestorVLCClick(wxListEvent &e){
 void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
    portfolio.PopulateValuationMaps();
    UpdateChart();
+   for(auto asset:portfolio.assetPtrs){
+      asset->SetCurrentValue();
+      asset->SetPositionValues();      
+      asset->TriggerUpdateDerivedValues();
+   }
    UpdateAssetListControl();
    UpdateInvestorListControl();
    UpdatePortfolioDisplayValues();
@@ -325,6 +337,25 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       std::shared_ptr<Asset> newAssetPtr = std::make_shared<Asset>(newAsset);
       portfolio.AddAsset(newAssetPtr);
       allAssetVListControl->setItems(portfolio.assetPtrs);
+      this->Refresh();
+   }
+}
+
+void MainFrame::OnAddInvestor(wxCommandEvent &e){
+   AddInvestorDialog dialog(this);
+   int retValue = dialog.ShowModal();
+   if(retValue == wxID_OK){
+      wxString name = dialog.GetInvestorName();
+      wxString type = dialog.GetInvestorType();
+      double promotefee = dialog.GetInvestorPromoteFee();
+      double managementFee = dialog.GetInvestorMgmtFee();
+
+      Investor newInvestor(name,type,managementFee, promotefee);
+      std::shared_ptr<Investor> newInvestorPtr = std::make_shared<Investor>(newInvestor);
+
+      portfolio.AddInvestor(newInvestorPtr);
+
+      allInvestorVListControl->setItems(portfolio.GetInvestors());
       this->Refresh();
    }
 }

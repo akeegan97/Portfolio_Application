@@ -56,13 +56,13 @@ class Asset{
         std::map<wxDateTime, double> m_previousQDeploymentMap;
         std::map<wxDateTime, double> m_currentQDeploymentMap;
     //private helper functions 
-        void UpdateTotalMgmtFeesEarned();
-        void UpdateTotalPromoteFeesEarned();
-        void UpdateTotalCountOfInvestors();
-        void UpdateTotalInvestedCapital();
-        void ProcessDistributionsForPosition();
-        void UpdatePositionValuations();
-        void UpdateCurrentvalue();
+        void UpdateTotalMgmtFeesEarned();/////
+        void UpdateTotalPromoteFeesEarned();/////
+        void UpdateTotalCountOfInvestors();/////
+        void UpdateTotalInvestedCapital();/////
+        void UpdateCurrentvalue();///////
+        void ProcessDistributionsForPosition();//
+        void UpdatePositionValuations();//
         void PopulatePreviousQValuations();
         void PopulateCurrentQValuations();
         void PopulatePreviousQDeploys();
@@ -141,6 +141,7 @@ class Asset{
         void SetDeployedCapital(double &startingDeployed);
         void SetReserveCapital(double &startingReserve);
         void AddMovement(std::pair<wxDateTime, double>& movement);
+        void TriggerUpdateDerivedValues();
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

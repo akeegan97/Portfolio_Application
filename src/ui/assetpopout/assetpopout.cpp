@@ -474,7 +474,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         for(size_t i = 0; i < count; i++) { 
             data[i] = asset->GetValuationsForPlotting()[i].second;
             times[i] = asset->GetValuationsForPlotting()[i].first.GetTicks();
-            // std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->GetValuationsForPlotting()[i].first.FormatISODate()<<std::endl;
+            std::cout<<"Valuation:i = "<<i<<" Data[i] = "<<data[i]<< "times[i] = "<<asset->GetValuationsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
@@ -491,7 +491,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         for(size_t i = 0; i < count2; i++) {
             data2[i] = asset->GetDeploymentsForPlotting()[i].second;
             times2[i] = asset->GetDeploymentsForPlotting()[i].first.GetTicks();
-            // std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->GetDeploymentsForPlotting()[i].first.FormatISODate()<<std::endl;
+            std::cout<<"Deployment:i = "<<i<<" Data[i] = "<<data2[i]<< "times[i] = "<<asset->GetDeploymentsForPlotting()[i].first.FormatISODate()<<std::endl;
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
@@ -555,7 +555,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     FillAreaDraw *chartFillArea2 = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
     myChart->SetBackground(chartFillArea2);
 
-    return nullptr;
+    return myChart;
 }
 
 void AssetPopout::UpdateChartValuationDeploy(){
@@ -681,13 +681,14 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
     if(retvalue == wxID_OK){
         asset->ClearInvestorPositionDisplays();
         for(auto& position : asset->GetPositionsForIDP()){
-            std::cout<<"Position: "<<position->GetInvestorPtr()->GetName()<<std::endl;
+            position->TriggerUpdateOfManagementFeeVector();
             auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
             asset->AddInvestorPositionDisplay(investorPositionDisplay);
             investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
         }
-        UpdateChartValuationDeploy();
-        UpdateChartDistribution();
+        asset->TriggerUpdateOfDistributionsForPositions();
+        // UpdateChartValuationDeploy();
+        // UpdateChartDistribution();
         UpdateDisplayTextValues();
         this->Refresh();
     }
@@ -706,6 +707,9 @@ void AssetPopout::OnSetAssetValues(wxCommandEvent &e){
         asset->SetDeployedCapital(amountDeploy);
         asset->SetReserveCapital(amountReserve);
         asset->SetPositionValues();
+        UpdateDisplayTextValues();
+        UpdateChartValuationDeploy();
+        UpdateChartDistribution();
         this->Refresh();
         
         std::cout<<"Asset: Deployed "<<asset->GetTotalAssetDeployed()<<std::endl;
