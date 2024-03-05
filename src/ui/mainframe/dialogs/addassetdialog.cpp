@@ -1,4 +1,5 @@
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
+#include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 
 
 AddAssetDialog::AddAssetDialog(wxWindow*parentWindow,Portfolio &portfolio):
@@ -63,6 +64,7 @@ void AddAssetDialog::SetupLayout(){
     confirmButton = new wxButton(this, wxID_OK, "Confirm Asset");
     cancelButton = new wxButton(this, wxID_CANCEL,"Cancel Asset");
     createNewInvestorButton = new wxButton(this, wxID_ANY,"Create New Investor");
+    createNewInvestorButton->Bind(wxEVT_BUTTON, &AddAssetDialog::OnAddInvestor, this);
     
     topLeftSizer->Add(assetNameCtrlText,1,wxLEFT,5);
     topLeftSizer->Add(assetNameCtrl,1,wxEXPAND,5);
@@ -70,7 +72,7 @@ void AddAssetDialog::SetupLayout(){
     topLeftSizer->Add(assetSponserCtrl,1, wxEXPAND,5);
     topLeftSizer->Add(assetExitDateText,1,wxLEFT,5);
     topLeftSizer->Add(assetExitDateCtrl,1,wxEXPAND,5);
-    topSizer->Add(topLeftSizer,1,wxEXPAND,5);
+    topSizer->Add(topLeftSizer,1,wxEXPAND,20);
     topRightSizer->Add(investorChoiceText,1,wxLEFT,5);
     topRightSizer->Add(investorChoiceCtrl,1,wxEXPAND,5);
     topRightSizer->Add(paidAmountText,1,wxLEFT,5);
@@ -81,7 +83,7 @@ void AddAssetDialog::SetupLayout(){
     topRightSizer->Add(reserveAmountTextCtrl,1,wxEXPAND,5);
     topRightSizer->Add(effectiveStartDateCtrlText,1,wxLEFT,5);
     topRightSizer->Add(effectiveStartDateCtrl,1,wxEXPAND,5);
-    topSizer->Add(topRightSizer,1,wxEXPAND,5);
+    topSizer->Add(topRightSizer,1,wxEXPAND,20);
 
     buttonSizer->Add(createNewInvestorButton,1,wxEXPAND,5);
     buttonSizer->Add(cancelButton, 1, wxEXPAND,5);
@@ -107,4 +109,51 @@ wxString AddAssetDialog::GetAssetSponser(){
 
 wxDateTime AddAssetDialog::GetExitDate(){
     return assetExitDateCtrl->GetValue();
+}
+
+wxDateTime AddAssetDialog::GetEffectiveDate(){
+    return effectiveStartDateCtrl->GetValue();
+}
+double AddAssetDialog::GetPaidAmount(){
+    return wxAtof(paidAmountTextCtrl->GetValue());
+}
+double AddAssetDialog::GetReserveAmount(){
+    return wxAtof(reserveAmountTextCtrl->GetValue());
+}
+double AddAssetDialog::GetDeployedAmount(){
+    return wxAtof(deployedAmountTextCtrl->GetValue());
+}
+std::string AddAssetDialog::GetInvestorChoiceName(){
+    return investorChoiceCtrl->GetStringSelection().ToStdString();
+}
+
+
+void AddAssetDialog::OnAddInvestor(wxCommandEvent &e){
+    AddInvestorDialog dialog(this);
+    int retValue = dialog.ShowModal();
+    if(retValue == wxID_OK){
+        wxString name = dialog.GetInvestorName();
+        wxString type = dialog.GetInvestorType();
+        double promotefee = dialog.GetInvestorPromoteFee();
+        double managementFee = dialog.GetInvestorMgmtFee();
+        if(name == ""||type ==""){
+            return;
+        }
+        Investor newInvestor(name, type, managementFee, promotefee);
+        std::shared_ptr<Investor> newInvestorPtr = std::make_shared<Investor>(newInvestor);
+        m_portfolio.AddInvestor(newInvestorPtr);
+        UpdateInvestorChoice();
+        this->Layout();
+    }
+}
+
+void AddAssetDialog::UpdateInvestorChoice(){
+    wxArrayString investorChoices;
+    for(auto &inv: m_portfolio.GetInvestors()){
+        std::string name = inv->GetName();
+        investorChoices.Add(name);
+    }
+    investorChoiceCtrl->Clear();
+    investorChoiceCtrl->Append(investorChoices);
+    investorChoiceCtrl->Refresh();
 }

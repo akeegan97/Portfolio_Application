@@ -72,6 +72,7 @@ void Asset::SetCurrentValue(){
     if(m_valuations.empty()){
         m_currentValue = m_assetDeployedCapital;
     }else{
+        SortValuations2();
         m_currentValue = m_valuations.back().valuation;
     }
 }
@@ -399,41 +400,33 @@ void Asset::PopulateCurrentQValuations(){
     }
 }
 
-void Asset::PopulatePreviousQDeploys(){
+void Asset::PopulatePreviousQDeploys() {
     m_previousQDeploymentMap.clear();
-    wxDateTime oldestDate = wxDateTime::Today();
-
-    for(const auto&movement:m_movementsToFromDeploy){
-       if(movement.first < oldestDate){
-        oldestDate = movement.first;
-       }
+    if (m_movementsToFromDeploy.empty()) {
+        return; 
     }
+    double deployedCapital = 0;
+    wxDateTime oldestMovement = m_movementsToFromDeploy.begin()->first;
+    wxDateTime qEndingDate = utilities::GetQuarterEndDate(oldestMovement);
+    wxDateTime currentQDate = wxDateTime::Today();
+    wxDateTime currentQstartDate = utilities::GetQuarterStartDate(currentQDate);
 
-    wxDateTime qEndDate = utilities::GetQuarterEndDate(oldestDate);
-    wxDateTime today = wxDateTime::Today();
-    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
-    double initialDeployment = m_assetDeployedCapital;
-    double currentDeployedCapital = m_assetDeployedCapital;
-
-    // Traverse quarters backward from the current quarter start date to the quarter end date after the oldest investment
-    while(qEndDate.IsEarlierThan(currentQStartDate)){
-        // Adjust the current deployed capital based on movements after the quarter end date
-        for(const auto& movement : m_movementsToFromDeploy){
-            if(movement.first < qEndDate && movement.first.IsEarlierThan(currentQStartDate)){
-                // If the movement is to deployment, subtract it (since we're moving backward in time)
-                currentDeployedCapital -= movement.second;
+    while(qEndingDate <= currentQstartDate){
+        for(const auto& movement:m_movementsToFromDeploy){
+            if(utilities::IsWithinQuarter(movement.first, qEndingDate)){
+                deployedCapital += movement.second;
             }
         }
-
-        // Record the adjusted deployed capital for the quarter
-        m_previousQDeploymentMap[qEndDate] = currentDeployedCapital;
-
-        // Move to the next quarter end date
-        qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
+        m_previousQDeploymentMap[qEndingDate] = deployedCapital;
+        qEndingDate = utilities::GetNextQuarterEndDate(qEndingDate);
     }
 }
 void Asset::PopulateCurrentQDeploys(){
     m_currentQDeploymentMap.clear();
+    if(m_previousQDeploymentMap.empty()){
+        wxDateTime today = wxDateTime::Today();
+        m_currentQDeploymentMap[today] = m_assetCommittedCapital;
+    }
     double currentDeploy = m_previousQDeploymentMap.rbegin()->second;
     wxDateTime today = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
@@ -457,9 +450,8 @@ void Asset::PopulateValuationsDeploymentsForPlotting(){
         PopulateCurrentQValuations();
     }
     PopulatePreviousQDeploys();
-    if(!m_previousQDeploymentMap.empty()){
-        PopulateCurrentQDeploys(); 
-    }
+    PopulateCurrentQDeploys(); 
+    
     for(const auto&entry:m_previousQValuationMap){
         m_valuationsForPlotting.push_back(entry);
     }
@@ -618,7 +610,13 @@ void Asset::SetReserveCapital(double &startingReserve){
 void Asset::AddMovement(std::pair<wxDateTime, double>& movement){
     m_movementsToFromDeploy[movement.first] = movement.second;
 }
+void Asset::AddNewDeployed(double &newDeployed){
+    m_assetDeployedCapital +=newDeployed;
+}
 
+void Asset::AddNewReserve(double &newReserve){
+    m_assetReserveCapital+=newReserve;
+}
 
 void Asset::TriggerUpdateDerivedValues(){
     UpdateTotalMgmtFeesEarned();

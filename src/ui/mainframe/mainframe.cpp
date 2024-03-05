@@ -41,8 +41,8 @@ void MainFrame::setupLayout(){
    addAssetButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddAsset, this);
 
    lSideSizer->Add(allAssetVListControl, 3, wxEXPAND | wxALL, 10);
-   buttonSizer->Add(addAssetButton,1, wxEXPAND,10);
-   buttonSizer->Add(addInvestorButton, 1, wxEXPAND,10);
+   buttonSizer->Add(addAssetButton,1,10);
+   buttonSizer->Add(addInvestorButton, 1,10);
    lSideSizer->Add(buttonSizer, 2, wxEXPAND,10);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
@@ -101,7 +101,7 @@ void MainFrame::setupLayout(){
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
 
-   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Invested: $0.00");
+   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Committed: $0.00");
    totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Investors in fund: 0");
    totalValuationText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Valuation: $0.00");
 
@@ -125,13 +125,16 @@ void MainFrame::setupLayout(){
 }
 
 void MainFrame::UpdatePortfolioDisplayValues(){
-   double totalInvested = portfolio.TotalInvestedCapital();
-   std::string formattedTotalInvested = utilities::formatDollarAmount(totalInvested);
+   double totalCommmittedCapital = 0;
+   for(auto asset:portfolio.assetPtrs){
+      totalCommmittedCapital+=asset->GetTotalCommitted();
+   }
+   std::string formattedTotalInvested = utilities::formatDollarAmount(totalCommmittedCapital);
    double totalInvestors = portfolio.TotalInvestors();
    double totalValuation_value = portfolio.TotalValuation();
    std::string formattedTotalvaluation = utilities::formatDollarAmount(totalValuation_value);
 
-   totalInvestedText->SetLabel("Total Invested Capital: "+formattedTotalInvested);
+   totalInvestedText->SetLabel("Total Amount Committed: "+formattedTotalInvested);
    totalInvestedText->SetForegroundColour(wxColor(51, 245, 12));
    totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
    totalInvestorCountText->SetForegroundColour(wxColor(51, 245, 12));
@@ -335,11 +338,33 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       wxString newAssetName = dialog.GetAssetName();
       wxString newAssetSponser = dialog.GetAssetSponser();
       Asset newAsset(newAssetName, newAssetSponser, newAssetExitDate);
+      
+      wxDateTime dateInvested = dialog.GetEffectiveDate();
+      double paidAmount = dialog.GetPaidAmount();
+      double deployedAmount = dialog.GetDeployedAmount();
+      double reserveAmount = dialog.GetReserveAmount();
+      std::shared_ptr<Position> initializedPosition = std::make_shared<Position>();
       std::shared_ptr<Asset> newAssetPtr = std::make_shared<Asset>(newAsset);
-      //getinvestor here/set values for postion etc
+      initializedPosition->SetAssetPtr(newAssetPtr);
+      initializedPosition->SetPaid(paidAmount);
+      initializedPosition->SetDateInvested(dateInvested);
+      std::string investorName = dialog.GetInvestorChoiceName();
+      auto associatedInvestor = portfolio.GetInvestorByName(investorName);
+      initializedPosition->SetInvestorPtr(associatedInvestor);
+      auto pair = std::make_pair(dateInvested, deployedAmount);
+      newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);//new function 
+      newAssetPtr->AddMovement(pair);
+      newAssetPtr->AddPosition(initializedPosition);
+      newAssetPtr->SetDeployedCapital(deployedAmount);
+      newAssetPtr->SetReserveCapital(reserveAmount);
+      newAssetPtr->SetCurrentValue();
+      newAssetPtr->SetPositionValues();
       portfolio.AddAsset(newAssetPtr);
       allAssetVListControl->setItems(portfolio.assetPtrs);
       allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
+      portfolio.PopulateValuationMaps();
+      UpdateChart();
+      UpdatePortfolioDisplayValues();
       this->Refresh();
    }
 }
@@ -352,6 +377,9 @@ void MainFrame::OnAddInvestor(wxCommandEvent &e){
       wxString type = dialog.GetInvestorType();
       double promotefee = dialog.GetInvestorPromoteFee();
       double managementFee = dialog.GetInvestorMgmtFee();
+      if(name == ""||type ==""){
+         return;
+      }
 
       Investor newInvestor(name,type,managementFee, promotefee);
       std::shared_ptr<Investor> newInvestorPtr = std::make_shared<Investor>(newInvestor);

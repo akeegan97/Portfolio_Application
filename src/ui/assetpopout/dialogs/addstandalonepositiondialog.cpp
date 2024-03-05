@@ -21,6 +21,14 @@ void AddStandalonePositionDialog::SetupLayout(){
     amountIncreaseCapitalTextCtrl = new wxTextCtrl(this, wxID_ANY);
     amountIncreaseCapitalTextCtrl->SetValidator(numberValidator);
 
+    amountDeployText = new wxStaticText(this, wxID_ANY, "Enter Amount To Deploy");
+    amountDeployTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    amountDeployTextCtrl->SetValidator(numberValidator);
+
+    amountReserveText = new wxStaticText(this, wxID_ANY, "Enter Amount To Reserve");
+    amountReserveTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    amountReserveTextCtrl->SetValidator(numberValidator);
+
     wxDateTime setDate = wxDateTime::Today();
     dateNewPositionCtrl = new wxDatePickerCtrl(this, wxID_ANY);
     dateNewPositionCtrl->SetValue(setDate);
@@ -28,6 +36,10 @@ void AddStandalonePositionDialog::SetupLayout(){
 
     leftTopSizer->Add(amountIncreaseCapitalText, 1, wxLEFT,5);
     leftTopSizer->Add(amountIncreaseCapitalTextCtrl,1,wxALL|wxEXPAND,5);
+    leftTopSizer->Add(amountDeployText,1,wxLEFT,5);
+    leftTopSizer->Add(amountDeployTextCtrl,1,wxEXPAND,5);
+    leftTopSizer->Add(amountReserveText,1,wxLEFT,5);
+    leftTopSizer->Add(amountReserveTextCtrl,1,wxEXPAND,5);
 
     rightTopSizer->Add(dateNewPositionText, 1, wxLEFT,5);
     rightTopSizer->Add(dateNewPositionCtrl,1,wxALL|wxEXPAND,5);
@@ -49,4 +61,11 @@ wxDateTime AddStandalonePositionDialog::GetDateValue(){
 }
 double AddStandalonePositionDialog::GetPaidAmount(){
     return  wxAtof(amountIncreaseCapitalTextCtrl->GetValue());
+}
+
+double AddStandalonePositionDialog::GetDeployedAmount(){
+    return wxAtof(amountDeployTextCtrl->GetValue());
+}
+double AddStandalonePositionDialog::GetReserveAmount(){
+    return wxAtof(amountReserveTextCtrl->GetValue());
 }

@@ -121,13 +121,10 @@ void AssetPopout::SetupLayout(){
     addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
     addPositionButton = new wxButton(this, wxID_ANY, "Add New Position");
     addPositionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddPosition, this);
-    wxButton *setAssetValues = new wxButton(this, wxID_ANY, "Set Asset Values");
-    setAssetValues->Bind(wxEVT_BUTTON, &AssetPopout::OnSetAssetValues, this);
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
     buttonSizer->Add(addPositionButton);
-    buttonSizer->Add(setAssetValues);
 
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
@@ -687,31 +684,8 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
             investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
         }
         asset->TriggerUpdateOfDistributionsForPositions();
-        // UpdateChartValuationDeploy();
-        // UpdateChartDistribution();
-        UpdateDisplayTextValues();
-        this->Refresh();
-    }
-    
-}
-
-void AssetPopout::OnSetAssetValues(wxCommandEvent &e){
-    SetAssetDeployReserveDialog dialog(this);
-    int retValue = dialog.ShowModal();
-    if(retValue == wxID_OK){
-        wxDateTime dateOfDeploy = dialog.GetDate();
-        double amountDeploy = dialog.GetDeploy();
-        double amountReserve = dialog.GetReserve();
-        std::pair<wxDateTime, double> movement = std::make_pair(dateOfDeploy, amountDeploy);
-        asset->AddMovement(movement);
-        asset->SetDeployedCapital(amountDeploy);
-        asset->SetReserveCapital(amountReserve);
-        asset->SetPositionValues();
-        UpdateDisplayTextValues();
         UpdateChartValuationDeploy();
-        UpdateChartDistribution();
+        UpdateDisplayTextValues();
         this->Refresh();
-        
-        std::cout<<"Asset: Deployed "<<asset->GetTotalAssetDeployed()<<std::endl;
     }
 }

@@ -142,6 +142,8 @@ class Asset{
         void SetReserveCapital(double &startingReserve);
         void AddMovement(std::pair<wxDateTime, double>& movement);
         void TriggerUpdateDerivedValues();
+        void AddNewDeployed(double &newDeployed);
+        void AddNewReserve(double &newReserve);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

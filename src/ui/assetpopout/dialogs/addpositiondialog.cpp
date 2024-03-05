@@ -81,9 +81,15 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             newPositionPtr->SetAssetPtr(m_asset);
             wxDateTime dateInvested = dialog.GetDateValue();
             double amountPaid = dialog.GetPaidAmount();
+            double deployedAmount = dialog.GetDeployedAmount();
+            double reserveAmount = dialog.GetReserveAmount();
             newPositionPtr->SetDateInvested(dateInvested);
             newPositionPtr->SetPaid(amountPaid);
             m_asset->AddPosition(newPositionPtr);
+            std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, deployedAmount);
+            m_asset->AddNewDeployed(deployedAmount);
+            m_asset->AddNewReserve(reserveAmount);
+            m_asset->AddMovement(movement);
             m_asset->SetNewCommittedOnNewPosition(amountPaid);
             m_asset->SetPositionValues();
             associatedInvestorPointer->AddPosition(newPositionPtr);

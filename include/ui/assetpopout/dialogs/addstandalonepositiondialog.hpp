@@ -20,10 +20,16 @@ class AddStandalonePositionDialog : public wxDialog{
         void SetupLayout();
         wxDateTime GetDateValue();
         double GetPaidAmount();
+        double GetDeployedAmount();
+        double GetReserveAmount();
     private:
         Portfolio &m_portfolio;
         wxStaticText* amountIncreaseCapitalText;
         wxTextCtrl* amountIncreaseCapitalTextCtrl;
+        wxStaticText *amountDeployText;
+        wxTextCtrl *amountDeployTextCtrl;
+        wxStaticText *amountReserveText;
+        wxTextCtrl *amountReserveTextCtrl;
         wxStaticText* dateNewPositionText;
         wxDatePickerCtrl* dateNewPositionCtrl;
         wxButton* confirmButton;

@@ -22,6 +22,13 @@ class AddAssetDialog: public wxDialog{
         wxString GetAssetName();
         wxString GetAssetSponser();
         wxDateTime GetExitDate();
+        wxDateTime GetEffectiveDate();
+        double GetPaidAmount();
+        double GetDeployedAmount();
+        double GetReserveAmount();
+        std::string GetInvestorChoiceName();
+        void OnAddInvestor(wxCommandEvent &e);
+        void UpdateInvestorChoice();
 
     private:
         Portfolio &m_portfolio;
