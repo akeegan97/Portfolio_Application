@@ -14,25 +14,37 @@
 #include "models/entities/asset.hpp"
 
 class Portfolio;
-class Asset;
 
 class AddAssetDialog: public wxDialog{
     public:
-        AddAssetDialog(wxWindow *parentWindow);
+        AddAssetDialog(wxWindow *parentWindow, Portfolio &portfolio);
         void SetupLayout();
         wxString GetAssetName();
         wxString GetAssetSponser();
         wxDateTime GetExitDate();
-    private:
-        wxStaticText *inputAssetNameText;//
-        wxTextCtrl *inputAssetNameCtrl;//
-        wxStaticText *inputAssetSponserText;//
-        wxTextCtrl *inputAssetSponserCtrl;//
-        wxDatePickerCtrl * inputAssetExitDateCtrl;
-        wxStaticText *inputAssetExitDateText;
 
-        wxButton *confirmAssetButton;
-        wxButton *cancelAssetButton;
+    private:
+        Portfolio &m_portfolio;
+        wxStaticText *assetNameCtrlText;
+        wxTextCtrl *assetNameCtrl;
+        wxStaticText *assetSponserCtrlText;
+        wxTextCtrl *assetSponserCtrl;
+        wxDatePickerCtrl * assetExitDateCtrl;
+        wxStaticText *assetExitDateText;
+        wxStaticText *investorChoiceText;
+        wxChoice *investorChoiceCtrl;
+        wxStaticText* paidAmountText;
+        wxTextCtrl *paidAmountTextCtrl;
+        wxTextCtrl *deployedAmountTextCtrl;
+        wxStaticText *deployedAmountText;
+        wxStaticText *reserveAmountText;
+        wxTextCtrl *reserveAmountTextCtrl;
+        wxStaticText *effectiveStartDateCtrlText;
+        wxDatePickerCtrl *effectiveStartDateCtrl;
+
+        wxButton *confirmButton;
+        wxButton *cancelButton;
+        wxButton *createNewInvestorButton;
 };
 
 

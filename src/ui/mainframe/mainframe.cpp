@@ -327,7 +327,8 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
 }
 
 void MainFrame::OnAddAsset(wxCommandEvent &e){
-   AddAssetDialog dialog(this);
+   portfolio.EnsureFundPositionExists();
+   AddAssetDialog dialog(this,portfolio);
    int retValue = dialog.ShowModal();
    if(retValue == wxID_OK){
       wxDateTime newAssetExitDate = dialog.GetExitDate();
@@ -335,8 +336,10 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       wxString newAssetSponser = dialog.GetAssetSponser();
       Asset newAsset(newAssetName, newAssetSponser, newAssetExitDate);
       std::shared_ptr<Asset> newAssetPtr = std::make_shared<Asset>(newAsset);
+      //getinvestor here/set values for postion etc
       portfolio.AddAsset(newAssetPtr);
       allAssetVListControl->setItems(portfolio.assetPtrs);
+      allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
       this->Refresh();
    }
 }

@@ -354,3 +354,14 @@ std::shared_ptr<Investor> Portfolio::GetInvestorByName(const std::string &invest
 void Portfolio::AddAsset(std::shared_ptr<Asset> &newAsset){
     assetPtrs.push_back(newAsset);
 }
+
+void Portfolio::EnsureFundPositionExists(){
+    auto fundPositionIt = std::find_if(allInvestorPtrs.begin(),allInvestorPtrs.end(),
+                                        [](const std::shared_ptr<Investor> &investor){
+                                            return investor->GetName() == "Fund Position";
+                                        });
+    if(fundPositionIt == allInvestorPtrs.end()){
+        auto fundPosition = std::make_shared<Investor>("Fund Position","Fund",0.0,0.0);
+        allInvestorPtrs.push_back(fundPosition);
+    }
+}

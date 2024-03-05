@@ -51,6 +51,7 @@ class Portfolio{
 
         std::vector<std::shared_ptr<Investor>>& GetInvestors();
         std::shared_ptr<Investor> GetInvestorByName(const std::string &investorName) const;
+        void EnsureFundPositionExists();
 };
 void to_json(json &j, const Portfolio &por);
 void from_json(const json &j, Portfolio &por);
