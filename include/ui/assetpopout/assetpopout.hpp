@@ -23,16 +23,7 @@
 
 class AssetPopout : public wxFrame{
     public:
-        AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset)
-        : wxFrame(parentWindow, wxID_ANY, title, pos, size),
-            portfolio(port),
-            asset(asset),
-            investorPositionDisplayVirtualListControl(nullptr),
-            valuationListControl(nullptr){
-                SetupLayout();
-                UpdateDisplayTextValues();
-                Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
-            };
+        AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset);
         
         Portfolio &portfolio;
         std::shared_ptr<Asset> asset;

@@ -9,7 +9,20 @@
 #include "ui/assetpopout/dialogs/moveDeploy.hpp"
 #include "ui/assetpopout/dialogs/valuationdialog.hpp"
 #include "ui/assetpopout/dialogs/setassetdeployreservedialog.hpp"
-
+AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset)
+    : wxFrame(parentWindow, wxID_ANY, title, pos, size),
+        portfolio(port),
+        asset(asset),
+        investorPositionDisplayVirtualListControl(nullptr),
+        valuationListControl(nullptr){
+            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            SetupLayout();
+            UpdateDisplayTextValues();
+            utilities::SetBackgroundColorForWindowAndChildren(this, color);
+            utilities::SetFontForWindowAndChildren(this, font);
+            Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
+        };
 
 void AssetPopout::SetupLayout(){
     //sizers

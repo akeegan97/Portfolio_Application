@@ -1,6 +1,8 @@
 #ifndef UTILITIES_HPP
 #define UTILITIES_HPP
 #include <wx/datetime.h>
+#include <wx/window.h>
+#include <wx/font.h>
 #include "models/supporting/cashflow.hpp"
 #include "models/supporting/distribution.hpp"
 #include <math.h>
@@ -10,7 +12,6 @@
 
 
 namespace utilities{
-
     wxDateTime GetQuarterEndDate(wxDateTime &currentDate);
     bool IsWithinQuarter(const wxDateTime &date, const wxDateTime &quarterEndDate);
     wxDateTime GetQuarterStartDate(wxDateTime &date);
@@ -21,6 +22,8 @@ namespace utilities{
     bool AreSameQuarter(const wxDateTime &date1, const wxDateTime &date2);
     template <typename T>
     std::string formatDollarAmount(T value);
+    void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font);
+    void SetBackgroundColorForWindowAndChildren(wxWindow *window, const wxColour&color);
 }
 
 #endif

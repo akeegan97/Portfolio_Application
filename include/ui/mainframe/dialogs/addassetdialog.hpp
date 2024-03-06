@@ -29,7 +29,7 @@ class AddAssetDialog: public wxDialog{
         std::string GetInvestorChoiceName();
         void OnAddInvestor(wxCommandEvent &e);
         void UpdateInvestorChoice();
-
+        
     private:
         Portfolio &m_portfolio;
         wxStaticText *assetNameCtrlText;

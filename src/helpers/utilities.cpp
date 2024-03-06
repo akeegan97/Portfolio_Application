@@ -169,5 +169,22 @@ namespace utilities{
         return prefix + formattedWithCommas + '.' + decimalPart;
     }
 
+    void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font){
+        window->SetFont(font);
+        const wxWindowList &children = window->GetChildren();
+        for(wxWindowList::const_iterator it = children.begin(); it!=children.end();++it){
+            wxWindow* child = *it;
+            SetFontForWindowAndChildren(child, font);
+        }
+    }
+    void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color) {
+        window->SetBackgroundColour(color); 
+        window->Refresh();
+        const wxWindowList& children = window->GetChildren();
+        for (wxWindowList::const_iterator it = children.begin(); it != children.end(); ++it) {
+            wxWindow* child = *it;
+            SetBackgroundColorForWindowAndChildren(child, color); 
+        }
+    }
 }
 template std::string utilities::formatDollarAmount<double>(double);

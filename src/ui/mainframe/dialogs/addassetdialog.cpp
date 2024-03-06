@@ -1,10 +1,13 @@
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
+#include "helpers/utilities.hpp"
 
 
 AddAssetDialog::AddAssetDialog(wxWindow*parentWindow,Portfolio &portfolio):
-    wxDialog(parentWindow, wxID_ANY, "Instantiate New Asset",wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+    wxDialog(parentWindow, wxID_ANY, "Instantiate New Asset",wxDefaultPosition, wxSize(700,550),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        utilities::SetFontForWindowAndChildren(this, font);
         SetupLayout();
     }
 
@@ -26,6 +29,7 @@ void AddAssetDialog::SetupLayout(){
     assetNameCtrlText = new wxStaticText(this, wxID_ANY,"Enter Asset Name");
     assetNameCtrl = new wxTextCtrl(this, wxID_ANY);
     assetNameCtrl->SetValidator(characterValidator);
+
 
     assetSponserCtrlText = new wxStaticText(this, wxID_ANY,"Enter Sponser Name");
     assetSponserCtrl = new wxTextCtrl(this, wxID_ANY);
@@ -67,23 +71,23 @@ void AddAssetDialog::SetupLayout(){
     createNewInvestorButton->Bind(wxEVT_BUTTON, &AddAssetDialog::OnAddInvestor, this);
     
     topLeftSizer->Add(assetNameCtrlText,1,wxLEFT,5);
-    topLeftSizer->Add(assetNameCtrl,1,wxEXPAND,5);
+    topLeftSizer->Add(assetNameCtrl,1,wxEXPAND|wxALL,5);
     topLeftSizer->Add(assetSponserCtrlText, 1, wxLEFT,5);
-    topLeftSizer->Add(assetSponserCtrl,1, wxEXPAND,5);
+    topLeftSizer->Add(assetSponserCtrl,1, wxEXPAND|wxALL,5);
     topLeftSizer->Add(assetExitDateText,1,wxLEFT,5);
-    topLeftSizer->Add(assetExitDateCtrl,1,wxEXPAND,5);
-    topSizer->Add(topLeftSizer,1,wxEXPAND,20);
+    topLeftSizer->Add(assetExitDateCtrl,1,wxEXPAND|wxALL,5);
+    topSizer->Add(topLeftSizer,1,wxALL,20);
     topRightSizer->Add(investorChoiceText,1,wxLEFT,5);
-    topRightSizer->Add(investorChoiceCtrl,1,wxEXPAND,5);
+    topRightSizer->Add(investorChoiceCtrl,1,wxEXPAND|wxALL,5);
     topRightSizer->Add(paidAmountText,1,wxLEFT,5);
-    topRightSizer->Add(paidAmountTextCtrl,1,wxEXPAND,5);
+    topRightSizer->Add(paidAmountTextCtrl,1,wxEXPAND|wxALL,5);
     topRightSizer->Add(deployedAmountText,1,wxLEFT,5);
-    topRightSizer->Add(deployedAmountTextCtrl,1,wxEXPAND,5);
+    topRightSizer->Add(deployedAmountTextCtrl,1,wxEXPAND|wxALL,5);
     topRightSizer->Add(reserveAmountText,1,wxLEFT,5);
-    topRightSizer->Add(reserveAmountTextCtrl,1,wxEXPAND,5);
+    topRightSizer->Add(reserveAmountTextCtrl,1,wxEXPAND|wxALL,5);
     topRightSizer->Add(effectiveStartDateCtrlText,1,wxLEFT,5);
-    topRightSizer->Add(effectiveStartDateCtrl,1,wxEXPAND,5);
-    topSizer->Add(topRightSizer,1,wxEXPAND,20);
+    topRightSizer->Add(effectiveStartDateCtrl,1,wxEXPAND|wxALL,5);
+    topSizer->Add(topRightSizer,1,wxALL,20);
 
     buttonSizer->Add(createNewInvestorButton,1,wxEXPAND,5);
     buttonSizer->Add(cancelButton, 1, wxEXPAND,5);
@@ -157,3 +161,4 @@ void AddAssetDialog::UpdateInvestorChoice(){
     investorChoiceCtrl->Append(investorChoices);
     investorChoiceCtrl->Refresh();
 }
+

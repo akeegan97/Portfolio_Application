@@ -27,21 +27,7 @@
 
 class MainFrame : public wxFrame{
     public:
-        MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port)
-        : wxFrame(NULL, wxID_ANY, title, pos, size),
-            portfolio(port),
-            allAssetVListControl(nullptr),
-            totalInvestedText(nullptr),
-            totalInvestorCountText(nullptr),
-            totalValuationText(nullptr),
-            chartPanelHolderPanel(nullptr),
-            quoteOfTheDate(nullptr)
-            {
-                setupLayout();
-                ReadPickQuote("../storage/RugenBergQuotes.txt");
-                UpdatePortfolioDisplayValues();
-                Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
-            };
+        MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port);
         Portfolio &portfolio;
     
     private:

@@ -158,7 +158,7 @@ const std::vector<std::shared_ptr<Position>>& Asset::GetPositions()const{
     return m_positions;
 }
 std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Deployed","# Investors","Current Value"};
-std::vector<int> Asset::columnWidths = {150,75,100,100,100};
+std::vector<int> Asset::columnWidths = {125,100,150,125,140};
 
 wxVariant Asset::GetValue(int col)const{
     switch(col){

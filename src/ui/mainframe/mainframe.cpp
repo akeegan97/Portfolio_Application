@@ -8,6 +8,25 @@
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 
+MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port)
+      : wxFrame(NULL, wxID_ANY, title, pos, size),
+         portfolio(port),
+         allAssetVListControl(nullptr),
+         totalInvestedText(nullptr),
+         totalInvestorCountText(nullptr),
+         totalValuationText(nullptr),
+         chartPanelHolderPanel(nullptr),
+         quoteOfTheDate(nullptr){
+            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            
+            setupLayout();
+            ReadPickQuote("../storage/RugenBergQuotes.txt");
+            utilities::SetBackgroundColorForWindowAndChildren(this, color);
+            utilities::SetFontForWindowAndChildren(this, font);
+            UpdatePortfolioDisplayValues();
+            Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
+         };
 
 void MainFrame::setupLayout(){
    for(auto&asset:portfolio.assetPtrs){
@@ -175,7 +194,6 @@ void MainFrame::OnAssetVLCClick(wxListEvent&e){
    std::string selectedAssetName = selectedAsset->GetAssetName().ToStdString();
    auto* assetPopout = new AssetPopout(this, selectedAssetName, wxDefaultPosition, wxSize(FromDIP(1200),FromDIP(800)),
    portfolio, selectedAsset);
-   assetPopout->SetBackgroundColour(wxColor(0,0,0));
    assetPopout->Show(true);
 }
 
@@ -332,11 +350,15 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
 void MainFrame::OnAddAsset(wxCommandEvent &e){
    portfolio.EnsureFundPositionExists();
    AddAssetDialog dialog(this,portfolio);
+   dialog.SetBackgroundColour(wxColor(255,255,255));
    int retValue = dialog.ShowModal();
    if(retValue == wxID_OK){
       wxDateTime newAssetExitDate = dialog.GetExitDate();
       wxString newAssetName = dialog.GetAssetName();
       wxString newAssetSponser = dialog.GetAssetSponser();
+      if(newAssetName == ""){
+         return;
+      }
       Asset newAsset(newAssetName, newAssetSponser, newAssetExitDate);
       
       wxDateTime dateInvested = dialog.GetEffectiveDate();
