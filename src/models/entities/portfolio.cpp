@@ -258,13 +258,6 @@ void Portfolio::PopulatePreviousQValuations() {
     wxDateTime currentQDate = wxDateTime::Today();
     wxDateTime currentQStartDate = utilities::GetQuarterStartDate(currentQDate);
 
-    // for (const auto& assetPtr : assetPtrs) {
-    //     std::sort(assetPtr->valuations.begin(), assetPtr->valuations.end(),
-    //         [](const Valuation& a, const Valuation& b) {
-    //             return a.valuationDate < b.valuationDate;
-    //         });
-    // }
-
     while (qEndDate.IsEarlierThan(currentQStartDate)) {
         double quarterValuation = 0.0;
 
@@ -281,57 +274,69 @@ void Portfolio::PopulatePreviousQValuations() {
                 }
             }
 
-            if (!valuationFound) {//currently looping assets->positions->GetPaid(); should instead be just loop asset->GetDeployedInQ(); new method that looks at the movements in asset to return
-    //the amount that was deployed in the current Q we are interested in walks the movementToFromDeploy map in asset
-                for (const auto& pos : assetPtr->GetPositions()) {
-                    if ((pos->GetDateInvested().IsEarlierThan(qEndDate))) {
-                        assetQuarterValuation += pos->GetDeployed(); 
+            if (!valuationFound) {
+                for(auto& movement : assetPtr->GetMovementsToFromDeploy()){
+                    if(movement.first.IsEarlierThan(qEndDate) || movement.first == qEndDate){
+                        assetQuarterValuation+=movement.second;
                     }
                 }
             }
-
             quarterValuation += assetQuarterValuation;
         }
-
         previousQMap[qEndDate] = quarterValuation;
         qEndDate = utilities::GetNextQuarterEndDate(qEndDate);
     }
 }
 
 void Portfolio::PopulateAndProcessCurrentQValuations() {
-    std::map<wxString, double> assetLastValuationMap; 
     if(previousQMap.empty()){
         return;
     }
     double currentValuation = previousQMap.rbegin()->second; 
     wxDateTime today = wxDateTime::Today();
-    wxDateTime currentQStartDate = utilities::GetQuarterStartDate(today);
 
+    std::map<wxString, double> assetLastValuationMap; 
     for (auto& asset : assetPtrs) {
-        assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalInvestedCapital();
+        auto lastValuationIt = asset->GetValuations().rbegin();
+        if(lastValuationIt != asset->GetValuations().rend() && utilities::IsWithinQuarter(lastValuationIt->valuationDate, today)) {
+            assetLastValuationMap[asset->GetAssetName()] = lastValuationIt->valuation;
+        } else {
+            assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalInvestedCapital();
+        }
     }
-
-    std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> sortedValuations;
+    std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> currentQValuations;
     for (auto& asset : assetPtrs) {
         for (auto& val : asset->GetValuations()) {
             if (utilities::IsWithinQuarter(val.valuationDate, today)) {
-                sortedValuations.push_back({val.valuationDate, {asset->GetAssetName(), val.valuation}});
+                currentQValuations.push_back({val.valuationDate, {asset->GetAssetName(), val.valuation}});
             }
         }
     }
-    std::sort(sortedValuations.begin(), sortedValuations.end(), 
-              [](const auto& a, const auto& b) { return a.first.IsEarlierThan(b.first); });
 
-    for (auto& [date, assetVal] : sortedValuations) {
-        const auto& [assetName, valuationAmount] = assetVal;
-        double lastValuation = assetLastValuationMap[assetName];
-        double differential = valuationAmount - lastValuation;
-        currentValuation += differential; 
-        currentQMap[date] = currentValuation; 
-        assetLastValuationMap[assetName] = valuationAmount; 
+    // Sort the valuations within the quarter by date
+    std::sort(currentQValuations.begin(), currentQValuations.end(), [](const auto& a, const auto& b) {
+        return a.first.IsEarlierThan(b.first);
+    });
+    if (currentQValuations.empty()) {
+        // No valuations for the current quarter, so carry forward the last valuation from the previous quarter
+        wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
+        if (!previousQMap.empty()) {
+            currentValuation = previousQMap.rbegin()->second;
+        }
+        currentQMap[currentQEndDate] = currentValuation;
+    } else {
+        // Sum up the latest valuations for all assets to get the total current valuation
+        currentValuation = std::accumulate(assetLastValuationMap.begin(), assetLastValuationMap.end(), 0.0,
+            [](double sum, const std::pair<wxString, double>& assetVal) {
+                return sum + assetVal.second;
+            }
+        );
+
+        // Update the currentQMap with the total current valuation at the end of the quarter
+        wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
+        currentQMap[currentQEndDate] = currentValuation;
     }
 }
-
 
 
 std::vector<std::shared_ptr<Investor>>& Portfolio::GetInvestors(){
