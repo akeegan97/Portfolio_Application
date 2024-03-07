@@ -51,6 +51,7 @@ class Position{
         double m_percentOwnership;
         double m_managementFeesDue;
         double m_currentValue;
+        size_t m_id;
     //private Setter
         void PopulateManagementFeeVector();
     //private Methods
@@ -61,8 +62,8 @@ class Position{
         Position()=default;
         Position(const wxDateTime &dateInvested, const double &subscribed,
         const double &paid, const double &reserve, const double &deployed,
-        const double &returnOfCapital, const double &percentOwnership):
-        m_dateInvested(dateInvested),m_paid(paid),
+        const double &returnOfCapital, const double &percentOwnership, const double &id):
+        m_dateInvested(dateInvested),m_paid(paid),m_id(id),
         m_reserve(reserve),m_deployed(deployed),m_returnOfCapital(returnOfCapital),
         m_percentOwnership(percentOwnership),m_assetPtr(nullptr),m_investorPtr(nullptr){
         };
@@ -113,6 +114,8 @@ class Position{
         double CalculateCommittedUpToDate(const wxDateTime &date)const;
         void RepopulateValuations();
         void SetRocMovements();
+        void SetId(size_t id);
+        size_t GetId();
 };
 
 void to_json(json &j, const Position &pos);

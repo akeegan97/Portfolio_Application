@@ -13,6 +13,15 @@ void Asset::SortDistributions2(){
     });  
 }
 
+void Asset::SetPositionID(){
+    size_t id = 0;
+    for(auto position:m_positions){
+        position->SetId(id);
+        id++;
+    }
+}
+
+
 void Asset::ProcessDistributionsForPosition(){
     SortDistributions(m_distributions);
     for(auto &pos:m_positions){
@@ -153,7 +162,14 @@ double Asset::GetTotalAssetReserve()const{
 double Asset::GetTotalReturnOfCapital()const{
     return m_assetReturnOfCapital;
 }
-
+std::shared_ptr<Position> Asset::GetPositionByID(size_t id){
+    for(auto position: m_positions){
+        if(position->GetId()==id){
+            return position;
+        }
+    }
+    return nullptr;
+}
 const std::vector<std::shared_ptr<Position>>& Asset::GetPositions()const{
     return m_positions;
 }

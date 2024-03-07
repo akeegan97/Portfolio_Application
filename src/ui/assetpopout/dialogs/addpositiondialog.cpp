@@ -71,11 +71,11 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
     std::string positionType = GetTypeOfNewPosition();
     std::string investorName = GetAssociatedInvestor();
     auto associatedInvestorPointer = m_portfolio.GetInvestorByName(investorName);
+    m_asset->SetPositionID();
     if(positionType == "Standalone"){
         AddStandalonePositionDialog dialog(this->GetParent(), m_portfolio);
         int retValue = dialog.ShowModal();
         if(retValue == wxID_OK){
-            Position newPosition;
             std::shared_ptr<Position> newPositionPtr = std::make_shared<Position>();
             newPositionPtr->SetInvestorPtr(associatedInvestorPointer);
             newPositionPtr->SetAssetPtr(m_asset);
@@ -95,6 +95,35 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             associatedInvestorPointer->AddPosition(newPositionPtr);
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateOfDistributionsForPositions();
+            m_asset->TriggerUpdateDerivedValues();
+        }
+    }else if(positionType == "Component"){
+        AddComponentPositionDialog dialog(this->GetParent(), m_asset, m_portfolio);
+        int retValue = dialog.ShowModal();
+        if(retValue == wxID_OK){
+            std::shared_ptr<Position> newPositionPtr = std::make_shared<Position>();
+            newPositionPtr->SetInvestorPtr(associatedInvestorPointer);
+            newPositionPtr->SetAssetPtr(m_asset);
+            wxDateTime dateInvested = dialog.GetDateValue();
+            newPositionPtr->SetDateInvested(dateInvested);
+            double totalDonatedCapital = 0;
+            for(auto input: dialog.GetAllocations()){
+                auto positionId = input.first;
+                auto amountReturned = input.second;
+                double allocatedAmount = wxAtof(amountReturned->GetValue());
+                std::shared_ptr<Position> thisPosition = m_asset->GetPositionByID(positionId);
+                std::cout<<"This Position Name: "<<thisPosition->GetInvestorPtr()->GetName()<<std::endl;
+                std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, allocatedAmount);
+                thisPosition->AddRocMovement(movement);
+                totalDonatedCapital+=allocatedAmount;
+            }
+            newPositionPtr->SetPaid(totalDonatedCapital);
+            m_asset->AddPosition(newPositionPtr);
+            m_asset->SetPositionValues();
+            associatedInvestorPointer->AddPosition(newPositionPtr);
+            newPositionPtr->TriggerUpdateOfManagementFeeVector();
+            m_asset->TriggerUpdateOfDistributionsForPositions();
+            m_asset->TriggerUpdateDerivedValues();
         }
     }
 }

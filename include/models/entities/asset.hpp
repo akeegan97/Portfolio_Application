@@ -164,6 +164,8 @@ class Asset{
         void RemoveValuation(size_t index);
         void RemoveDistribution(size_t index);
         void AddNewPositionAdditionalCapital(Position &position);
+        std::shared_ptr<Position> GetPositionByID(size_t id);
+        void SetPositionID();
 };
 
 void to_json(json &j, const Asset &asset);

@@ -14,6 +14,7 @@
 #include "models/entities/portfolio.hpp"
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 #include "ui/assetpopout/dialogs/addstandalonepositiondialog.hpp"
+#include "ui/assetpopout/dialogs/addcomponentpositiondialog.hpp"
 class Portfolio;
 class AddPositionDialog : public wxDialog{
     public:

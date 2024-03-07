@@ -10,6 +10,12 @@ double Position::GetReserve()const{
 double Position::GetPaid()const{
     return m_paid;
 }
+void Position::SetId(size_t id){
+    m_id = id;
+}
+size_t Position::GetId(){
+    return m_id;
+}
 double Position::GetDeployed()const{
     return m_deployed;
 }
