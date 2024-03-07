@@ -29,7 +29,6 @@ void Asset::ProcessDistributionsForPosition(){
     }
     for(const auto& distribution : m_distributions){
         for(auto &position: m_positions){
-            std::cout<<"Investor: "<<position->GetInvestorPtr()->GetName()<<std::endl;
             double ownershipForThisDistribution = position->CalculateOwnershipAtDate(distribution.distribution.first);
             double feesForThisDistribution = position->CalculateManagementFeesDue(distribution);
             double proportionalShareGross = distribution.distribution.second * ownershipForThisDistribution;
@@ -42,18 +41,6 @@ void Asset::ProcessDistributionsForPosition(){
             newDistribution.distribution.first = distribution.distribution.first;
             newDistribution.distribution.second = remainder - newPromoteFee.promotefee.second;
             position->UpdateFinancesPostDistributionChanges(newDistribution, newPromoteFee);
-            // std::cout<<"NET INCOME"<<std::endl;
-            // for(auto ni : position->GetNetIncome()){
-            //     std::cout<<"Net Income: Date: "<< ni.distribution.first.FormatISODate()<<" Amount: "<<ni.distribution.second<<std::endl;
-            // }
-            // std::cout<<"MGMT FEES"<<std::endl;
-            // for(auto f:position->GetManagementFees()){
-            //     std::cout<<"Fee Date: "<<f.managementFeesAsset.first.FormatISODate()<<" Amount: "<<f.managementFeesAsset.second<<std::endl;
-            // }
-            // std::cout<<"Promote FEES"<<std::endl;
-            // for(auto pf: position->GetPromoteFees()){
-            //     std::cout<<"Promote FEE DATE: "<<pf.promotefee.first.FormatISODate()<<" Amount: "<<pf.promotefee.second<<std::endl;
-            // }
         }
     }
 }
@@ -303,6 +290,12 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         }
         asset.DeserializeSetRocMovements(movements);
     }
+}
+
+void to_json(json &j, const Asset &asset){
+    j = {
+        {"Asset Name", asset.GetAssetName().ToStdString()}
+    };
 }
 
 
