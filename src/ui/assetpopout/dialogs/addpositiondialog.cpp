@@ -115,6 +115,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 std::cout<<"This Position Name: "<<thisPosition->GetInvestorPtr()->GetName()<<std::endl;
                 std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, allocatedAmount);
                 thisPosition->AddRocMovement(movement);
+                thisPosition->UpdateROC();
+                thisPosition->SetCommitted();
                 totalDonatedCapital+=allocatedAmount;
             }
             newPositionPtr->SetPaid(totalDonatedCapital);

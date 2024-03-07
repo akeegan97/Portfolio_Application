@@ -157,7 +157,13 @@ void Position::AddRocMovement(std::pair<wxDateTime, double> &movement){
 void Position::SetCommitted(){
     m_committed = m_paid - m_returnOfCapital;
 }
-
+void Position::UpdateROC(){
+    double totalRoc = 0;
+    for(auto movement: m_returnOfCapitalMap){
+        totalRoc +=movement.second;
+    }
+    m_returnOfCapital = totalRoc;
+}
 void Position::SetReserve(){
     m_reserve = m_assetPtr->GetTotalAssetReserve() * m_percentOwnership;
 }
