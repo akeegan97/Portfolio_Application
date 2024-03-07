@@ -20,18 +20,14 @@
 class InvestorPopout : public wxFrame{
     public:
         InvestorPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size,
-        Portfolio &port, std::shared_ptr<Investor> investor):
-        wxFrame(parentWindow, wxID_ANY, title, pos, size),
-        portfolio(port),
-        investor(investor){
-        };
+        Portfolio &port, std::shared_ptr<Investor> investor);
         Portfolio &portfolio;
         std::shared_ptr<Investor> investor;
     private:
         VListControl<std::shared_ptr<InvestorAssetDisplay>> *investorAssetDisplayVirtualListControl;
         wxNotebook* distributionsByAssetNoteBook;
         wxStaticText *totalPaid;
-        void SetUpLayout();
+        void SetupLayout();
         Chart* PopulateInvestorsValuationDeployChart();
         Chart* PopulateInvestorsDistributionChart();
         void UpdateInvestorsValuationDeployChart();

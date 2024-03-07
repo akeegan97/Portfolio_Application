@@ -59,6 +59,9 @@ void Position::SetReturnOfCapital(double returnOfCapital){
 std::shared_ptr<Asset> Position::GetAssetPointer()const{
     return m_assetPtr;
 }
+std::map<wxDateTime, double> Position::GetReturnOfCapitalMap(){
+    return m_returnOfCapitalMap;
+}
 //methods
 double Position::CalculateCommittedUpToDate(const wxDateTime &date)const{
     if(m_dateInvested > date){

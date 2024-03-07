@@ -63,3 +63,14 @@ void from_json(const json&j, Investor &investor, Portfolio &port){
     investor.SetInvestorMgmtFee(mgmtfeePercent);
     investor.SetInvestorPromoteFee(promoteFeePercent);
 }
+
+std::vector<std::shared_ptr<InvestorAssetDisplay>> Investor::GetAssetDisplaysNonConst(){
+    return m_assetDisplays;
+}
+
+void Investor::AddPositionDisplay(std::shared_ptr<InvestorAssetDisplay> positionDisplay){
+    m_assetDisplays.push_back(positionDisplay);
+}
+void Investor::ClearPositionDisplays(){
+    m_assetDisplays.clear();
+}

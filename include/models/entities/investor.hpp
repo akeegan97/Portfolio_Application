@@ -11,8 +11,10 @@
 #include "models/entities/asset.hpp"
 #include "models/entities/position.hpp"
 #include "models/components/investorpositiondisplay.hpp"
+#include "models/components/investorassetdisplay.hpp"
 class Position;
 class Portfolio;
+class InvestorAssetDisplay;
 
 class Investor{
     private:
@@ -21,6 +23,7 @@ class Investor{
         double m_managementFeePercentage;
         double m_promoteFeePercentage;
         std::vector<std::shared_ptr<Position>> m_positions;
+        std::vector<std::shared_ptr<InvestorAssetDisplay>> m_assetDisplays;
         //
     public:
         Investor()=default;
@@ -37,12 +40,16 @@ class Investor{
         std::string GetName()const;
         const std::vector<std::shared_ptr<Position>> GetPositions()const;
         std::string GetType()const;
+        std::vector<std::shared_ptr<InvestorAssetDisplay>> GetAssetDisplaysNonConst();
     //public setters
         void SetInvestorName(wxString &clientName);
         void SetInvestorType(wxString &clientType);
         void SetInvestorMgmtFee(double &mgmtFee);
         void SetInvestorPromoteFee(double &promoteFee);
         void AddPosition(std::shared_ptr<Position> position);
+        void AddPositionDisplay(std::shared_ptr<InvestorAssetDisplay> positionDisplay);
+        void ClearPositionDisplays();
+
 
 };
 void to_json(json &j, const Investor &inv);

@@ -7,9 +7,12 @@
 #include "models/entities/position.hpp"
 #include "models/entities/asset.hpp"
 #include "models/supporting/distribution.hpp"
+#include "models/supporting/cashflow.hpp"
 
 class Investor;
 class Position;
+class Asset;
+class CashFlow;
 
 class InvestorAssetDisplay{
     public:

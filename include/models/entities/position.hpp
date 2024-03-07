@@ -117,6 +117,7 @@ class Position{
         void SetRocMovements();
         void SetId(size_t id);
         size_t GetId();
+        std::map<wxDateTime, double> GetReturnOfCapitalMap();
 };
 
 void to_json(json &j, const Position &pos);

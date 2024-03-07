@@ -1,5 +1,8 @@
 #include "models/components/investorassetdisplay.hpp"
 
+
+
+
 void InvestorAssetDisplay::PopulateIRR(){
     std::vector<CashFlow> cashFlow;
     //Getting Initial Dates of investment and amounts
@@ -20,21 +23,39 @@ void InvestorAssetDisplay::PopulateIRR(){
                 cashFlow.push_back(newCashFlow);
             }
         }
-    }//Getting date/amount of last valuation of asset * pos->ownership or total Paid
-    if(!assetPtr->GetValuations().empty()){
-        double ownership = 0;
-        CashFlow newCashFlow;
-        for(const auto&pos : investorPtr->GetPositions()){
-            if(pos->GetAssetPointer() == assetPtr){
-                ownership += pos->GetOwnership();
+    }
+    for(const auto&pos: investorPtr->GetPositions()){
+        if(pos->GetAssetPointer()== assetPtr){
+            for(const auto& roc: pos->GetReturnOfCapitalMap()){
+                CashFlow newCashFlow;
+                newCashFlow.amount = roc.second;
+                newCashFlow.date = roc.first;
+                cashFlow.push_back(newCashFlow);
             }
         }
-        assetPtr->SortDistributions2();
+    }
+    if(!assetPtr->GetValuations().empty()){
+        CashFlow newCashFlow;
+        double ownership = 0;
+        double committedAmount = 0;
+        assetPtr->SortValuations2();
         auto valuations = assetPtr->GetValuations();
-
-        newCashFlow.amount = assetPtr->GetValuations().back().valuation * ownership;
+        auto lastvaluation = valuations.back();
+        for(const auto&pos : investorPtr->GetPositions()){
+            if(pos->GetAssetPointer() == assetPtr){
+                ownership+=pos->CalculateOwnershipAtDate(lastvaluation.valuationDate);
+                committedAmount+=pos->GetCommitted();
+            }
+        }
+        newCashFlow.amount = lastvaluation.valuation * ownership;
         newCashFlow.date = wxDateTime::Today();
-        cashFlow.push_back(newCashFlow);
+        if(newCashFlow.amount != 0){
+            cashFlow.push_back(newCashFlow);    
+        }else{
+            newCashFlow.amount = committedAmount;
+            newCashFlow.date = wxDateTime::Today();
+            cashFlow.push_back(newCashFlow);
+        }
     }else{
         CashFlow newCashFlow;
         double committedCapital = 0;

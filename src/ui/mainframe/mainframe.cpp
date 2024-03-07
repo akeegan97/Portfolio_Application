@@ -214,6 +214,7 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
       asset->SetCurrentValue();
       asset->SetPositionValues();      
       asset->TriggerUpdateDerivedValues();
+      asset->TriggerUpdateOfDistributionsForPositions();
    }
    UpdateAssetListControl();
    UpdateInvestorListControl();

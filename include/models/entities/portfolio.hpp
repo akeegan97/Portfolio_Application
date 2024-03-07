@@ -30,13 +30,9 @@ class Portfolio{
         
         Portfolio()=default;
         void SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath);
-        void LoadFromFile(const std::string &filePath);
-
-        //add helper function to be called to populate assetEventPtrs and valuations for getting valuations to display       
+        void LoadFromFile(const std::string &filePath);  
         void ValuationDialog();//
         void PopulateValuationMaps();//call when any valuations are added/edited/deleted
-        
-        //functions for portfolio to calculate key figures used in the mainframe wxStaticText control
 
         double TotalInvestedCapital();
         double TotalInvestors();
