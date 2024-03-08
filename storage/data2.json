@@ -1,13 +1,13 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 1000000.0,
-            "Asset Deployed Capital": 882629.06,
+            "Asset Committed Capital": 0.0,
+            "Asset Deployed Capital": 0.0,
             "Asset Exit Date": "2023-12-31",
             "Asset Name": "Collins Park",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 117370.94,
-            "Asset Sponser": "KAWA",
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "",
             "Current Value": 892937.56,
             "Distributions": [],
             "Valuations": [
@@ -29,21 +29,23 @@
         {
             "Client Name": "Hector Ovalle",
             "Management Fee Percentage": 0.0075,
-            "Positions": [                {
-                "AssetName": "Collins Park",
-                "Date Invested": "2023-05-16",
-                "InvestorName": "Hector Ovalle",
-                "Management Fees Due": 0.0,
-                "MovedFromDeploy": null,
-                "MovedToDeploy": null,
-                "Paid": 500000.0,
-                "ROC": 250000.0,
-                "ROC Movements": [
-                    {
-                        "2023-07-01": 250000.0
-                    }
-                ]
-            }],
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Hector Ovalle",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        {
+                            "2023-07-01": 250000.0
+                        }
+                    ]
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
@@ -92,19 +94,19 @@
     ],
     "valuationVectorPlotting": [
         {
-            "Amount": 441314.53,
+            "Amount": 0.0,
             "Date": "2023-06-30"
         },
         {
-            "Amount": 441314.53,
+            "Amount": 0.0,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 441314.53,
+            "Amount": 0.0,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 441314.53,
+            "Amount": 0.0,
             "Date": "2024-03-31"
         }
     ]
