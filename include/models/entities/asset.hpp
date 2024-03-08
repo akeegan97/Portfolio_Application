@@ -117,6 +117,7 @@ class Asset{
         double GetCurrentValue()const;
         const std::map<wxDateTime, double> GetROCMovements()const;
         const std::map<wxDateTime, double> GetMovementsToFromDeploy()const;
+        const std::vector<Distribution> GetDistributionsConst()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);

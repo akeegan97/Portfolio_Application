@@ -2,33 +2,33 @@
 #include "models/entities/asset.hpp"
 
 
-// void to_json(json &j, const Portfolio &por) {
-//     std::vector<json> assetsJson;
-//     for (const auto& assetPtr : por.assetPtrs) {
-//         json assetJson;
-//         to_json(assetJson, *assetPtr);
-//         assetsJson.push_back(assetJson);
-//     }
-//     j["Assets"] = assetsJson;
+void to_json(json &j, const Portfolio &por) {
+    std::vector<json> assetsJson;
+    for (const auto& assetPtr : por.assetPtrs) {
+        json assetJson;
+        to_json(assetJson, *assetPtr);
+        assetsJson.push_back(assetJson);
+    }
+    j["Assets"] = assetsJson;
 
-//     std::vector<json> investorsJson; 
-//     for(const auto& investorPtr : por.allInvestorPtrs) {
-//         json singleInvestorJson;
-//         to_json(singleInvestorJson, *investorPtr);
-//         investorsJson.push_back(singleInvestorJson); 
-//     }
-//     j["Investors"] = investorsJson; 
+    std::vector<json> investorsJson; 
+    for(const auto& investorPtr : por.allInvestorPtrs) {
+        json singleInvestorJson;
+        to_json(singleInvestorJson, *investorPtr);
+        investorsJson.push_back(singleInvestorJson); 
+    }
+    j["Investors"] = investorsJson; 
 
-//     json valuationArray = json::array();
-//     for(const auto& pair : por.valuationVectorPlotting) {
-//         std::string dateStr = pair.first.FormatISODate().ToStdString();
-//         double amount = pair.second;
-//         json pairJson = {{"Date", dateStr}, {"Amount", amount}};
-//         valuationArray.push_back(pairJson);
-//     }
+    json valuationArray = json::array();
+    for(const auto& pair : por.valuationVectorPlotting) {
+        std::string dateStr = pair.first.FormatISODate().ToStdString();
+        double amount = pair.second;
+        json pairJson = {{"Date", dateStr}, {"Amount", amount}};
+        valuationArray.push_back(pairJson);
+    }
 
-//     j["valuationVectorPlotting"] = valuationArray;
-// }
+    j["valuationVectorPlotting"] = valuationArray;
+}
 
 
 void from_json(const json &j, Portfolio &por) {
@@ -108,7 +108,7 @@ void from_json(const json &j, Portfolio &por) {
 
 void Portfolio::SavePortfolioToFile(const Portfolio &portfolio, const std::string &filePath){
     json j;
-    // to_json(j,portfolio);
+    to_json(j,portfolio);
     std::ofstream file(filePath,std::ios::trunc);
     file << j.dump(4);
 }

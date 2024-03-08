@@ -62,6 +62,23 @@ void from_json(const json&j, Investor &investor, Portfolio &port){
     double promoteFeePercent = j["Promote Fee Percentage"].get<double>();
     investor.SetInvestorMgmtFee(mgmtfeePercent);
     investor.SetInvestorPromoteFee(promoteFeePercent);
+    
+}
+void to_json(json &j, const Investor &inv){
+    j=json{
+        {"Client Name", inv.GetName()},
+        {"Type", inv.GetType()},
+        {"Management Fee Percentage", inv.GetManagementFeePercentage()},
+        {"Promote Fee Percentage", inv.GetPromoteFeePercentage()},
+        {"Positions", json::array()}
+    };
+    json positionsJson = json::array();
+    for(const auto&position: inv.GetPositions()){
+        json positionJson;
+        to_json(positionJson, *position);
+        positionsJson.push_back(positionJson);
+    }
+    j["Positions"] = positionsJson;
 }
 
 std::vector<std::shared_ptr<InvestorAssetDisplay>> Investor::GetAssetDisplaysNonConst(){

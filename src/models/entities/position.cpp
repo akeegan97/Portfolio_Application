@@ -313,6 +313,47 @@ std::shared_ptr<Investor> Position::GetInvestorPtr()const{
 double Position::GetPositionValue()const{
     return m_currentValue;
 }
+
+void to_json(json &j, const Position &pos){
+    j={
+        {"AssetName", pos.GetAssetPointer()->GetAssetName().ToStdString()},
+        {"InvestorName", pos.GetInvestorPtr()->GetName()},
+        {"Date Invested", pos.GetDateInvested().FormatISODate()},
+        {"Paid", pos.GetPaid()},
+        {"Management Fees Due", pos.GetManagementFeesDue()},
+        {"ROC", pos.GetReturnOfCapital()},
+        {"MovedToDeploy", json::array()},
+        {"MovedFromDeploy", json::array()},
+        {"ROC Movements", json::array()}
+    };
+
+    json movedToDeployJson;
+    for(const auto&movement:pos.GetMovedToDeploy()){
+        movedToDeployJson.push_back({
+            movement.first.FormatISODate().ToStdString(), movement.second
+        });
+    }
+    j["MovedToDeploy"] = movedToDeployJson;
+    json movedFromDeployJson;
+    for(const auto&movement:pos.GetMovedFromDeploy()){
+        movedToDeployJson.push_back({
+            movement.first.FormatISODate().ToStdString(), movement.second
+        });
+    }
+    j["MovedFromDeploy"] = movedFromDeployJson;
+    json rocMovementsJson;
+    for (const auto& movement : pos.GetROCMapConstant()) {
+        rocMovementsJson.push_back({
+            {movement.first.FormatISODate().ToStdString(), movement.second}
+        });
+    }
+    j["ROC Movements"] = rocMovementsJson;
+
+
+}
+std::map<wxDateTime, double> Position::GetROCMapConstant()const{
+    return m_returnOfCapitalMap;
+}
 void from_json(const json&j, Position &position, Portfolio &port){
     wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
     for(auto &assetPointer : port.assetPtrs){
@@ -356,14 +397,16 @@ void from_json(const json&j, Position &position, Portfolio &port){
             position.AddMovedFromDeployEntry(movement);
         }
     }
-    if(j.contains("ROC Movements")){
-        for(const auto&[dateStr, amount]:j["ROC Movements"].items()){
-            wxDateTime date;
-            date.ParseISODate(dateStr);
-            double amountMoved = amount;
-            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
-            position.AddRocMovement(movement);
+    if(j.contains("ROC Movements") && j["ROC Movements"].is_array()){
+        std::vector<std::pair<wxDateTime, double>> movements;
+        for(const auto& item : j["ROC Movements"]){
+            for(auto&[dateStr, amount] : item.items()){
+                wxDateTime date;
+                date.ParseISODate(dateStr);
+                double amountMoved = amount.get<double>(); // Explicitly get the amount as double
+                std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+                position.AddRocMovement(movement);
+            }
         }
     }
-
 }

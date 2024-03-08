@@ -13,7 +13,7 @@ void AddStandalonePositionDialog::SetupLayout(){
     wxBoxSizer *rightTopSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxString allowableNumbers = "012345679.";
+    wxString allowableNumbers = "0123456789.";
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);
     numberValidator.SetIncludes(wxArrayString(1, &allowableNumbers));
 

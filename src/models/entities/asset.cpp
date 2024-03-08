@@ -294,8 +294,38 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
 
 void to_json(json &j, const Asset &asset){
     j = {
-        {"Asset Name", asset.GetAssetName().ToStdString()}
+        {"Asset Name", asset.GetAssetName().ToStdString()},
+        {"Asset Sponser", asset.GetAssetSponserName().ToStdString()},
+        {"Asset Exit Date", asset.GetAssetExitDate().FormatISODate().ToStdString()},
+        {"Asset Committed Capital", asset.GetTotalCommitted()},
+        {"Asset Deployed Capital", asset.GetTotalAssetDeployed()},
+        {"Asset Reserve Capital", asset.GetTotalAssetReserve()},
+        {"Current Value", asset.GetCurrentValue()},
+        {"Valuations", json::array()},
+        {"Distributions", json::array()},
+        {"Asset ROC Movements", json::array()}
     };
+    json rocMovementsJson;
+    for(const auto& movement : asset.GetROCMovements()){
+        std::string dateStr = movement.first.FormatISODate().ToStdString();
+        double amount = movement.second;
+        rocMovementsJson.push_back({{"Date", dateStr}, {"Amount", amount}});
+    }
+    j["Asset ROC Movements"] = rocMovementsJson;
+    json distributionJson = json::array();
+    for(const auto& dist:asset.GetDistributionsConst()){
+        json distJson;
+        to_json(distJson, dist);
+        distributionJson.push_back(distJson);
+    }
+    json valuationsJson = json::array();
+    for(const auto& valuation: asset.GetValuations()){
+        json jsonValuation;
+        to_json(jsonValuation, valuation);
+        valuationsJson.push_back(jsonValuation);
+    }
+    j["Valuations"] = valuationsJson;
+    j["Distributions"] = distributionJson;
 }
 
 
@@ -505,6 +535,9 @@ void Asset::PopulateDistributionForPlotting(){
 void Asset::AddDistribution(Distribution &distribution){
     m_distributions.push_back(distribution);
     SortDistributions2();
+}
+const std::vector<Distribution> Asset::GetDistributionsConst()const{
+    return m_distributions;
 }
 
 

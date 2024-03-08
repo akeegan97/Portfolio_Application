@@ -1,23 +1,111 @@
 {
     "Assets": [
         {
-            "Asset Exit Date": "2024-12-31",
+            "Asset Committed Capital": 1000000.0,
+            "Asset Deployed Capital": 882629.06,
+            "Asset Exit Date": "2023-12-31",
             "Asset Name": "Collins Park",
-            "Asset Sponsor":"Kawa",
-            "Asset Committed":0,
-            "Asset Deployed":0,
-            "Asset Reserve":0,
-            "Asset ROC":0,
-            "Asset ROC Movements":[],
-            "Distributions": [
-            ],
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 117370.94,
+            "Asset Sponser": "KAWA",
+            "Current Value": 892937.56,
+            "Distributions": [],
             "Valuations": [
+                {
+                    "Valuation Amount": 892937.56,
+                    "Valuation Date": "2023-12-31"
+                }
             ]
         }
     ],
     "Investors": [
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        },
+        {
+            "Client Name": "Hector Ovalle",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [                {
+                "AssetName": "Collins Park",
+                "Date Invested": "2023-05-16",
+                "InvestorName": "Hector Ovalle",
+                "Management Fees Due": 0.0,
+                "MovedFromDeploy": null,
+                "MovedToDeploy": null,
+                "Paid": 500000.0,
+                "ROC": 250000.0,
+                "ROC Movements": [
+                    {
+                        "2023-07-01": 250000.0
+                    }
+                ]
+            }],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Juan Jose Risoul",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        {
+                            "2023-07-01": 250000.0
+                        }
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "German Hernandez",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-07-01",
+                    "InvestorName": "German Hernandez",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        }
     ],
     "valuationVectorPlotting": [
-
+        {
+            "Amount": 441314.53,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 441314.53,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 441314.53,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 441314.53,
+            "Date": "2024-03-31"
+        }
     ]
 }
