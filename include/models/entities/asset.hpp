@@ -130,6 +130,7 @@ class Asset{
         void DeserializeSetDistributions(std::vector<Distribution> &distributions);
         void AddPosition(std::shared_ptr<Position> &position);
         void DeserializeSetRocMovements(std::map<std::string, double> &movements);
+        void DeserializeSetMovementsDeploy(std::map<std::string, double> &movements);
         void AddInvestorPositionDisplay(std::shared_ptr<InvestorPositionDisplay> &ipd);
         void AddDistribution(Distribution &distribution);
         void TriggerUpdateOfDistributionsForPositions();

@@ -240,6 +240,14 @@ void Asset::DeserializeSetRocMovements(std::map<std::string, double> &movements)
     }
 }
 
+void Asset::DeserializeSetMovementsDeploy(std::map<std::string, double> &movements){
+    for(const auto&[dateStr, value]:movements){
+        wxDateTime date;
+        date.ParseISODate(dateStr);
+        m_movementsToFromDeploy[date] = value;
+    }
+}
+
 double Asset::GetTotalInvestors()const{
     return m_countOfInvestors;
 }
@@ -266,16 +274,16 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         std::vector<Distribution> distributions = j["Distributions"].get<std::vector<Distribution>>();
         asset.DeserializeSetDistributions(distributions);
     }
-    if(j.contains("Asset Committed")){
-        double committed = j["Asset Committed"].get<double>();
+    if(j.contains("Asset Committed Capital")){
+        double committed = j["Asset Committed Capital"].get<double>();
         asset.DeserializeSetAssetCommittedCapital(committed);
     }
-    if(j.contains("Asset Deployed")){
-        double deployed = j["Asset Deployed"].get<double>();
+    if(j.contains("Asset Deployed Capital")){
+        double deployed = j["Asset Deployed Capital"].get<double>();
         asset.DeserializeSetAssetDeployedCapital(deployed);
     }
-    if(j.contains("Asset Reserve")){
-        double reserve = j["Asset Reserve"].get<double>();
+    if(j.contains("Asset Reserve Capital")){
+        double reserve = j["Asset Reserve Capital"].get<double>();
         asset.DeserializeSetAssetReserveCapital(reserve);
     }
     if(j.contains("Asset ROC")){
@@ -290,6 +298,15 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         }
         asset.DeserializeSetRocMovements(movements);
     }
+    if(j.contains("Asset Movement To From Deploy") && j["Asset Movement To From Deploy"].is_array()){
+        std::map<std::string, double> movements;
+        for(const auto& item: j["Asset Movement To From Deploy"]){
+            std::string dateStr = item["Date"].get<std::string>();
+            double amount = item["Amount"].get<double>();
+            movements[dateStr] = amount;
+        }
+        asset.DeserializeSetMovementsDeploy(movements);
+    }
 }
 
 void to_json(json &j, const Asset &asset){
@@ -303,7 +320,8 @@ void to_json(json &j, const Asset &asset){
         {"Current Value", asset.GetCurrentValue()},
         {"Valuations", json::array()},
         {"Distributions", json::array()},
-        {"Asset ROC Movements", json::array()}
+        {"Asset ROC Movements", json::array()},
+        {"Asset Movement To From Deploy", json::array()}
     };
     json rocMovementsJson;
     for(const auto& movement : asset.GetROCMovements()){
@@ -326,6 +344,13 @@ void to_json(json &j, const Asset &asset){
     }
     j["Valuations"] = valuationsJson;
     j["Distributions"] = distributionJson;
+    json movementsToFromDeployJson;
+    for(const auto& movement: asset.GetMovementsToFromDeploy()){
+        std::string dateStr = movement.first.FormatISODate().ToStdString();
+        double amount = movement.second;
+        movementsToFromDeployJson.push_back({{"Date", dateStr},{"Amount", amount}});
+    }
+    j["Asset Movement To From Deploy"] = movementsToFromDeployJson;
 }
 
 

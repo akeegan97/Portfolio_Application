@@ -15,12 +15,13 @@ AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wx
         asset(asset),
         investorPositionDisplayVirtualListControl(nullptr),
         valuationListControl(nullptr){
-            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-            wxColour color = wxColor(255,255,255);
+            // wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            // wxColour color = wxColor(255,255,255);
+            //add function to set deploy/reserve for positions
             SetupLayout();
             UpdateDisplayTextValues();
-            utilities::SetBackgroundColorForWindowAndChildren(this, color);
-            utilities::SetFontForWindowAndChildren(this, font);
+            // utilities::SetBackgroundColorForWindowAndChildren(this, color);
+            // utilities::SetFontForWindowAndChildren(this, font);
             Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
         };
 
@@ -79,13 +80,13 @@ void AssetPopout::SetupLayout(){
     valuationListControl = new VListControl<Valuation>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     if(!asset->GetValuations().empty()){
         valuationListControl->setItems(asset->GetValuationsNonConst());
+        valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     }
-    valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
     if(!asset->GetDistributions().empty()){
         distributionListControl->setItems(asset->GetDistributionsNonConst());
+        distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
     }
-    distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
     middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
     middleVLCSizer->Add(distributionListControl,5,wxALL|wxEXPAND,5);
 

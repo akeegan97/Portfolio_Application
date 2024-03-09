@@ -12,16 +12,16 @@ class RugenBerg : public wxApp{
 };
 
 bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data2.json");
+    portfolio.LoadFromFile("../storage/data.json");
     std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
     
-    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1500,800), portfolio);
+    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1300,800), portfolio);
     frame->Show(true);
     return true;
 }
 
 int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/data2.json");
+    portfolio.SavePortfolioToFile(portfolio,"../storage/data.json");
     return 0;
 }
 

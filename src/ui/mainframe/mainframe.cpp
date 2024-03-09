@@ -17,13 +17,13 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
          totalValuationText(nullptr),
          chartPanelHolderPanel(nullptr),
          quoteOfTheDate(nullptr){
-            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-            wxColour color = wxColor(255,255,255);
+            // wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            // wxColour color = wxColor(255,255,255);
             
             setupLayout();
             ReadPickQuote("../storage/RugenBergQuotes.txt");
-            utilities::SetBackgroundColorForWindowAndChildren(this, color);
-            utilities::SetFontForWindowAndChildren(this, font);
+            // utilities::SetBackgroundColorForWindowAndChildren(this, color);
+            // utilities::SetFontForWindowAndChildren(this, font);
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
          };
@@ -351,7 +351,7 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
 void MainFrame::OnAddAsset(wxCommandEvent &e){
    portfolio.EnsureFundPositionExists();
    AddAssetDialog dialog(this,portfolio);
-   dialog.SetBackgroundColour(wxColor(255,255,255));
+   dialog.SetBackgroundColour(wxColor(0,0,0));
    int retValue = dialog.ShowModal();
    if(retValue == wxID_OK){
       wxDateTime newAssetExitDate = dialog.GetExitDate();
@@ -373,6 +373,7 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       initializedPosition->SetDateInvested(dateInvested);
       std::string investorName = dialog.GetInvestorChoiceName();
       auto associatedInvestor = portfolio.GetInvestorByName(investorName);
+      associatedInvestor->AddPosition(initializedPosition);
       initializedPosition->SetInvestorPtr(associatedInvestor);
       auto pair = std::make_pair(dateInvested, deployedAmount);
       newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);//new function 

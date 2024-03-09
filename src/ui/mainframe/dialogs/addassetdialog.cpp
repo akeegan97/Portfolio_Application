@@ -7,7 +7,8 @@ AddAssetDialog::AddAssetDialog(wxWindow*parentWindow,Portfolio &portfolio):
     wxDialog(parentWindow, wxID_ANY, "Instantiate New Asset",wxDefaultPosition, wxSize(700,550),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
         wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-        utilities::SetFontForWindowAndChildren(this, font);
+        
+        //utilities::SetFontForWindowAndChildren(this, font);
         SetupLayout();
     }
 
@@ -52,21 +53,28 @@ void AddAssetDialog::SetupLayout(){
     paidAmountText = new wxStaticText(this, wxID_ANY,"Enter Paid Amount");
     paidAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
     paidAmountTextCtrl->SetValidator(numberValidator);
+    paidAmountText->SetForegroundColour(wxColor(255,255,255));
 
     deployedAmountText = new wxStaticText(this, wxID_ANY, "Enter Deployed Amount");
     deployedAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
     deployedAmountTextCtrl->SetValidator(numberValidator);
+    deployedAmountText->SetForegroundColour(wxColor(255,255,255));
 
     reserveAmountText = new wxStaticText(this, wxID_ANY, "Enter Reserve Amount");
     reserveAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
     reserveAmountTextCtrl->SetValidator(numberValidator);
+    reserveAmountText->SetForegroundColour(wxColor(255,255,255));
 
     effectiveStartDateCtrlText = new wxStaticText(this, wxID_ANY,"Enter Deploy Date");
     effectiveStartDateCtrl = new wxDatePickerCtrl(this, wxID_ANY);
     effectiveStartDateCtrl->SetValue(setDate);
+    effectiveStartDateCtrlText->SetForegroundColour(wxColor(255,255,255));
 
     confirmButton = new wxButton(this, wxID_OK, "Confirm Asset");
+    confirmButton->SetForegroundColour(wxColor(255,255,255));
+
     cancelButton = new wxButton(this, wxID_CANCEL,"Cancel Asset");
+    cancelButton->SetForegroundColour(wxColor(255,255,255));
     createNewInvestorButton = new wxButton(this, wxID_ANY,"Create New Investor");
     createNewInvestorButton->Bind(wxEVT_BUTTON, &AddAssetDialog::OnAddInvestor, this);
     

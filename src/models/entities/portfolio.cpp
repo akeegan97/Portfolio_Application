@@ -131,6 +131,10 @@ void Portfolio::LoadFromFile(const std::string &filePath) {
         std::cerr << "Deserialization error: " << e.what() << std::endl;
         throw;
     }
+    for(auto& asset: assetPtrs){
+        asset->SetPositionValues();
+        asset->SetCurrentValue();
+    }
 }
 
 

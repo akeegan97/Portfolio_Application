@@ -1,47 +1,54 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 0.0,
-            "Asset Deployed Capital": 0.0,
-            "Asset Exit Date": "2023-12-31",
-            "Asset Name": "Collins Park",
+            "Asset Committed Capital": 1500000.0,
+            "Asset Deployed Capital": 1000000.0,
+            "Asset Exit Date": "2032-01-01",
+            "Asset Movement To From Deploy": [],
+            "Asset Name": "CRE Lending",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 0.0,
+            "Asset Reserve Capital": 500000.0,
             "Asset Sponser": "",
-            "Current Value": 892937.56,
-            "Distributions": [],
+            "Current Value": 1250000.0,
+            "Distributions": [
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-09-15"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-11-05"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2024-02-09"
+                }
+            ],
             "Valuations": [
                 {
-                    "Valuation Amount": 892937.56,
-                    "Valuation Date": "2023-12-31"
+                    "Valuation Amount": 1250000.0,
+                    "Valuation Date": "2023-10-15"
                 }
             ]
         }
     ],
     "Investors": [
         {
-            "Client Name": "Fund Position",
-            "Management Fee Percentage": 0.0,
-            "Positions": [],
-            "Promote Fee Percentage": 0.0,
-            "Type": "Fund"
-        },
-        {
-            "Client Name": "Hector Ovalle",
+            "Client Name": "Andrew Keegan",
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Collins Park",
+                    "AssetName": "CRE Lending",
                     "Date Invested": "2023-05-16",
-                    "InvestorName": "Hector Ovalle",
+                    "InvestorName": "Andrew Keegan",
                     "Management Fees Due": 0.0,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
-                    "Paid": 500000.0,
+                    "Paid": 1000000.0,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         {
-                            "2023-07-01": 250000.0
+                            "2023-07-15": 250000.0
                         }
                     ]
                 }
@@ -50,46 +57,53 @@
             "Type": "Individual"
         },
         {
-            "Client Name": "Juan Jose Risoul",
+            "Client Name": "Will Keegan",
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2023-05-16",
-                    "InvestorName": "Juan Jose Risoul",
+                    "AssetName": "CRE Lending",
+                    "Date Invested": "2023-07-15",
+                    "InvestorName": "Will Keegan",
                     "Management Fees Due": 0.0,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
-                    "Paid": 500000.0,
-                    "ROC": 250000.0,
-                    "ROC Movements": [
-                        {
-                            "2023-07-01": 250000.0
-                        }
-                    ]
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "German Hernandez",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2023-07-01",
-                    "InvestorName": "German Hernandez",
-                    "Management Fees Due": 0.0,
-                    "MovedFromDeploy": null,
-                    "MovedToDeploy": null,
-                    "Paid": 500000.0,
+                    "Paid": 400000.0,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
             ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
+        },
+        {
+            "Client Name": "Jadai Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE Lending",
+                    "Date Invested": "2023-05-17",
+                    "InvestorName": "Jadai Keegan",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 150000.0,
+                    "ROC Movements": [
+                        {
+                            "2023-07-15": 150000.0
+                        }
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
         }
     ],
     "valuationVectorPlotting": [
@@ -102,11 +116,11 @@
             "Date": "2023-09-30"
         },
         {
-            "Amount": 0.0,
+            "Amount": 1250000.0,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 0.0,
+            "Amount": 1250000.0,
             "Date": "2024-03-31"
         }
     ]
