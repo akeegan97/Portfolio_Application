@@ -20,7 +20,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
             wxColour foregroundcolor = wxColor(250,2,15);
             #ifdef __WXMAC__
-               foregroundcolor = wxColor(255, 255, 255);
+               foregroundcolor = wxColor(89, 197, 255);
             #elif defined(__WXMSW__)
                foregroundcolor = wxColor(0, 0, 0);
             #endif
