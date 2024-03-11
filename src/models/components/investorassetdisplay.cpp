@@ -38,6 +38,7 @@ void InvestorAssetDisplay::PopulateIRR(){
         CashFlow newCashFlow;
         double ownership = 0;
         double committedAmount = 0;
+        double reserveCapital = 0;
         assetPtr->SortValuations2();
         auto valuations = assetPtr->GetValuations();
         auto lastvaluation = valuations.back();
@@ -45,9 +46,10 @@ void InvestorAssetDisplay::PopulateIRR(){
             if(pos->GetAssetPointer() == assetPtr){
                 ownership+=pos->CalculateOwnershipAtDate(lastvaluation.valuationDate);
                 committedAmount+=pos->GetCommitted();
+                reserveCapital+=pos->GetReserve();
             }
         }
-        newCashFlow.amount = lastvaluation.valuation * ownership;
+        newCashFlow.amount = lastvaluation.valuation * ownership + reserveCapital;
         newCashFlow.date = wxDateTime::Today();
         if(newCashFlow.amount != 0){
             cashFlow.push_back(newCashFlow);    
