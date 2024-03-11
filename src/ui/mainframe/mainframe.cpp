@@ -31,6 +31,13 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             utilities::SetFontForWindowAndChildren(this, font);
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
+            #ifdef __WXMAC__
+               foregroundcolor = wxColor(89, 197, 255);
+               allAssetVListControl->SetForegroundColour(foregroundcolor);
+               for (size_t i = 0; i < allAssetVListControl->GetItemCount(); ++i) {
+                  allAssetVListControl->SetItemTextColour(i, *wxBLACK);
+               }
+            #endif
          };
 
 void MainFrame::setupLayout(){
