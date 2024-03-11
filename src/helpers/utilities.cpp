@@ -192,7 +192,10 @@ namespace utilities{
     void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color,const wxColour &foregroundColor) {
         CustomControlBase *customCtrl = dynamic_cast<CustomControlBase*>(window);
         if(customCtrl && customCtrl->IsVListCtrl()){
-//do nothing with sylelizing 
+            wxColor vlcBackGroundColor =  wxColor(100,100,100);
+            window->SetBackgroundColour(vlcBackGroundColor);
+            window->SetForegroundColour(wxColor(125,125,124));
+
         }else{
             window->SetBackgroundColour(color); 
             window->SetForegroundColour(foregroundColor);
