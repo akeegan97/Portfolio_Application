@@ -1,4 +1,5 @@
 #include "models/supporting/promoteFee.hpp"
+#include "helpers/utilities.hpp"
 
 void to_json(json&j,const PromoteFee &promoteFee){
     std::string date = promoteFee.promotefee.first.FormatISODate().ToStdString();
@@ -20,16 +21,9 @@ void from_json(const json&j,PromoteFee &promoteFee){
 
 wxVariant PromoteFee::GetValue(int col)const{
     switch(col){
-        case 0: return wxVariant(promotefee.first);break;
-        case 1: return wxVariant(promotefee.second);break;
+        case 0: return wxVariant(promotefee.first.FormatISODate());break;
+        case 1: return wxVariant(utilities::formatDollarAmount(promotefee.second));break;
         default: return wxVariant();break;
-    }
-}
-
-void PromoteFee::SetValue(int col, const wxVariant &v){
-    switch(col){
-        case 0: promotefee.first = v.GetDateTime();break;
-        case 1: promotefee.second = v.GetDouble();break;
     }
 }
 

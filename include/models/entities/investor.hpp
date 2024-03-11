@@ -31,7 +31,6 @@ class Investor{
         m_clientName(clientName),m_type(type),m_managementFeePercentage(mgmtFeePercent),m_promoteFeePercentage(promoteFeePercent){};
     //Methods to Interact with VLC
         wxVariant GetValue(int col)const;
-        void SetValue(int col, const wxVariant  &v);
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
     //Public Getters

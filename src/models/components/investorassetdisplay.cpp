@@ -1,5 +1,5 @@
 #include "models/components/investorassetdisplay.hpp"
-
+#include "helpers/utilities.hpp"
 
 
 
@@ -138,13 +138,13 @@ double InvestorAssetDisplay::CalculateNPV(std::vector<CashFlow> &cashFlows, doub
 wxVariant InvestorAssetDisplay::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(assetPtr->GetAssetName());break;
-        case 1: return wxVariant(totalPaid);break;
-        case 2: return wxVariant(totalReturnOfCapital);break;
-        case 3: return wxVariant(totalCommitted);break;
-        case 4: return wxVariant(totalDeployed);break;
-        case 5: return wxVariant(itdNetDistribution);break;
-        case 6: return wxVariant(irr * 100);break;
-        case 7: return wxVariant(totalCurrrentValue);break;
+        case 1: return wxVariant(utilities::formatDollarAmount(totalPaid));break;
+        case 2: return wxVariant(utilities::formatDollarAmount(totalReturnOfCapital));break;
+        case 3: return wxVariant(utilities::formatDollarAmount(totalCommitted));break;
+        case 4: return wxVariant(utilities::formatDollarAmount(totalDeployed));break;
+        case 5: return wxVariant(utilities::formatDollarAmount(itdNetDistribution));break;
+        case 6: return wxVariant(utilities::FormatPercentage(irr));break;
+        case 7: return wxVariant(utilities::formatDollarAmount(totalCurrrentValue));break;
         default: return wxVariant();break;
     }
 }

@@ -165,7 +165,7 @@ public:
     }
     virtual wxListItemAttr *OnGetItemAttr(long item) const wxOVERRIDE {
         static wxListItemAttr attr;
-        attr.SetTextColour(wxColour(51, 245, 12)); 
+        attr.SetTextColour(wxColour(0,0,0)); 
         return &attr;
     }
     T& GetItemAtListIndex(long listIndex){

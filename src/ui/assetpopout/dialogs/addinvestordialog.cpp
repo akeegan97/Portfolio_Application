@@ -5,6 +5,11 @@ AddInvestorDialog::AddInvestorDialog(wxWindow *parentWindow):
     wxDialog(parentWindow, wxID_ANY, "Fill Out Position", wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
     {
         SetupLayout();
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColour foregroundcolor = wxColor(0,0,0);
+        utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+        utilities::SetFontForWindowAndChildren(this, font);
     }
 
 void AddInvestorDialog::SetupLayout(){

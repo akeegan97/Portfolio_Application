@@ -15,18 +15,19 @@ AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wx
         asset(asset),
         investorPositionDisplayVirtualListControl(nullptr),
         valuationListControl(nullptr){
-            // wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-            // wxColour color = wxColor(255,255,255);
-            //add function to set deploy/reserve for positions
             SetupLayout();
             UpdateDisplayTextValues();
-            // utilities::SetBackgroundColorForWindowAndChildren(this, color);
-            // utilities::SetFontForWindowAndChildren(this, font);
+            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColour foregroundcolor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+            utilities::SetFontForWindowAndChildren(this, font);
             Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
         };
 
 void AssetPopout::SetupLayout(){
     //sizers
+    wxSize vlcInitialSize = FromDIP(wxSize(400, 150));
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *middleChartSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -37,12 +38,12 @@ void AssetPopout::SetupLayout(){
         auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
         asset->AddInvestorPositionDisplay(investorPositionDisplay);
     }
-    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this,wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    investorPositionDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorPositionDisplay>>(this,wxID_ANY,FromDIP(wxDefaultPosition),vlcInitialSize);
     if(!asset->GetIPDVector().empty()){
         investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
     }
     topSizer->Add(investorPositionDisplayVirtualListControl, wxALL| wxEXPAND,5);
-    mainSizer->Add(topSizer,2,wxALL|wxEXPAND);
+    mainSizer->Add(topSizer,1,wxALL|wxEXPAND,5);
 
     chartPanelHolderPanel = new wxPanel(this, wxID_ANY);
     //change colors here
@@ -74,15 +75,15 @@ void AssetPopout::SetupLayout(){
     middleChartSizer->Add(chartPanelHolderPanel,5,wxALL|wxEXPAND,5);
     middleChartSizer->Add(distributionChartPanelHolder,5,wxALL|wxEXPAND,5);
 
-    mainSizer->Add(middleChartSizer,4,wxEXPAND,5);
+    mainSizer->Add(middleChartSizer,6,wxALL|wxEXPAND,5);
 
     //add VLCs for Valuations/Distributions removal of Events
-    valuationListControl = new VListControl<Valuation>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    valuationListControl = new VListControl<Valuation>(this, wxID_ANY,FromDIP(wxDefaultPosition),vlcInitialSize);
     if(!asset->GetValuations().empty()){
         valuationListControl->setItems(asset->GetValuationsNonConst());
         valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit, this);
     }
-    distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),FromDIP(wxDefaultSize));
+    distributionListControl = new VListControl<Distribution>(this, wxID_ANY,FromDIP(wxDefaultPosition),vlcInitialSize);
     if(!asset->GetDistributions().empty()){
         distributionListControl->setItems(asset->GetDistributionsNonConst());
         distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
@@ -90,7 +91,7 @@ void AssetPopout::SetupLayout(){
     middleVLCSizer->Add(valuationListControl,5,wxALL|wxEXPAND,5);
     middleVLCSizer->Add(distributionListControl,5,wxALL|wxEXPAND,5);
 
-    mainSizer->Add(middleVLCSizer, 2, wxALL|wxEXPAND, 5);
+    mainSizer->Add(middleVLCSizer, 1, wxALL|wxEXPAND, 5);
 
     wxBoxSizer *staticTextSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *rHalfTextSizer = new wxBoxSizer(wxVERTICAL);
@@ -142,7 +143,7 @@ void AssetPopout::SetupLayout(){
 
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
-    mainSizer->Add(bottomSizer,2,wxALL|wxEXPAND,5);
+    mainSizer->Add(bottomSizer,1,wxALL|wxEXPAND,5);
     this->SetSizer(mainSizer);
     this->Layout();
 
@@ -175,34 +176,34 @@ void AssetPopout::UpdateDisplayTextValues(){
     std::string assetIRRformated = std::to_string(asset->GetIrr());
 
     assetIRR->SetLabel("Asset Gross IRR: "+assetIRRformated);
-    assetIRR->SetForegroundColour(wxColor(51,245,12));
+    assetIRR->SetForegroundColour(wxColor(0,0,0));
 
     totalCommittedText->SetLabel("Total Subscribed Amount: "+formattedCommitted);
-    totalCommittedText->SetForegroundColour(wxColor(51,245,12));
+    totalCommittedText->SetForegroundColour(wxColor(0,0,0));
 
     totalPaidText->SetLabel("Total Paid Amount: "+formattedTotalPaid);
-    totalPaidText->SetForegroundColour(wxColor(51,245,12));
+    totalPaidText->SetForegroundColour(wxColor(0,0,0));
 
     totalDeployedCapitalText->SetLabel("Total Deployed Amount: "+formattedTotalDeployed);
-    totalDeployedCapitalText->SetForegroundColour(wxColor(51,245,12));
+    totalDeployedCapitalText->SetForegroundColour(wxColor(0,0,0));
 
     numInvestorsText->SetLabel(wxString::Format("Total Investors: %.2f", numInvestors));
-    numInvestorsText->SetForegroundColour(wxColor(51,245,12));
+    numInvestorsText->SetForegroundColour(wxColor(0,0,0));
 
     totalReserveCapitalText->SetLabel("Total Reserve Amount: "+formattedReserve);
-    totalReserveCapitalText->SetForegroundColour(wxColor(51,245,12));
+    totalReserveCapitalText->SetForegroundColour(wxColor(0,0,0));
 
     totalReturnedCapitalText->SetLabel("Total Returned Amount: "+formattedReturnedCapital);
-    totalReturnedCapitalText->SetForegroundColour(wxColor(51,245,12));
+    totalReturnedCapitalText->SetForegroundColour(wxColor(0,0,0));
 
     totalMgmtFeesGeneratedText->SetLabel("Total Management Fees Earned: "+formatedTotalMgmtFees);
-    totalMgmtFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
+    totalMgmtFeesGeneratedText->SetForegroundColour(wxColor(0,0,0));
 
     totalMgmtFeesDueText->SetLabel("Total Management Fees Due: "+ formattedTotalMgmtFeesDue);
-    totalMgmtFeesDueText->SetForegroundColour(wxColor(51,245,12));
+    totalMgmtFeesDueText->SetForegroundColour(wxColor(0,0,0));
 
     totalPromoteFeesGeneratedText->SetLabel("Total Promote Fees Earned: "+formatedPromoteFees);
-    totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(51,245,12));
+    totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(0,0,0));
 }
 
 // void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
@@ -438,6 +439,12 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
 }
 
 Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
+    wxPen *valuationPen = new wxPen(wxColor(3, 252, 123),2);
+    wxPen *deploymentPen = new wxPen(wxColor(238, 3, 255),2);
+    wxColor *gridLineColor = new wxColor(0,0,0);
+    wxColor *textColor = new wxColor(5, 45, 247);
+    wxPen *gridLinePen = new wxPen(*gridLineColor);
+
     asset->PopulateValuationsDeploymentsForPlotting();
     if (asset->GetValuationsForPlotting().empty() && asset->GetDeploymentsForPlotting().empty()) {
         // Both datasets are empty, return nullptr to indicate no chart should be drawn
@@ -453,26 +460,47 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     }
     std::vector<std::pair<wxDateTime, double>> newValuations, newDeployments;
     double lastValuation = 0.0, lastDeployment = 0.0;
+    bool isFirstValuationHandled = false; // Flag to handle first valuation specially
 
     for (const auto& date : allDates) {
         auto valIt = std::find_if(asset->GetValuationsForPlotting().begin(), asset->GetValuationsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& val) { return val.first == date; });
+        auto depIt = std::find_if(asset->GetDeploymentsForPlotting().begin(), asset->GetDeploymentsForPlotting().end(),
+                                [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
+        
         if (valIt != asset->GetValuationsForPlotting().end()) {
             lastValuation = valIt->second;
             newValuations.push_back(*valIt);
+        } else if (!isFirstValuationHandled && depIt != asset->GetDeploymentsForPlotting().end()) {
+            // For the very first valuation, use the deployment value if it exists
+            newValuations.push_back({date, depIt->second});
+            lastValuation = depIt->second;
+            isFirstValuationHandled = true; // Ensure this only happens once
         } else {
-            newValuations.push_back({date, lastValuation}); 
+            newValuations.push_back({date, lastValuation});
         }
 
-        auto depIt = std::find_if(asset->GetDeploymentsForPlotting().begin(), asset->GetDeploymentsForPlotting().end(),
-                                [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
         if (depIt != asset->GetDeploymentsForPlotting().end()) {
             lastDeployment = depIt->second;
             newDeployments.push_back(*depIt);
         } else {
-            newDeployments.push_back({date, lastDeployment}); 
+            newDeployments.push_back({date, lastDeployment});
         }
     }
+
+    if (!newValuations.empty() && newValuations[0].second == 0.0) {
+        // Check if there's a corresponding deployment value for the first valuation date
+        auto matchingDeploymentIt = std::find_if(newDeployments.begin(), newDeployments.end(),
+                                                [&](const std::pair<wxDateTime, double>& dep) {
+                                                    return dep.first == newValuations[0].first;
+                                                });
+        if (matchingDeploymentIt != newDeployments.end()) {
+            // Replace the first valuation's value with the matching deployment's value
+            newValuations[0].second = matchingDeploymentIt->second;
+        }
+    }
+
+    // Now update the asset's series data with the adjusted newValuations
     asset->UpdateValuationsForPlotting(std::move(newValuations));
     asset->UpdateDeploymentsForPlotting(std::move(newDeployments));
 
@@ -489,8 +517,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         }
         TimeSeriesDataset* assetValuationTimeSeries = new TimeSeriesDataset(data, times, count);
         XYLineRenderer* assetValuationLineRender = new XYLineRenderer();
-        wxPen* assetValuationPen = new wxPen(wxColor(51,245,12),2); // Green for valuation
-        assetValuationLineRender->SetSeriePen(0, assetValuationPen);
+        assetValuationLineRender->SetSeriePen(0, valuationPen);
         assetValuationTimeSeries->SetRenderer(assetValuationLineRender);
         xyPlot->AddDataset(assetValuationTimeSeries);
     }
@@ -506,37 +533,44 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
         }
         TimeSeriesDataset* assetDeployTimeSeries = new TimeSeriesDataset(data2, times2, count2);
         XYLineRenderer* assetDeployLineRender = new XYLineRenderer();
-        wxPen* assetDeployLinePen = new wxPen(wxColor(0,0,252),2); // blue for deployment
-        assetDeployLineRender->SetSeriePen(0, assetDeployLinePen);
+        assetDeployLineRender->SetSeriePen(0, deploymentPen);
         assetDeployTimeSeries->SetRenderer(assetDeployLineRender);
         xyPlot->AddDataset(assetDeployTimeSeries);
     }
 
 
-    wxPen* chartBorderPen = new wxPen(wxColor(51,245,12));
-    wxBrush* chartFillBrush = new wxBrush(wxColor(0,0,0));
+    wxPen* chartBorderPen = new wxPen(wxColor(0,0,0));
+    wxBrush* chartFillBrush = new wxBrush(wxColor(255,255,255));
 
     FillAreaDraw* chartFillArea = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
     xyPlot->SetDrawGrid(true, true);
-    wxPen chartGridLinePen(wxColor(51,245,12),1,wxPENSTYLE_SOLID);
+
+    wxFont axisFont = *wxNORMAL_FONT;
+    axisFont.SetPointSize(14);
+    wxFont labelFont = *wxNORMAL_FONT;
+    labelFont.SetPointSize(12);
 
     NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
     leftAxis->SetTitle("Amount in $");
-    wxColor myColor = wxColor(51,245,12);
-    leftAxis->SetTitleColour(myColor);
-    leftAxis->SetLabelTextColour(myColor);
-    leftAxis->SetMajorGridlinePen(chartGridLinePen);
-    leftAxis->SetMinorGridlinePen(chartGridLinePen);
-    leftAxis->SetLabelPen(chartGridLinePen);
+    leftAxis->SetTitleColour(*textColor);
+    leftAxis->SetLabelTextColour(*textColor);
+    leftAxis->SetMajorGridlinePen(*gridLinePen);
+    leftAxis->SetMinorGridlinePen(*gridLinePen);
+    leftAxis->SetLabelPen(*gridLinePen);
+    leftAxis->SetTitleFont(axisFont);
+    leftAxis->SetLabelTextFont(labelFont);
 
     DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
     bottomAxis->SetTitle("Dates");
-    bottomAxis->SetTitleColour(myColor);
-    bottomAxis->SetLabelTextColour(myColor);
+    bottomAxis->SetTitleColour(*textColor);
+    bottomAxis->SetLabelTextColour(*textColor);
     bottomAxis->SetVerticalLabelText(true);
     bottomAxis->SetDateFormat(wxT("%m-%d-%Y"));
-    bottomAxis->SetMajorGridlinePen(chartGridLinePen);
-    bottomAxis->SetLabelPen(chartGridLinePen);
+    bottomAxis->SetMajorGridlinePen(*gridLinePen);
+    bottomAxis->SetLabelPen(*gridLinePen);
+    bottomAxis->SetTitleFont(axisFont);
+    bottomAxis->SetLabelTextFont(labelFont);
+    bottomAxis->SetMargins(wxCoord(15),wxCoord(35));
 
     xyPlot->AddAxis(leftAxis);
     xyPlot->AddAxis(bottomAxis);
@@ -558,14 +592,13 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     titleFont.SetPointSize(14);
 
     TextElement *chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
-    chartTitle->SetColour(myColor);
+    chartTitle->SetColour(*textColor);
     Header *myHeader = new Header(*chartTitle);
     myChart->SetHeader(myHeader);
-    wxPen *chartPen = new wxPen(myColor);
-    wxBrush *chartBrush = new wxBrush(wxColor(0,0,0));
+    wxPen *chartPen = new wxPen(*textColor);
+    wxBrush *chartBrush = new wxBrush(wxColor(255,255,255));
     FillAreaDraw *chartFillArea2 = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
     myChart->SetBackground(chartFillArea2);
-
     return myChart;
 }
 
@@ -577,7 +610,7 @@ void AssetPopout::UpdateChartValuationDeploy(){
         chartPanelHolderPanel->DestroyChildren();
 
         wxChartPanel *newChartPanel = new wxChartPanel(chartPanelHolderPanel, wxID_ANY);
-        newChartPanel->SetBackgroundColour(wxColor(0,0,0));
+        newChartPanel->SetBackgroundColour(wxColor(255,255,255));
         newChartPanel->SetChart(updatedChart);
 
         wxBoxSizer* holderSizer = new wxBoxSizer(wxVERTICAL);
@@ -593,6 +626,12 @@ void AssetPopout::UpdateChartValuationDeploy(){
 
 Chart* AssetPopout::PopulateDrawChartDistribution(){
     asset->PopulateDistributionForPlotting();
+
+    wxPen *distributionPen = new wxPen(wxColor(5, 45, 247),2);
+    wxColor *gridLineColor = new wxColor(0,0,0);
+    wxColor *textColor = new wxColor(5, 45, 247);
+    wxPen *gridLinePen = new wxPen(*gridLineColor);   
+    wxBrush* chartFillBrush = new wxBrush(wxColor(255,255,255));
 
     if(asset->GetDistributions().empty()){
         return nullptr;
@@ -614,33 +653,38 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     distributionDataSet->AddSerie(distributionBarSerie);
     BarType *barType = new NormalBarType(15);
     BarRenderer *barRender = new BarRenderer(barType);
-    wxColor *myColor = new wxColor(127, 197, 250);
-    wxPen*barPen = new wxPen(*myColor);
-    wxBrush* barBrush = new wxBrush(*myColor);
-    FillAreaDraw *barAreas = new FillAreaDraw(*barPen, *barBrush);
+
+    wxBrush* barBrush = new wxBrush(*textColor);
+    FillAreaDraw *barAreas = new FillAreaDraw(*distributionPen, *barBrush);
     barRender->SetBarDraw(0,barAreas);
     distributionDataSet->SetRenderer(barRender);
-
-    wxPen* chartBorderPen = new wxPen(wxColor(51,245,12));
-    wxBrush* chartFillBrush = new wxBrush(wxColor(0,0,0));
-    FillAreaDraw* chartFillArea = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
+    FillAreaDraw* chartFillArea = new FillAreaDraw(*gridLinePen, *chartFillBrush);
     wxPen chartGridLinePen(wxColor(51,245,12),1,wxPENSTYLE_SOLID);
+
+    wxFont axisFont = *wxNORMAL_FONT;
+    axisFont.SetPointSize(14);
+    wxFont labelFont = *wxNORMAL_FONT;
+    labelFont.SetPointSize(12);
 
     NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
     leftAxis->SetTitle("Amount in $");
-    leftAxis->SetTitleColour(*myColor);
-    //leftAxis->SetMargins(5, 0);
-    leftAxis->SetLabelTextColour(*myColor);
-    leftAxis->SetLabelPen(chartGridLinePen);
-    leftAxis->SetMajorGridlinePen(chartGridLinePen);
+    leftAxis->SetTitleColour(*textColor);
+    leftAxis->SetLabelTextColour(*textColor);
+    leftAxis->SetLabelPen(*gridLinePen);
+    leftAxis->SetMajorGridlinePen(*gridLinePen);
+    leftAxis->SetTitleFont(axisFont);
+    leftAxis->SetLabelTextFont(labelFont);
     barPlot->AddAxis(leftAxis);
 
     CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM);
     bottomAxis->SetTitle("Dates");
-    bottomAxis->SetTitleColour(*myColor);
+    bottomAxis->SetTitleColour(*textColor);
     bottomAxis->SetVerticalLabelText(true);
-    bottomAxis->SetLabelTextColour(*myColor);
-    bottomAxis->SetLabelPen(chartGridLinePen);
+    bottomAxis->SetLabelTextColour(*textColor);
+    bottomAxis->SetLabelPen(*gridLinePen);
+    bottomAxis->SetTitleFont(axisFont);
+    bottomAxis->SetLabelTextFont(labelFont);
+    bottomAxis->SetMargins(wxCoord(15),wxCoord(35));
     barPlot->AddAxis(bottomAxis);
 
     barPlot->AddDataset(distributionDataSet);
@@ -651,14 +695,14 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     Chart* chart = new Chart(barPlot, "");
     wxString titleText = "Distributions By Q";
     wxFont titleFont = *wxNORMAL_FONT;
-    titleFont.SetPointSize(14);
+    titleFont.SetPointSize(16);
     TextElement *chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
-    chartTitle->SetColour(*myColor);
+    chartTitle->SetColour(*textColor);
     Header *myHeader = new Header(*chartTitle);
     chart->SetHeader(myHeader);
-    wxPen *chartPen = new wxPen(*myColor);
+    wxPen *chartPen = new wxPen(*textColor);
     wxBrush *chartBrush = new wxBrush(wxColor(0,0,0));
-    FillAreaDraw *chartFillArea2 = new FillAreaDraw(*chartBorderPen, *chartFillBrush);
+    FillAreaDraw *chartFillArea2 = new FillAreaDraw(*gridLinePen, *chartFillBrush);
     chart->SetBackground(chartFillArea2);
     
     return chart;

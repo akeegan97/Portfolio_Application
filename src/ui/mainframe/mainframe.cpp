@@ -17,13 +17,13 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
          totalValuationText(nullptr),
          chartPanelHolderPanel(nullptr),
          quoteOfTheDate(nullptr){
-            // wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-            // wxColour color = wxColor(255,255,255);
-            
+            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColour foregroundcolor = wxColor(0,0,0);
             setupLayout();
             ReadPickQuote("../storage/RugenBergQuotes.txt");
-            // utilities::SetBackgroundColorForWindowAndChildren(this, color);
-            // utilities::SetFontForWindowAndChildren(this, font);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+            utilities::SetFontForWindowAndChildren(this, font);
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
          };
@@ -66,7 +66,6 @@ void MainFrame::setupLayout(){
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-   allInvestorVListControl->SetBackgroundColour(wxColor(0,0,0));
 
    if(!portfolio.assetPtrs.empty()){
       allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
@@ -78,7 +77,6 @@ void MainFrame::setupLayout(){
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
 
    quoteOftheDatePanel = new wxPanel(this);
-   quoteOftheDatePanel->SetBackgroundColour(wxColor(0,0,0));
    quoteOfTheDate = new wxStaticText(quoteOftheDatePanel, wxID_ANY, "");
    int widthOfPAnel = quoteOftheDatePanel->GetMaxWidth();
 
@@ -154,11 +152,11 @@ void MainFrame::UpdatePortfolioDisplayValues(){
    std::string formattedTotalvaluation = utilities::formatDollarAmount(totalValuation_value);
 
    totalInvestedText->SetLabel("Total Amount Committed: "+formattedTotalInvested);
-   totalInvestedText->SetForegroundColour(wxColor(51, 245, 12));
+   totalInvestedText->SetForegroundColour(wxColor(0,0,0));
    totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
-   totalInvestorCountText->SetForegroundColour(wxColor(51, 245, 12));
+   totalInvestorCountText->SetForegroundColour(wxColor(0,0,0));
    totalValuationText->SetLabel("Total Valuation of Fund: "+formattedTotalvaluation);
-   totalValuationText->SetForegroundColour(wxColor(51, 245, 12));
+   totalValuationText->SetForegroundColour(wxColor(0,0,0));
 }
 
 void MainFrame::ReadPickQuote(const std::string&filePath){
@@ -224,6 +222,13 @@ void MainFrame::OnAssetPopoutClose(wxCommandEvent &e){
 }
 
 Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
+   wxPen *seriePen = new wxPen(wxColor(0,0,0));
+   wxPen *borderPen = new wxPen(wxColor(0,0,0));
+   wxColor *textColor = new wxColor(5, 45, 247);
+   wxBrush* fillBrush = new wxBrush(wxColor(255, 255, 255));
+   wxPen gridLinePen(*textColor,1, wxPENSTYLE_SOLID);
+   wxCoord(5);
+
    size_t count = portfolio.valuationVectorPlotting.size();
    double greatestValue=0;
    for(const auto value : portfolio.valuationVectorPlotting){
@@ -243,40 +248,44 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    TimeSeriesDataset* valuationTimeSeries = new TimeSeriesDataset(data, times, count);
 
    XYLineRenderer* customColoredLine = new XYLineRenderer();
-   wxPen* myPen = new wxPen(wxColor(52, 219, 235),2);
-   customColoredLine->SetSeriePen(0,myPen);
+   customColoredLine->SetSeriePen(2,seriePen);
    valuationTimeSeries->SetRenderer(customColoredLine);
 
    XYPlot *xyPlot = new XYPlot();
    xyPlot->AddDataset(valuationTimeSeries);
 
-   wxPen* borderPen = new wxPen(wxColor(51,245,12));
-   wxBrush* fillBrush = new wxBrush(wxColor(0,0,0));
-
-   FillAreaDraw* fillArea = new FillAreaDraw(*borderPen, *fillBrush);
+   FillAreaDraw* fillArea = new FillAreaDraw(gridLinePen, *fillBrush);
 
    xyPlot->SetDrawGrid(true, true);
 
-   wxPen gridLinePen(wxColor(51,245,12),1, wxPENSTYLE_SOLID);
+   wxFont axisFont = *wxNORMAL_FONT;
+   axisFont.SetPointSize(18);
+   wxFont labelFont = *wxNORMAL_FONT;
+   labelFont.SetPointSize(14);
+
 
    NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
    leftAxis->SetTitle("Valuations");
-   wxColor myColor = wxColor(51,245,12);
-   leftAxis->SetTitleColour(myColor);
-   leftAxis->SetLabelTextColour(myColor);
+   leftAxis->SetTitleFont(axisFont);
+   leftAxis->SetTitleColour(*textColor);
+   leftAxis->SetLabelTextColour(*textColor);
    leftAxis->SetMajorGridlinePen(gridLinePen);
    leftAxis->SetMinorGridlinePen(gridLinePen);
    leftAxis->SetLabelPen(gridLinePen);
+   leftAxis->SetLabelTextFont(labelFont);
 
 
    DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
    bottomAxis->SetTitle("Valuation Dates");
-   bottomAxis->SetTitleColour(myColor);
-   bottomAxis->SetLabelTextColour(myColor);
+   bottomAxis->SetTitleFont(axisFont);
+   bottomAxis->SetTitleColour(*textColor);
+   bottomAxis->SetLabelTextColour(*textColor);
    bottomAxis->SetVerticalLabelText(true);
    bottomAxis->SetDateFormat(wxT("%b-%Y"));
    bottomAxis->SetMajorGridlinePen(gridLinePen);
-   bottomAxis->SetLabelPen(*myPen);
+   bottomAxis->SetLabelPen(gridLinePen);
+   bottomAxis->SetLabelTextFont(labelFont);
+   bottomAxis->SetMargins(wxCoord(15),wxCoord(35));
 
    xyPlot->AddAxis(leftAxis);
    xyPlot->AddAxis(bottomAxis);
@@ -291,13 +300,10 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    titleFont.SetPointSize(22);
 
    TextElement* chartTitle = new TextElement(titleText, wxALIGN_CENTER_HORIZONTAL, titleFont);
-   chartTitle->SetColour(myColor);
+   chartTitle->SetColour(*textColor);
 
    Header* myHeader = new Header(*chartTitle);
    myChart->SetHeader(myHeader);
-
-   wxPen* chartPen = new wxPen(myColor);
-   wxBrush* chartBrush = new wxBrush(wxColor(0,0,0));
 
    FillAreaDraw* chartFillArea = new FillAreaDraw(*borderPen, *fillBrush);
    myChart->SetBackground(chartFillArea);
@@ -351,7 +357,6 @@ void MainFrame::OnFrameResizeForQuote(wxSizeEvent &e){
 void MainFrame::OnAddAsset(wxCommandEvent &e){
    portfolio.EnsureFundPositionExists();
    AddAssetDialog dialog(this,portfolio);
-   dialog.SetBackgroundColour(wxColor(0,0,0));
    int retValue = dialog.ShowModal();
    if(retValue == wxID_OK){
       wxDateTime newAssetExitDate = dialog.GetExitDate();

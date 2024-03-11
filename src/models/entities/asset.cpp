@@ -1,4 +1,5 @@
 #include "models/entities/asset.hpp"
+#include "helpers/utilities.hpp"
 
 void Asset::SortDistributions(std::vector<Distribution> &distributions){
     std::sort(distributions.begin(), distributions.end(),
@@ -170,10 +171,10 @@ wxVariant Asset::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(m_assetSponserName);
         case 1: return wxVariant(m_assetName);
-        case 2: return wxVariant(m_assetExitDate);
-        case 3: return wxVariant(m_assetDeployedCapital);
+        case 2: return wxVariant(m_assetExitDate.FormatISODate());
+        case 3: return wxVariant(utilities::formatDollarAmount(m_assetDeployedCapital));
         case 4: return wxVariant(m_countOfInvestors);
-        case 5: return wxVariant(m_currentValue);
+        case 5: return wxVariant(utilities::formatDollarAmount(m_currentValue));
         default: return wxVariant();
     }
 }

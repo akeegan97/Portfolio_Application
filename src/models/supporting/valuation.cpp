@@ -1,22 +1,17 @@
 #include "models/supporting/valuation.hpp"
+#include "helpers/utilities.hpp"
 
 wxVariant Valuation::GetValue(int col)const{
     switch(col){
-        case 0:return wxVariant(valuationDate);
-        case 1:return wxVariant(valuation);
+        case 0:return wxVariant(valuationDate.FormatISODate());
+        case 1:return wxVariant(utilities::formatDollarAmount(valuation));
         default: return wxVariant();
     }
 }
 
-void Valuation::SetValue(int col, const wxVariant &v){
-    switch(col){
-        case 0: valuationDate = v.GetDateTime();break;
-        case 1: valuation = v.GetDouble();break;
-    }
-}
 
 std::vector<wxString> Valuation::columnNames = {"Valuation Date","Valuation"};
-std::vector<int> Valuation::columnWidths = {100,75};
+std::vector<int> Valuation::columnWidths = {200,200};
 
 void to_json(json&j, const Valuation &val){
     j=json{

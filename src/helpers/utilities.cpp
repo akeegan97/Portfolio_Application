@@ -169,6 +169,15 @@ namespace utilities{
         return prefix + formattedWithCommas + '.' + decimalPart;
     }
 
+    template <typename T>
+    std::string FormatPercentage(T value){
+        std::stringstream stream;
+        value = value *100;
+        stream <<std::fixed<<std::setprecision(5)<<std::abs(value);
+        std::string formatted = stream.str();
+        return formatted + "%";
+    }
+
     void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font){
         window->SetFont(font);
         const wxWindowList &children = window->GetChildren();
@@ -177,14 +186,16 @@ namespace utilities{
             SetFontForWindowAndChildren(child, font);
         }
     }
-    void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color) {
+    void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color,const wxColour &foregroundColor) {
         window->SetBackgroundColour(color); 
+        window->SetForegroundColour(foregroundColor);
         window->Refresh();
         const wxWindowList& children = window->GetChildren();
         for (wxWindowList::const_iterator it = children.begin(); it != children.end(); ++it) {
             wxWindow* child = *it;
-            SetBackgroundColorForWindowAndChildren(child, color); 
+            SetBackgroundColorForWindowAndChildren(child, color,foregroundColor); 
         }
     }
 }
 template std::string utilities::formatDollarAmount<double>(double);
+template std::string utilities::FormatPercentage<double>(double);

@@ -22,8 +22,10 @@ namespace utilities{
     bool AreSameQuarter(const wxDateTime &date1, const wxDateTime &date2);
     template <typename T>
     std::string formatDollarAmount(T value);
+    template <typename T>
+    std::string FormatPercentage(T value);
     void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font);
-    void SetBackgroundColorForWindowAndChildren(wxWindow *window, const wxColour&color);
+    void SetBackgroundColorForWindowAndChildren(wxWindow *window, const wxColour&color, const wxColour &foregroundColor);
 }
 
 #endif

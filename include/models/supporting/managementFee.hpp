@@ -13,7 +13,6 @@ class ManagementFee{
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
         wxVariant GetValue(int col)const;
-        void SetValue(int col, const wxVariant &v);
 
 };
 

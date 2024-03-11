@@ -6,10 +6,12 @@
 AddAssetDialog::AddAssetDialog(wxWindow*parentWindow,Portfolio &portfolio):
     wxDialog(parentWindow, wxID_ANY, "Instantiate New Asset",wxDefaultPosition, wxSize(700,550),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
-        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-        
-        //utilities::SetFontForWindowAndChildren(this, font);
         SetupLayout();
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColour foregroundcolor = wxColor(0,0,0);
+        utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+        utilities::SetFontForWindowAndChildren(this, font);
     }
 
 void AddAssetDialog::SetupLayout(){

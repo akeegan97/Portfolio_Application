@@ -17,8 +17,7 @@ class Valuation{
             valuationDate(valuationDate),valuation(valuation){};
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
-        wxVariant GetValue(int col)const;
-        void SetValue(int col, const wxVariant &v);        
+        wxVariant GetValue(int col)const;        
 };
 
 void to_json(json&j, const Valuation &val);

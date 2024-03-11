@@ -1,4 +1,5 @@
 #include "models/supporting/managementFee.hpp"
+#include "helpers/utilities.hpp"
 
 
 void to_json(json&j,const ManagementFee &fee){
@@ -20,18 +21,12 @@ void from_json(const json&j, ManagementFee &fee){
 
 wxVariant ManagementFee::GetValue(int col)const{
     switch(col){
-        case 0: return wxVariant(managementFeesAsset.first);break;
-        case 1: return wxVariant(managementFeesAsset.second);break;
+        case 0: return wxVariant(managementFeesAsset.first.FormatISODate());break;
+        case 1: return wxVariant(utilities::formatDollarAmount(managementFeesAsset.second));break;
         default: return wxVariant();break;
     }
 }
 
-void ManagementFee::SetValue(int col, const wxVariant &v){
-    switch(col){
-        case 0: managementFeesAsset.first = v.GetDateTime();break;
-        case 1: managementFeesAsset.second = v.GetDouble();break;
-    }
-}
 
 std::vector<wxString> ManagementFee::columnNames = {"Mgmt Fee Date","Mgmt Fee Amount"};
 std::vector<int> ManagementFee::columnWidths = {150,150};
