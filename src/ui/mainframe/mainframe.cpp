@@ -18,12 +18,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
          chartPanelHolderPanel(nullptr),
          quoteOfTheDate(nullptr){
             wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-            wxColour foregroundcolor = wxColor(250,2,15);
-            #ifdef __WXMAC__
-               foregroundcolor = wxColor(89, 197, 255);
-            #elif defined(__WXMSW__)
-               foregroundcolor = wxColor(0, 0, 0);
-            #endif
+            wxColour foregroundcolor = wxColor(0,0,0);
             wxColour color = wxColor(255,255,255);
             setupLayout();
             ReadPickQuote("../storage/RugenBergQuotes.txt");
@@ -32,12 +27,10 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
             #ifdef __WXMAC__
-               foregroundcolor = wxColor(89, 197, 255);
-               allAssetVListControl->SetForegroundColour(foregroundcolor);
-               for (size_t i = 0; i < allAssetVListControl->GetItemCount(); ++i) {
-                  allAssetVListControl->SetItemTextColour(i, *wxBLACK);
-               }
+               wxColor macForegroundColor = wxColor(255,255,255);
+               allAssetVListControl->SetForegroundColor(macForegroundColor);
             #endif
+            
          };
 
 void MainFrame::setupLayout(){
