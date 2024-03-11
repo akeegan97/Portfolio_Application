@@ -18,8 +18,13 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
          chartPanelHolderPanel(nullptr),
          quoteOfTheDate(nullptr){
             wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour foregroundcolor = wxColor(250,2,15);
+            #ifdef __WXMAC__
+               foregroundcolor = wxColor(255, 255, 255);
+            #elif defined(__WXMSW__)
+               foregroundcolor = wxColor(0, 0, 0);
+            #endif
             wxColour color = wxColor(255,255,255);
-            wxColour foregroundcolor = wxColor(0,0,0);
             setupLayout();
             ReadPickQuote("../storage/RugenBergQuotes.txt");
             utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
@@ -50,6 +55,7 @@ void MainFrame::setupLayout(){
 
    allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
    allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
+   std::cout<<"All Asset VLC Class Name: "<<allAssetVListControl->GetClassInfo()->GetClassName()<<std::endl;
 
    if(!portfolio.assetPtrs.empty()){
       allAssetVListControl->setItems(portfolio.assetPtrs);
