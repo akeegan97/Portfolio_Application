@@ -26,10 +26,6 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             utilities::SetFontForWindowAndChildren(this, font);
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
-            #ifdef __WXMAC__
-               wxColor macForegroundColor = wxColor(255,255,255);
-               allAssetVListControl->SetForegroundColor(macForegroundColor);
-            #endif
          };
 
 void MainFrame::setupLayout(){

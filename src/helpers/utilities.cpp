@@ -182,7 +182,12 @@ namespace utilities{
     }
 
     void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font){
-        window->SetFont(font);
+        CustomControlBase *customCtrl  = dynamic_cast<CustomControlBase*>(window);
+        if(customCtrl && customCtrl->IsVListCtrl()){
+
+        }else{
+            window->SetFont(font);
+        }
         const wxWindowList &children = window->GetChildren();
         for(wxWindowList::const_iterator it = children.begin(); it!=children.end();++it){
             wxWindow* child = *it;
@@ -192,10 +197,9 @@ namespace utilities{
     void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color,const wxColour &foregroundColor) {
         CustomControlBase *customCtrl = dynamic_cast<CustomControlBase*>(window);
         if(customCtrl && customCtrl->IsVListCtrl()){
-            wxColor vlcBackGroundColor =  wxColor(100,100,100);
-            window->SetBackgroundColour(vlcBackGroundColor);
-            window->SetForegroundColour(wxColor(125,125,124));
-
+            // wxColor vlcBackGroundColor =  wxColor(255,255,255);
+            // window->SetBackgroundColour(vlcBackGroundColor);
+            // window->SetForegroundColour(wxColor(43,124,255));
         }else{
             window->SetBackgroundColour(color); 
             window->SetForegroundColour(foregroundColor);
