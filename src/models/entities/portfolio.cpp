@@ -54,8 +54,8 @@ void from_json(const json &j, Portfolio &por) {
                 dateParse.ParseDate(dateStr);
                 asset->DeserializeSetAssetExitDate(dateParse);
             }
-            if(assetJson.contains("Asset Sponsor")){
-                wxString sponser = assetJson["Asset Sponsor"].get<std::string>().c_str();
+            if(assetJson.contains("Asset Sponser")){
+                wxString sponser = assetJson["Asset Sponser"].get<std::string>().c_str();
                 asset->DeserializeSetAssetSponser(sponser);
             }
             from_json(assetJson, *asset, por);

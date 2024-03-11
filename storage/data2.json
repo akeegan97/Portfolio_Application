@@ -1,0 +1,61 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 200000.0,
+            "Asset Exit Date": "2032-01-01",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 200000.0,
+                    "Date": "2023-05-16"
+                }
+            ],
+            "Asset Name": "Collins Park",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 300000.0,
+            "Asset Sponser": "KAWA",
+            "Current Value": 200000.0,
+            "Distributions": [],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Fund Position",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 200000.0,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 200000.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 200000.0,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 200000.0,
+            "Date": "2024-03-31"
+        }
+    ]
+}

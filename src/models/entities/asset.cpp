@@ -29,18 +29,21 @@ void Asset::ProcessDistributionsForPosition(){
     }
     for(const auto& distribution : m_distributions){
         for(auto &position: m_positions){
-            double ownershipForThisDistribution = position->CalculateOwnershipAtDate(distribution.distribution.first);
-            double feesForThisDistribution = position->CalculateManagementFeesDue(distribution);
-            double proportionalShareGross = distribution.distribution.second * ownershipForThisDistribution;
-            double remainder = proportionalShareGross - feesForThisDistribution;
-            double promoteFeePercentage = position->GetInvestorPromoteFee();
-            PromoteFee newPromoteFee;
-            newPromoteFee.promotefee.first = distribution.distribution.first;
-            newPromoteFee.promotefee.second = remainder * promoteFeePercentage;
-            Distribution newDistribution;
-            newDistribution.distribution.first = distribution.distribution.first;
-            newDistribution.distribution.second = remainder - newPromoteFee.promotefee.second;
-            position->UpdateFinancesPostDistributionChanges(newDistribution, newPromoteFee);
+            //add check if position->GetDateInvested() > distribution->GetDate() skip. 
+            if(position->GetDateInvested()< distribution.distribution.first){
+                double ownershipForThisDistribution = position->CalculateOwnershipAtDate(distribution.distribution.first);
+                double feesForThisDistribution = position->CalculateManagementFeesDue(distribution);
+                double proportionalShareGross = distribution.distribution.second * ownershipForThisDistribution;
+                double remainder = proportionalShareGross - feesForThisDistribution;
+                double promoteFeePercentage = position->GetInvestorPromoteFee();
+                PromoteFee newPromoteFee;
+                newPromoteFee.promotefee.first = distribution.distribution.first;
+                newPromoteFee.promotefee.second = remainder * promoteFeePercentage;
+                Distribution newDistribution;
+                newDistribution.distribution.first = distribution.distribution.first;
+                newDistribution.distribution.second = remainder - newPromoteFee.promotefee.second;
+                position->UpdateFinancesPostDistributionChanges(newDistribution, newPromoteFee);
+            }
         }
     }
 }
@@ -160,16 +163,17 @@ std::shared_ptr<Position> Asset::GetPositionByID(size_t id){
 const std::vector<std::shared_ptr<Position>>& Asset::GetPositions()const{
     return m_positions;
 }
-std::vector<wxString> Asset::columnNames = {"Asset Name","Exit Date","Total Deployed","# Investors","Current Value"};
-std::vector<int> Asset::columnWidths = {125,100,150,125,140};
+std::vector<wxString> Asset::columnNames = {"Sponser","Name","Exit Date","Total Deployed","# Investors","Current Value"};
+std::vector<int> Asset::columnWidths = {100,125,100,150,125,140};
 
 wxVariant Asset::GetValue(int col)const{
     switch(col){
-        case 0: return wxVariant(m_assetName);
-        case 1: return wxVariant(m_assetExitDate);
-        case 2: return wxVariant(m_assetDeployedCapital);
-        case 3: return wxVariant(m_countOfInvestors);
-        case 4: return wxVariant(m_currentValue);
+        case 0: return wxVariant(m_assetSponserName);
+        case 1: return wxVariant(m_assetName);
+        case 2: return wxVariant(m_assetExitDate);
+        case 3: return wxVariant(m_assetDeployedCapital);
+        case 4: return wxVariant(m_countOfInvestors);
+        case 5: return wxVariant(m_currentValue);
         default: return wxVariant();
     }
 }

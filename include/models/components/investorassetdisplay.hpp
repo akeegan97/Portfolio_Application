@@ -31,6 +31,7 @@ class InvestorAssetDisplay{
         double totalReturnOfCapital;
         double irr;
         double itdNetDistribution;
+        double totalCurrrentValue;
         
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;

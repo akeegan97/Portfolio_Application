@@ -111,6 +111,7 @@ void InvestorAssetDisplay::SetDerivedValues(){
     totalCommitted=0;
     totalReserve=0;
     totalReturnOfCapital=0;
+    totalCurrrentValue = 0;
     for(const auto pos:investorPtr->GetPositions()){
         if(pos->GetAssetPointer() == assetPtr){
             totalCommitted +=pos->GetCommitted();
@@ -118,6 +119,7 @@ void InvestorAssetDisplay::SetDerivedValues(){
             totalReserve +=pos->GetDeployed();
             totalReturnOfCapital +=pos->GetReturnOfCapital();
             totalPaid +=pos->GetPaid();
+            totalCurrrentValue+=pos->GetPositionValue();
         }
     }
 }
@@ -136,15 +138,17 @@ double InvestorAssetDisplay::CalculateNPV(std::vector<CashFlow> &cashFlows, doub
 wxVariant InvestorAssetDisplay::GetValue(int col)const{
     switch(col){
         case 0: return wxVariant(assetPtr->GetAssetName());break;
-        case 1: return wxVariant(totalCommitted);break;
-        case 2: return wxVariant(totalPaid);break;
-        case 3: return wxVariant(totalDeployed);break;
-        case 4: return wxVariant(itdNetDistribution);break;
-        case 5: return wxVariant(irr);break;
+        case 1: return wxVariant(totalPaid);break;
+        case 2: return wxVariant(totalReturnOfCapital);break;
+        case 3: return wxVariant(totalCommitted);break;
+        case 4: return wxVariant(totalDeployed);break;
+        case 5: return wxVariant(itdNetDistribution);break;
+        case 6: return wxVariant(irr * 100);break;
+        case 7: return wxVariant(totalCurrrentValue);break;
         default: return wxVariant();break;
     }
 }
 
 
-std::vector<wxString> InvestorAssetDisplay::columnNames={"Asset Name","Subscribed","Paid","Deployed","ITD Net Distributions","IRR"};
-std::vector<int> InvestorAssetDisplay::columnWidths = {100,75,75,100,150,100};
+std::vector<wxString> InvestorAssetDisplay::columnNames={"Asset Name","Paid","ROC","Committed","Deployed","ITD Distributions","IRR","Current Value"};
+std::vector<int> InvestorAssetDisplay::columnWidths = {100,80,80,100,100,175,80,125};
