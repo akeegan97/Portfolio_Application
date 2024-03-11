@@ -30,7 +30,6 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
                wxColor macForegroundColor = wxColor(255,255,255);
                allAssetVListControl->SetForegroundColor(macForegroundColor);
             #endif
-            
          };
 
 void MainFrame::setupLayout(){
@@ -54,8 +53,6 @@ void MainFrame::setupLayout(){
    auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
    allAssetVListControl = new VListControl<std::shared_ptr<Asset>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-   allAssetVListControl->SetBackgroundColour(wxColor(0,0,0));
-   std::cout<<"All Asset VLC Class Name: "<<allAssetVListControl->GetClassInfo()->GetClassName()<<std::endl;
 
    if(!portfolio.assetPtrs.empty()){
       allAssetVListControl->setItems(portfolio.assetPtrs);

@@ -1,4 +1,7 @@
 #include "helpers/utilities.hpp"
+#include "helpers/vlistcontrol.hpp"
+
+class CustomControlBase;
 
 
 namespace utilities{
@@ -187,8 +190,14 @@ namespace utilities{
         }
     }
     void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color,const wxColour &foregroundColor) {
-        window->SetBackgroundColour(color); 
-        window->SetForegroundColour(foregroundColor);
+        CustomControlBase *customCtrl = dynamic_cast<CustomControlBase*>(window);
+        if(customCtrl && customCtrl->IsVListCtrl()){
+//do nothing with sylelizing 
+        }else{
+            window->SetBackgroundColour(color); 
+            window->SetForegroundColour(foregroundColor);
+            window->Refresh();
+        }
         window->Refresh();
         const wxWindowList& children = window->GetChildren();
         for (wxWindowList::const_iterator it = children.begin(); it != children.end(); ++it) {

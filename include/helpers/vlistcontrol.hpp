@@ -6,6 +6,14 @@
 #include <memory>
 
 using namespace std;
+
+class CustomControlBase{
+    public:
+        virtual bool IsVListCtrl()const{return false;}
+        virtual ~CustomControlBase(){}
+};
+
+
 template<typename T>
 struct DerefHelper {
     static const T& deref(const T& item) {
@@ -35,7 +43,7 @@ struct DerefHelper<T*> {
 };
 
 template <typename T>
-class VListControl : public wxListCtrl {
+class VListControl : public wxListCtrl, public CustomControlBase {
 private:
     using UnderlyingType = std::remove_reference_t<decltype(DerefHelper<T>::deref(std::declval<T>()))>;
 public:
@@ -76,6 +84,9 @@ public:
         const auto& item = DerefHelper<T>::deref(items[orderedIndices[index]]);
         return item.GetValue(column).GetString();
     }
+
+    virtual bool IsVListCtrl() const override { return true; }
+
 
     long getFirstSelectedIndex() {
         return GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
