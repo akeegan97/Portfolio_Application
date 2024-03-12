@@ -22,8 +22,10 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             wxColour color = wxColor(255,255,255);
             setupLayout();
             ReadPickQuote("../storage/RugenBergQuotes.txt");
+            #ifdef __WXMSW__
             utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
             utilities::SetFontForWindowAndChildren(this, font);
+            #endif
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
          };
@@ -53,6 +55,7 @@ void MainFrame::setupLayout(){
    if(!portfolio.assetPtrs.empty()){
       allAssetVListControl->setItems(portfolio.assetPtrs);
    }
+
    addAssetButton = new wxButton(this, wxID_ANY, "Add Asset");
    addInvestorButton = new wxButton(this, wxID_ANY, "Add Investor");
    addInvestorButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddInvestor, this);
@@ -133,6 +136,22 @@ void MainFrame::setupLayout(){
    mainSizer->Add(rSideSizer, 5, wxEXPAND | wxALL,10);
    mainSizer->Layout();
    //set mainframe sizer to be the main sizer here
+#ifdef __WXMAC__
+   wxFont font = wxFont(12,wxDEFAULT, wxNORMAL,wxFONTWEIGHT_BOLD, false);
+   wxColor bgColor = wxColor(255,255,255);
+   wxColor fgColor = wxColor(38, 34, 245);
+
+   allAssetVListControl->SetBackgroundColour(bgColor);
+   allAssetVListControl->SetForegroundColour(fgColor);
+   allInvestorVListControl->SetBackgroundColour(bgColor);
+   allInvestorVListControl->SetForegroundColour(fgColor);
+
+   addAssetButton->SetBackgroundColour(bgColor);
+   addAssetButton->SetForegroundColour(fgColor);
+   addInvestorButton->SetBackgroundColour(bgColor);
+   addInvestorButton->SetForegroundColour(fgColor);
+#endif
+
    this->Bind(wxEVT_SIZE, &MainFrame::OnFrameResizeForQuote, this);
    this->SetSizer(mainSizer);
    this->Layout();
