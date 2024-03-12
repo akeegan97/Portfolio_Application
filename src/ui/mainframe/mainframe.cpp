@@ -118,7 +118,7 @@ void MainFrame::setupLayout(){
    rSideSizer->Add(chartPanelHolderPanel, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
-   botRSidePanel->SetBackgroundColour(wxColor(0,0,0));
+   botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
 
    totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Committed: $0.00");
    totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Investors in fund: 0");
@@ -137,19 +137,36 @@ void MainFrame::setupLayout(){
    mainSizer->Layout();
    //set mainframe sizer to be the main sizer here
 #ifdef __WXMAC__
-   wxFont font = wxFont(12,wxDEFAULT, wxNORMAL,wxFONTWEIGHT_BOLD, false);
+   wxFont font = wxFont(14,wxDEFAULT, wxNORMAL,wxFONTWEIGHT_BOLD, false);
    wxColor bgColor = wxColor(255,255,255);
-   wxColor fgColor = wxColor(38, 34, 245);
+   wxColor fgColor = wxColor(0, 0, 0);
 
    allAssetVListControl->SetBackgroundColour(bgColor);
    allAssetVListControl->SetForegroundColour(fgColor);
+   allAssetVListControl->SetFont(font);
    allInvestorVListControl->SetBackgroundColour(bgColor);
    allInvestorVListControl->SetForegroundColour(fgColor);
+   allInvestorVListControl->SetFont(font);
 
    addAssetButton->SetBackgroundColour(bgColor);
    addAssetButton->SetForegroundColour(fgColor);
+   addAssetButton->SetFont(font);
    addInvestorButton->SetBackgroundColour(bgColor);
    addInvestorButton->SetForegroundColour(fgColor);
+   addInvestorButton->SetFont(font);
+   botRSidePanel->SetFont(font);
+   totalInvestedText->SetFont(font);
+   totalInvestedText->SetForegroundColour(fgColor);
+   totalInvestorCountText->SetFont(font);
+   totalInvestorCountText->SetForegroundColour(fgColor);
+   totalInvestedText->SetFont(font);
+   totalInvestedText->SetForegroundColour(fgColor);
+   totalValuationText->SetFont(font);
+   totalValuationText->SetForegroundColour(fgColor);
+   botRSidePanel->SetForegroundColour(fgColor);
+
+   this->SetBackgroundColour(bgColor);
+   
 #endif
 
    this->Bind(wxEVT_SIZE, &MainFrame::OnFrameResizeForQuote, this);
@@ -170,12 +187,12 @@ void MainFrame::UpdatePortfolioDisplayValues(){
    std::string formattedTotalvaluation = utilities::formatDollarAmount(totalValuation_value);
 
    totalInvestedText->SetLabel("Total Amount Committed: "+formattedTotalInvested);
-   totalInvestedText->SetForegroundColour(wxColor(0,0,0));
    totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
-   totalInvestorCountText->SetForegroundColour(wxColor(0,0,0));
    totalValuationText->SetLabel("Total Valuation of Fund: "+formattedTotalvaluation);
-   totalValuationText->SetForegroundColour(wxColor(0,0,0));
-}
+   #ifdef __WXMAC__
+   
+   #endif
+   }
 
 void MainFrame::ReadPickQuote(const std::string&filePath){
    std::vector<std::string> lines;
