@@ -1,8 +1,6 @@
 #include "models/components/investorassetdisplay.hpp"
 #include "helpers/utilities.hpp"
 
-
-
 void InvestorAssetDisplay::PopulateIRR(){
     std::vector<CashFlow> cashFlow;
     //Getting Initial Dates of investment and amounts
@@ -151,4 +149,4 @@ wxVariant InvestorAssetDisplay::GetValue(int col)const{
 
 
 std::vector<wxString> InvestorAssetDisplay::columnNames={"Asset Name","Paid","ROC","Committed","Deployed","ITD Distributions","IRR","Current Value"};
-std::vector<int> InvestorAssetDisplay::columnWidths = {100,80,80,100,100,175,80,125};
+std::vector<int> InvestorAssetDisplay::columnWidths = {100,110,80,100,100,145,80,125};

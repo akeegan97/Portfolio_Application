@@ -20,8 +20,10 @@ AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wx
             wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
             wxColour color = wxColor(255,255,255);
             wxColour foregroundcolor = wxColor(0,0,0);
+            #ifdef __WXMSW__
             utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
             utilities::SetFontForWindowAndChildren(this, font);
+            #endif
             Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
         };
 
@@ -144,6 +146,61 @@ void AssetPopout::SetupLayout(){
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
     mainSizer->Add(bottomSizer,1,wxALL|wxEXPAND,5);
+
+    #ifdef __WXMAC__
+    wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+    wxColour bgColor = wxColor(255,255,255);
+    wxColour fgColor = wxColor(0,0,0);  
+    this->SetBackgroundColour(bgColor);
+
+    investorPositionDisplayVirtualListControl->SetFont(font);
+    investorPositionDisplayVirtualListControl->SetBackgroundColour(bgColor);
+    investorPositionDisplayVirtualListControl->SetForegroundColour(fgColor);  
+
+    valuationListControl->SetFont(font);
+    valuationListControl->SetBackgroundColour(bgColor);
+    valuationListControl->SetForegroundColour(fgColor);
+
+    distributionListControl->SetFont(font);
+    distributionListControl->SetBackgroundColour(bgColor);
+    distributionListControl->SetForegroundColour(fgColor);
+
+    addDistributionButton->SetForegroundColour(fgColor);
+    addDistributionButton->SetBackgroundColour(bgColor);
+    addDistributionButton->SetFont(font);
+    addValuationButton->SetForegroundColour(fgColor);
+    addValuationButton->SetBackgroundColour(bgColor);
+    addValuationButton->SetFont(font);
+    addPositionButton->SetForegroundColour(fgColor);
+    addPositionButton->SetBackgroundColour(bgColor);
+    addPositionButton->SetFont(font);
+    assetLevelMovementOfCapitalButton->SetForegroundColour(fgColor);
+    assetLevelMovementOfCapitalButton->SetBackgroundColour(bgColor);
+    assetLevelMovementOfCapitalButton->SetFont(font);
+
+    assetIRR->SetForegroundColour(fgColor);
+    assetIRR->SetFont(font);
+    numInvestorsText->SetForegroundColour(fgColor);
+    numInvestorsText->SetFont(font);
+    totalCommittedText->SetForegroundColour(fgColor);
+    totalCommittedText->SetFont(font);
+    totalDeployedCapitalText->SetForegroundColour(fgColor);
+    totalDeployedCapitalText->SetFont(font);
+    totalReserveCapitalText->SetForegroundColour(fgColor);
+    totalReserveCapitalText->SetFont(font);
+    totalPromoteFeesGeneratedText->SetForegroundColour(fgColor);
+    totalPromoteFeesGeneratedText->SetFont(font);
+    totalMgmtFeesDueText->SetFont(font);
+    totalMgmtFeesDueText->SetForegroundColour(fgColor);
+    totalMgmtFeesGeneratedText->SetFont(font);
+    totalMgmtFeesGeneratedText->SetForegroundColour(fgColor);
+    totalPaidText->SetForegroundColour(fgColor);
+    totalPaidText->SetFont(font);
+    totalReturnedCapitalText->SetForegroundColour(fgColor);
+    totalReturnedCapitalText->SetFont(font);
+
+    #endif
+    
     this->SetSizer(mainSizer);
     this->Layout();
 

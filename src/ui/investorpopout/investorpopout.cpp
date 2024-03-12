@@ -11,8 +11,10 @@ InvestorPopout::InvestorPopout(wxWindow *parentWindow, const wxString &title, co
         wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
         wxColour color = wxColor(255,255,255);
         wxColour foregroundcolor = wxColor(0,0,0);
+        #ifdef __WXMSW__
         utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
         utilities::SetFontForWindowAndChildren(this, font);
+        #endif
 };
 
 void InvestorPopout::SetupLayout(){
@@ -37,7 +39,7 @@ void InvestorPopout::SetupLayout(){
     investorAssetDisplayVirtualListControl->setItems(investor->GetAssetDisplaysNonConst());
 
     leftSizer->Add(investorAssetDisplayVirtualListControl, 1, wxALL,10);
-    distributionsByAssetNoteBook = new wxNotebook(this, wxID_ANY);
+    distributionsByAssetNoteBook = new wxAuiNotebook(this, wxID_ANY);
     processedAssets.clear();
     for(auto position:investor->GetPositions()){
         std::shared_ptr<Asset> asset = position->GetAssetPointer();
@@ -77,6 +79,23 @@ void InvestorPopout::SetupLayout(){
             panelSizer->Add(netIncomeVLC, 1, wxALL|wxEXPAND,10);
             panelSizer->Add(mgmtFeeVLC, 1, wxALL|wxEXPAND,10);
             panelSizer->Add(promoteFeeVLC, 1, wxALL|wxEXPAND,10);
+            #ifdef __WXMAC__
+                wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+                wxColour bgColor = wxColor(255,255,255);
+                wxColour fgColor = wxColor(0,0,0);  
+                panel->SetBackgroundColour(bgColor);
+                panel->SetForegroundColour(fgColor);
+                netIncomeVLC->SetForegroundColour(fgColor);
+                netIncomeVLC->SetBackgroundColour(bgColor);
+                netIncomeVLC->SetFont(font);
+                mgmtFeeVLC->SetForegroundColour(fgColor);
+                mgmtFeeVLC->SetBackgroundColour(bgColor);
+                mgmtFeeVLC->SetFont(font);
+                promoteFeeVLC->SetFont(font);
+                promoteFeeVLC->SetBackgroundColour(bgColor);
+                promoteFeeVLC->SetForegroundColour(fgColor);
+
+            #endif  
             panel->SetSizer(panelSizer);
             panel->Layout();
         }
@@ -84,6 +103,26 @@ void InvestorPopout::SetupLayout(){
     rightSizer->Add(distributionsByAssetNoteBook, 1, wxALL, 10);
     mainSizer->Add(leftSizer, 7, wxRIGHT,5);
     mainSizer->Add(rightSizer,3,wxALL|wxEXPAND,5);
+    #ifdef __WXMAC__
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour bgColor = wxColor(255,255,255);
+        wxColour fgColor = wxColor(0,0,0);  
+        investorAssetDisplayVirtualListControl->SetForegroundColour(fgColor);
+        investorAssetDisplayVirtualListControl->SetBackgroundColour(bgColor);
+        investorAssetDisplayVirtualListControl->SetFont(font);
+        this->SetBackgroundColour(bgColor);
+        distributionsByAssetNoteBook->SetForegroundColour(fgColor);
+        distributionsByAssetNoteBook->SetFont(font);
+        auto tabArt = new wxAuiSimpleTabArt();
+        tabArt->SetColour(wxColor(255,255,255));
+        tabArt->SetActiveColour(wxColor(255,255,255));
+        tabArt->SetSelectedFont(font);
+        tabArt->SetNormalFont(font);
+        distributionsByAssetNoteBook->SetArtProvider(tabArt);
+        distributionsByAssetNoteBook->Bind(wxEVT_AUINOTEBOOK_PAGE_CLOSE, [&](wxAuiNotebookEvent& event) {
+        event.Veto();//stop users from closing tabs using GUI button
+        });
+    #endif
     this->SetSizer(mainSizer);
     this->Layout();  
 }

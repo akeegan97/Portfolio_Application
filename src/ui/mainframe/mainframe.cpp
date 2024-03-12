@@ -236,7 +236,6 @@ void MainFrame::OnInvestorVLCClick(wxListEvent &e){
    std::string selectedInvestorName  = selectedInvestor->GetName();
    auto* investorPopout  = new InvestorPopout(this, selectedInvestorName, wxDefaultPosition,wxSize(FromDIP(1200),FromDIP(800)),
    portfolio, selectedInvestor);
-   investorPopout->SetBackgroundColour(wxColor(0,0,0));
    investorPopout->Show(true);
 }
 

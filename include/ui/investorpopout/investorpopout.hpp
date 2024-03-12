@@ -15,6 +15,8 @@
 #include <wx/axis/categoryaxis.h>
 #include <wx/xy/timeseriesdataset.h>
 #include <wx/chartpanel.h>
+#include <wx/aui/tabart.h>
+#include <wx/aui/auibook.h>
 #include "helpers/utilities.hpp"
 
 class InvestorPopout : public wxFrame{
@@ -25,7 +27,7 @@ class InvestorPopout : public wxFrame{
         std::shared_ptr<Investor> investor;
     private:
         VListControl<std::shared_ptr<InvestorAssetDisplay>> *investorAssetDisplayVirtualListControl;
-        wxNotebook* distributionsByAssetNoteBook;
+        wxAuiNotebook* distributionsByAssetNoteBook;
         wxStaticText *totalPaid;
         void SetupLayout();
         Chart* PopulateInvestorsValuationDeployChart();
