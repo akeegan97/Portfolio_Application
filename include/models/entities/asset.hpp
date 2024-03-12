@@ -67,6 +67,8 @@ class Asset{
         void PopulateCurrentQValuations();
         void PopulatePreviousQDeploys();
         void PopulateCurrentQDeploys();
+        void CalculateIrr();
+        double CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate);
 
     public:
         Asset() = default;

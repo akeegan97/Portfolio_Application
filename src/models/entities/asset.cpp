@@ -696,4 +696,68 @@ void Asset::TriggerUpdateDerivedValues(){
     UpdateTotalInvestedCapital();
     UpdateTotalCountOfInvestors();
     UpdateCurrentvalue();
+    CalculateIrr();
+}
+
+void Asset::CalculateIrr(){
+    std::vector<CashFlow> cashFlow;
+    for(const auto& movement: m_movementsToFromDeploy){
+        CashFlow newCashFlow;
+        newCashFlow.amount = -movement.second;
+        newCashFlow.date = movement.first;
+        cashFlow.push_back(newCashFlow);
+    }
+    for(const auto& distr : m_distributions){
+        CashFlow newCashFlow;
+        newCashFlow.amount = distr.distribution.second;
+        newCashFlow.date = distr.distribution.first;
+        cashFlow.push_back(newCashFlow);
+    }
+    if(!m_valuations.empty()){
+        CashFlow newCashFlow;
+        SortValuations2();
+        auto valuation = m_valuations.back();
+        newCashFlow.amount = valuation.valuation;
+        newCashFlow.date = valuation.valuationDate;
+        cashFlow.push_back(newCashFlow);
+    }else{
+        CashFlow newCashFlow;
+        newCashFlow.amount = m_assetCommittedCapital;
+        newCashFlow.date = wxDateTime::Today();
+        cashFlow.push_back(newCashFlow);
+    }
+    std::sort(cashFlow.begin(),cashFlow.end(),
+                [](const CashFlow &a, const CashFlow &b){
+                    return a.date < b.date;
+                });
+    for(const auto&cf:cashFlow){
+        std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
+    }
+    m_irr = 0;
+    double guess = 0.1;
+    double x1 = 0.0;
+    int maxIterations = 100;
+    double precision = 0.000001;
+    for(int i = 0; i<maxIterations;i++){
+        double npv = CalculateNPV(cashFlow, guess);
+        double guessAddPrecision = guess + precision;
+        double npvPrime = (CalculateNPV(cashFlow, guessAddPrecision)- npv)/precision;
+        x1 =guess - npv / npvPrime;
+        if(std::fabs(x1-guess)<=precision){
+            m_irr = x1;
+            break;
+        }
+        guess = x1;
+    }
+}
+
+double Asset::CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate){
+    double npv = 0.0;
+    wxDateTime firstDate = cashFlows[0].date;
+    for(const auto& cf : cashFlows){
+        wxTimeSpan timeSpan = cf.date - firstDate;
+        double years = timeSpan.GetDays() / 365.25;
+        npv += cf.amount / std::pow(1+rate, years);
+    }
+    return npv;
 }

@@ -229,8 +229,8 @@ void AssetPopout::UpdateDisplayTextValues(){
     std::string formatedTotalMgmtFees = utilities::formatDollarAmount(totalMgmtFees);
     double totalMgmtFeesDue = asset->GetTotalMgmtFeesDue();
     std::string formattedTotalMgmtFeesDue = utilities::formatDollarAmount(totalMgmtFeesDue);
+    std::string assetIRRformated = utilities::FormatPercentage(asset->GetIrr());
 
-    std::string assetIRRformated = std::to_string(asset->GetIrr());
 
     assetIRR->SetLabel("Asset Gross IRR: "+assetIRRformated);
     assetIRR->SetForegroundColour(wxColor(0,0,0));
