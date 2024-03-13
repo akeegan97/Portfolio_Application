@@ -39,9 +39,9 @@ void AddComponentPositionDialog::SetupLayout(){
         allocationInput->SetValidator(numberValidator);
         allocationInputs[positionId] = allocationInput;
         wxBoxSizer *rowSizer = new wxBoxSizer(wxHORIZONTAL);
-        rowSizer->Add(nameLabel, 1, wxLEFT, 5);
-        rowSizer->Add(committedAmount,1,wxLEFT,5);
-        rowSizer->Add(allocationInput, 1, wxEXPAND,5);
+        rowSizer->Add(nameLabel, 1, wxALL, 5);
+        rowSizer->Add(committedAmount,1,wxALL,5);
+        rowSizer->Add(allocationInput, 1, wxALL|wxEXPAND,5);
         mainSizer->Add(rowSizer);
     }
     dateInvestedText = new wxStaticText(this, wxID_ANY,"Enter Invested Date");
@@ -49,15 +49,15 @@ void AddComponentPositionDialog::SetupLayout(){
     dateInvested = new wxDatePickerCtrl(this, wxID_ANY);
     dateInvested->SetValue(setdate);
     wxBoxSizer* dateSizer = new wxBoxSizer(wxHORIZONTAL);
-    dateSizer->Add(dateInvestedText, 1, wxLEFT,5);
-    dateSizer->Add(dateInvested, 1, wxEXPAND,5);
+    dateSizer->Add(dateInvestedText, 1, wxALL,5);
+    dateSizer->Add(dateInvested, 1, wxALL|wxEXPAND,5);
     mainSizer->Add(dateSizer);
     confirmButton = new wxButton(this, wxID_OK,"Confirm");
     cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
     wxBoxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
-    buttonSizer->Add(confirmButton, 1, wxEXPAND, 5);
-    buttonSizer->Add(cancelButton, 1, wxEXPAND,5);
-    mainSizer->Add(buttonSizer, 1, wxEXPAND,5);
+    buttonSizer->Add(confirmButton, 1, wxALL|wxEXPAND, 5);
+    buttonSizer->Add(cancelButton, 1, wxALL|wxEXPAND,5);
+    mainSizer->Add(buttonSizer, 1, wxALL|wxEXPAND,5);
     this->SetSizer(mainSizer);
     this->Layout();
 }
