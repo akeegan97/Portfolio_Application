@@ -112,6 +112,9 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             newPositionPtr->SetAssetPtr(m_asset);
             wxDateTime dateInvested = dialog.GetDateValue();
             double amountPaid = dialog.GetPaidAmount();
+            if(amountPaid == 0){
+                return;
+            }
             double deployedAmount = dialog.GetDeployedAmount();
             double reserveAmount = dialog.GetReserveAmount();
             newPositionPtr->SetDateInvested(dateInvested);

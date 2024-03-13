@@ -19,6 +19,7 @@ class AddComponentPositionDialog : public wxDialog{
         void SetupLayout();
         wxDateTime GetDateValue();
         std::map<size_t, wxTextCtrl*> GetAllocations();
+        void OnXClick(wxCloseEvent &e);
     private:
         Portfolio &m_portfolio;
         std::shared_ptr<Asset> m_asset;

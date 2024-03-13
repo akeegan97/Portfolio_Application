@@ -11,6 +11,7 @@ AddComponentPositionDialog::AddComponentPositionDialog(wxWindow*parentWindow, st
             wxColor bgColor = wxColor(255,255,255);
             utilities::SetBackgroundColorForWindowAndChildren(this, bgColor, fgColor);
             utilities::SetFontForWindowAndChildren(this, font);
+            this->Bind(wxEVT_CLOSE_WINDOW , &AddComponentPositionDialog::OnXClick, this);
         }
     
 wxDateTime AddComponentPositionDialog::GetDateValue(){
@@ -18,6 +19,9 @@ wxDateTime AddComponentPositionDialog::GetDateValue(){
 }
 std::map<size_t, wxTextCtrl*> AddComponentPositionDialog::GetAllocations(){
     return allocationInputs;
+}
+void AddComponentPositionDialog::OnXClick(wxCloseEvent &e){
+    EndModal(wxID_CANCEL);
 }
 void AddComponentPositionDialog::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);

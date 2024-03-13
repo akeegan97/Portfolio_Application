@@ -20,6 +20,10 @@
                 {
                     "Amount": 0.0,
                     "Date": "2024-03-12"
+                },
+                {
+                    "Amount": 0.0,
+                    "Date": "2024-03-13"
                 }
             ],
             "Asset Name": "Collins Park",
@@ -86,19 +90,11 @@
                         },
                         {
                             "2023-07-01": 0.0
+                        },
+                        {
+                            "2024-03-13": 0.0
                         }
                     ]
-                },
-                {
-                    "AssetName": "Collins Park",
-                    "Date Invested": "2024-03-12",
-                    "InvestorName": "Fund Position",
-                    "Management Fees Due": 0.0,
-                    "MovedFromDeploy": null,
-                    "MovedToDeploy": null,
-                    "Paid": 0.0,
-                    "ROC": 0.0,
-                    "ROC Movements": null
                 }
             ],
             "Promote Fee Percentage": 0.0,
@@ -132,6 +128,9 @@
                         },
                         {
                             "2023-07-01": 250000.0
+                        },
+                        {
+                            "2024-03-13": 0.0
                         }
                     ]
                 }
@@ -164,6 +163,9 @@
                     "ROC Movements": [
                         {
                             "2023-07-01": 250000.0
+                        },
+                        {
+                            "2024-03-13": 0.0
                         }
                     ]
                 }
@@ -193,7 +195,11 @@
                     ],
                     "Paid": 500000.0,
                     "ROC": 0.0,
-                    "ROC Movements": null
+                    "ROC Movements": [
+                        {
+                            "2024-03-13": 0.0
+                        }
+                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
