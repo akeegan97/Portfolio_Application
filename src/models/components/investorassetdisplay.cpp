@@ -68,7 +68,10 @@ void InvestorAssetDisplay::PopulateIRR(){
         newCashFlow.date = wxDateTime::Today();
         cashFlow.push_back(newCashFlow);
     }
-    //starting calculation around XIRR:
+    std::sort(cashFlow.begin(),cashFlow.end(),
+            [](const CashFlow &a, const CashFlow &b){
+                return a.date < b.date;
+            });
     std::cout<<"Called From InvestorAssetDisplay"<<std::endl;
     for(const auto&cf:cashFlow){
         std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;

@@ -16,6 +16,10 @@
                 {
                     "Amount": 47899.47,
                     "Date": "2023-12-31"
+                },
+                {
+                    "Amount": 0.0,
+                    "Date": "2024-03-12"
                 }
             ],
             "Asset Name": "Collins Park",
@@ -84,6 +88,17 @@
                             "2023-07-01": 0.0
                         }
                     ]
+                },
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2024-03-12",
+                    "InvestorName": "Fund Position",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 0.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
                 }
             ],
             "Promote Fee Percentage": 0.0,
