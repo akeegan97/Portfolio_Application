@@ -31,6 +31,6 @@ wxVariant Distribution::GetValue(int col)const{
 
 
 
-std::vector<wxString> Distribution::columnNames = {"Distribution Date","Distribution Amount"};
-std::vector<int> Distribution::columnWidths = {200,200};
+std::vector<wxString> Distribution::columnNames = {"Distribution Date","Amount"};
+std::vector<int> Distribution::columnWidths = {150,100};
 

@@ -520,41 +520,26 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     bool isFirstValuationHandled = false; // Flag to handle first valuation specially
 
     for (const auto& date : allDates) {
+        // Handle valuation updates
         auto valIt = std::find_if(asset->GetValuationsForPlotting().begin(), asset->GetValuationsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& val) { return val.first == date; });
+        if (valIt != asset->GetValuationsForPlotting().end()) {
+            lastValuation = valIt->second; // Update last known valuation
+        }
+        newValuations.push_back({date, lastValuation}); // Use updated or last known valuation
+
+        // Handle deployment updates
         auto depIt = std::find_if(asset->GetDeploymentsForPlotting().begin(), asset->GetDeploymentsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
-        
-        if (valIt != asset->GetValuationsForPlotting().end()) {
-            lastValuation = valIt->second;
-            newValuations.push_back(*valIt);
-        } else if (!isFirstValuationHandled && depIt != asset->GetDeploymentsForPlotting().end()) {
-            // For the very first valuation, use the deployment value if it exists
-            newValuations.push_back({date, depIt->second});
-            lastValuation = depIt->second;
-            isFirstValuationHandled = true; // Ensure this only happens once
-        } else {
-            newValuations.push_back({date, lastValuation});
-        }
-
         if (depIt != asset->GetDeploymentsForPlotting().end()) {
-            lastDeployment = depIt->second;
-            newDeployments.push_back(*depIt);
-        } else {
-            newDeployments.push_back({date, lastDeployment});
+            lastDeployment = depIt->second; // Update last known deployment
         }
+        newDeployments.push_back({date, lastDeployment}); // Use updated or last known deployment
     }
 
-    if (!newValuations.empty() && newValuations[0].second == 0.0) {
-        // Check if there's a corresponding deployment value for the first valuation date
-        auto matchingDeploymentIt = std::find_if(newDeployments.begin(), newDeployments.end(),
-                                                [&](const std::pair<wxDateTime, double>& dep) {
-                                                    return dep.first == newValuations[0].first;
-                                                });
-        if (matchingDeploymentIt != newDeployments.end()) {
-            // Replace the first valuation's value with the matching deployment's value
-            newValuations[0].second = matchingDeploymentIt->second;
-        }
+    // Ensure the first valuation is sensible if its initial value is zero and no explicit data exists for that date
+    if (!newValuations.empty() && newValuations.front().second == 0.0 && !newDeployments.empty()) {
+        newValuations.front().second = newDeployments.front().second;
     }
 
     // Now update the asset's series data with the adjusted newValuations
@@ -622,7 +607,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     bottomAxis->SetTitleColour(*textColor);
     bottomAxis->SetLabelTextColour(*textColor);
     bottomAxis->SetVerticalLabelText(true);
-    bottomAxis->SetDateFormat(wxT("%m-%d-%Y"));
+    bottomAxis->SetDateFormat(wxT("%b-%Y"));
     bottomAxis->SetMajorGridlinePen(*gridLinePen);
     bottomAxis->SetLabelPen(*gridLinePen);
     bottomAxis->SetTitleFont(axisFont);
@@ -700,8 +685,23 @@ Chart* AssetPopout::PopulateDrawChartDistribution(){
     double* values = new double[count];
     for(size_t i = 0;i<count; i++){
         values[i] = asset->GetDistributionsForPlotting()[i].second;
-        names[i] = asset->GetDistributionsForPlotting()[i].first.FormatISODate();
-        // std::cout<<"Distribution:i = "<<i<<" Data[i] = "<<values[i]<< "times[i] = "<<asset->GetDistributionsForPlotting()[i].first.FormatISODate()<<std::endl;
+        names[i] = asset->GetDistributionsForPlotting()[i].first.Format("%b-%Y");
+    }
+    if (count == 1) {
+        //work around solution to issue rendering barchart when there is only 1 distribution 
+        //caused bar to be rendered off chart and not visible
+        count += 2; 
+        delete[] names; 
+        delete[] values;
+        names = new wxString[count];
+        values = new double[count];
+
+        names[0] = (asset->GetDistributionsForPlotting()[0].first - wxTimeSpan::Days(60)).Format("%b-%Y");
+        values[0] = 0.0;
+        names[1] = asset->GetDistributionsForPlotting()[0].first.Format("%b-%Y"); 
+        values[1] = asset->GetDistributionsForPlotting()[0].second;
+        names[2] = (asset->GetDistributionsForPlotting()[0].first + wxTimeSpan::Days(60)).Format("%b-%Y"); 
+        values[2] = 0.0; 
     }
 
     CategorySimpleDataset* distributionDataSet = new CategorySimpleDataset(names,count);

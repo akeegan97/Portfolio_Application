@@ -40,6 +40,9 @@ void MainFrame::setupLayout(){
          position->TriggerUpdateOfManagementFeeVector();
       }
       asset->TriggerUpdateOfDistributionsForPositions();
+      for(auto&position:asset->GetPositions()){
+         position->UpdateManagementFeesDue();
+      }
    }
    if(!portfolio.allInvestorPtrs.empty()){
          portfolio.PopulateValuationMaps();    

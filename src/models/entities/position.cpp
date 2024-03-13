@@ -154,7 +154,12 @@ void Position::AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement){
     m_movedToDeploy[movement.first] = movement.second;
 }
 void Position::AddRocMovement(std::pair<wxDateTime, double> &movement){
-    m_returnOfCapitalMap[movement.first] = movement.second;
+    auto it = m_returnOfCapitalMap.find(movement.first);
+    if(it != m_returnOfCapitalMap.end()){
+        it->second += movement.second;
+    }else{
+        m_returnOfCapitalMap[movement.first] = movement.second;    
+    }
 }
 
 void Position::SetCommitted(){
@@ -267,7 +272,29 @@ ManagementFee Position::CalculatePositionManagementFees(const double &management
 void Position::TriggerUpdateOfManagementFeeVector(){
     PopulateManagementFeeVector();
 }
-
+void Position::UpdateManagementFeesDue(){
+    if (m_netIncome.empty()) {
+        m_managementFeesDue = 0.0;
+        return; 
+    }
+    
+    wxDateTime latestIncomeDate(1, wxDateTime::Jan, 1900); 
+    for (const auto& netIncome : m_netIncome) {
+        if (netIncome.distribution.first.IsLaterThan(latestIncomeDate)) {
+            latestIncomeDate = netIncome.distribution.first; 
+        }
+    }
+    
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(latestIncomeDate); 
+    double mgmtFeesDue = 0.0;
+    for (const auto& mgmtFee : m_managementFees) {
+        if (mgmtFee.managementFeesAsset.first > qEndDate) {
+            mgmtFeesDue += mgmtFee.managementFeesAsset.second; 
+        }
+    }
+    
+    m_managementFeesDue = mgmtFeesDue; 
+}
 void Position::RepopulateValuations() {
     m_valuationOfPosition.clear();
 
@@ -379,22 +406,28 @@ void from_json(const json&j, Position &position, Portfolio &port){
     position.SetManagementFeesDue(mgmtFeesDue);
     double returnOfCapital = j["ROC"].get<double>();
     position.SetReturnOfCapital(returnOfCapital);
-    if(j.contains("MovedToDeploy")){
-        for(const auto&[dateStr, amount]: j["MovedToDeploy"].items()){
-            wxDateTime date;
-            date.ParseISODate(dateStr);
-            double amountMoved = amount;
-            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
-            position.AddMovedToDeployEntry(movement);
+    if(j.contains("MovedToDeploy")) {
+        for(const auto& entry : j["MovedToDeploy"]) {
+            if(entry.size() == 2) { 
+                wxDateTime date;
+                std::string dateStr = entry[0];
+                date.ParseISODate(dateStr);
+                double amountMoved = entry[1];
+                std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+                position.AddMovedToDeployEntry(movement); 
+            }
         }
     }
-    if(j.contains("MovedOutDeploy")){
-        for(const auto&[dateStr, amount]: j["MovedOutDeploy"].items()){
-            wxDateTime date;
-            date.ParseISODate(dateStr);
-            double amountMoved = amount;
-            std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
-            position.AddMovedFromDeployEntry(movement);
+    if(j.contains("MovedFromDeploy")) {
+        for(const auto& entry : j["MovedFromDeploy"]) {
+            if(entry.size() == 2) { 
+                wxDateTime date;
+                std::string dateStr = entry[0];
+                date.ParseISODate(dateStr);
+                double amountMoved = entry[1];
+                std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
+                position.AddMovedFromDeployEntry(movement);
+            }
         }
     }
     if(j.contains("ROC Movements") && j["ROC Movements"].is_array()){

@@ -178,7 +178,11 @@ namespace utilities{
         value = value *100;
         stream <<std::fixed<<std::setprecision(5)<<std::abs(value);
         std::string formatted = stream.str();
-        return formatted + "%";
+        if(value < 0){
+            return "-"+formatted + "%";
+        }else{
+            return formatted + "%";    
+        }
     }
 
     void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font){

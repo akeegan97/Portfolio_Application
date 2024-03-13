@@ -151,6 +151,13 @@ double Asset::GetTotalAssetReserve()const{
     return m_assetReserveCapital;
 }
 double Asset::GetTotalReturnOfCapital()const{
+    double returnedCapital = 0.0;
+    for(const auto&position:m_positions){
+        // for(const auto& rocMovement: position->GetReturnOfCapitalMap()){
+        //     returnedCapital+=rocMovement.second;
+        // }
+        returnedCapital+=position->GetReturnOfCapital();
+    }
     return m_assetReturnOfCapital;
 }
 std::shared_ptr<Position> Asset::GetPositionByID(size_t id){
@@ -408,16 +415,12 @@ double Asset::GetTotalMgmtFeesEarned()const{
     }
     for(const auto&position:m_positions){
         for(const auto&mf:position->GetManagementFees()){
-            if(mf.managementFeesAsset.first <= m_distributions.back().distribution.second){
-                totalMgmtFeesDue+=mf.managementFeesAsset.second;
+            if(mf.managementFeesAsset.first <= m_distributions.back().distribution.first){
+                totalMgmtFeesDue += mf.managementFeesAsset.second;
             }
         }
     }
     return totalMgmtFeesDue;
-    //questionable this assumes there will always be a distribution that can take care of
-    //all mgmtfees eventually might not actually happen in production 
-    //might require keeping a second vector<ManagementFee> in position
-    //that tracks when a mf was paid once a distribution happens
 }
 
 double Asset::GetIrr()const{
@@ -680,7 +683,12 @@ void Asset::SetReserveCapital(double &startingReserve){
 }
 
 void Asset::AddMovement(std::pair<wxDateTime, double>& movement){
-    m_movementsToFromDeploy[movement.first] = movement.second;
+    auto it = m_movementsToFromDeploy.find(movement.first);
+    if( it != m_movementsToFromDeploy.end()){
+        it->second +=movement.second;
+    }else{
+        m_movementsToFromDeploy[movement.first] = movement.second;    
+    }
 }
 void Asset::AddNewDeployed(double &newDeployed){
     m_assetDeployedCapital +=newDeployed;

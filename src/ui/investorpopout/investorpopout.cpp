@@ -103,26 +103,25 @@ void InvestorPopout::SetupLayout(){
     rightSizer->Add(distributionsByAssetNoteBook, 1, wxALL, 10);
     mainSizer->Add(leftSizer, 7, wxRIGHT,5);
     mainSizer->Add(rightSizer,3,wxALL|wxEXPAND,5);
-    #ifdef __WXMAC__
-        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-        wxColour bgColor = wxColor(255,255,255);
-        wxColour fgColor = wxColor(0,0,0);  
-        investorAssetDisplayVirtualListControl->SetForegroundColour(fgColor);
-        investorAssetDisplayVirtualListControl->SetBackgroundColour(bgColor);
-        investorAssetDisplayVirtualListControl->SetFont(font);
-        this->SetBackgroundColour(bgColor);
-        distributionsByAssetNoteBook->SetForegroundColour(fgColor);
-        distributionsByAssetNoteBook->SetFont(font);
-        auto tabArt = new wxAuiSimpleTabArt();
-        tabArt->SetColour(wxColor(255,255,255));
-        tabArt->SetActiveColour(wxColor(255,255,255));
-        tabArt->SetSelectedFont(font);
-        tabArt->SetNormalFont(font);
-        distributionsByAssetNoteBook->SetArtProvider(tabArt);
-        distributionsByAssetNoteBook->Bind(wxEVT_AUINOTEBOOK_PAGE_CLOSE, [&](wxAuiNotebookEvent& event) {
-        event.Veto();//stop users from closing tabs using GUI button
-        });
-    #endif
+    
+    wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+    wxColour bgColor = wxColor(255,255,255);
+    wxColour fgColor = wxColor(0,0,0);  
+    investorAssetDisplayVirtualListControl->SetForegroundColour(fgColor);
+    investorAssetDisplayVirtualListControl->SetBackgroundColour(bgColor);
+    investorAssetDisplayVirtualListControl->SetFont(font);
+    this->SetBackgroundColour(bgColor);
+    distributionsByAssetNoteBook->SetForegroundColour(fgColor);
+    distributionsByAssetNoteBook->SetFont(font);
+    auto tabArt = new wxAuiSimpleTabArt();
+    tabArt->SetColour(wxColor(255,255,255));
+    tabArt->SetActiveColour(wxColor(255,255,255));
+    tabArt->SetSelectedFont(font);
+    tabArt->SetNormalFont(font);
+    distributionsByAssetNoteBook->SetArtProvider(tabArt);
+    distributionsByAssetNoteBook->Bind(wxEVT_AUINOTEBOOK_PAGE_CLOSE, [&](wxAuiNotebookEvent& event) {
+    event.Veto();//stop users from closing tabs using GUI button
+    });
     this->SetSizer(mainSizer);
     this->Layout();  
 }

@@ -28,5 +28,5 @@ wxVariant ManagementFee::GetValue(int col)const{
 }
 
 
-std::vector<wxString> ManagementFee::columnNames = {"Mgmt Fee Date","Mgmt Fee Amount"};
-std::vector<int> ManagementFee::columnWidths = {150,150};
+std::vector<wxString> ManagementFee::columnNames = {"Mgmt Fee Date","Amount"};
+std::vector<int> ManagementFee::columnWidths = {125,125};

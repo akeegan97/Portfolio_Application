@@ -27,5 +27,5 @@ wxVariant PromoteFee::GetValue(int col)const{
     }
 }
 
-std::vector<wxString> PromoteFee::columnNames = {"Promote Date","Promote Amount"};
-std::vector<int> PromoteFee::columnWidths = {150,150};
+std::vector<wxString> PromoteFee::columnNames = {"Promote Fee Date","Promote"};
+std::vector<int> PromoteFee::columnWidths = {150,100};

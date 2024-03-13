@@ -106,6 +106,7 @@ class Position{
         void SetMovedToDeploy();
         void SetMovedFromDeploy();
         void UpdateROC();
+        void UpdateManagementFeesDue();
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);
