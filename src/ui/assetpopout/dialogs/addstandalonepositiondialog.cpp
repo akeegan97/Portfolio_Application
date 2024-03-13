@@ -1,9 +1,15 @@
 #include "ui/assetpopout/dialogs/addstandalonepositiondialog.hpp"
+#include "helpers/utilities.hpp"
 
 AddStandalonePositionDialog::AddStandalonePositionDialog(wxWindow* parentWindow, Portfolio &portfolio):
     wxDialog(parentWindow, wxID_ANY, "Add Position",wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
         SetupLayout();
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColor fgColor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+            utilities::SetFontForWindowAndChildren(this, font);
     }
 
 void AddStandalonePositionDialog::SetupLayout(){

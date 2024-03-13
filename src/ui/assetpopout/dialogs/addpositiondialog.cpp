@@ -1,20 +1,24 @@
 #include "ui/assetpopout/dialogs/addpositiondialog.hpp"
-
+#include "helpers/utilities.hpp"
 
 AddPositionDialog::AddPositionDialog(wxWindow* parentWindow, Portfolio &portfolio, std::shared_ptr<Asset> asset):
     wxDialog(parentWindow, wxID_ANY, "Add Position",wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio),m_asset(asset){
         SetupLayout();
+        #ifdef __WXMSW__
         wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
         wxColour color = wxColor(255,255,255);
         wxColour foregroundcolor = wxColor(0,0,0);
         utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
         utilities::SetFontForWindowAndChildren(this, font);
+        #endif
     }
 
 void AddPositionDialog::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *topLeftSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer *topRightSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
     wxArrayString typeChoices;
@@ -31,8 +35,17 @@ void AddPositionDialog::SetupLayout(){
 
     associatedInvestorChoice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, investorChoices);
 
-    topSizer->Add(typeOfNewPositionChoice, 1, wxALL|wxEXPAND, 5);
-    topSizer->Add(associatedInvestorChoice, 1, wxALL|wxEXPAND, 5);
+    typeOfNewPositionText = new wxStaticText(this, wxID_ANY, "Select Type");
+    associatedInvestorText = new wxStaticText(this, wxID_ANY,"Select Investor");
+
+    topLeftSizer->Add(typeOfNewPositionText, 1, wxLEFT, 5);
+    topLeftSizer->Add(typeOfNewPositionChoice, 1, wxALL|wxEXPAND,5);
+
+    topRightSizer->Add(associatedInvestorText,1,wxLEFT,5);
+    topRightSizer->Add(associatedInvestorChoice,1,wxALL|wxEXPAND,5);
+
+    topSizer->Add(topLeftSizer, 1, wxALL|wxEXPAND, 5);
+    topSizer->Add(topRightSizer, 1, wxALL|wxEXPAND, 5);
 
     mainSizer->Add(topSizer, 1, wxALL|wxEXPAND,5);
 
@@ -41,8 +54,8 @@ void AddPositionDialog::SetupLayout(){
     confirmSelectionsLaunchButton = new wxButton(this, wxID_ANY, "Confirm");
     confirmSelectionsLaunchButton->Bind(wxEVT_BUTTON, &AddPositionDialog::OnConfirmPosition, this);
     wxButton *okayButton = new wxButton(this, wxID_OK, "Done");
-    buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND, 5);
-    buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND,5);
+    buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND);
+    buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND);
     buttonSizer->Add(okayButton, 1, wxALL|wxEXPAND,5);
 
 
@@ -50,6 +63,19 @@ void AddPositionDialog::SetupLayout(){
 
     this->SetSizer(mainSizer);
     this->Layout();
+    #ifdef __WXMAC__
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColour foregroundcolor = wxColor(0,0,0);
+        typeOfNewPositionChoice->SetFont(font);
+        typeOfNewPositionText->SetFont(font);
+        associatedInvestorText->SetFont(font);
+        associatedInvestorChoice->SetFont(font);
+        addNewInvestorButton->SetFont(font);
+        confirmSelectionsLaunchButton->SetFont(font);
+        okayButton->SetFont(font);
+
+    #endif
 }
 
 void AddPositionDialog::AddInvestor(wxCommandEvent &e){

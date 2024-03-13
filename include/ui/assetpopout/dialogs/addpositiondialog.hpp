@@ -37,7 +37,9 @@ class AddPositionDialog : public wxDialog{
         std::string m_typeOfNewPosition;
 
         wxChoice* typeOfNewPositionChoice;
+        wxStaticText * typeOfNewPositionText;
         wxChoice* associatedInvestorChoice;
+        wxStaticText *associatedInvestorText;
         wxButton* addNewInvestorButton;
         wxButton* confirmSelectionsLaunchButton;
 };

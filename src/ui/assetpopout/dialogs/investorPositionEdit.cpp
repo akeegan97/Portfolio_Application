@@ -1,5 +1,5 @@
 #include "ui/assetpopout/dialogs/investorPositionEdit.hpp"
-
+#include "helpers/utilities.hpp"
 InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
     wxDialog(parentWindow,wxID_ANY, "Edit InvestorPosition", wxDefaultPosition, wxSize(300,600),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         wxArrayString includeList;
@@ -113,6 +113,11 @@ InvestorPositionEditWindow::InvestorPositionEditWindow(wxWindow *parentWindow):
         mainSizer->Add(buttonSizer,0,wxCENTER);
 
         this->SetSizer(mainSizer);
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColor fgColor = wxColor(0,0,0);
+        utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+        utilities::SetFontForWindowAndChildren(this, font);
 }
 
 wxString InvestorPositionEditWindow::GetClientName(){

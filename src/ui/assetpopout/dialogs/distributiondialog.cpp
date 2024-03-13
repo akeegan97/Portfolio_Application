@@ -1,10 +1,22 @@
 #include "ui/assetpopout/dialogs/distributiondialog.hpp"
+#include "helpers/utilities.hpp"
+
 DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wxDateTime &setDate, double &setAmount):
     wxDialog(parentWindow, wxID_ANY, "Add Distribution", wxDefaultPosition,wxSize(300,250), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
         if(isEditMode){
             SetUpOnEditDistribution(setDate, setAmount);
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColor fgColor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+            utilities::SetFontForWindowAndChildren(this, font);
         }else{
             SetUpOnAddDistribution();
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColor fgColor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+            utilities::SetFontForWindowAndChildren(this, font);
         }
     }
 

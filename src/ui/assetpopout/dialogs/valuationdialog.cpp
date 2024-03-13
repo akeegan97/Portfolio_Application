@@ -1,11 +1,22 @@
 #include "ui/assetpopout/dialogs/valuationdialog.hpp"
+#include "helpers/utilities.hpp"
 
 ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTime &setDate, double &setValue):
     wxDialog(parentWindow, wxID_ANY, "Add Valuation", wxDefaultPosition, wxSize(300,250), wxDEFAULT_DIALOG_STYLE| wxRESIZE_BORDER){
         if(editMode){
             SetUpOnEdit(setDate, setValue);
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColor fgColor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+            utilities::SetFontForWindowAndChildren(this, font);
         }else{
             SetUpOnAdd();
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxColour color = wxColor(255,255,255);
+            wxColor fgColor = wxColor(0,0,0);
+            utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
+            utilities::SetFontForWindowAndChildren(this, font);
         }
     }
     

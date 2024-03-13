@@ -6,7 +6,7 @@ AddComponentPositionDialog::AddComponentPositionDialog(wxWindow*parentWindow, st
         m_portfolio(portfolio),
         m_asset(asset){
             SetupLayout();
-            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
             wxColour fgColor = wxColor(0,0,0);
             wxColor bgColor = wxColor(255,255,255);
             utilities::SetBackgroundColorForWindowAndChildren(this, bgColor, fgColor);
