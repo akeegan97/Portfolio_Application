@@ -67,33 +67,6 @@ Static Libraries Preparation:
 Even though the directory structure and setup process for static libraries are similar on Windows, the specific path to your staticlibs might differ. Ensure you clone wxWidgets and wxFreeChart into this directory and configure both for static linking.
 Statically Link System Libraries:
 
-In your CMakeLists.txt, you must specify the correct order of library linking. This order is crucial for the successful compilation and linking on Windows. Here is an example of how to configure your target_link_libraries command within CMake:
-
-target_link_libraries(${PROJECT_NAME} 
-    "${PROJECT_SOURCE_DIR}/staticlibs/wxFreeChart/wxFreeChart-master/lib/libwxcode_mswu_freechart-3.2.a"
-    wx_mswu_aui-3.2
-    wx_mswu_core-3.2
-    wx_baseu-3.2
-    wxpng-3.2
-    "${PROJECT_SOURCE_DIR}/staticlibs/wxWidgets/libz.a" 
-    wxjpeg-3.2
-    version
-    uxtheme
-    winspool
-    shell32
-    ole32
-    oleaut32
-    uuid
-    comctl32
-    advapi32
-    windowscodecs
-    shlwapi
-    user32
-    gdi32
-    oleacc
-    comdlg32
-)
-Ensure you replace "${PROJECT_SOURCE_DIR}/staticlibs/..." with the actual paths to your static libraries as appropriate.
 #General Build Instructions
 After preparing your environment according to the platform-specific instructions outlined above:
 
@@ -109,6 +82,7 @@ This project is licensed under the wxWindows Library Licence, Version 3.1 - see 
 ##CMAKELISTS.TXT Win and MacOS
 
 ##Windows
+```cmake
 cmake_minimum_required(VERSION 3.10)
 project(Portfolio VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
@@ -169,8 +143,10 @@ target_link_libraries(${PROJECT_NAME}
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
+```
 
 ##MacOS
+```cmake
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(Portfolio LANGUAGES CXX)
  
@@ -263,6 +239,6 @@ add_custom_command(TARGET Portfolio POST_BUILD
         "${PROJECT_SOURCE_DIR}/resources/icons/NewAppIcon.icns" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.app/Contents/Resources/NewAppIcon.icns"
     COMMENT "Copying the app icon to the app bundle"
 )
-
+```
 
 
