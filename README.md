@@ -79,7 +79,7 @@ Build the project using your chosen build system, following the commands specifi
 This project is licensed under the wxWindows Library Licence, Version 3.1 - see the [LICENSE.md](LICENSE.md) file for details.
 
 
-##CMAKELISTS.TXT Win and MacOS
+## CMAKELISTS.TXT Win and MacOS
 
 ##Windows
 ```cmake
