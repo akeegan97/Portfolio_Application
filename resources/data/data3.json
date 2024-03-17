@@ -1,0 +1,26 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 0.0,
+            "Asset Deployed Capital": 0.0,
+            "Asset Exit Date": "2024-12-31",
+            "Asset Name": "Collins Park",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "Kawa",
+            "Current Value": 0.0,
+            "Distributions": [],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Andrew Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        }
+    ],
+    "valuationVectorPlotting": []
+}

@@ -1,32 +1,53 @@
 #include <iostream>
 #include <wx/wx.h>
-#include "baseclasses/portfolio.hpp"
-#include "mainframe.hpp"
+#include <wx/stdpaths.h>
+#include "models/entities/portfolio.hpp"
+#include "ui/mainframe/mainframe.hpp"
 
-class RugenBerg : public wxApp{
-    public:
-        bool OnInit()override;
-        int OnExit()override;
-        Portfolio portfolio;
+class RugenBerg : public wxApp
+{
+public:
+    bool OnInit() override;
+    int OnExit() override;
+    Portfolio portfolio;
 };
 
-bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/data2.json");
-    portfolio.PopulateEvents();
-    std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
-    
-    if(!portfolio.allInvestorPtrs.empty()){
-        portfolio.PopulateValuationMaps();    
-    }
-    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1200,800), portfolio);
-    frame->SetBackgroundColour(wxColor(0,0,0));
+bool RugenBerg::OnInit()
+{
+    std::string jsonFilePath;
+
+#ifdef __WXMAC__
+    // macOS-specific path construction
+    wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
+    jsonFilePath = resourcePath + "/data/fundtesting.json";
+#elif defined(__WXMSW__)
+    // Windows-specific path (adjust as needed)
+    jsonFilePath = "../resources/data/fundtesting.json";
+#endif
+
+    portfolio.LoadFromFile(jsonFilePath);
+    std::cout << " TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: " << portfolio.allInvestorPtrs.size() << std::endl;
+
+    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1300, 800), portfolio);
     frame->Show(true);
     return true;
 }
 
-int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/data3.json");
-    return 0;
+int RugenBerg::OnExit()
+{
+    std::string jsonFilePath;
+
+#ifdef __WXMAC__
+    // macOS-specific path construction
+    wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
+    jsonFilePath = resourcePath + "/data/fundtesting.json";
+#endif
+#ifdef __WXMSW__
+    // Windows-specific path (adjust as needed)
+    jsonFilePath = "../resources/data/fundtesting.json";
+#endif
+    portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
+    return wxApp::OnExit();
 }
 
-wxIMPLEMENT_APP(RugenBerg);    
+wxIMPLEMENT_APP(RugenBerg);

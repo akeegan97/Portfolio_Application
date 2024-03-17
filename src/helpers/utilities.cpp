@@ -1,4 +1,7 @@
 #include "helpers/utilities.hpp"
+#include "helpers/vlistcontrol.hpp"
+
+class CustomControlBase;
 
 
 namespace utilities{
@@ -129,6 +132,19 @@ namespace utilities{
         return nextQStartDate;
     }
 
+    bool AreSameQuarter(const wxDateTime &date1, const wxDateTime &date2){
+        int year1 = date1.GetYear();
+        int year2 = date2.GetYear();
+
+        int month1 = date1.GetMonth()+1;
+        int month2 = date2.GetMonth()+1;
+
+        int q1 = (month1-1)/3 + 1;
+        int q2 = (month2-1)/3 + 1;
+
+        return year1 == year2 && q1==q2;
+    }
+
     template <typename T>
     std::string formatDollarAmount(T value) {
         std::stringstream stream;
@@ -156,5 +172,50 @@ namespace utilities{
         return prefix + formattedWithCommas + '.' + decimalPart;
     }
 
+    template <typename T>
+    std::string FormatPercentage(T value){
+        std::stringstream stream;
+        value = value *100;
+        stream <<std::fixed<<std::setprecision(5)<<std::abs(value);
+        std::string formatted = stream.str();
+        if(value < 0){
+            return "-"+formatted + "%";
+        }else{
+            return formatted + "%";    
+        }
+    }
+
+    void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font){
+        CustomControlBase *customCtrl  = dynamic_cast<CustomControlBase*>(window);
+        if(customCtrl && customCtrl->IsVListCtrl()){
+            window->SetFont(font);
+        }else{
+            window->SetFont(font);
+        }
+        const wxWindowList &children = window->GetChildren();
+        for(wxWindowList::const_iterator it = children.begin(); it!=children.end();++it){
+            wxWindow* child = *it;
+            SetFontForWindowAndChildren(child, font);
+        }
+    }
+    void SetBackgroundColorForWindowAndChildren(wxWindow* window, const wxColour& color,const wxColour &foregroundColor) {
+        CustomControlBase *customCtrl = dynamic_cast<CustomControlBase*>(window);
+        if(customCtrl && customCtrl->IsVListCtrl()){
+            wxColor vlcBackGroundColor =  wxColor(255,255,255);
+            window->SetBackgroundColour(vlcBackGroundColor);
+            window->SetForegroundColour(wxColor(0,0,0));
+        }else{
+            window->SetBackgroundColour(color); 
+            window->SetForegroundColour(foregroundColor);
+            window->Refresh();
+        }
+        window->Refresh();
+        const wxWindowList& children = window->GetChildren();
+        for (wxWindowList::const_iterator it = children.begin(); it != children.end(); ++it) {
+            wxWindow* child = *it;
+            SetBackgroundColorForWindowAndChildren(child, color,foregroundColor); 
+        }
+    }
 }
 template std::string utilities::formatDollarAmount<double>(double);
+template std::string utilities::FormatPercentage<double>(double);
