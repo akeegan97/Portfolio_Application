@@ -3,7 +3,8 @@ build/
 .vscode/
 storage/RugenBergQuotes.txt
 main.manifest
-resources/
+resources/icons
+resources/*.plist
 staticlibs/
 .DS_Store
 main.exe.manifest
