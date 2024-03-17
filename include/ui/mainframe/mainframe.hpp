@@ -55,6 +55,7 @@ class MainFrame : public wxFrame{
         void OnFrameResizeForQuote(wxSizeEvent &e);
         void OnAddAsset(wxCommandEvent &e);
         void OnAddInvestor(wxCommandEvent &e);
+        void OnClose(wxCloseEvent &e);
 };
 
 

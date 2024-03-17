@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include "wx/app.h"
 #include "ui/mainframe/mainframe.hpp"
 #include "ui/assetpopout/assetpopout.hpp"
 #include "ui/investorpopout/investorpopout.hpp"
@@ -28,6 +29,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
             #endif
             UpdatePortfolioDisplayValues();
             Bind(ASSET_POPOUT_CLOSED, &MainFrame::OnAssetPopoutClose, this);
+            Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
          };
 
 void MainFrame::setupLayout(){
@@ -455,4 +457,9 @@ void MainFrame::OnAddInvestor(wxCommandEvent &e){
       allInvestorVListControl->setItems(portfolio.GetInvestors());
       this->Refresh();
    }
+}
+
+void MainFrame::OnClose(wxCloseEvent& event) {
+    std::cout << "Closing MainFrame..." << std::endl;
+    wxExit();
 }

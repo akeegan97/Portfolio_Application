@@ -1,28 +1,53 @@
 #include <iostream>
 #include <wx/wx.h>
+#include <wx/stdpaths.h>
 #include "models/entities/portfolio.hpp"
 #include "ui/mainframe/mainframe.hpp"
 
-
-class RugenBerg : public wxApp{
-    public:
-        bool OnInit()override;
-        int OnExit()override;
-        Portfolio portfolio;
+class RugenBerg : public wxApp
+{
+public:
+    bool OnInit() override;
+    int OnExit() override;
+    Portfolio portfolio;
 };
 
-bool RugenBerg::OnInit(){
-    portfolio.LoadFromFile("../storage/fundtesting.json");
-    std::cout<<" TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: "<<portfolio.allInvestorPtrs.size()<<std::endl;
-    
-    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1300,800), portfolio);
+bool RugenBerg::OnInit()
+{
+    std::string jsonFilePath;
+
+#ifdef __WXMAC__
+    // macOS-specific path construction
+    wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
+    jsonFilePath = resourcePath + "/data/fundtesting.json";
+#elif defined(__WXMSW__)
+    // Windows-specific path (adjust as needed)
+    jsonFilePath = "../resources/data/fundtesting.json";
+#endif
+
+    portfolio.LoadFromFile(jsonFilePath);
+    std::cout << " TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: " << portfolio.allInvestorPtrs.size() << std::endl;
+
+    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1300, 800), portfolio);
     frame->Show(true);
     return true;
 }
 
-int RugenBerg::OnExit(){
-    portfolio.SavePortfolioToFile(portfolio,"../storage/fundtesting.json");
-    return 0;
+int RugenBerg::OnExit()
+{
+    std::string jsonFilePath;
+
+#ifdef __WXMAC__
+    // macOS-specific path construction
+    wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
+    jsonFilePath = resourcePath + "/data/fundtesting.json";
+#endif
+#ifdef __WXMSW__
+    // Windows-specific path (adjust as needed)
+    jsonFilePath = "../resources/data/fundtesting.json";
+#endif
+    portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
+    return wxApp::OnExit();
 }
 
-wxIMPLEMENT_APP(RugenBerg);    
+wxIMPLEMENT_APP(RugenBerg);
