@@ -1,3 +1,4 @@
+```
                 wxWindows Library Licence, Version 3.1
                 ======================================
 
@@ -44,6 +45,7 @@
   to the status of such modified files, you must delete this exception
   notice from such code and/or adjust the licensing conditions notice
   accordingly.
+```
 
   4. If you write modifications of your own for this library, it is your
   choice whether to permit this exception to apply to your modifications. 
