@@ -425,6 +425,7 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       portfolio.PopulateValuationMaps();
       UpdateChart();
       UpdatePortfolioDisplayValues();
+      //initialize the initial positions management fees here 
       this->Refresh();
    }
 }

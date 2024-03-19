@@ -33,7 +33,7 @@ class Position{
         std::shared_ptr<Asset> m_assetPtr;
         std::shared_ptr<Investor> m_investorPtr;
     //collections of data specific to this position
-        std::vector<ManagementFee> m_managementFees;
+        std::vector<ManagementFee> m_managementFees;//need to serde this also 
         std::vector<PromoteFee> m_promoteFees;
         std::vector<Distribution> m_netIncome;
 
@@ -104,7 +104,7 @@ class Position{
         void SetMovedFromDeploy();
         void UpdateROC();
         void UpdateManagementFeesDue();
-        void SetMgmtFeeVector();
+        void SetMgmtFeeVector(std::vector<ManagementFee> fees);
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);

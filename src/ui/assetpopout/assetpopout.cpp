@@ -740,13 +740,10 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
     if(retvalue == wxID_OK){
         asset->ClearInvestorPositionDisplays();
         for(auto& position : asset->GetPositionsForIDP()){
-            position->TriggerUpdateOfManagementFeeVector();//here need to create the mgmt fee vector 
-            
             auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
             asset->AddInvestorPositionDisplay(investorPositionDisplay);
             investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
         }
-        asset->TriggerUpdateOfDistributionsForPositions();
         UpdateChartValuationDeploy();
         UpdateDisplayTextValues();
         this->Refresh();

@@ -35,7 +35,6 @@ class AddPositionDialog : public wxDialog{
         std::shared_ptr<Asset> &m_asset;
         std::string m_associatedInvestor;
         std::string m_typeOfNewPosition;
-
         wxChoice* typeOfNewPositionChoice;
         wxStaticText * typeOfNewPositionText;
         wxChoice* associatedInvestorChoice;

@@ -326,6 +326,13 @@ void to_json(json &j, const Position &pos){
         {"Management Fees",json::array()},
         {"ROC Movements", json::array()}
     };
+    std::vector<json> feesJson;
+    for (const auto& fee : pos.GetManagementFees()) { 
+        json feeJson;
+        to_json(feeJson, fee); 
+        feesJson.push_back(feeJson); 
+    }
+    j["Management Fees"] = feesJson; 
 
     json movementsDeploy;
     for(const auto&movement:pos.GetMovementsDeploy()){
@@ -402,4 +409,17 @@ void from_json(const json&j, Position &position, Portfolio &port){
             }
         }
     }
+    if (j.contains("Management Fees") && j["Management Fees"].is_array()) {
+        std::vector<ManagementFee> fees;
+        for (const auto& feeJson : j["Management Fees"]) {
+            ManagementFee fee;
+            from_json(feeJson, fee); 
+            fees.push_back(fee); 
+        }
+        position.SetMgmtFeeVector(fees);
+    }
+}
+
+void Position::SetMgmtFeeVector(std::vector<ManagementFee> fees){
+    m_managementFees = fees;
 }

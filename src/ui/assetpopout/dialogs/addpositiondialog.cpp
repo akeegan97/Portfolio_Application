@@ -104,7 +104,6 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
     auto associatedInvestorPointer = m_portfolio.GetInvestorByName(investorName);
     m_asset->SetPositionID();
     if(positionType == "Standalone"){
-        //here we need to push the difference of the deployed before this position and the new deployed if any could be negative
         AddStandalonePositionDialog dialog(this->GetParent(), m_portfolio);
         int retValue = dialog.ShowModal();
         if(retValue == wxID_OK){
@@ -125,7 +124,6 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             m_asset->AddNewReserve(reserveAmount);
             m_asset->AddMovement(movement);
             m_asset->SetNewCommittedOnNewPosition(amountPaid);
-            //here when new deployed amount is known and previous position ownership amounts haven't been updated yet
             for(auto &pos : m_asset->GetPositionsForIDP()){
                 double oldDeploy = pos->GetDeployed();
                 double newOwnership = pos->GetCommitted() / m_asset->GetTotalCommitted();
@@ -143,6 +141,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                     pos->AddMovementDeploy(movement);
                 }
             }
+            //here need to update all positions management fees from this new position entrance -> current Q
+            //also need to make the whole management fees vector for new position
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateOfDistributionsForPositions();
         }
@@ -161,7 +161,6 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 auto amountReturned = input.second;
                 double allocatedAmount = wxAtof(amountReturned->GetValue());
                 std::shared_ptr<Position> thisPosition = m_asset->GetPositionByID(positionId);
-                std::cout<<"This Position Name: "<<thisPosition->GetInvestorPtr()->GetName()<<std::endl;
                 std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, allocatedAmount);
                 thisPosition->AddRocMovement(movement);
                 thisPosition->UpdateROC();
@@ -172,6 +171,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             m_asset->AddPosition(newPositionPtr);
             m_asset->SetPositionValues();
             associatedInvestorPointer->AddPosition(newPositionPtr);
+            //need to update donor positions' mgmt fees vector 
+            //need to also create the new positions mgmt fees vector 
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateOfDistributionsForPositions();
             m_asset->TriggerUpdateDerivedValues();
@@ -190,11 +191,6 @@ void AddPositionDialog::UpdateInvestorChoice(){
     associatedInvestorChoice->Append(investorChoices);
     associatedInvestorChoice->Refresh();
 }
-
-
-
-
-
 
 std::string& AddPositionDialog::GetAssociatedInvestor(){
     return m_associatedInvestor;
