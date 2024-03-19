@@ -104,6 +104,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
     auto associatedInvestorPointer = m_portfolio.GetInvestorByName(investorName);
     m_asset->SetPositionID();
     if(positionType == "Standalone"){
+        //here we need to push the difference of the deployed before this position and the new deployed if any could be negative
         AddStandalonePositionDialog dialog(this->GetParent(), m_portfolio);
         int retValue = dialog.ShowModal();
         if(retValue == wxID_OK){
@@ -119,17 +120,31 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             double reserveAmount = dialog.GetReserveAmount();
             newPositionPtr->SetDateInvested(dateInvested);
             newPositionPtr->SetPaid(amountPaid);
-            m_asset->AddPosition(newPositionPtr);
             std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, deployedAmount);
             m_asset->AddNewDeployed(deployedAmount);
             m_asset->AddNewReserve(reserveAmount);
             m_asset->AddMovement(movement);
             m_asset->SetNewCommittedOnNewPosition(amountPaid);
+            //here when new deployed amount is known and previous position ownership amounts haven't been updated yet
+            for(auto &pos : m_asset->GetPositionsForIDP()){
+                double oldDeploy = pos->GetDeployed();
+                double newOwnership = pos->GetCommitted() / m_asset->GetTotalCommitted();
+                double newDeployedValue = m_asset->GetTotalAssetDeployed() * newOwnership;
+                std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, (newDeployedValue - oldDeploy));
+                pos->AddMovementDeploy(movement);
+            }
+            m_asset->AddPosition(newPositionPtr);
+            m_asset->TriggerUpdateDerivedValues();
             m_asset->SetPositionValues();
             associatedInvestorPointer->AddPosition(newPositionPtr);
+            for(auto&pos:m_asset->GetPositionsForIDP()){
+                if(pos->GetInvestorPtr()==associatedInvestorPointer){
+                    std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, pos->GetDeployed());
+                    pos->AddMovementDeploy(movement);
+                }
+            }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateOfDistributionsForPositions();
-            m_asset->TriggerUpdateDerivedValues();
         }
     }else if(positionType == "Component"){
         AddComponentPositionDialog dialog(this->GetParent(), m_asset, m_portfolio);

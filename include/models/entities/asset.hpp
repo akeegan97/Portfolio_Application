@@ -45,6 +45,7 @@ class Asset{
         std::vector<std::shared_ptr<Position>> m_positions;
         std::map<wxDateTime,double> m_rocMovements;
         std::map<wxDateTime, double> m_movementsToFromDeploy;//negative for movements out of deploy to reserve, positive for movements in to deploy and out of reserve
+        std::vector<std::pair<Distribution, bool>> m_qDistributions;//need to SERDE this now 
     //for plotting
         std::vector<std::pair<wxDateTime, double>> m_valuationsForPlotting;
         std::vector<std::pair<wxDateTime, double>> m_deploymentsForPlotting;
@@ -120,6 +121,7 @@ class Asset{
         const std::map<wxDateTime, double> GetROCMovements()const;
         const std::map<wxDateTime, double> GetMovementsToFromDeploy()const;
         const std::vector<Distribution> GetDistributionsConst()const;
+        std::vector<std::pair<Distribution, bool>> GetQuarterDistributions()const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);

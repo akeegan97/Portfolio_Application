@@ -1,0 +1,79 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2032-03-19",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-06-15"
+                }
+            ],
+            "Asset Name": "Test",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 250000.0,
+            "Asset Sponser": "Test",
+            "Current Value": 250000.0,
+            "Distributions": [],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Andrew Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Test",
+                    "Date Invested": "2023-06-15",
+                    "InvestorName": "Andrew Keegan",
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-06-15",
+                            250000.0
+                        ]
+                    ],
+                    "Paid": 500000.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Will Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 250000.0,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2024-03-31"
+        }
+    ]
+}

@@ -45,13 +45,12 @@ class AssetPopout : public wxFrame{
         wxButton * addDistributionButton;
         wxButton *assetLevelMovementOfCapitalButton;
         wxButton *addValuationButton;
-        wxButton *addEventButton;
+        wxButton *executeDistributionButton;
         wxButton *addPositionButton;
         wxPanel *chartPanelHolderPanel;
         wxPanel *distributionChartPanelHolder;
         void SetupLayout();
         void UpdateDisplayTextValues();
-        void OnInvestorPositionClick(wxListEvent &e);
         void OnAddDistributionClicked(wxCommandEvent &e);
         void OnCapitalMovement(wxCommandEvent &e);
         void OnAddValuation(wxCommandEvent &e);
@@ -66,6 +65,7 @@ class AssetPopout : public wxFrame{
         //for distributions chart
         Chart* PopulateDrawChartDistribution();
         void UpdateChartDistribution();
+        void OnExecuteDistribution(wxCommandEvent &e);
 };
 
 

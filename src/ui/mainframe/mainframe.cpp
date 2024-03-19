@@ -37,14 +37,6 @@ void MainFrame::setupLayout(){
       asset->SetCurrentValue();
       asset->SetPositionValues();
       asset->TriggerUpdateDerivedValues();
-      std::cout<<"Asset Total Commit: "<<asset->GetTotalCommitted();
-      for(auto&position:asset->GetPositions()){
-         position->TriggerUpdateOfManagementFeeVector();
-      }
-      asset->TriggerUpdateOfDistributionsForPositions();
-      for(auto&position:asset->GetPositions()){
-         position->UpdateManagementFeesDue();
-      }
    }
    if(!portfolio.allInvestorPtrs.empty()){
          portfolio.PopulateValuationMaps();    
@@ -348,8 +340,7 @@ Chart* MainFrame::PopulateDrawChart(Portfolio &portfolio){
    myChart->SetBackground(chartFillArea);
 
    return myChart;
-
-}  
+}
 
 void MainFrame::UpdateChart() {
    chartPanelHolderPanel->DestroyChildren(); // Destroy previous chart panel
@@ -420,6 +411,7 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       associatedInvestor->AddPosition(initializedPosition);
       initializedPosition->SetInvestorPtr(associatedInvestor);
       auto pair = std::make_pair(dateInvested, deployedAmount);
+      initializedPosition->AddMovementDeploy(pair);
       newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);//new function 
       newAssetPtr->AddMovement(pair);
       newAssetPtr->AddPosition(initializedPosition);

@@ -1,8 +1,8 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 2300000.0,
-            "Asset Deployed Capital": 1500000.0,
+            "Asset Committed Capital": 2800000.0,
+            "Asset Deployed Capital": 1950000.0,
             "Asset Exit Date": "2032-01-15",
             "Asset Movement To From Deploy": [
                 {
@@ -20,29 +20,21 @@
                 {
                     "Amount": 100000.0,
                     "Date": "2023-10-05"
+                },
+                {
+                    "Amount": 450000.0,
+                    "Date": "2024-03-19"
                 }
             ],
             "Asset Name": "Collins Park",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 800000.0,
+            "Asset Reserve Capital": 850000.0,
             "Asset Sponser": "KAWA",
             "Current Value": 1600000.0,
             "Distributions": [
                 {
-                    "Distribution Amount": 25000.0,
+                    "Distribution Amount": 100000.0,
                     "Distribution Date": "2023-06-15"
-                },
-                {
-                    "Distribution Amount": 35000.0,
-                    "Distribution Date": "2023-07-15"
-                },
-                {
-                    "Distribution Amount": 50000.0,
-                    "Distribution Date": "2023-11-10"
-                },
-                {
-                    "Distribution Amount": 55000.0,
-                    "Distribution Date": "2024-03-10"
                 }
             ],
             "Valuations": [
@@ -93,7 +85,7 @@
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-05-16",
                     "InvestorName": "Andrew Keegan",
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 2815.068493150685,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
                     "Paid": 500000.0,
@@ -103,6 +95,17 @@
                             "2024-08-10": 0.0
                         }
                     ]
+                },
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2024-03-19",
+                    "InvestorName": "Andrew Keegan",
+                    "Management Fees Due": 0.0,
+                    "MovedFromDeploy": null,
+                    "MovedToDeploy": null,
+                    "Paid": 500000.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -116,7 +119,7 @@
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-07-15",
                     "InvestorName": "Jadai Keegan",
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 3739.7260273972606,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
                     "Paid": 1000000.0,
@@ -139,7 +142,7 @@
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-08-10",
                     "InvestorName": "Will Keegan",
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 934.9315068493152,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
                     "Paid": 250000.0,
@@ -158,7 +161,7 @@
                     "AssetName": "Collins Park",
                     "Date Invested": "2023-10-05",
                     "InvestorName": "Mac Brown",
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 554.7945205479451,
                     "MovedFromDeploy": null,
                     "MovedToDeploy": null,
                     "Paid": 300000.0,

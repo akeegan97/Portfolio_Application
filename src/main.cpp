@@ -19,10 +19,9 @@ bool RugenBerg::OnInit()
 #ifdef __WXMAC__
     // macOS-specific path construction
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/fundtesting.json";
+    jsonFilePath = resourcePath + "/data/test.json";
 #elif defined(__WXMSW__)
-    // Windows-specific path (adjust as needed)
-    jsonFilePath = "../resources/data/fundtesting.json";
+    jsonFilePath = "../resources/data/test.json";
 #endif
 
     portfolio.LoadFromFile(jsonFilePath);
@@ -40,11 +39,11 @@ int RugenBerg::OnExit()
 #ifdef __WXMAC__
     // macOS-specific path construction
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/fundtesting.json";
+    jsonFilePath = resourcePath + "/data/test.json";
 #endif
 #ifdef __WXMSW__
     // Windows-specific path (adjust as needed)
-    jsonFilePath = "../resources/data/fundtesting.json";
+    jsonFilePath = "../resources/data/testoutput.json";
 #endif
     portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
     return wxApp::OnExit();

@@ -38,8 +38,7 @@ class Position{
         std::vector<Distribution> m_netIncome;
 
         std::map<wxDateTime, double> m_valuationOfPosition;
-        std::map<wxDateTime, double> m_movedOutOfDeploy;
-        std::map<wxDateTime, double> m_movedToDeploy;
+        std::map<wxDateTime, double> m_movementsDeploy;
         std::map<wxDateTime, double> m_returnOfCapitalMap;
     //positional specifics 
         wxDateTime m_dateInvested;
@@ -80,8 +79,7 @@ class Position{
         std::vector<PromoteFee> GetPromoteFees()const;
         std::vector<Distribution> GetNetIncome()const;
         const std::map<wxDateTime, double> GetPositionValuations()const;
-        std::map<wxDateTime, double> GetMovedFromDeploy()const;
-        std::map<wxDateTime, double> GetMovedToDeploy()const;
+        std::map<wxDateTime, double> GetMovementsDeploy()const;
         std::shared_ptr<Investor> GetInvestorPtr()const;
         std::shared_ptr<Asset> GetAssetPointer()const;
         double GetPositionValue()const;
@@ -95,8 +93,7 @@ class Position{
         void SetDateInvested(wxDateTime &date);
         void SetPaid(double &paid);
         void SetManagementFeesDue(double &mgmtFeeDue);
-        void AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement);
-        void AddMovedFromDeployEntry(std::pair<wxDateTime, double> &movement);
+        void AddMovementDeploy(std::pair<wxDateTime, double> &movement);
         void AddRocMovement(std::pair<wxDateTime, double> &movement);
         void SetCommitted();
         void SetReserve();
@@ -107,6 +104,7 @@ class Position{
         void SetMovedFromDeploy();
         void UpdateROC();
         void UpdateManagementFeesDue();
+        void SetMgmtFeeVector();
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);

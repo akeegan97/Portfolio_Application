@@ -9,6 +9,7 @@
 #include "ui/assetpopout/dialogs/moveDeploy.hpp"
 #include "ui/assetpopout/dialogs/valuationdialog.hpp"
 #include "ui/assetpopout/dialogs/setassetdeployreservedialog.hpp"
+#include "ui/assetpopout/dialogs/distributionexecuted.hpp"
 AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset)
     : wxFrame(parentWindow, wxID_ANY, title, pos, size),
         portfolio(port),
@@ -138,10 +139,13 @@ void AssetPopout::SetupLayout(){
     addValuationButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddValuation, this);
     addPositionButton = new wxButton(this, wxID_ANY, "Add New Position");
     addPositionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnAddPosition, this);
+    executeDistributionButton = new wxButton(this, wxID_ANY,"Execute Distribution");
+    executeDistributionButton->Bind(wxEVT_BUTTON, &AssetPopout::OnExecuteDistribution, this);
     buttonSizer->Add(addDistributionButton);
     buttonSizer->Add(assetLevelMovementOfCapitalButton);
     buttonSizer->Add(addValuationButton);
     buttonSizer->Add(addPositionButton);
+    buttonSizer->Add(executeDistributionButton);
 
     bottomSizer->Add(buttonSizer,5,wxALL|wxEXPAND,3);
 
@@ -177,6 +181,9 @@ void AssetPopout::SetupLayout(){
     assetLevelMovementOfCapitalButton->SetForegroundColour(fgColor);
     assetLevelMovementOfCapitalButton->SetBackgroundColour(bgColor);
     assetLevelMovementOfCapitalButton->SetFont(font);
+    executeDistributionButton->SetForegroundColour(fgColor);
+    executeDistributionButton->SetBackgroundColour(bgColor);
+    executeDistributionButton->SetFont(font);
 
     assetIRR->SetForegroundColour(fgColor);
     assetIRR->SetFont(font);
@@ -263,61 +270,7 @@ void AssetPopout::UpdateDisplayTextValues(){
     totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(0,0,0));
 }
 
-// void AssetPopout::OnInvestorPositionClick(wxListEvent &e){
-//     InvestorPositionEditWindow editWindow(this);
-//     editWindow.SetBackgroundColour(wxColor(0,0,0));
-//     int returnValue = editWindow.ShowModal();
-
-//     if(returnValue==wxID_OK){
-//         long listIndex = e.GetIndex();
-//         auto& selectedInvestorPosition = investorPositionDisplayVirtualListControl->GetItemAtListIndex(listIndex);
-
-//         wxDateTime investedDate = editWindow.GetInvestmentDate();
-//         wxString clientName = editWindow.GetClientName();
-//         wxString clientType = editWindow.GetClientType();
-//         double clientSubscribed = editWindow.GetSubscribed();
-//         double clientPaid = editWindow.GetPaid();
-//         double clientDeployed = editWindow.GetDeployed();
-//         double clientReserve = editWindow.GetReserve();
-//         double clientReturnOfCapital = editWindow.GetReserve();
-
-//         if(investedDate != wxDateTime(01,wxDateTime::Jan, 2001)){
-//             selectedInvestorPosition->positionPtr->dateInvested = investedDate;
-//         }
-//         if(clientName.ToStdString().size()!=0){
-//             selectedInvestorPosition->positionPtr->investorPtr->clientName = clientName;
-//         }
-//         if(clientType.ToStdString().size()!=0){
-//             selectedInvestorPosition->positionPtr->investorPtr->type = clientType;
-//         }
-//         if(clientSubscribed != 0){
-//             selectedInvestorPosition->positionPtr->subscribed = clientSubscribed;
-//         }
-//         if(clientPaid != 0){
-//             selectedInvestorPosition->positionPtr->paid = clientPaid;
-//         }
-//         if(clientDeployed != 0){
-//             selectedInvestorPosition->positionPtr->deployed = clientDeployed;
-//         }
-//         if(clientReserve != 0){
-//             selectedInvestorPosition->positionPtr->reserve = clientReserve;
-//         }
-//         if(clientReturnOfCapital !=0){
-//             selectedInvestorPosition->positionPtr->returnOfCapital = clientReturnOfCapital;
-//         }
-//         for(auto&ipd : asset->investorsPositionsDisplays){
-//             ipd->positionPtr->assetPtr->SetOwnershipOfPositions();
-//         }
-//         investorPositionDisplayVirtualListControl->Refresh();
-//         UpdateChartValuationDeploy();
-//         UpdateDisplayTextValues();
-//         this->Refresh();
-//     }else if(returnValue == wxID_ANY){
-//         //exit 
-//     }
-// }
-
-void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
+void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){//need to change this for new paradigm
     wxDateTime today = wxDateTime::Today();
     double zero = 0.0;
     DistributionDialog addDistroWindow(this,false,today, zero);
@@ -349,7 +302,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
     }
 }
 
-void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//Changing to be the "Setter" from the UI that controls what the assets deployed/reserve values are
+void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - > ROC option
     MoveDeploy DeployMovementWindow(this);
     int retValue = DeployMovementWindow.ShowModal();
     if(retValue == wxID_OK){
@@ -787,7 +740,8 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
     if(retvalue == wxID_OK){
         asset->ClearInvestorPositionDisplays();
         for(auto& position : asset->GetPositionsForIDP()){
-            position->TriggerUpdateOfManagementFeeVector();
+            position->TriggerUpdateOfManagementFeeVector();//here need to create the mgmt fee vector 
+            
             auto investorPositionDisplay = std::make_shared<InvestorPositionDisplay>(position);
             asset->AddInvestorPositionDisplay(investorPositionDisplay);
             investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
@@ -796,5 +750,15 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
         UpdateChartValuationDeploy();
         UpdateDisplayTextValues();
         this->Refresh();
+    }
+}
+
+void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
+    DistributionExecution dialog(this, asset);
+    int retValue = dialog.ShowModal();
+    if(retValue == wxID_OK){
+
+    }else{
+        
     }
 }

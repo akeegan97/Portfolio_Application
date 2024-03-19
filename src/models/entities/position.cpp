@@ -37,11 +37,8 @@ std::vector<PromoteFee> Position::GetPromoteFees()const{
 const std::map<wxDateTime, double> Position::GetPositionValuations()const{
     return m_valuationOfPosition;
 }
-std::map<wxDateTime, double> Position::GetMovedFromDeploy()const{
-    return m_movedOutOfDeploy;
-}
-std::map<wxDateTime, double> Position::GetMovedToDeploy()const{
-    return m_movedToDeploy;
+std::map<wxDateTime, double> Position::GetMovementsDeploy()const{
+    return m_movementsDeploy;
 }
 double Position::GetCommitted()const{
     return m_committed;
@@ -100,25 +97,23 @@ double Position::CalculateManagementFeesDue(const Distribution &currentDistribut
     // Initialize total fees due
     double totalFeesDue = 0.0;
     
-    // Determine if this is the first distribution of the quarter
-    bool isFirstDistributionOfQuarter = true;
-    for (const auto& pastDistribution : m_netIncome) {
-        if (utilities::AreSameQuarter(pastDistribution.distribution.first, distributionDate)) {
-            isFirstDistributionOfQuarter = false;
-            break; // Already had a distribution this quarter
-        }
-    }
+    // bool isFirstDistributionOfQuarter = true;
+    // for (const auto& pastDistribution : m_netIncome) {
+    //     if (utilities::AreSameQuarter(pastDistribution.distribution.first, distributionDate)) {
+    //         isFirstDistributionOfQuarter = false;
+    //         break;
+    //     }
+    // }
 
-    // Apply fees only if this is the first distribution of the quarter
-    if (isFirstDistributionOfQuarter) {
-        for (const auto& fee : m_managementFees) {
-            // Apply fees from the start of the investment quarter to the end of the distribution quarter
-            wxDateTime feeDate = fee.managementFeesAsset.first;
-            if (feeDate >= utilities::GetQuarterStartDate(m_dateInvested) && feeDate <= distributionQEndDate) {
-                totalFeesDue += fee.managementFeesAsset.second;
-            }
-        }
-    }
+    // if (isFirstDistributionOfQuarter) {
+    //     for (const auto& fee : m_managementFees) {
+    //         // Apply fees from the start of the investment quarter to the end of the distribution quarter
+    //         wxDateTime feeDate = fee.managementFeesAsset.first;
+    //         if (feeDate >= utilities::GetQuarterStartDate(m_dateInvested) && feeDate <= distributionQEndDate) {
+    //             totalFeesDue += fee.managementFeesAsset.second;
+    //         }
+    //     }
+    // }
 
     return totalFeesDue;
 } 
@@ -147,12 +142,10 @@ void Position::SetPaid(double &paid){
 void Position::SetManagementFeesDue(double &mgmtFeeDue){
     m_managementFeesDue = mgmtFeeDue;
 }
-void Position::AddMovedFromDeployEntry(std::pair<wxDateTime, double> &movement){
-    m_movedOutOfDeploy[movement.first] = movement.second;
+void Position::AddMovementDeploy(std::pair<wxDateTime, double> &movement){
+    m_movementsDeploy[movement.first] = movement.second;
 }
-void Position::AddMovedToDeployEntry(std::pair<wxDateTime, double> &movement){
-    m_movedToDeploy[movement.first] = movement.second;
-}
+
 void Position::AddRocMovement(std::pair<wxDateTime, double> &movement){
     auto it = m_returnOfCapitalMap.find(movement.first);
     if(it != m_returnOfCapitalMap.end()){
@@ -197,25 +190,6 @@ void Position::SetRocMovements(){
     }
 }
 
-void Position::SetMovedToDeploy(){
-    for(auto movement:m_assetPtr->GetMovementsToFromDeploy()){
-        if(movement.first > m_dateInvested){
-            if(movement.second > 0){
-                m_movedToDeploy[movement.first] = movement.second * CalculateOwnershipAtDate(movement.first);
-            }
-        }
-    }
-}
-
-void Position::SetMovedFromDeploy(){
-    for(auto movement:m_assetPtr->GetMovementsToFromDeploy()){
-        if(movement.first > m_dateInvested){
-            if(movement.second < 0){
-                m_movedOutOfDeploy[movement.first] = movement.second * CalculateOwnershipAtDate(movement.first);
-            }
-        }
-    }
-}
 
 void Position::PopulateManagementFeeVector() {
     double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
@@ -228,9 +202,9 @@ void Position::PopulateManagementFeeVector() {
     for (wxDateTime quarterStartDate = investmentStartDate; quarterStartDate <= currentQuarterEndDate; quarterStartDate = utilities::GetNextQuarterStartDate(quarterStartDate)) {
         ManagementFee feeForQuarter = CalculatePositionManagementFees(managementFeePercentage, quarterStartDate);
 
-        if (feeForQuarter.managementFeesAsset.second > 0) {
-            m_managementFees.push_back(feeForQuarter);
-        }
+        // if (feeForQuarter.managementFeesAsset.second > 0) {
+        //     m_managementFees.push_back(feeForQuarter);
+        // }
 
     }
 }
@@ -263,8 +237,8 @@ ManagementFee Position::CalculatePositionManagementFees(const double &management
     totalFee += lastCapital * managementFeePercentage * annualizedFactor;
 
     ManagementFee feeThisQuarter;
-    feeThisQuarter.managementFeesAsset.first = quarterEnd;
-    feeThisQuarter.managementFeesAsset.second = totalFee;
+    // feeThisQuarter.managementFeesAsset.first = quarterEnd;
+    // feeThisQuarter.managementFeesAsset.second = totalFee;
 
     return feeThisQuarter;
 }
@@ -273,12 +247,11 @@ void Position::TriggerUpdateOfManagementFeeVector(){
     PopulateManagementFeeVector();
 }
 void Position::UpdateManagementFeesDue(){
-    if (m_netIncome.empty()) {
-        m_managementFeesDue = 0.0;
-        return; 
-    }
     
     wxDateTime latestIncomeDate(1, wxDateTime::Jan, 1900); 
+    if (m_netIncome.empty()) {
+        latestIncomeDate = m_dateInvested; 
+    }
     for (const auto& netIncome : m_netIncome) {
         if (netIncome.distribution.first.IsLaterThan(latestIncomeDate)) {
             latestIncomeDate = netIncome.distribution.first; 
@@ -287,11 +260,11 @@ void Position::UpdateManagementFeesDue(){
     
     wxDateTime qEndDate = utilities::GetQuarterEndDate(latestIncomeDate); 
     double mgmtFeesDue = 0.0;
-    for (const auto& mgmtFee : m_managementFees) {
-        if (mgmtFee.managementFeesAsset.first > qEndDate) {
-            mgmtFeesDue += mgmtFee.managementFeesAsset.second; 
-        }
-    }
+    // for (const auto& mgmtFee : m_managementFees) {
+    //     if (mgmtFee.managementFeesAsset.first > qEndDate) {
+    //         mgmtFeesDue += mgmtFee.managementFeesAsset.second; 
+    //     }
+    // }
     
     m_managementFeesDue = mgmtFeesDue; 
 }
@@ -349,25 +322,24 @@ void to_json(json &j, const Position &pos){
         {"Paid", pos.GetPaid()},
         {"Management Fees Due", pos.GetManagementFeesDue()},
         {"ROC", pos.GetReturnOfCapital()},
-        {"MovedToDeploy", json::array()},
-        {"MovedFromDeploy", json::array()},
+        {"Movements Deploy", json::array()},
+        {"Management Fees",json::array()},
         {"ROC Movements", json::array()}
     };
 
-    json movedToDeployJson;
-    for(const auto&movement:pos.GetMovedToDeploy()){
-        movedToDeployJson.push_back({
+    json movementsDeploy;
+    for(const auto&movement:pos.GetMovementsDeploy()){
+        movementsDeploy.push_back({
             movement.first.FormatISODate().ToStdString(), movement.second
         });
     }
-    j["MovedToDeploy"] = movedToDeployJson;
+    j["Movements Deploy"] = movementsDeploy;
     json movedFromDeployJson;
-    for(const auto&movement:pos.GetMovedFromDeploy()){
-        movedToDeployJson.push_back({
+    for(const auto&movement:pos.GetMovementsDeploy()){
+        movementsDeploy.push_back({
             movement.first.FormatISODate().ToStdString(), movement.second
         });
     }
-    j["MovedFromDeploy"] = movedFromDeployJson;
     json rocMovementsJson;
     for (const auto& movement : pos.GetROCMapConstant()) {
         rocMovementsJson.push_back({
@@ -406,27 +378,15 @@ void from_json(const json&j, Position &position, Portfolio &port){
     position.SetManagementFeesDue(mgmtFeesDue);
     double returnOfCapital = j["ROC"].get<double>();
     position.SetReturnOfCapital(returnOfCapital);
-    if(j.contains("MovedToDeploy")) {
-        for(const auto& entry : j["MovedToDeploy"]) {
+    if(j.contains("Movements Deploy")) {
+        for(const auto& entry : j["Movements Deploy"]) {
             if(entry.size() == 2) { 
                 wxDateTime date;
                 std::string dateStr = entry[0];
                 date.ParseISODate(dateStr);
                 double amountMoved = entry[1];
                 std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
-                position.AddMovedToDeployEntry(movement); 
-            }
-        }
-    }
-    if(j.contains("MovedFromDeploy")) {
-        for(const auto& entry : j["MovedFromDeploy"]) {
-            if(entry.size() == 2) { 
-                wxDateTime date;
-                std::string dateStr = entry[0];
-                date.ParseISODate(dateStr);
-                double amountMoved = entry[1];
-                std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
-                position.AddMovedFromDeployEntry(movement);
+                position.AddMovementDeploy(movement); 
             }
         }
     }
@@ -436,7 +396,7 @@ void from_json(const json&j, Position &position, Portfolio &port){
             for(auto&[dateStr, amount] : item.items()){
                 wxDateTime date;
                 date.ParseISODate(dateStr);
-                double amountMoved = amount.get<double>(); // Explicitly get the amount as double
+                double amountMoved = amount.get<double>(); 
                 std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
                 position.AddRocMovement(movement);
             }

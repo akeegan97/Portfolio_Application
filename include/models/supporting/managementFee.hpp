@@ -9,7 +9,9 @@ using json = nlohmann::json;
 class ManagementFee{
     public:
         ManagementFee()=default;
-        std::pair<wxDateTime, double> managementFeesAsset;
+        wxDateTime quarter;
+        double amount;
+        bool paid;
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
         wxVariant GetValue(int col)const;

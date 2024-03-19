@@ -2,27 +2,35 @@
 #include "helpers/utilities.hpp"
 
 
-void to_json(json&j,const ManagementFee &fee){
-    std::string date = fee.managementFeesAsset.first.FormatISODate().ToStdString();
-    j=json{{"Management Fee Date",date},{"Management Fee Amount", fee.managementFeesAsset.second}};
+void to_json(json& j, const ManagementFee& fee) {
+    j = json{
+        {"Management Fee Date", fee.quarter.FormatISODate().ToStdString()},
+        {"Management Fee Amount", fee.amount},
+        {"Paid", fee.paid}
+    };
 }
 
-void from_json(const json&j, ManagementFee &fee){
+void from_json(const json& j, ManagementFee& fee) {
     std::string dateStr;
-    double amount;
-    if(j.find("Management Fee Date")!=j.end() && j.find("Management Fee Amount")!=j.end()){
+    if (j.find("Management Fee Date") != j.end()) {
         dateStr = j["Management Fee Date"].get<std::string>();
-        amount = j["Management Fee Amount"].get<double>();
         wxDateTime date;
         date.ParseISODate(dateStr);
-        fee.managementFeesAsset = std::make_pair(date, amount);
+        fee.quarter = date; 
+    }
+    if (j.find("Management Fee Amount") != j.end()) {
+        fee.amount = j["Management Fee Amount"].get<double>();
+    }
+
+    if (j.find("Paid") != j.end()) {
+        fee.paid = j["Paid"].get<bool>();
     }
 }
 
 wxVariant ManagementFee::GetValue(int col)const{
     switch(col){
-        case 0: return wxVariant(managementFeesAsset.first.FormatISODate());break;
-        case 1: return wxVariant(utilities::formatDollarAmount(managementFeesAsset.second));break;
+        case 0: return wxVariant(quarter.FormatISODate());break;
+        case 1: return wxVariant(utilities::formatDollarAmount(amount));break;
         default: return wxVariant();break;
     }
 }

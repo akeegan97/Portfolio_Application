@@ -22,6 +22,10 @@ void Asset::SetPositionID(){
     }
 }
 
+std::vector<std::pair<Distribution, bool>> Asset::GetQuarterDistributions()const{
+    return m_qDistributions;
+}   
+
 
 void Asset::ProcessDistributionsForPosition(){
     SortDistributions(m_distributions);
@@ -30,7 +34,6 @@ void Asset::ProcessDistributionsForPosition(){
     }
     for(const auto& distribution : m_distributions){
         for(auto &position: m_positions){
-            //add check if position->GetDateInvested() > distribution->GetDate() skip. 
             if(position->GetDateInvested()< distribution.distribution.first){
                 double ownershipForThisDistribution = position->CalculateOwnershipAtDate(distribution.distribution.first);
                 double feesForThisDistribution = position->CalculateManagementFeesDue(distribution);
@@ -96,10 +99,11 @@ void Asset::UpdateTotalMgmtFeesEarned(){
     double totalMgmtFeesEarned = 0.0;
     for(const auto& position:m_positions){
         for(const auto&mgmtfee: position->GetManagementFees()){
-            totalMgmtFeesEarned+=mgmtfee.managementFeesAsset.second;
+            if(mgmtfee.paid == TRUE){
+                m_totalMgmtFeesEarned += mgmtfee.amount;
+            }
         }
     }
-    m_totalMgmtFeesEarned = totalMgmtFeesEarned;
 }
 
 void Asset::UpdateTotalPromoteFeesEarned(){
@@ -409,18 +413,15 @@ double Asset::GetTotalMgmtFeesDue()const{
     return totalMgmtFeesDue;
 }
 double Asset::GetTotalMgmtFeesEarned()const{
-    double totalMgmtFeesDue = 0.0;
-    if(m_distributions.empty()){
-        return totalMgmtFeesDue;
-    }
-    for(const auto&position:m_positions){
-        for(const auto&mf:position->GetManagementFees()){
-            if(mf.managementFeesAsset.first <= m_distributions.back().distribution.first){
-                totalMgmtFeesDue += mf.managementFeesAsset.second;
+    double mgmtFeesEarned = 0.0;
+    for(auto pos : GetPositions()){
+        for(auto mf : pos->GetManagementFees()){
+            if(mf.paid == TRUE){
+                mgmtFeesEarned+=mf.amount;
             }
         }
     }
-    return totalMgmtFeesDue;
+    return mgmtFeesEarned;
 }
 
 double Asset::GetIrr()const{
@@ -604,8 +605,8 @@ void Asset::MoveReserveToDeploy(wxDateTime &date, double amount){
     m_assetDeployedCapital +=amount;
     m_movementsToFromDeploy[date] = amount;
     for(auto&pos:m_positions){
-        pos->SetMovedToDeploy();
-
+        std::pair<wxDateTime, double> movement = std::make_pair(date, (amount * pos->GetOwnership()));
+        pos->AddMovementDeploy(movement);
     }
 }
 
@@ -614,7 +615,8 @@ void Asset::MoveDeployToReserve(wxDateTime &date, double amount){
     m_assetDeployedCapital -= amount;
     m_movementsToFromDeploy[date] = -amount;
     for(auto&pos:m_positions){
-        pos->SetMovedFromDeploy();
+        std::pair<wxDateTime, double> movement = std::make_pair(date, (amount * pos->GetOwnership()));
+        pos->AddMovementDeploy(movement);
     }
 
 }
@@ -730,7 +732,7 @@ void Asset::CalculateIrr(){
         cashFlow.push_back(newCashFlow);
     }else{
         CashFlow newCashFlow;
-        newCashFlow.amount = m_assetCommittedCapital;
+        newCashFlow.amount = m_assetDeployedCapital;
         newCashFlow.date = wxDateTime::Today();
         cashFlow.push_back(newCashFlow);
     }

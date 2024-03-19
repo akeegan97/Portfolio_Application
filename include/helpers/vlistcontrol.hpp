@@ -49,8 +49,6 @@ private:
 public:
     VListControl(wxWindow *parent, const wxWindowID id, const wxPoint &pos, const wxSize &size)
         : wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL) {
-            //need to add check to make sure if constructing a VLC with pointer as type that there is 
-            //in fact data and it's not trying to deref a null
         for (size_t i = 0; i < UnderlyingType::columnNames.size(); ++i) {
             this->AppendColumn(UnderlyingType::columnNames[i]);
             this->SetColumnWidth(i, UnderlyingType::columnWidths[i]);
@@ -86,7 +84,6 @@ public:
     }
 
     virtual bool IsVListCtrl() const override { return true; }
-
 
     long getFirstSelectedIndex() {
         return GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
