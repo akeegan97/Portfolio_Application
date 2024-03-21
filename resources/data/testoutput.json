@@ -11,13 +11,13 @@
                 },
                 {
                     "Amount": 0.0,
-                    "Date": "2023-07-30"
+                    "Date": "2023-07-15"
                 }
             ],
-            "Asset Name": "t",
+            "Asset Name": "Collins Park",
             "Asset ROC Movements": null,
             "Asset Reserve Capital": 1250000.0,
-            "Asset Sponser": "t",
+            "Asset Sponser": "KAWA",
             "Current Value": 250000.0,
             "Distributions": [],
             "Valuations": []
@@ -29,7 +29,7 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "t",
+                    "AssetName": "Collins Park",
                     "Date Invested": "2023-06-15",
                     "InvestorName": "Andrew Keegan",
                     "Management Fees": [
@@ -39,7 +39,7 @@
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 256.6735112936345,
+                            "Management Fee Amount": 205.33880903490757,
                             "Management Fee Date": "2023-09-30",
                             "Paid": false
                         },
@@ -61,13 +61,17 @@
                             250000.0
                         ],
                         [
-                            "2023-07-30",
+                            "2023-07-15",
                             -166666.6666666667
                         ]
                     ],
                     "Paid": 500000.0,
-                    "ROC": 0.0,
-                    "ROC Movements": null
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        {
+                            "2023-10-21": 250000.0
+                        }
+                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -78,12 +82,12 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "t",
-                    "Date Invested": "2023-07-30",
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-07-15",
                     "InvestorName": "Will Keegan",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 215.60574948665294,
+                            "Management Fee Amount": 266.94045174537985,
                             "Management Fee Date": "2023-09-30",
                             "Paid": false
                         },
@@ -101,13 +105,17 @@
                     "Management Fees Due": 0.0,
                     "Movements Deploy": [
                         [
-                            "2023-07-30",
+                            "2023-07-15",
                             166666.66666666666
                         ]
                     ],
                     "Paid": 1000000.0,
-                    "ROC": 0.0,
-                    "ROC Movements": null
+                    "ROC": 500000.0,
+                    "ROC Movements": [
+                        {
+                            "2023-10-21": 500000.0
+                        }
+                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -119,6 +127,25 @@
             "Positions": [],
             "Promote Fee Percentage": 0.0,
             "Type": "Fund"
+        },
+        {
+            "Client Name": "Jadi Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-10-21",
+                    "InvestorName": "Jadi Keegan",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": null,
+                    "Paid": 750000.0,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
         }
     ],
     "valuationVectorPlotting": [

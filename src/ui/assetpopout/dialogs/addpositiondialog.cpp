@@ -155,6 +155,11 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             newPositionPtr->SetDateInvested(dateInvested);
             double totalDonatedCapital = 0;
             for(auto input: dialog.GetAllocations()){
+                //need to push the movement for deployed here similiar to above: 
+                /*
+                Need to get the share of deployed capital * new ownership and move the difference
+                as -x to movementsDeployed map 
+                */
                 auto positionId = input.first;
                 auto amountReturned = input.second;
                 double allocatedAmount = wxAtof(amountReturned->GetValue());
@@ -163,16 +168,14 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 thisPosition->AddRocMovement(movement);
                 thisPosition->UpdateROC();
                 thisPosition->SetCommitted();
+                thisPosition->UpdateManagementFees(movement.first);//update mgmt fee vectors for donors
                 totalDonatedCapital+=allocatedAmount;
             }
             newPositionPtr->SetPaid(totalDonatedCapital);
             m_asset->AddPosition(newPositionPtr);
             m_asset->SetPositionValues();
             associatedInvestorPointer->AddPosition(newPositionPtr);
-            //need to update donor positions' mgmt fees vector 
-            //need to also create the new positions mgmt fees vector 
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
-            m_asset->TriggerUpdateOfDistributionsForPositions();
             m_asset->TriggerUpdateDerivedValues();
         }
     }
