@@ -5,7 +5,7 @@ class CustomControlBase;
 
 
 namespace utilities{
-    wxDateTime GetQuarterEndDate(wxDateTime &currentDate){
+    wxDateTime GetQuarterEndDate(const wxDateTime &currentDate){
         int year = currentDate.GetYear();
 
         wxDateTime quarterEnd;
@@ -49,7 +49,7 @@ namespace utilities{
         return date.IsBetween(qStart, qEnd);
     }
 
-    wxDateTime GetQuarterStartDate(wxDateTime &date){
+    wxDateTime GetQuarterStartDate(const wxDateTime &date){
         int year = date.GetYear();
 
         wxDateTime quarterStartDate;
@@ -69,7 +69,7 @@ namespace utilities{
         return quarterStartDate;
     }
 
-    wxDateTime GetNextQuarterEndDate(wxDateTime &currentEndDate){
+    wxDateTime GetNextQuarterEndDate(const wxDateTime &currentEndDate){
         wxDateTime nextEndingQuarter;
         int year = currentEndDate.GetYear();
         if(currentEndDate.GetMonth()<= wxDateTime::Mar){
@@ -117,7 +117,7 @@ namespace utilities{
         }
     }
 
-    wxDateTime GetNextQuarterStartDate(wxDateTime &date){
+    wxDateTime GetNextQuarterStartDate(const wxDateTime &date){
         wxDateTime nextQStartDate;
         int year =date.GetYear();
         if(date.GetMonth()<= wxDateTime::Mar){

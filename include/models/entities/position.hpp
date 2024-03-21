@@ -54,8 +54,9 @@ class Position{
     //private Setter
         void PopulateManagementFeeVector();
     //private Methods
-        ManagementFee CalculatePositionManagementFees(const double &mgmtfeePercent,const wxDateTime &qStart);
-
+        //new mgmt fee function
+        ManagementFee CalculatePositionManagementFee(const double &mgmtFeePercent, const wxDateTime &qStart);
+        void RecalculateManagementFeesFrom(const wxDateTime &qStartDate);
     public:
     //constructors
         Position()=default;
@@ -100,11 +101,9 @@ class Position{
         void SetDeployed();
         void SetCurrentValue();
         void SetOwnership();
-        void SetMovedToDeploy();
-        void SetMovedFromDeploy();
         void UpdateROC();
-        void UpdateManagementFeesDue();
         void SetMgmtFeeVector(std::vector<ManagementFee> fees);
+        void UpdateManagementFees(const wxDateTime &date);
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);
@@ -118,6 +117,7 @@ class Position{
         size_t GetId();
         std::map<wxDateTime, double> GetReturnOfCapitalMap();
         std::map<wxDateTime, double> GetROCMapConstant()const;
+        
 };
 
 void to_json(json &j, const Position &pos);

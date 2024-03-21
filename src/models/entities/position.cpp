@@ -143,7 +143,12 @@ void Position::SetManagementFeesDue(double &mgmtFeeDue){
     m_managementFeesDue = mgmtFeeDue;
 }
 void Position::AddMovementDeploy(std::pair<wxDateTime, double> &movement){
-    m_movementsDeploy[movement.first] = movement.second;
+    auto it = m_movementsDeploy.find(movement.first);
+    if(it!=m_movementsDeploy.end()){
+        it->second+=movement.second;
+    }else{
+        m_movementsDeploy[movement.first] = movement.second;    
+    }
 }
 
 void Position::AddRocMovement(std::pair<wxDateTime, double> &movement){
@@ -190,7 +195,6 @@ void Position::SetRocMovements(){
     }
 }
 
-
 void Position::PopulateManagementFeeVector() {
     double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
     wxDateTime investmentStartDate = m_dateInvested; 
@@ -200,74 +204,98 @@ void Position::PopulateManagementFeeVector() {
     m_managementFees.clear();
 
     for (wxDateTime quarterStartDate = investmentStartDate; quarterStartDate <= currentQuarterEndDate; quarterStartDate = utilities::GetNextQuarterStartDate(quarterStartDate)) {
-        ManagementFee feeForQuarter = CalculatePositionManagementFees(managementFeePercentage, quarterStartDate);
+        ManagementFee feeForQuarter = CalculatePositionManagementFee(managementFeePercentage, quarterStartDate);
 
-        // if (feeForQuarter.managementFeesAsset.second > 0) {
-        //     m_managementFees.push_back(feeForQuarter);
-        // }
-
-    }
-}
-
-ManagementFee Position::CalculatePositionManagementFees(const double &managementFeePercentage, const wxDateTime &quarterStartDate) {
-    std::pair<wxDateTime, wxDateTime> quarterDates = utilities::GetCurrentQuarterDates(quarterStartDate);
-    wxDateTime quarterStart = quarterDates.first;
-    wxDateTime quarterEnd = quarterDates.second;
-
-    wxDateTime calculationStartDate = std::max(m_dateInvested, quarterStart);
-
-    double committedCapitalStart = CalculateCommittedUpToDate(calculationStartDate);
-    double totalFee = 0.0;
-    double lastCapital = committedCapitalStart;
-    wxDateTime lastDate = calculationStartDate;
-
-    for (const auto& rocEvent : m_returnOfCapitalMap) {
-        if (rocEvent.first > calculationStartDate && rocEvent.first <= quarterEnd) {
-
-            double daysBeforeROC = (rocEvent.first - lastDate).GetDays();
-            double annualizedFactor = daysBeforeROC / 365.0;
-            totalFee += lastCapital * managementFeePercentage * annualizedFactor;
-
-            lastCapital -= rocEvent.second;
-            lastDate = rocEvent.first;
+        if(feeForQuarter.amount >0){
+            m_managementFees.push_back(feeForQuarter);
         }
     }
-    double daysAfterLastROC = (quarterEnd - lastDate).GetDays() + 1; 
-    double annualizedFactor = daysAfterLastROC / 365.0;
-    totalFee += lastCapital * managementFeePercentage * annualizedFactor;
-
-    ManagementFee feeThisQuarter;
-    // feeThisQuarter.managementFeesAsset.first = quarterEnd;
-    // feeThisQuarter.managementFeesAsset.second = totalFee;
-
-    return feeThisQuarter;
 }
+
+//--New MGMT FEE Calculations--//
+
+ManagementFee Position::CalculatePositionManagementFee(const double &mgmtFeePercent, const wxDateTime &qStart) {
+    std::pair<wxDateTime, wxDateTime> qDates = utilities::GetCurrentQuarterDates(qStart);
+    wxDateTime qStartDate = qDates.first;
+    wxDateTime qEndDate = qDates.second;
+
+    double totalMgmtFee = 0.0;
+    double currentlyDeployed = 0.0;
+    wxDateTime calculationStartDate = qStartDate;
+    wxDateTime lastMovementDate = qStartDate;
+
+    if (!m_movementsDeploy.empty()) {
+        auto firstMovementDate = m_movementsDeploy.begin()->first;
+        if (firstMovementDate > qStartDate && firstMovementDate <= qEndDate) {
+            calculationStartDate = firstMovementDate;
+        }
+    }
+    double deployedBeforeQuarter = 0.0;
+    for (const auto& movement : m_movementsDeploy) {
+        if (movement.first < calculationStartDate) {
+            deployedBeforeQuarter += movement.second;
+        }
+    }
+
+    currentlyDeployed = deployedBeforeQuarter;
+
+    for (const auto& movement : m_movementsDeploy) {
+        if (movement.first > qEndDate) break;
+
+        if (movement.first >= calculationStartDate) {
+            double daysInSegment = (movement.first - lastMovementDate).GetDays();
+            double annualizedFactor = daysInSegment / 365.25;
+            totalMgmtFee += currentlyDeployed * mgmtFeePercent * annualizedFactor;
+            
+            currentlyDeployed += movement.second;
+            lastMovementDate = movement.first;
+        }
+    }
+
+    double daysInSegment = (qEndDate - lastMovementDate).GetDays() + 1; // Include end date
+    double annualizedFactor = daysInSegment / 365.25;
+    totalMgmtFee += currentlyDeployed * mgmtFeePercent * annualizedFactor;
+
+    return ManagementFee{qEndDate, totalMgmtFee, false};
+}
+
+void Position::UpdateManagementFees(const wxDateTime &date) {
+    wxDateTime qEndDate = utilities::GetQuarterEndDate(date);
+
+    auto isOnOrAfterQuarter = [qEndDate](const ManagementFee& fee) {
+        return fee.quarter >= qEndDate; 
+    };
+
+    auto iter = std::find_if(m_managementFees.begin(), m_managementFees.end(), isOnOrAfterQuarter);
+
+    if (iter != m_managementFees.end()) {
+        m_managementFees.erase(iter, m_managementFees.end());
+    }
+    wxDateTime qStartDate = utilities::GetQuarterStartDate(date);
+
+    RecalculateManagementFeesFrom(qStartDate);
+}
+
+void Position::RecalculateManagementFeesFrom(const wxDateTime &qStartDate){
+    double managementFeePercentage = m_investorPtr->GetManagementFeePercentage();
+    wxDateTime currentQuarterEndDate = utilities::GetQuarterEndDate(wxDateTime::Today());
+    wxDateTime quarterStartDate = qStartDate;  
+
+    while (quarterStartDate <= currentQuarterEndDate) {
+        ManagementFee feeForQuarter = CalculatePositionManagementFee(managementFeePercentage, quarterStartDate);
+        if(feeForQuarter.amount > 0) {
+            m_managementFees.push_back(feeForQuarter);
+        }
+        quarterStartDate = utilities::GetNextQuarterStartDate(quarterStartDate);
+    }
+}
+
 
 void Position::TriggerUpdateOfManagementFeeVector(){
     PopulateManagementFeeVector();
 }
-void Position::UpdateManagementFeesDue(){
-    
-    wxDateTime latestIncomeDate(1, wxDateTime::Jan, 1900); 
-    if (m_netIncome.empty()) {
-        latestIncomeDate = m_dateInvested; 
-    }
-    for (const auto& netIncome : m_netIncome) {
-        if (netIncome.distribution.first.IsLaterThan(latestIncomeDate)) {
-            latestIncomeDate = netIncome.distribution.first; 
-        }
-    }
-    
-    wxDateTime qEndDate = utilities::GetQuarterEndDate(latestIncomeDate); 
-    double mgmtFeesDue = 0.0;
-    // for (const auto& mgmtFee : m_managementFees) {
-    //     if (mgmtFee.managementFeesAsset.first > qEndDate) {
-    //         mgmtFeesDue += mgmtFee.managementFeesAsset.second; 
-    //     }
-    // }
-    
-    m_managementFeesDue = mgmtFeesDue; 
-}
+
+
 void Position::RepopulateValuations() {
     m_valuationOfPosition.clear();
 

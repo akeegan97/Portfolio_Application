@@ -130,6 +130,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 double newDeployedValue = m_asset->GetTotalAssetDeployed() * newOwnership;
                 std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, (newDeployedValue - oldDeploy));
                 pos->AddMovementDeploy(movement);
+                pos->UpdateManagementFees(movement.first);
             }
             m_asset->AddPosition(newPositionPtr);
             m_asset->TriggerUpdateDerivedValues();
@@ -141,10 +142,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                     pos->AddMovementDeploy(movement);
                 }
             }
-            //here need to update all positions management fees from this new position entrance -> current Q
-            //also need to make the whole management fees vector for new position
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
-            m_asset->TriggerUpdateOfDistributionsForPositions();
         }
     }else if(positionType == "Component"){
         AddComponentPositionDialog dialog(this->GetParent(), m_asset, m_portfolio);

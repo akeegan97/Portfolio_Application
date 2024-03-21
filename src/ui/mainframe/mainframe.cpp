@@ -66,7 +66,7 @@ void MainFrame::setupLayout(){
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
 
-   if(!portfolio.assetPtrs.empty()){
+   if(!portfolio.allInvestorPtrs.empty()){
       allInvestorVListControl->setItems(portfolio.allInvestorPtrs);
    }
    allInvestorVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnInvestorVLCClick, this);
@@ -425,7 +425,9 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       portfolio.PopulateValuationMaps();
       UpdateChart();
       UpdatePortfolioDisplayValues();
-      //initialize the initial positions management fees here 
+      if(initializedPosition->GetInvestorPtr()->GetName() != "Fund"){
+         initializedPosition->TriggerUpdateOfManagementFeeVector();
+      }
       this->Refresh();
    }
 }

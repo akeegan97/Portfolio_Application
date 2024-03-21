@@ -2,23 +2,23 @@
     "Assets": [
         {
             "Asset Committed Capital": 1500000.0,
-            "Asset Deployed Capital": 1000000.0,
-            "Asset Exit Date": "2032-03-19",
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2024-03-21",
             "Asset Movement To From Deploy": [
                 {
                     "Amount": 250000.0,
                     "Date": "2023-06-15"
                 },
                 {
-                    "Amount": 750000.0,
-                    "Date": "2023-07-15"
+                    "Amount": 0.0,
+                    "Date": "2023-07-30"
                 }
             ],
-            "Asset Name": "Test",
+            "Asset Name": "t",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 500000.0,
-            "Asset Sponser": "Test",
-            "Current Value": 1000000.0,
+            "Asset Reserve Capital": 1250000.0,
+            "Asset Sponser": "t",
+            "Current Value": 250000.0,
             "Distributions": [],
             "Valuations": []
         }
@@ -29,9 +29,31 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Test",
+                    "AssetName": "t",
                     "Date Invested": "2023-06-15",
                     "InvestorName": "Andrew Keegan",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 82.13552361396303,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 256.6735112936345,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 157.4264202600958,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 154.00410677618066,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
                     "Management Fees Due": 0.0,
                     "Movements Deploy": [
                         [
@@ -39,8 +61,8 @@
                             250000.0
                         ],
                         [
-                            "2023-07-15",
-                            83333.33333333331
+                            "2023-07-30",
+                            -166666.6666666667
                         ]
                     ],
                     "Paid": 500000.0,
@@ -56,14 +78,31 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Test",
-                    "Date Invested": "2023-07-15",
+                    "AssetName": "t",
+                    "Date Invested": "2023-07-30",
                     "InvestorName": "Will Keegan",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 215.60574948665294,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 314.8528405201916,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 308.0082135523613,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
                     "Management Fees Due": 0.0,
                     "Movements Deploy": [
                         [
-                            "2023-07-15",
-                            666666.6666666666
+                            "2023-07-30",
+                            166666.66666666666
                         ]
                     ],
                     "Paid": 1000000.0,
@@ -88,15 +127,15 @@
             "Date": "2023-06-30"
         },
         {
-            "Amount": 1000000.0,
+            "Amount": 250000.0,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 1000000.0,
+            "Amount": 250000.0,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 1000000.0,
+            "Amount": 250000.0,
             "Date": "2024-03-31"
         }
     ]
