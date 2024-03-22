@@ -154,27 +154,36 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             wxDateTime dateInvested = dialog.GetDateValue();
             newPositionPtr->SetDateInvested(dateInvested);
             double totalDonatedCapital = 0;
+            std::map<std::shared_ptr<Position>, double> previousDeployed;
             for(auto input: dialog.GetAllocations()){
-                //need to push the movement for deployed here similiar to above: 
-                /*
-                Need to get the share of deployed capital * new ownership and move the difference
-                as -x to movementsDeployed map 
-                */
                 auto positionId = input.first;
                 auto amountReturned = input.second;
                 double allocatedAmount = wxAtof(amountReturned->GetValue());
                 std::shared_ptr<Position> thisPosition = m_asset->GetPositionByID(positionId);
+                previousDeployed.insert({thisPosition,thisPosition->GetDeployed()});//storing the previous deployed amount for the position
                 std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, allocatedAmount);
                 thisPosition->AddRocMovement(movement);
                 thisPosition->UpdateROC();
                 thisPosition->SetCommitted();
-                thisPosition->UpdateManagementFees(movement.first);//update mgmt fee vectors for donors
                 totalDonatedCapital+=allocatedAmount;
             }
             newPositionPtr->SetPaid(totalDonatedCapital);
             m_asset->AddPosition(newPositionPtr);
             m_asset->SetPositionValues();
+            std::pair<wxDateTime, double> movement = {dateInvested,newPositionPtr->GetDeployed()};
+            newPositionPtr->AddMovementDeploy(movement);
             associatedInvestorPointer->AddPosition(newPositionPtr);
+            for(auto pos: m_asset->GetPositionsForIDP()){
+                for(auto pair : previousDeployed){
+                    if(pos == pair.first){
+                        double difference = 0;
+                        difference = pos->GetDeployed() - pair.second;
+                        std::pair<wxDateTime, double> movement = {dateInvested, difference};
+                        pos->AddMovementDeploy(movement);
+                        pos->UpdateManagementFees(movement.first);
+                    }
+                }
+            }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateDerivedValues();
         }
