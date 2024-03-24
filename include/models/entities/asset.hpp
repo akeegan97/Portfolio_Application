@@ -150,6 +150,7 @@ class Asset{
         void TriggerUpdateDerivedValues();
         void AddNewDeployed(double &newDeployed);
         void AddNewReserve(double &newReserve);
+        void PassDistributionToPositions(Distribution &distribution);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;

@@ -771,3 +771,16 @@ double Asset::CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate){
     }
     return npv;
 }
+
+void Asset::PassDistributionToPositions(Distribution &distribution){
+    double distributionAmount = distribution.distribution.second;
+    double totalCapdays = 0.0;
+    std::map<std::shared_ptr<Position>, double> positionsCapitalizedDays;
+    for(const auto&pos: this->GetPositions()){
+        double positionsCapitalDays =0.0;
+        positionsCapitalDays = pos->CalculateCapitalDays(*this,distribution.distribution.first);
+        positionsCapitalizedDays[pos] = positionsCapitalDays;
+        totalCapdays+=positionsCapitalDays;
+        std::cout<<"Position CAP DAYS: "<<positionsCapitalDays<<std::endl;
+    }
+}

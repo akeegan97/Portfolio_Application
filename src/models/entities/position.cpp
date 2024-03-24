@@ -452,9 +452,9 @@ void Position::SetMgmtFeeVector(std::vector<ManagementFee> fees){
     m_managementFees = fees;
 }
 
-double Position::CalculateCapitalDays(const std::shared_ptr<Asset> &asset, const wxDateTime &qEndDate) {
+double Position::CalculateCapitalDays(const Asset &asset, const wxDateTime &qEndDate) {
     wxDateTime startDate = utilities::GetQuarterStartDate(qEndDate);
-    wxDateTime assetStartDate = asset->GetMovementsToFromDeploy().begin()->first;
+    wxDateTime assetStartDate = asset.GetMovementsToFromDeploy().begin()->first;
     if (assetStartDate > startDate) {
         startDate = assetStartDate;
     }

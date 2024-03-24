@@ -730,17 +730,7 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
     int retValue = dialog.ShowModal();
     if(retValue == wxID_OK){
         Distribution quarterlyDistribution = dialog.GetDistribution();
-        wxDateTime distributionQEndDate = quarterlyDistribution.distribution.first;
-        double totalCapDays = 0.0;
-        for(const auto& pos :asset->GetPositions()){
-            std::cout<<pos->GetInvestorPtr()->GetName()<<std::endl;
-            std::cout<<pos->CalculateCapitalDays(asset,distributionQEndDate)<<std::endl;
-            totalCapDays+=pos->CalculateCapitalDays(asset,distributionQEndDate);
-        }
-        for(const auto&pos: asset->GetPositions()){
-            std::cout<<pos->GetInvestorPtr()->GetName()<<std::endl;
-            std::cout<<pos->CalculateCapitalDays(asset,distributionQEndDate)/totalCapDays<<std::endl;
-        }
+        asset->PassDistributionToPositions(quarterlyDistribution);
 
     }else{
         //do nothing and close
