@@ -1,21 +1,42 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 500000.0,
+            "Asset Committed Capital": 1500000.0,
             "Asset Deployed Capital": 250000.0,
-            "Asset Exit Date": "2024-03-22",
+            "Asset Exit Date": "2024-03-23",
             "Asset Movement To From Deploy": [
                 {
                     "Amount": 250000.0,
                     "Date": "2023-06-15"
+                },
+                {
+                    "Amount": 0.0,
+                    "Date": "2023-07-30"
                 }
             ],
-            "Asset Name": "Test",
+            "Asset Name": "Tst",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 250000.0,
+            "Asset Reserve Capital": 1250000.0,
             "Asset Sponser": "Test",
             "Current Value": 250000.0,
-            "Distributions": [],
+            "Distributions": [
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-05-15"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-07-15"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-08-12"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2023-11-29"
+                }
+            ],
             "Valuations": []
         }
     ],
@@ -25,7 +46,7 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Test",
+                    "AssetName": "Tst",
                     "Date Invested": "2023-06-15",
                     "InvestorName": "Andrew Keegan",
                     "Management Fees": [
@@ -35,17 +56,17 @@
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 310.5749486652977,
+                            "Management Fee Amount": 256.6735112936345,
                             "Management Fee Date": "2023-09-30",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 236.1396303901437,
+                            "Management Fee Amount": 157.4264202600958,
                             "Management Fee Date": "2023-12-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 231.00616016427102,
+                            "Management Fee Amount": 154.00410677618066,
                             "Management Fee Date": "2024-03-31",
                             "Paid": false
                         }
@@ -58,16 +79,12 @@
                         ],
                         [
                             "2023-07-30",
-                            -125000.0
+                            -166666.6666666667
                         ]
                     ],
                     "Paid": 500000.0,
-                    "ROC": 250000.0,
-                    "ROC Movements": [
-                        {
-                            "2023-07-30": 250000.0
-                        }
-                    ]
+                    "ROC": 0.0,
+                    "ROC Movements": null
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -78,22 +95,22 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Test",
+                    "AssetName": "Tst",
                     "Date Invested": "2023-07-30",
                     "InvestorName": "Will Keegan",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 161.70431211498973,
+                            "Management Fee Amount": 215.60574948665294,
                             "Management Fee Date": "2023-09-30",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 236.1396303901437,
+                            "Management Fee Amount": 314.8528405201916,
                             "Management Fee Date": "2023-12-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 231.00616016427102,
+                            "Management Fee Amount": 308.0082135523613,
                             "Management Fee Date": "2024-03-31",
                             "Paid": false
                         }
@@ -102,10 +119,10 @@
                     "Movements Deploy": [
                         [
                             "2023-07-30",
-                            125000.0
+                            166666.66666666666
                         ]
                     ],
-                    "Paid": 250000.0,
+                    "Paid": 1000000.0,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }

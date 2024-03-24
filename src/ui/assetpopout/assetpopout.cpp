@@ -270,7 +270,8 @@ void AssetPopout::UpdateDisplayTextValues(){
     totalPromoteFeesGeneratedText->SetForegroundColour(wxColor(0,0,0));
 }
 
-void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){//need to change this for new paradigm
+void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
+    //this function simply adds distribution element to asset->m_distributions
     wxDateTime today = wxDateTime::Today();
     double zero = 0.0;
     DistributionDialog addDistroWindow(this,false,today, zero);
@@ -279,26 +280,12 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){//need to change t
         Distribution newDistribution;
         newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
         newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
-        //here specify if multiple distributions per Q are okay
         asset->AddDistribution(newDistribution);
-        for(auto&pos:asset->GetPositions()){
-            asset->TriggerUpdateOfDistributionsForPositions();
-        }
         distributionListControl->setItems(asset->GetDistributions());
         distributionListControl->Update();
         UpdateDisplayTextValues();
         UpdateChartDistribution();
-        //asset->PopulateIRR(); TODO Implement new IRR function 
-        UpdateDisplayTextValues();
         this->Refresh();
-        std::cout<<"New Distribution Occured!"<<std::endl;
-        for(const auto& pos: asset->GetPositions()){
-            std::cout<<"Position InvestorPtr: "<<pos->GetInvestorPtr()->GetName()<<std::endl;
-            for(auto& netIncome: pos->GetNetIncome()){
-                std::cout<<"Net Income: "<<"Date: "<<netIncome.distribution.first.FormatISODate()<<
-                "Amount: "<<netIncome.distribution.second<<std::endl;
-            }
-        }
     }
 }
 
@@ -359,9 +346,9 @@ void AssetPopout::OnClose(wxCloseEvent &e){
 }
 
 void AssetPopout::OnDistributionEdit(wxListEvent &e){
+    //simply edits the distribution that is selected, does not effect positions anymore
     long listIndex = e.GetIndex();
     long dataIndex = distributionListControl->orderedIndices[listIndex];
-    std::cout<<"List Index: "<<listIndex<<" Data Index: "<<dataIndex<<std::endl;
     auto selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
     wxDateTime distributionDate = selectedDistribution.distribution.first;
     double distributionAmount = selectedDistribution.distribution.second;
@@ -372,7 +359,6 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
         asset->RemoveDistribution(dataIndex);
         asset->AddDistribution(selectedDistribution);
-        asset->TriggerUpdateOfDistributionsForPositions();
         distributionListControl->setItems(asset->GetDistributionsNonConst());
         distributionListControl->Update();
         UpdateDisplayTextValues();
@@ -382,23 +368,12 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         if(dataIndex >= 0 && dataIndex < asset->GetDistributions().size()){
             asset->RemoveDistribution(dataIndex);
         }
-        asset->TriggerUpdateOfDistributionsForPositions();
         distributionListControl->setItems(asset->GetDistributions());
         distributionListControl->Update();
         UpdateDisplayTextValues();
         UpdateChartDistribution();
-        //asset->PopulateIRR();
-        UpdateDisplayTextValues();
         this->Refresh();
-        for(const auto& pos: asset->GetPositions()){
-            std::cout<<"Position InvestorPtr: "<<pos->GetInvestorPtr()->GetName()<<std::endl;
-            for(auto& netIncome: pos->GetNetIncome()){
-                std::cout<<"Net Income: "<<"Date: "<<netIncome.distribution.first.FormatISODate()<<
-                "Amount: "<<netIncome.distribution.second<<std::endl;
-            }
-        }
     }
-    UpdateChartDistribution();
 }
 
 void AssetPopout::OnValuationEdit(wxListEvent &e){
@@ -751,11 +726,16 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
 }
 
 void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
+    //since user is going to execute a quartly distribution
+    //we need to prepare all possible Q's to distribute
+    //not including any from the past that have already been sent out
+    //which would be in asset->m_qDistributions so when looping creating them
+    //check if that date already exists in asset->m_qDistribution and skip creation
     DistributionExecution dialog(this, asset);
     int retValue = dialog.ShowModal();
     if(retValue == wxID_OK){
-
+        //implement new asset function that pushing the distribution to the positions
     }else{
-        
+        //do nothing and close
     }
 }

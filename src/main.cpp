@@ -21,7 +21,7 @@ bool RugenBerg::OnInit()
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
     jsonFilePath = resourcePath + "/data/test.json";
 #elif defined(__WXMSW__)
-    jsonFilePath = "../resources/data/test.json";
+    jsonFilePath = "../resources/data/testoutput.json";
 #endif
 
     portfolio.LoadFromFile(jsonFilePath);

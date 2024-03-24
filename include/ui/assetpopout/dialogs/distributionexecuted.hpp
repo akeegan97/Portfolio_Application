@@ -17,19 +17,29 @@ class DistributionExecution : public wxDialog{
     public:
         DistributionExecution(wxWindow *parentWindow, std::shared_ptr<Asset> &asset);
         void SetupLayout();
+        void PopulateChoiceArrays();
+        void PopulateQDistributions();
+        Distribution GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ);
+        void OnGetAmount(wxCommandEvent &e);
     private:
         std::shared_ptr<Asset> m_asset;
+        std::vector<Distribution> qDistributions;
         wxChoice *yearChoice;
+        wxArrayString yearChoices;
+        wxArrayString qChoices;
         wxChoice *qChoice;
         wxStaticText *yearText;
         wxStaticText *qText;
         wxButton *getDistribution;
+        wxStaticText *selectedDistributionAmount;
         wxStaticText *distributionAmountText;
         wxTextCtrl *distributionAmountTextCtrl;
         wxStaticText *reserveAmountText;
         wxTextCtrl *reserveAmountCtrl;
         wxButton *confirmButton;
         wxButton *cancelButton;
+        std::set<int> yearsInt;
+        std::set<int> monthsInt;
 };
 
 
