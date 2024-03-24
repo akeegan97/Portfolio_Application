@@ -726,15 +726,22 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
 }
 
 void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
-    //since user is going to execute a quartly distribution
-    //we need to prepare all possible Q's to distribute
-    //not including any from the past that have already been sent out
-    //which would be in asset->m_qDistributions so when looping creating them
-    //check if that date already exists in asset->m_qDistribution and skip creation
     DistributionExecution dialog(this, asset);
     int retValue = dialog.ShowModal();
     if(retValue == wxID_OK){
-        //implement new asset function that pushing the distribution to the positions
+        Distribution quarterlyDistribution = dialog.GetDistribution();
+        wxDateTime distributionQEndDate = quarterlyDistribution.distribution.first;
+        double totalCapDays = 0.0;
+        for(const auto& pos :asset->GetPositions()){
+            std::cout<<pos->GetInvestorPtr()->GetName()<<std::endl;
+            std::cout<<pos->CalculateCapitalDays(asset,distributionQEndDate)<<std::endl;
+            totalCapDays+=pos->CalculateCapitalDays(asset,distributionQEndDate);
+        }
+        for(const auto&pos: asset->GetPositions()){
+            std::cout<<pos->GetInvestorPtr()->GetName()<<std::endl;
+            std::cout<<pos->CalculateCapitalDays(asset,distributionQEndDate)/totalCapDays<<std::endl;
+        }
+
     }else{
         //do nothing and close
     }

@@ -117,7 +117,8 @@ class Position{
         size_t GetId();
         std::map<wxDateTime, double> GetReturnOfCapitalMap();
         std::map<wxDateTime, double> GetROCMapConstant()const;
-        
+        double CalculateCapitalDays(const std::shared_ptr<Asset> &asset, const wxDateTime &qEndDate);
+        double GetInitialDeployedBefore(const wxDateTime &date);
 };
 
 void to_json(json &j, const Position &pos);

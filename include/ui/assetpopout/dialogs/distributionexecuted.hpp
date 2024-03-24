@@ -21,6 +21,7 @@ class DistributionExecution : public wxDialog{
         void PopulateQDistributions();
         Distribution GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ);
         void OnGetAmount(wxCommandEvent &e);
+        Distribution GetDistribution();
     private:
         std::shared_ptr<Asset> m_asset;
         std::vector<Distribution> qDistributions;
@@ -40,6 +41,7 @@ class DistributionExecution : public wxDialog{
         wxButton *cancelButton;
         std::set<int> yearsInt;
         std::set<int> monthsInt;
+        Distribution selectedDistribution;
 };
 
 

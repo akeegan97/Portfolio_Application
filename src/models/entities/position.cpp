@@ -451,3 +451,52 @@ void from_json(const json&j, Position &position, Portfolio &port){
 void Position::SetMgmtFeeVector(std::vector<ManagementFee> fees){
     m_managementFees = fees;
 }
+
+double Position::CalculateCapitalDays(const std::shared_ptr<Asset> &asset, const wxDateTime &qEndDate) {
+    wxDateTime startDate = utilities::GetQuarterStartDate(qEndDate);
+    wxDateTime assetStartDate = asset->GetMovementsToFromDeploy().begin()->first;
+    if (assetStartDate > startDate) {
+        startDate = assetStartDate;
+    }
+    double positionsDeployed = this->GetInitialDeployedBefore(startDate);
+    double capitalizedDays = 0.0;
+    wxDateTime lastDate = startDate; 
+    // Assume GetInitialDeployedBefore() calculates total deployed before the quarter
+    double initialDeployed = this->GetInitialDeployedBefore(startDate);
+
+    std::map<wxDateTime, double> segmentMap;
+    segmentMap[startDate] = initialDeployed; // Starting capital for the quarter
+
+    // Add movements to the segment map, adjusting deployed capital
+    double currentDeployed = initialDeployed;
+    for (const auto& movement : this->GetMovementsDeploy()) {
+        if (movement.first >= startDate && movement.first <= qEndDate) {
+            currentDeployed += movement.second;
+            segmentMap[movement.first] = currentDeployed;
+        }
+    }
+
+    // Calculate capital days for each segment
+
+    for (const auto& [date, deployed] : segmentMap) {
+        int days = (date - lastDate).GetDays();
+        capitalizedDays += days * segmentMap[lastDate]; // Use the previous segment's deployed capital
+        lastDate = date;
+    }
+
+    // Add the days from the last movement to the end of the quarter
+    int finalDays = (qEndDate - lastDate).GetDays() + 1; // Include the end date
+    capitalizedDays += finalDays * segmentMap[lastDate];
+
+    return capitalizedDays;
+}
+
+double Position::GetInitialDeployedBefore(const wxDateTime &date) {
+    double deployed = 0;
+    for (const auto &movement : this->GetMovementsDeploy()) {
+        if (movement.first < date) {
+            deployed += movement.second;
+        }
+    }
+    return deployed;
+}

@@ -117,10 +117,11 @@ void DistributionExecution::PopulateQDistributions(){
         Distribution newDistribution;
         newDistribution.distribution.first = distributionDate;
         newDistribution.distribution.second = distributionAmount;
-        bool distributionExists = std::any_of(m_asset->GetQuarterDistributions().begin(), m_asset->GetQuarterDistributions().end(),
-                                        [newDistribution](const Distribution &existingDistribution){
-                                            return existingDistribution.distribution.first == newDistribution.distribution.first;
-                                        });
+        bool distributionExists = std::any_of(m_asset->GetQuarterDistributions().begin(), 
+                                            m_asset->GetQuarterDistributions().end(),
+                                            [newDistribution](const std::pair<Distribution, bool> &existingDistributionPair){
+                                                return existingDistributionPair.first.distribution.first == newDistribution.distribution.first;
+                                            });
         if(newDistribution.distribution.second > 0 && !distributionExists){
             qDistributions.push_back(newDistribution);
         }
@@ -145,8 +146,12 @@ void DistributionExecution::OnGetAmount(wxCommandEvent &e){
     wxString year = yearChoice->GetStringSelection();
     int yearInt = wxAtoi(year);
     wxString month = qChoice->GetStringSelection();
-    Distribution selectedDistribution = GetSelectedDistribution(yearInt, month);
+    selectedDistribution = GetSelectedDistribution(yearInt, month);
     selectedDistributionAmount->SetLabel("Amount: "+utilities::formatDollarAmount(selectedDistribution.distribution.second));
     selectedDistributionAmount->SetForegroundColour(wxColor(0,0,0));
     this->Update();
+}
+
+Distribution DistributionExecution::GetDistribution(){
+    return selectedDistribution;
 }
