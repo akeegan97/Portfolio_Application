@@ -84,6 +84,7 @@ class Position{
         std::shared_ptr<Investor> GetInvestorPtr()const;
         std::shared_ptr<Asset> GetAssetPointer()const;
         double GetPositionValue()const;
+        std::vector<ManagementFee>& GetManagementFeesReference();
     //public setters
         void SetDeployed(double deployed);
         void SetReserve(double reserve);

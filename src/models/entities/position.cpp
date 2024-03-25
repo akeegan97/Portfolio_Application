@@ -26,10 +26,19 @@ double Position::GetOwnership()const{
     return m_percentOwnership;
 }
 double Position::GetManagementFeesDue()const{
-    return m_managementFeesDue;
+    double mfdue = 0.0;
+    for(auto&mf:m_managementFees){
+        if(mf.paid == false){
+            mfdue+=mf.amount;
+        }
+    }
+    return mfdue;
 }
 std::vector<ManagementFee> Position::GetManagementFees()const{
     return m_managementFees;
+}
+std::vector<ManagementFee>& Position::GetManagementFeesReference(){
+    return this->m_managementFees;
 }
 std::vector<PromoteFee> Position::GetPromoteFees()const{
     return m_promoteFees;

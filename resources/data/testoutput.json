@@ -53,12 +53,12 @@
                         {
                             "Management Fee Amount": 82.13552361396303,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 256.6735112936345,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 157.4264202600958,
@@ -71,7 +71,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 311.43052703627643,
                     "Movements Deploy": [
                         [
                             "2023-06-15",
@@ -102,7 +102,7 @@
                         {
                             "Management Fee Amount": 215.60574948665294,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 314.8528405201916,
@@ -115,7 +115,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 622.8610540725529,
                     "Movements Deploy": [
                         [
                             "2023-07-30",

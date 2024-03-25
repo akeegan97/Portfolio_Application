@@ -416,7 +416,7 @@ double Asset::GetTotalMgmtFeesEarned()const{
     double mgmtFeesEarned = 0.0;
     for(auto pos : GetPositions()){
         for(auto mf : pos->GetManagementFees()){
-            if(mf.paid == TRUE){
+            if(mf.paid == true){
                 mgmtFeesEarned+=mf.amount;
             }
         }
@@ -787,7 +787,7 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         pair.second = pair.second/totalCapdays;
     }
     //converting the cap days to ownership percentages
-    for(const auto&pos:this->GetPositionsForIDP()){
+    for(auto&pos:this->GetPositionsForIDP()){
         double mgmtFeesToApply = 0.0;
         double distributionShare = 0.0;
         for(auto pair:positionsCapitalizedDays){
@@ -796,10 +796,10 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
             }
         }
         double amountAftermgmtFees = distributionShare;
-        for(auto&mf : pos->GetManagementFees()){
+        for(auto&mf : pos->GetManagementFeesReference()){
             if(mf.paid == false && mf.quarter <= distribution.distribution.first && amountAftermgmtFees > 0){
                 amountAftermgmtFees-=mf.amount;
-                mf.paid==true;
+                mf.paid = true;
             }
         }
         double promoteFee = amountAftermgmtFees * pos->GetInvestorPtr()->GetPromoteFeePercentage();
