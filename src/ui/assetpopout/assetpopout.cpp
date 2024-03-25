@@ -729,6 +729,10 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
     DistributionExecution dialog(this, asset);
     int retValue = dialog.ShowModal();
     if(retValue == wxID_OK){
+        //currently just grabbing the distribution total amount
+        //eventually need to create a new one based on user input on "Amount" ctrl
+        //pass that as a new Distribution to the functions
+        //the rest goes into reserve 
         Distribution quarterlyDistribution = dialog.GetDistribution();
         asset->PassDistributionToPositions(quarterlyDistribution);
         asset->AddQuarterlyDistribution(quarterlyDistribution);

@@ -773,6 +773,17 @@ double Asset::CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate){
 }
 
 void Asset::PassDistributionToPositions(Distribution &distribution){
+    //-------------------------formula---------------------------//
+    /*
+    WeightedOwnershipi Σj=1n(Cij⋅dj)/Σi=1mΣj=1ni(Cij⋅dj)Σj=1n(Cij⋅dj)
+    Where:
+        WeightedOwnershipi is the weighted ownership of position i.
+        Cij is the deployed capital for position i during segment j.
+        dj is the number of days in segment j.
+        n is the total number of segments for position i.
+        m is the total number of positions.
+        ni is the total number of segments for each position i 
+    */
     double distributionAmount = distribution.distribution.second;
     double totalCapdays = 0.0;
     std::map<std::shared_ptr<Position>, double> positionsCapitalizedDays;

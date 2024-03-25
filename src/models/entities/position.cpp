@@ -361,7 +361,7 @@ void to_json(json &j, const Position &pos){
         {"ROC", pos.GetReturnOfCapital()},
         {"Movements Deploy", json::array()},
         {"Management Fees",json::array()},
-        {"ROC Movements", json::array()}
+        {"ROC Movements", json::array()}//need to add net income/promotefees vector to this list
     };
     std::vector<json> feesJson;
     for (const auto& fee : pos.GetManagementFees()) { 
@@ -397,7 +397,7 @@ void to_json(json &j, const Position &pos){
 std::map<wxDateTime, double> Position::GetROCMapConstant()const{
     return m_returnOfCapitalMap;
 }
-void from_json(const json&j, Position &position, Portfolio &port){
+void from_json(const json&j, Position &position, Portfolio &port){//also deserialize the net income/promote fees from here
     wxString assetName = wxString::FromUTF8(j["AssetName"].get<std::string>().c_str());
     for(auto &assetPointer : port.assetPtrs){
         if(assetPointer->GetAssetName() == assetName){
