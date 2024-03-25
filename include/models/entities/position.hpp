@@ -119,6 +119,7 @@ class Position{
         std::map<wxDateTime, double> GetROCMapConstant()const;
         double CalculateCapitalDays(const Asset &asset, const wxDateTime &qEndDate);
         double GetInitialDeployedBefore(const wxDateTime &date);
+        void AddNetIncome(Distribution &distribution);
 };
 
 void to_json(json &j, const Position &pos);

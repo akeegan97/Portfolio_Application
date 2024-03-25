@@ -783,4 +783,31 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         totalCapdays+=positionsCapitalDays;
         std::cout<<"Position CAP DAYS: "<<positionsCapitalDays<<std::endl;
     }
+    for(auto &pair:positionsCapitalizedDays){
+        pair.second = pair.second/totalCapdays;
+    }
+    //converting the cap days to ownership percentages
+    for(const auto&pos:this->GetPositionsForIDP()){
+        double mgmtFeesToApply = 0.0;
+        double distributionShare = 0.0;
+        for(auto pair:positionsCapitalizedDays){
+            if(pair.first == pos){
+                distributionShare = distributionAmount * pair.second;
+            }
+        }
+        double amountAftermgmtFees = distributionShare;
+        for(auto&mf : pos->GetManagementFees()){
+            if(mf.paid == false && mf.quarter <= distribution.distribution.first && amountAftermgmtFees > 0){
+                amountAftermgmtFees-=mf.amount;
+                mf.paid==true;
+            }
+        }
+        double promoteFee = amountAftermgmtFees * pos->GetInvestorPtr()->GetPromoteFeePercentage();
+        double amountAfterPromote = amountAftermgmtFees - promoteFee;
+        Distribution netIncome;
+        netIncome.distribution.first = distribution.distribution.first;
+        netIncome.distribution.second = amountAfterPromote;
+        pos->AddNetIncome(netIncome);
+    }
+
 }

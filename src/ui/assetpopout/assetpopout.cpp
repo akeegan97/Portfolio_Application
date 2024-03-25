@@ -731,7 +731,11 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
     if(retValue == wxID_OK){
         Distribution quarterlyDistribution = dialog.GetDistribution();
         asset->PassDistributionToPositions(quarterlyDistribution);
-
+        for(auto pos: asset->GetPositions()){
+            for(auto ni:pos->GetNetIncome()){
+                std::cout<<"NI "<<ni.distribution.second<<std::endl;
+            }
+        }
     }else{
         //do nothing and close
     }

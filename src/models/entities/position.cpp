@@ -500,3 +500,7 @@ double Position::GetInitialDeployedBefore(const wxDateTime &date) {
     }
     return deployed;
 }
+
+void Position::AddNetIncome(Distribution &distribution){
+    m_netIncome.push_back(distribution);
+}
