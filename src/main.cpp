@@ -19,7 +19,7 @@ bool RugenBerg::OnInit()
 #ifdef __WXMAC__
     // macOS-specific path construction
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/test.json";
+    jsonFilePath = resourcePath + "/data/testoutput.json";
 #elif defined(__WXMSW__)
     jsonFilePath = "../resources/data/testoutput.json";
 #endif
@@ -39,7 +39,7 @@ int RugenBerg::OnExit()
 #ifdef __WXMAC__
     // macOS-specific path construction
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/test.json";
+    jsonFilePath = resourcePath + "/data/testoutput.json";
 #endif
 #ifdef __WXMSW__
     // Windows-specific path (adjust as needed)

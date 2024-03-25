@@ -807,7 +807,17 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         Distribution netIncome;
         netIncome.distribution.first = distribution.distribution.first;
         netIncome.distribution.second = amountAfterPromote;
+        PromoteFee pf;
+        pf.promotefee.first = distribution.distribution.first;
+        pf.promotefee.second = promoteFee;
+        pos->AddPromoteFee(pf);
         pos->AddNetIncome(netIncome);
     }
 
+}
+
+
+void Asset::AddQuarterlyDistribution(Distribution &distribution){
+    std::pair<Distribution, bool> newDistribution = std::make_pair(distribution,true);
+    m_qDistributions.push_back(newDistribution);
 }

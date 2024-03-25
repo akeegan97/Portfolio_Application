@@ -15,6 +15,7 @@ DistributionExecution::DistributionExecution(wxWindow *parentWindow, std::shared
     }
 
 void DistributionExecution::SetupLayout(){
+    std::cout<<"Entering SetupLayout Function"<<std::endl;
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topLeftSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *topMiddleSizer = new wxBoxSizer(wxVERTICAL);
@@ -91,6 +92,7 @@ void DistributionExecution::SetupLayout(){
     mainSizer->Add(bottomSizer,1,wxALL|wxEXPAND);
     this->SetSizer(mainSizer);
     this->Layout();
+    std::cout<<"Exiting SetupLayout Function"<<std::endl;
 }
 
 void DistributionExecution::PopulateChoiceArrays(){
@@ -117,11 +119,18 @@ void DistributionExecution::PopulateQDistributions(){
         Distribution newDistribution;
         newDistribution.distribution.first = distributionDate;
         newDistribution.distribution.second = distributionAmount;
-        bool distributionExists = std::any_of(m_asset->GetQuarterDistributions().begin(), 
-                                            m_asset->GetQuarterDistributions().end(),
-                                            [newDistribution](const std::pair<Distribution, bool> &existingDistributionPair){
-                                                return existingDistributionPair.first.distribution.first == newDistribution.distribution.first;
-                                            });
+        // bool distributionExists = std::any_of(m_asset->GetQuarterDistributions().begin(), 
+        //                                     m_asset->GetQuarterDistributions().end(),
+        //                                     [newDistribution](const std::pair<Distribution, bool> &existingDistributionPair){
+        //                                         std::cout<<"LAMBDA EXECUTED: "<<std::endl;
+        //                                         return existingDistributionPair.first.distribution.first == newDistribution.distribution.first;
+        //                                     }); PRODUCED SEGFAULT LOOK INTO WHY
+        bool distributionExists = false;
+        for(const auto& qd : m_asset->GetQuarterDistributions()){
+            if(qd.first.distribution.first==newDistribution.distribution.first){
+                distributionExists = true;
+            }
+        }
         if(newDistribution.distribution.second > 0 && !distributionExists){
             qDistributions.push_back(newDistribution);
         }

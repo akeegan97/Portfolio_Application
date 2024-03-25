@@ -504,3 +504,7 @@ double Position::GetInitialDeployedBefore(const wxDateTime &date) {
 void Position::AddNetIncome(Distribution &distribution){
     m_netIncome.push_back(distribution);
 }
+
+void Position::AddPromoteFee(PromoteFee &pf){
+    m_promoteFees.push_back(pf);
+}
