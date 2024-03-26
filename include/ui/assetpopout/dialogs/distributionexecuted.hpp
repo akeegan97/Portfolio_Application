@@ -22,6 +22,11 @@ class DistributionExecution : public wxDialog{
         Distribution GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ);
         void OnGetAmount(wxCommandEvent &e);
         Distribution GetDistribution();
+        double GetDistributeAmount();
+        double GetReserveAmount();
+        wxDateTime GetDateOfDistribution();
+        void OnAmountsChanged(wxCommandEvent &e);
+        void UpdateConfirmButton();
     private:
         std::shared_ptr<Asset> m_asset;
         std::vector<Distribution> qDistributions;

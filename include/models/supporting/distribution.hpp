@@ -18,5 +18,6 @@ class Distribution{
 
 void to_json(json &j, const Distribution &distribution);
 void from_json(const json &j, Distribution &distribution);
-
+void to_json(json &j, const std::pair<Distribution,bool> &qdistribution);
+void from_json(const json &j, std::pair<Distribution,bool> &qdistribution);
 #endif

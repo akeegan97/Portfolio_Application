@@ -323,6 +323,10 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         }
         asset.DeserializeSetMovementsDeploy(movements);
     }
+    if(j.contains("Quarterly Distributions")&&j["Quarterly Distributions"].is_array()){
+        std::vector<std::pair<Distribution,bool>> qDistributions = j["Quarterly Distributions"].get<std::vector<std::pair<Distribution, bool>>>();
+        asset.SetQuarterlyDistributions(qDistributions);
+    }
 }
 
 void to_json(json &j, const Asset &asset){
@@ -337,7 +341,8 @@ void to_json(json &j, const Asset &asset){
         {"Valuations", json::array()},
         {"Distributions", json::array()},
         {"Asset ROC Movements", json::array()},
-        {"Asset Movement To From Deploy", json::array()}
+        {"Asset Movement To From Deploy", json::array()},
+        {"Quarterly Distributions",json::array()}
     };
     json rocMovementsJson;
     for(const auto& movement : asset.GetROCMovements()){
@@ -367,6 +372,13 @@ void to_json(json &j, const Asset &asset){
         movementsToFromDeployJson.push_back({{"Date", dateStr},{"Amount", amount}});
     }
     j["Asset Movement To From Deploy"] = movementsToFromDeployJson;
+    json qDistributionJson;
+    for(const auto& qd : asset.GetQuarterDistributions()){
+        json qdJson;
+        to_json(qdJson,qd);
+        qDistributionJson.push_back(qdJson);
+    }
+    j["Quarterly Distributions"] = qDistributionJson;
 }
 
 
@@ -831,4 +843,8 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
 void Asset::AddQuarterlyDistribution(Distribution &distribution){
     std::pair<Distribution, bool> newDistribution = std::make_pair(distribution,true);
     m_qDistributions.push_back(newDistribution);
+}
+
+void Asset::SetQuarterlyDistributions(std::vector<std::pair<Distribution,bool>> qDistributions){
+    m_qDistributions = qDistributions;
 }

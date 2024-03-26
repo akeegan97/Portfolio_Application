@@ -65,11 +65,14 @@ void DistributionExecution::SetupLayout(){
     distributionAmountText = new wxStaticText(this, wxID_ANY,"Amount To Distribute");
     distributionAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
     distributionAmountTextCtrl->SetValidator(numberValidator);
+    distributionAmountTextCtrl->Bind(wxEVT_TEXT,&DistributionExecution::OnAmountsChanged,this);
     reserveAmountText = new wxStaticText(this, wxID_ANY, "Amount To Reserve");
     reserveAmountCtrl = new wxTextCtrl(this, wxID_ANY);
     reserveAmountCtrl->SetValidator(numberValidator);
+    reserveAmountCtrl->Bind(wxEVT_TEXT,&DistributionExecution::OnAmountsChanged,this);
 
     confirmButton = new wxButton(this, wxID_OK,"Confirm");
+    confirmButton->Enable(false);
     cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
     topLeftSizer->Add(yearText,1,wxALL|wxLEFT,5);
     topLeftSizer->Add(yearChoice,1,wxALL|wxEXPAND,5);
@@ -119,12 +122,6 @@ void DistributionExecution::PopulateQDistributions(){
         Distribution newDistribution;
         newDistribution.distribution.first = distributionDate;
         newDistribution.distribution.second = distributionAmount;
-        // bool distributionExists = std::any_of(m_asset->GetQuarterDistributions().begin(), 
-        //                                     m_asset->GetQuarterDistributions().end(),
-        //                                     [newDistribution](const std::pair<Distribution, bool> &existingDistributionPair){
-        //                                         std::cout<<"LAMBDA EXECUTED: "<<std::endl;
-        //                                         return existingDistributionPair.first.distribution.first == newDistribution.distribution.first;
-        //                                     }); PRODUCED SEGFAULT LOOK INTO WHY
         bool distributionExists = false;
         for(const auto& qd : m_asset->GetQuarterDistributions()){
             if(qd.first.distribution.first==newDistribution.distribution.first){
@@ -157,10 +154,40 @@ void DistributionExecution::OnGetAmount(wxCommandEvent &e){
     wxString month = qChoice->GetStringSelection();
     selectedDistribution = GetSelectedDistribution(yearInt, month);
     selectedDistributionAmount->SetLabel("Amount: "+utilities::formatDollarAmount(selectedDistribution.distribution.second));
+    #ifdef __WXMSW__
     selectedDistributionAmount->SetForegroundColour(wxColor(0,0,0));
+    #elif defined(__WXMAC__)
+    selectedDistributionAmount->SetForegroundColour(wxColor(255,255,255));
+    #endif
     this->Update();
 }
 
 Distribution DistributionExecution::GetDistribution(){
     return selectedDistribution;
+}
+
+double DistributionExecution::GetDistributeAmount(){
+    return wxAtof(distributionAmountTextCtrl->GetValue());
+}
+
+double DistributionExecution::GetReserveAmount(){
+    return wxAtof(reserveAmountCtrl->GetValue());
+}
+
+wxDateTime DistributionExecution::GetDateOfDistribution(){
+    Distribution qDistribution = GetDistribution();
+    return qDistribution.distribution.first;
+}
+
+void DistributionExecution::OnAmountsChanged(wxCommandEvent &e){
+    UpdateConfirmButton();
+}
+
+void DistributionExecution::UpdateConfirmButton(){
+    Distribution selectedDistribution = GetDistribution();
+    double distributionAmount = GetDistributeAmount();
+    double reserveAmount = GetReserveAmount();
+    double totalAmount = distributionAmount + reserveAmount;
+
+    confirmButton->Enable(totalAmount == selectedDistribution.distribution.second);
 }

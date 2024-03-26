@@ -19,6 +19,26 @@ void from_json(const json &j, Distribution &distribution){
     }
 }
 
+void to_json(json &j, const std::pair<Distribution,bool> &qdistribution){
+    json distributionJson;
+    to_json(distributionJson,qdistribution.first);
+    j=json{
+        {"Distribution",distributionJson},
+        {"Executed",qdistribution.second}
+    };
+}
+void from_json(const json &j, std::pair<Distribution, bool> &qdistribution){
+    Distribution distribution;
+    if(j.contains("Distribution")) {
+        from_json(j.at("Distribution"), distribution);
+    }
+    bool executed = false;
+    if(j.contains("Executed")) {
+        executed = j.at("Executed").get<bool>();
+    }
+    qdistribution = std::make_pair(distribution, executed);
+}
+
 //methods and members for VLC
 
 wxVariant Distribution::GetValue(int col)const{

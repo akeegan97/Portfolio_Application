@@ -16,7 +16,7 @@
             ],
             "Asset Name": "Tst",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 1250000.0,
+            "Asset Reserve Capital": 1257500.0,
             "Asset Sponser": "Test",
             "Current Value": 250000.0,
             "Distributions": [
@@ -37,6 +37,7 @@
                     "Distribution Date": "2023-11-29"
                 }
             ],
+            "Quarterly Distributions": null,
             "Valuations": []
         }
     ],
@@ -53,12 +54,12 @@
                         {
                             "Management Fee Amount": 82.13552361396303,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 256.6735112936345,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 157.4264202600958,
@@ -71,7 +72,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 311.43052703627643,
+                    "Management Fees Due": 650.2395619438739,
                     "Movements Deploy": [
                         [
                             "2023-06-15",
@@ -82,7 +83,9 @@
                             -166666.6666666667
                         ]
                     ],
+                    "Net Income": null,
                     "Paid": 500000.0,
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
@@ -102,7 +105,7 @@
                         {
                             "Management Fee Amount": 215.60574948665294,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 314.8528405201916,
@@ -115,14 +118,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 622.8610540725529,
+                    "Management Fees Due": 838.4668035592059,
                     "Movements Deploy": [
                         [
                             "2023-07-30",
                             166666.66666666666
                         ]
                     ],
+                    "Net Income": null,
                     "Paid": 1000000.0,
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }

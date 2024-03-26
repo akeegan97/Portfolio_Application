@@ -361,7 +361,9 @@ void to_json(json &j, const Position &pos){
         {"ROC", pos.GetReturnOfCapital()},
         {"Movements Deploy", json::array()},
         {"Management Fees",json::array()},
-        {"ROC Movements", json::array()}//need to add net income/promotefees vector to this list
+        {"ROC Movements", json::array()},
+        {"Net Income",json::array()},
+        {"Promote Fees",json::array()}
     };
     std::vector<json> feesJson;
     for (const auto& fee : pos.GetManagementFees()) { 
@@ -391,7 +393,20 @@ void to_json(json &j, const Position &pos){
         });
     }
     j["ROC Movements"] = rocMovementsJson;
-
+    json netIncomeJson;
+    for(const auto& ni: pos.GetNetIncome()){
+        json netIncome;
+        to_json(netIncome,ni);
+        netIncomeJson.push_back(netIncome);
+    }
+    j["Net Income"] = netIncomeJson;
+    json promotefeeJson;
+    for(const auto&pf:pos.GetPromoteFees()){
+        json pfjson;
+        to_json(pfjson,pf);
+        promotefeeJson.push_back(pfjson);
+    }
+    j["Promote Fees"] = promotefeeJson;
 
 }
 std::map<wxDateTime, double> Position::GetROCMapConstant()const{
@@ -455,6 +470,24 @@ void from_json(const json&j, Position &position, Portfolio &port){//also deseria
         }
         position.SetMgmtFeeVector(fees);
     }
+    if(j.contains("Net Income") && j["Net Income"].is_array()){
+        std::vector<Distribution> netIncomeVector;
+        for(const auto& niJson:j["Net Income"]){
+            Distribution netIncome;
+            from_json(niJson,netIncome);
+            netIncomeVector.push_back(netIncome);
+        }
+        position.SetNetIncome(netIncomeVector);
+    }
+    if(j.contains("Promote Fees") && j["Promote Fees"].is_array()){
+        std::vector<PromoteFee> promoteFees;
+        for(const auto& pfjson:j["Promote Fees"]){
+            PromoteFee promoteFee;
+            from_json(pfjson, promoteFee);
+            promoteFees.push_back(promoteFee);
+        }
+        position.SetPromoteFees(promoteFees);
+    }
 }
 
 void Position::SetMgmtFeeVector(std::vector<ManagementFee> fees){
@@ -516,4 +549,12 @@ void Position::AddNetIncome(Distribution &distribution){
 
 void Position::AddPromoteFee(PromoteFee &pf){
     m_promoteFees.push_back(pf);
+}
+
+void Position::SetPromoteFees(std::vector<PromoteFee> pfs){
+    m_promoteFees = pfs;
+}
+
+void Position::SetNetIncome(std::vector<Distribution> netIncome){
+    m_netIncome = netIncome;
 }

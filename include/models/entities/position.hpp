@@ -105,6 +105,8 @@ class Position{
         void UpdateROC();
         void SetMgmtFeeVector(std::vector<ManagementFee> fees);
         void UpdateManagementFees(const wxDateTime &date);
+        void SetPromoteFees(std::vector<PromoteFee> pfs);
+        void SetNetIncome(std::vector<Distribution> netIncome);
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);

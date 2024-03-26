@@ -152,6 +152,7 @@ class Asset{
         void AddNewReserve(double &newReserve);
         void PassDistributionToPositions(Distribution &distribution);
         void AddQuarterlyDistribution(Distribution &distribution);
+        void SetQuarterlyDistributions(std::vector<std::pair<Distribution,bool>> qDistributions);
 
     //methods to be used by VLC Templated Class
         wxVariant GetValue(int col)const;
