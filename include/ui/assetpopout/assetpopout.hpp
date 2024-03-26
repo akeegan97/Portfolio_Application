@@ -58,7 +58,8 @@ class AssetPopout : public wxFrame{
         void OnDistributionEdit(wxListEvent &e);
         void OnValuationEdit(wxListEvent &e);
         void OnAddPosition(wxCommandEvent &e);
-        void OnSetAssetValues(wxCommandEvent &e);
+        void UpdateExecuteDistributionButton();
+        void AllowBindingOnValuationLC();
         //for valuation+deployed capital chart
         Chart* PopulateDrawChartValuationDeploy();
         void UpdateChartValuationDeploy();

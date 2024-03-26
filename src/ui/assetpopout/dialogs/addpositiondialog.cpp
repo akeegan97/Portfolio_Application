@@ -54,8 +54,8 @@ void AddPositionDialog::SetupLayout(){
     confirmSelectionsLaunchButton = new wxButton(this, wxID_ANY, "Confirm");
     confirmSelectionsLaunchButton->Bind(wxEVT_BUTTON, &AddPositionDialog::OnConfirmPosition, this);
     wxButton *okayButton = new wxButton(this, wxID_OK, "Done");
-    buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND);
-    buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND);
+    buttonSizer->Add(addNewInvestorButton, 1, wxALL|wxEXPAND,5);
+    buttonSizer->Add(confirmSelectionsLaunchButton, 1, wxALL|wxEXPAND,5);
     buttonSizer->Add(okayButton, 1, wxALL|wxEXPAND,5);
 
 
@@ -117,6 +117,9 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             }
             double deployedAmount = dialog.GetDeployedAmount();
             double reserveAmount = dialog.GetReserveAmount();
+            if(deployedAmount == 0){
+                reserveAmount = amountPaid;
+            }
             newPositionPtr->SetDateInvested(dateInvested);
             newPositionPtr->SetPaid(amountPaid);
             std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, deployedAmount);
@@ -143,6 +146,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 }
             }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
+        }else if(retValue == wxID_CANCEL){
+            return;
         }
     }else if(positionType == "Component"){
         AddComponentPositionDialog dialog(this->GetParent(), m_asset, m_portfolio);
@@ -187,6 +192,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
             m_asset->TriggerUpdateDerivedValues();
         }
+    }else{
+
     }
 }
 

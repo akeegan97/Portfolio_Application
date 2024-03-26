@@ -60,10 +60,12 @@ void AddAssetDialog::SetupLayout(){
     deployedAmountText = new wxStaticText(this, wxID_ANY, "Enter Deployed Amount");
     deployedAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
     deployedAmountTextCtrl->SetValidator(numberValidator);
+    deployedAmountTextCtrl->Bind(wxEVT_TEXT,&AddAssetDialog::OnAmountsChanged,this);
     deployedAmountText->SetForegroundColour(wxColor(255,255,255));
 
     reserveAmountText = new wxStaticText(this, wxID_ANY, "Enter Reserve Amount");
     reserveAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    reserveAmountTextCtrl->Bind(wxEVT_TEXT,&AddAssetDialog::OnAmountsChanged,this);
     reserveAmountTextCtrl->SetValidator(numberValidator);
     reserveAmountText->SetForegroundColour(wxColor(255,255,255));
 
@@ -73,6 +75,7 @@ void AddAssetDialog::SetupLayout(){
     effectiveStartDateCtrlText->SetForegroundColour(wxColor(255,255,255));
 
     confirmButton = new wxButton(this, wxID_OK, "Confirm Asset");
+    confirmButton->Enable(false);
     confirmButton->SetForegroundColour(wxColor(255,255,255));
 
     cancelButton = new wxButton(this, wxID_CANCEL,"Cancel Asset");
@@ -172,3 +175,15 @@ void AddAssetDialog::UpdateInvestorChoice(){
     investorChoiceCtrl->Refresh();
 }
 
+void AddAssetDialog::UpdateConfirmButton(){
+    double paid = GetPaidAmount();
+    double deployedAmount = GetDeployedAmount();
+    double reserveAmount = GetReserveAmount();
+    if(paid!=0 && paid == (deployedAmount+reserveAmount)){
+        confirmButton->Enable(true);
+    }
+}
+
+void AddAssetDialog::OnAmountsChanged(wxCommandEvent &e){
+    UpdateConfirmButton();
+}

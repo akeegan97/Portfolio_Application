@@ -101,10 +101,6 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
         validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
-        //date of valuation
-        wxStaticText* warningText = new wxStaticText(this, wxID_ANY,"Must Enter All Fields");
-        warningText->SetBackgroundColour(wxColor(0,0,0));
-        warningText->SetForegroundColour(wxColour(250,0,0));
 
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         datePicker->SetValue(setDate);
@@ -113,7 +109,6 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
         datePickerText = new wxStaticText(this, wxID_ANY, "Enter Date of Valuation");
         datePickerText->SetForegroundColour(wxColor(51,245,12));
         datePickerText->SetBackgroundColour(wxColor(0,0,0));
-        mainSizer->Add(warningText, 0, wxALL|wxLEFT,5);
         mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 5);
         mainSizer->Add(datePicker, 0, wxALL|wxEXPAND, 5);
 

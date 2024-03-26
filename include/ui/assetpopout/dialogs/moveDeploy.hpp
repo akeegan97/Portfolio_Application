@@ -10,14 +10,19 @@
 #include "wx/button.h"
 #include "wx/choice.h"
 #include "wx/arrstr.h"
+#include "entities/asset.hpp"
+class Asset;
 
 
 class MoveDeploy : public wxDialog{
     public:
-        MoveDeploy(wxWindow *parentWindow);
+        MoveDeploy(wxWindow *parentWindow,std::shared_ptr<Asset> &asset);
         wxDateTime GetDate();
         double GetAmountMoved();
         wxString GetSelectedMovementDirection();
+        void OnAmountsChanged(wxCommandEvent&e);
+        void UpdateConfirmButton();
+        void SetupLayout();
 
     private:
         wxDatePickerCtrl* datePicker;
@@ -26,6 +31,8 @@ class MoveDeploy : public wxDialog{
         wxStaticText* amountText;
         wxChoice *directionOfMovement;
         wxStaticText *directionOfMovementText;
+        std::shared_ptr<Asset> m_asset;
+        wxButton* okayButton;
 };
 
 #endif

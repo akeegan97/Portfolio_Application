@@ -2,7 +2,7 @@
 
 
 AddInvestorDialog::AddInvestorDialog(wxWindow *parentWindow):
-    wxDialog(parentWindow, wxID_ANY, "Fill Out Position", wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
+    wxDialog(parentWindow, wxID_ANY, "Add New Investor", wxDefaultPosition, wxSize(500,300),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
     {
         SetupLayout();
         wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);

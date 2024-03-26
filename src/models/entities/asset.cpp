@@ -595,10 +595,14 @@ void Asset::ClearInvestorPositionDisplays(){
     m_investorPositionDisplays.clear();
 }
 
+void Asset::UpdateCommitted(){
+    m_assetCommittedCapital -= m_assetReturnOfCapital;
+}
+
 void Asset::SetPositionValues(){
     for(auto&pos:m_positions){
         pos->SetCommitted();
-        pos->SetOwnership();
+        pos->SetOwnership();//ownership is being set before all committed amounts are in for asset need to use function to set committed 
         pos->SetReserve();
         pos->SetDeployed();
         pos->SetCurrentValue();
@@ -638,18 +642,12 @@ void Asset::MoveReserveToReturnOfCapital(wxDateTime &date, double amount){
     m_assetReturnOfCapital += amount;
     m_rocMovements[date] = amount;
     for(auto&pos:m_positions){
-        pos->SetRocMovements();
+        std::pair<wxDateTime,double> movement = std::make_pair(date,(amount*pos->GetOwnership()));
+        pos->AddRocMovement(movement);
+        pos->UpdateROC();
     }
 }
 
-void Asset::MoveDeployToReturnOfCapital(wxDateTime &date, double amount){
-    m_assetDeployedCapital -=amount;
-    m_assetReturnOfCapital +=amount;
-    m_rocMovements[date] = amount;
-    for(auto&pos:m_positions){
-        pos->SetRocMovements();
-    }
-}
 
 
 void Asset::RemoveValuation(size_t index){
@@ -755,21 +753,44 @@ void Asset::CalculateIrr(){
     for(const auto&cf:cashFlow){
         std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
     }
-    m_irr = 0;
-    double guess = 0.1;
-    double x1 = 0.0;
-    int maxIterations = 100;
-    double precision = 0.000001;
-    for(int i = 0; i<maxIterations;i++){
-        double npv = CalculateNPV(cashFlow, guess);
-        double guessAddPrecision = guess + precision;
-        double npvPrime = (CalculateNPV(cashFlow, guessAddPrecision)- npv)/precision;
-        x1 =guess - npv / npvPrime;
-        if(std::fabs(x1-guess)<=precision){
-            m_irr = x1;
-            break;
+    m_irr = 0; 
+    double zero = 0.0;
+    double npvAtZero = CalculateNPV(cashFlow, zero); 
+    double direction = npvAtZero > 0 ? 1.0 : -1.0; 
+
+    int maxIterationsPerGuess = 100; 
+    double precision = 0.000001; 
+    bool foundIRR = false; 
+
+
+    for (double initialGuess = 0.1 * direction; std::fabs(initialGuess) <= 1.0; initialGuess += 0.1 * direction) {
+        double x1 = initialGuess; 
+
+        for (int i = 0; i < maxIterationsPerGuess; ++i) {
+            double npv = CalculateNPV(cashFlow, x1); 
+            double x1AddPrecision = x1+precision;
+            double npvPrime = (CalculateNPV(cashFlow, x1AddPrecision) - npv) / precision; 
+
+            if (std::fabs(npvPrime) < 1e-6) {
+                break; 
+            }
+            double xNext = x1 - npv / npvPrime; 
+            if (std::fabs(xNext - x1) <= precision) {
+                m_irr = xNext; 
+                foundIRR = true; 
+                std::cout << "IRR found: " << m_irr << std::endl;
+                break; 
+            }
+            x1 = xNext; 
         }
-        guess = x1;
+
+        if (foundIRR) {
+            break; 
+        }
+    }
+
+    if (!foundIRR) {
+        std::cout << "IRR not found within the tested range." << std::endl;
     }
 }
 

@@ -1,8 +1,13 @@
 #include "ui/assetpopout/dialogs/moveDeploy.hpp"
 #include "helpers/utilities.hpp"
 
-MoveDeploy::MoveDeploy(wxWindow *parentWindow):
-    wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxSize(300,300), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER){
+MoveDeploy::MoveDeploy(wxWindow *parentWindow,std::shared_ptr<Asset> &asset):
+    wxDialog(parentWindow, wxID_ANY, "Move Deploy", wxDefaultPosition, wxSize(300,300), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+    m_asset(asset){
+        SetupLayout();
+    }
+
+    void MoveDeploy::SetupLayout(){
         wxArrayString includeList;
         includeList.Add(wxT("0"));
         includeList.Add(wxT("1"));
@@ -27,25 +32,29 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
         mainSizer->Add(datePickerText, 0, wxALL | wxLEFT,5);
         mainSizer->Add(datePicker, 0, wxALL | wxEXPAND,5);
 
-        //Amount Moved:
-        amountCtrl = new wxTextCtrl(this, wxID_ANY);
-        amountCtrl->SetValidator(validator);
-
-        amountText = new wxStaticText(this, wxID_ANY, "Enter Amount Moved");
-        mainSizer->Add(amountText, 0, wxALL|wxLEFT,5);
-        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
         //Direction of Move:
         wxArrayString choices;
         choices.Add("Reserve to Deploy");
         choices.Add("Deploy to Reserve");
+        choices.Add("Reserve to ROC");
         directionOfMovement = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,choices);
         directionOfMovement->SetBackgroundColour(wxColor(0,0,0));
         directionOfMovementText = new wxStaticText(this, wxID_ANY, "Select Movement Type");
         mainSizer->Add(directionOfMovementText, 0, wxALL | wxLEFT, 5);
         mainSizer->Add(directionOfMovement, 0, wxALL|wxEXPAND, 5);
+
+        //Amount Moved:
+        amountCtrl = new wxTextCtrl(this, wxID_ANY);
+        amountCtrl->SetValidator(validator);
+        amountCtrl->Bind(wxEVT_TEXT, &MoveDeploy::OnAmountsChanged,this);
+
+        amountText = new wxStaticText(this, wxID_ANY, "Enter Amount Moved");
+        mainSizer->Add(amountText, 0, wxALL|wxLEFT,5);
+        mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
-        wxButton* okayButton = new wxButton(this, wxID_OK, "Okay");
+        okayButton = new wxButton(this, wxID_OK, "Okay");
+        okayButton->Enable(false);
         wxButton* cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
 
         buttonSizer->Add(okayButton, 0, wxALL, 5);
@@ -87,4 +96,33 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow):
     
     wxString MoveDeploy::GetSelectedMovementDirection(){
         return directionOfMovement->GetStringSelection();
+    }
+
+    void MoveDeploy::OnAmountsChanged(wxCommandEvent &e){
+        UpdateConfirmButton();
+    }
+    void MoveDeploy::UpdateConfirmButton(){
+        wxString directionOfMove = directionOfMovement->GetStringSelection();
+        if(directionOfMove == "Reserve to Deploy"){
+            double availableReserve = m_asset->GetTotalAssetReserve();
+            if(availableReserve >= GetAmountMoved()){
+                okayButton->Enable(true);
+            }else{
+                okayButton->Enable(false);
+            }
+        }else if(directionOfMove == "Deploy to Reserve"){
+            double availableDeploy = m_asset->GetTotalAssetDeployed();
+            if(availableDeploy >= GetAmountMoved()){
+                okayButton->Enable(true);
+            }else{
+                okayButton->Enable(false);
+            }
+        }else if(directionOfMove == "Reserve to ROC"){
+            double availableReserve = m_asset->GetTotalAssetReserve();
+            if(availableReserve >= GetAmountMoved()){
+                okayButton->Enable(true);
+            }else{
+                okayButton->Enable(false);
+            }
+        }
     }

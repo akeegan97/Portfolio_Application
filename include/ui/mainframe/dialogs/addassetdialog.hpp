@@ -29,6 +29,8 @@ class AddAssetDialog: public wxDialog{
         std::string GetInvestorChoiceName();
         void OnAddInvestor(wxCommandEvent &e);
         void UpdateInvestorChoice();
+        void OnAmountsChanged(wxCommandEvent &e);
+        void UpdateConfirmButton();
         
     private:
         Portfolio &m_portfolio;

@@ -2,7 +2,7 @@
 #include "helpers/utilities.hpp"
 
 AddStandalonePositionDialog::AddStandalonePositionDialog(wxWindow* parentWindow, Portfolio &portfolio):
-    wxDialog(parentWindow, wxID_ANY, "Add Position",wxDefaultPosition, wxSize(350,300),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+    wxDialog(parentWindow, wxID_ANY, "Standalone Position",wxDefaultPosition, wxSize(450,475),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
         SetupLayout();
             wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
@@ -10,6 +10,7 @@ AddStandalonePositionDialog::AddStandalonePositionDialog(wxWindow* parentWindow,
             wxColor fgColor = wxColor(0,0,0);
             utilities::SetBackgroundColorForWindowAndChildren(this, color,fgColor);
             utilities::SetFontForWindowAndChildren(this, font);
+            Bind(wxEVT_CLOSE_WINDOW, &AddStandalonePositionDialog::OnClose,this);
     }
 
 void AddStandalonePositionDialog::SetupLayout(){
@@ -26,14 +27,17 @@ void AddStandalonePositionDialog::SetupLayout(){
     amountIncreaseCapitalText = new wxStaticText(this, wxID_ANY, "Enter Position Paid");
     amountIncreaseCapitalTextCtrl = new wxTextCtrl(this, wxID_ANY);
     amountIncreaseCapitalTextCtrl->SetValidator(numberValidator);
+    amountIncreaseCapitalText->Bind(wxEVT_TEXT,&AddStandalonePositionDialog::OnAmountsChanged,this);
 
     amountDeployText = new wxStaticText(this, wxID_ANY, "Enter Amount To Deploy");
     amountDeployTextCtrl = new wxTextCtrl(this, wxID_ANY);
     amountDeployTextCtrl->SetValidator(numberValidator);
+    amountDeployTextCtrl->Bind(wxEVT_TEXT,&AddStandalonePositionDialog::OnAmountsChanged,this);
 
     amountReserveText = new wxStaticText(this, wxID_ANY, "Enter Amount To Reserve");
     amountReserveTextCtrl = new wxTextCtrl(this, wxID_ANY);
     amountReserveTextCtrl->SetValidator(numberValidator);
+    amountReserveTextCtrl->Bind(wxEVT_TEXT,&AddStandalonePositionDialog::OnAmountsChanged,this);
 
     wxDateTime setDate = wxDateTime::Today();
     dateNewPositionCtrl = new wxDatePickerCtrl(this, wxID_ANY);
@@ -54,7 +58,10 @@ void AddStandalonePositionDialog::SetupLayout(){
 
     mainSizer->Add(topSizer, 1, wxALL | wxEXPAND,5);
     confirmButton = new wxButton(this, wxID_OK,"Confirm Position");
+    cancelButton = new wxButton(this, wxID_CANCEL,"Cancel Position");
+    confirmButton->Enable(false);
     buttonSizer->Add(confirmButton, 1, wxALL|wxEXPAND, 5);
+    buttonSizer->Add(cancelButton,1,wxALL|wxEXPAND,5);
     mainSizer->Add(buttonSizer, 1, wxALL|wxEXPAND,5);
 
     this->SetSizer(mainSizer);
@@ -74,4 +81,27 @@ double AddStandalonePositionDialog::GetDeployedAmount(){
 }
 double AddStandalonePositionDialog::GetReserveAmount(){
     return wxAtof(amountReserveTextCtrl->GetValue());
+}
+
+void AddStandalonePositionDialog::UpdateConfirmButton(){
+    double paidAmount = GetPaidAmount();
+    double amountDeployed = GetDeployedAmount();
+    double amountReserve = GetReserveAmount();
+    if(amountDeployed == 0 && amountReserve == 0 && paidAmount > 0){
+        confirmButton->Enable(true);
+    }else if(paidAmount > 0 && paidAmount == (amountReserve + amountDeployed)){
+        confirmButton->Enable(true);
+    }else{
+        confirmButton->Enable(false);
+    }
+}
+
+void AddStandalonePositionDialog::OnClose(wxCloseEvent &e){
+        this->SetReturnCode(wxID_CANCEL);
+        std::cout<<"Sending wxID_CANCEL!"<<std::endl;
+    e.Skip();
+}
+
+void AddStandalonePositionDialog::OnAmountsChanged(wxCommandEvent &e){
+    UpdateConfirmButton();
 }

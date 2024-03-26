@@ -76,21 +76,44 @@ void InvestorAssetDisplay::PopulateIRR(){
     for(const auto&cf:cashFlow){
         std::cout<<"Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
     }
-    irr = 0.0;
-    double guess = 0.1;
-    double x1 = 0.0;
-    int maxIterations = 100;
-    double precision = 0.000001;
-    for(int i = 0; i< maxIterations; i++){
-        double npv = CalculateNPV(cashFlow, guess);
-        double guessAddPrecision = guess + precision;
-        double npvPrime = (CalculateNPV(cashFlow,guessAddPrecision) - npv) / precision;
-        x1 = guess - npv / npvPrime;
-        if(std::fabs(x1 - guess)<=precision){
-            irr = x1;
-            break;
+    irr = 0; 
+    double zero = 0.0;
+    double npvAtZero = CalculateNPV(cashFlow, zero); 
+    double direction = npvAtZero > 0 ? 1.0 : -1.0; 
+
+    int maxIterationsPerGuess = 100; 
+    double precision = 0.000001; 
+    bool foundIRR = false; 
+
+
+    for (double initialGuess = 0.1 * direction; std::fabs(initialGuess) <= 1.0; initialGuess += 0.1 * direction) {
+        double x1 = initialGuess; 
+
+        for (int i = 0; i < maxIterationsPerGuess; ++i) {
+            double npv = CalculateNPV(cashFlow, x1); 
+            double x1AddPrecision = x1+precision;
+            double npvPrime = (CalculateNPV(cashFlow, x1AddPrecision) - npv) / precision; 
+
+            if (std::fabs(npvPrime) < 1e-6) {
+                break; 
+            }
+            double xNext = x1 - npv / npvPrime; 
+            if (std::fabs(xNext - x1) <= precision) {
+                irr = xNext; 
+                foundIRR = true; 
+                std::cout << "IRR found: " << irr << std::endl;
+                break; 
+            }
+            x1 = xNext; 
         }
-        guess = x1;
+
+        if (foundIRR) {
+            break; 
+        }
+    }
+
+    if (!foundIRR) {
+        std::cout << "IRR not found within the tested range." << std::endl;
     }
 }
 

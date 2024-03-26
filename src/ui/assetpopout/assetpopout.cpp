@@ -26,6 +26,7 @@ AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wx
             utilities::SetFontForWindowAndChildren(this, font);
             #endif
             Bind(wxEVT_CLOSE_WINDOW, &AssetPopout::OnClose, this);
+            UpdateExecuteDistributionButton();
         };
 
 void AssetPopout::SetupLayout(){
@@ -216,6 +217,7 @@ void AssetPopout::SetupLayout(){
 }
 
 void AssetPopout::UpdateDisplayTextValues(){
+    asset->TriggerUpdateDerivedValues();
     double numInvestors = asset->GetTotalInvestors();
     double totalPaid = 0.0;
     for(const auto&pos:asset->GetPositions()){
@@ -286,11 +288,12 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         UpdateDisplayTextValues();
         UpdateChartDistribution();
         this->Refresh();
+        UpdateExecuteDistributionButton();
     }
 }
 
 void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - > ROC option
-    MoveDeploy DeployMovementWindow(this);
+    MoveDeploy DeployMovementWindow(this,asset);
     int retValue = DeployMovementWindow.ShowModal();
     if(retValue == wxID_OK){
         wxDateTime dateOfMovement = DeployMovementWindow.GetDate();
@@ -302,10 +305,14 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             asset->MoveDeployToReserve(dateOfMovement,amountMoved);
             asset->SetPositionValues();
+        }else if(selectedMovementDirection == "Reserve to ROC"){
+            asset->MoveReserveToReturnOfCapital(dateOfMovement,amountMoved);
+            asset->UpdateCommitted();
+            asset->SetPositionValues();
         }
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
-        // asset->PopulateIRR();
+        asset->TriggerUpdateDerivedValues();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == wxID_CANCEL){
@@ -331,12 +338,12 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         investorPositionDisplayVirtualListControl->Refresh();
         portfolio.ValuationDialog();
         UpdateChartValuationDeploy();
-        //asset->PopulateIRR();
+        asset->TriggerUpdateDerivedValues();
         UpdateDisplayTextValues();
         this->Layout();
     }else if(retVal == wxID_CANCEL){
-        //do nothing and exit
     }
+    AllowBindingOnValuationLC();
 }
 
 void AssetPopout::OnClose(wxCloseEvent &e){
@@ -367,6 +374,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     }else if(retVal == MY_CUSTOM_DELETE_CODE){
         if(dataIndex >= 0 && dataIndex < asset->GetDistributions().size()){
             asset->RemoveDistribution(dataIndex);
+            UpdateExecuteDistributionButton();
         }
         distributionListControl->setItems(asset->GetDistributions());
         distributionListControl->Update();
@@ -396,7 +404,6 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         asset->SetPositionValues();
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
-        //asset->PopulateIRR();
         UpdateDisplayTextValues();
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
@@ -409,12 +416,12 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         asset->SetPositionValues();
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
-        //asset->PopulateIRR();
         UpdateDisplayTextValues();
         this->Refresh();
     }
     this->Refresh();
     this->Layout();
+    AllowBindingOnValuationLC();
 }
 
 Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
@@ -426,7 +433,6 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
 
     asset->PopulateValuationsDeploymentsForPlotting();
     if (asset->GetValuationsForPlotting().empty() && asset->GetDeploymentsForPlotting().empty()) {
-        // Both datasets are empty, return nullptr to indicate no chart should be drawn
         return nullptr;
     }
 
@@ -439,32 +445,28 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
     }
     std::vector<std::pair<wxDateTime, double>> newValuations, newDeployments;
     double lastValuation = 0.0, lastDeployment = 0.0;
-    bool isFirstValuationHandled = false; // Flag to handle first valuation specially
+    bool isFirstValuationHandled = false; 
 
     for (const auto& date : allDates) {
-        // Handle valuation updates
         auto valIt = std::find_if(asset->GetValuationsForPlotting().begin(), asset->GetValuationsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& val) { return val.first == date; });
         if (valIt != asset->GetValuationsForPlotting().end()) {
-            lastValuation = valIt->second; // Update last known valuation
+            lastValuation = valIt->second; 
         }
-        newValuations.push_back({date, lastValuation}); // Use updated or last known valuation
+        newValuations.push_back({date, lastValuation});
 
-        // Handle deployment updates
+       
         auto depIt = std::find_if(asset->GetDeploymentsForPlotting().begin(), asset->GetDeploymentsForPlotting().end(),
                                 [date](const std::pair<wxDateTime, double>& dep) { return dep.first == date; });
         if (depIt != asset->GetDeploymentsForPlotting().end()) {
-            lastDeployment = depIt->second; // Update last known deployment
+            lastDeployment = depIt->second; 
         }
-        newDeployments.push_back({date, lastDeployment}); // Use updated or last known deployment
+        newDeployments.push_back({date, lastDeployment}); 
     }
 
-    // Ensure the first valuation is sensible if its initial value is zero and no explicit data exists for that date
     if (!newValuations.empty() && newValuations.front().second == 0.0 && !newDeployments.empty()) {
         newValuations.front().second = newDeployments.front().second;
     }
-
-    // Now update the asset's series data with the adjusted newValuations
     asset->UpdateValuationsForPlotting(std::move(newValuations));
     asset->UpdateDeploymentsForPlotting(std::move(newDeployments));
 
@@ -567,9 +569,7 @@ Chart* AssetPopout::PopulateDrawChartValuationDeploy(){
 }
 
 void AssetPopout::UpdateChartValuationDeploy(){
-
     Chart* updatedChart = PopulateDrawChartValuationDeploy();
-
     if(updatedChart!=nullptr){
         chartPanelHolderPanel->DestroyChildren();
 
@@ -745,5 +745,20 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
         }
     }else{
         //do nothing and close
+    }
+}
+
+void AssetPopout::UpdateExecuteDistributionButton(){
+    bool hasDistribution = !asset->GetDistributions().empty();
+    executeDistributionButton->Enable(hasDistribution);
+    if(hasDistribution){
+        distributionListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnDistributionEdit, this);
+    }
+}
+
+void AssetPopout::AllowBindingOnValuationLC(){
+    bool hasValuation = !asset->GetValuations().empty();
+    if(hasValuation){
+        valuationListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &AssetPopout::OnValuationEdit,this);
     }
 }

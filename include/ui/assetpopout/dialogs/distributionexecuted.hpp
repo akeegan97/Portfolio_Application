@@ -1,5 +1,6 @@
 #ifndef DISTRIBUTIONEXECUTED_HPP
 #define DISTRIBUTIONEXECUTED_HPP
+#include <optional>
 #include <wx/dialog.h>
 #include <wx/datetime.h>
 #include <wx/datectrl.h>
@@ -19,7 +20,7 @@ class DistributionExecution : public wxDialog{
         void SetupLayout();
         void PopulateChoiceArrays();
         void PopulateQDistributions();
-        Distribution GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ);
+        std::optional<Distribution> GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ);
         void OnGetAmount(wxCommandEvent &e);
         Distribution GetDistribution();
         double GetDistributeAmount();
@@ -27,6 +28,8 @@ class DistributionExecution : public wxDialog{
         wxDateTime GetDateOfDistribution();
         void OnAmountsChanged(wxCommandEvent &e);
         void UpdateConfirmButton();
+        void OnSelection(wxCommandEvent &e);
+        void UpdateGetAmountButton();
     private:
         std::shared_ptr<Asset> m_asset;
         std::vector<Distribution> qDistributions;

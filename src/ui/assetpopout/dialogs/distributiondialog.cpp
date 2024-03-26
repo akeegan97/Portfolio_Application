@@ -109,11 +109,6 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //Date of Distribution
-        wxStaticText* warningText = new wxStaticText(this, wxID_ANY,"Must Enter All Fields");
-        warningText->SetBackgroundColour(wxColor(0,0,0));
-        warningText->SetForegroundColour(wxColour(250,0,0));
-        mainSizer->Add(warningText, 0, wxALL|wxLEFT,5);
-
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         datePicker->SetValue(setDate);
         datePicker->SetForegroundColour(wxColor(51,245,12));

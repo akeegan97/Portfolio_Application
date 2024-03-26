@@ -1,86 +1,50 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 1500000.0,
+            "Asset Committed Capital": 500000.0,
             "Asset Deployed Capital": 250000.0,
-            "Asset Exit Date": "2024-03-23",
+            "Asset Exit Date": "2024-03-26",
             "Asset Movement To From Deploy": [
                 {
                     "Amount": 250000.0,
                     "Date": "2023-06-15"
-                },
-                {
-                    "Amount": 0.0,
-                    "Date": "2023-07-30"
                 }
             ],
-            "Asset Name": "Tst",
+            "Asset Name": "Testing",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 1257500.0,
-            "Asset Sponser": "Test",
-            "Current Value": 250000.0,
+            "Asset Reserve Capital": 250000.0,
+            "Asset Sponser": "Testing",
+            "Current Value": 175000.0,
             "Distributions": [
                 {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2023-05-15"
-                },
-                {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2023-07-15"
-                },
-                {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2023-08-12"
-                },
-                {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2023-11-29"
+                    "Distribution Amount": 65000.0,
+                    "Distribution Date": "2023-09-30"
                 }
             ],
             "Quarterly Distributions": null,
-            "Valuations": []
+            "Valuations": [
+                {
+                    "Valuation Amount": 175000.0,
+                    "Valuation Date": "2023-08-15"
+                }
+            ]
         }
     ],
     "Investors": [
         {
-            "Client Name": "Andrew Keegan",
-            "Management Fee Percentage": 0.0075,
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
             "Positions": [
                 {
-                    "AssetName": "Tst",
+                    "AssetName": "Testing",
                     "Date Invested": "2023-06-15",
-                    "InvestorName": "Andrew Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 82.13552361396303,
-                            "Management Fee Date": "2023-06-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 256.6735112936345,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 157.4264202600958,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 154.00410677618066,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 650.2395619438739,
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
                     "Movements Deploy": [
                         [
                             "2023-06-15",
                             250000.0
-                        ],
-                        [
-                            "2023-07-30",
-                            -166666.6666666667
                         ]
                     ],
                     "Net Income": null,
@@ -90,55 +54,6 @@
                     "ROC Movements": null
                 }
             ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "Will Keegan",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Tst",
-                    "Date Invested": "2023-07-30",
-                    "InvestorName": "Will Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 215.60574948665294,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 314.8528405201916,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 308.0082135523613,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 838.4668035592059,
-                    "Movements Deploy": [
-                        [
-                            "2023-07-30",
-                            166666.66666666666
-                        ]
-                    ],
-                    "Net Income": null,
-                    "Paid": 1000000.0,
-                    "Promote Fees": null,
-                    "ROC": 0.0,
-                    "ROC Movements": null
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "Fund Position",
-            "Management Fee Percentage": 0.0,
-            "Positions": [],
             "Promote Fee Percentage": 0.0,
             "Type": "Fund"
         }
@@ -149,15 +64,15 @@
             "Date": "2023-06-30"
         },
         {
-            "Amount": 250000.0,
+            "Amount": 175000.0,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 250000.0,
+            "Amount": 175000.0,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 250000.0,
+            "Amount": 175000.0,
             "Date": "2024-03-31"
         }
     ]

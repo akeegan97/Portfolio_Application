@@ -2,7 +2,7 @@
 #include "helpers/utilities.hpp"
 
 DistributionExecution::DistributionExecution(wxWindow *parentWindow, std::shared_ptr<Asset> &asset):
-    wxDialog(parentWindow, wxID_ANY, "Distribute", wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+    wxDialog(parentWindow, wxID_ANY, "Distribute", wxDefaultPosition, wxSize(500,400),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_asset(asset){
         SetupLayout();
             wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
@@ -56,11 +56,14 @@ void DistributionExecution::SetupLayout(){
         }
     }
     yearChoice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, yearChoices);
+    yearChoice->Bind(wxEVT_CHOICE,&DistributionExecution::OnSelection,this);
     qChoice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, qChoices);
+    qChoice->Bind(wxEVT_CHOICE,&DistributionExecution::OnSelection,this);
     yearText = new wxStaticText(this, wxID_ANY,"Year");
     qText = new wxStaticText(this, wxID_ANY,"Q");
     getDistribution = new wxButton(this, wxID_ANY,"Get Amount");
     getDistribution->Bind(wxEVT_BUTTON,&DistributionExecution::OnGetAmount,this);
+    getDistribution->Enable(false);
     selectedDistributionAmount = new wxStaticText(this, wxID_ANY,"");
     distributionAmountText = new wxStaticText(this, wxID_ANY,"Amount To Distribute");
     distributionAmountTextCtrl = new wxTextCtrl(this, wxID_ANY);
@@ -134,7 +137,7 @@ void DistributionExecution::PopulateQDistributions(){
         qStartDate = utilities::GetNextQuarterStartDate(qStartDate);
     }
 }
-Distribution DistributionExecution::GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ){
+std::optional<Distribution> DistributionExecution::GetSelectedDistribution(const int &selectedYear, const wxString &selectedQ){
     int month;
     if(selectedQ == wxT("Q1"))month = 2;
     else if(selectedQ == wxT("Q2"))month = 5;
@@ -145,21 +148,27 @@ Distribution DistributionExecution::GetSelectedDistribution(const int &selectedY
             return distribution;
         }
     }
-    //may need to adjust return type to option<Distribution> but should never not return a distribution as is.
+    return std::nullopt;
 }
 
 void DistributionExecution::OnGetAmount(wxCommandEvent &e){
     wxString year = yearChoice->GetStringSelection();
     int yearInt = wxAtoi(year);
     wxString month = qChoice->GetStringSelection();
-    selectedDistribution = GetSelectedDistribution(yearInt, month);
-    selectedDistributionAmount->SetLabel("Amount: "+utilities::formatDollarAmount(selectedDistribution.distribution.second));
+    auto selectedDistributionOpt = GetSelectedDistribution(yearInt, month);
+    if(selectedDistributionOpt.has_value()) {
+        Distribution selectedDistribution = selectedDistributionOpt.value();
+        selectedDistributionAmount->SetLabel("Amount: " + utilities::formatDollarAmount(selectedDistribution.distribution.second));
+    } else {
+        selectedDistributionAmount->SetLabel("No distribution selected or available.");
+    }
     #ifdef __WXMSW__
     selectedDistributionAmount->SetForegroundColour(wxColor(0,0,0));
     #elif defined(__WXMAC__)
     selectedDistributionAmount->SetForegroundColour(wxColor(255,255,255));
     #endif
     this->Update();
+    this->Layout();
 }
 
 Distribution DistributionExecution::GetDistribution(){
@@ -190,4 +199,16 @@ void DistributionExecution::UpdateConfirmButton(){
     double totalAmount = distributionAmount + reserveAmount;
 
     confirmButton->Enable(totalAmount == selectedDistribution.distribution.second);
+}
+
+void DistributionExecution::OnSelection(wxCommandEvent &e){
+    UpdateGetAmountButton();
+}
+
+void DistributionExecution::UpdateGetAmountButton(){
+    wxString year = yearChoice->GetStringSelection();
+    int yearInt = wxAtoi(year);
+    wxString month = qChoice->GetStringSelection();
+    auto selectedDistributionOpt = GetSelectedDistribution(yearInt, month);
+    getDistribution->Enable(selectedDistributionOpt.has_value());
 }

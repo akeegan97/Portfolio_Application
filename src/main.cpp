@@ -16,13 +16,12 @@ bool RugenBerg::OnInit()
 {
     std::string jsonFilePath;
 
-#ifdef __WXMAC__
-    // macOS-specific path construction
+    #ifdef __WXMAC__
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/testoutput.json";
-#elif defined(__WXMSW__)
-    jsonFilePath = "../resources/data/testoutput.json";
-#endif
+    jsonFilePath = resourcePath + "/data/test.json";
+    #elif defined(__WXMSW__)
+    jsonFilePath = "../resources/data/test.json";
+    #endif
 
     portfolio.LoadFromFile(jsonFilePath);
     std::cout << " TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: " << portfolio.allInvestorPtrs.size() << std::endl;
@@ -35,16 +34,13 @@ bool RugenBerg::OnInit()
 int RugenBerg::OnExit()
 {
     std::string jsonFilePath;
-
-#ifdef __WXMAC__
-    // macOS-specific path construction
+    #ifdef __WXMAC__
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/testoutput.json";
-#endif
-#ifdef __WXMSW__
-    // Windows-specific path (adjust as needed)
-    jsonFilePath = "../resources/data/testoutput.json";
-#endif
+    jsonFilePath = resourcePath + "/data/test.json";
+    #endif
+    #ifdef __WXMSW__
+    jsonFilePath = "../resources/data/test.json";
+    #endif
     portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
     return wxApp::OnExit();
 }

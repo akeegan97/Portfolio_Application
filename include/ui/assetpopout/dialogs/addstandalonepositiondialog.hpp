@@ -22,6 +22,9 @@ class AddStandalonePositionDialog : public wxDialog{
         double GetPaidAmount();
         double GetDeployedAmount();
         double GetReserveAmount();
+        void UpdateConfirmButton();
+        void OnAmountsChanged(wxCommandEvent &e);
+        void OnClose(wxCloseEvent &e);
     private:
         Portfolio &m_portfolio;
         wxStaticText* amountIncreaseCapitalText;
@@ -33,6 +36,7 @@ class AddStandalonePositionDialog : public wxDialog{
         wxStaticText* dateNewPositionText;
         wxDatePickerCtrl* dateNewPositionCtrl;
         wxButton* confirmButton;
+        wxButton* cancelButton;
 };
 
 

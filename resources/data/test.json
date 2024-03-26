@@ -1,26 +1,62 @@
 {
     "Assets": [
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2024-03-26",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-06-15"
+                }
+            ],
+            "Asset Name": "Testing",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 250000.0,
+            "Asset Sponser": "Testing",
+            "Current Value": 250000.0,
+            "Distributions": [
+                {
+                    "Distribution Amount": 2000.0,
+                    "Distribution Date": "2023-06-15"
+                },
+                {
+                    "Distribution Amount": 5000.0,
+                    "Distribution Date": "2023-07-30"
+                },
+                {
+                    "Distribution Amount": 10000.0,
+                    "Distribution Date": "2024-01-20"
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Valuations": []
+        }
     ],
     "Investors": [
         {
-            "Client Name": "Andrew Keegan",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "Will Keegan",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
             "Client Name": "Fund Position",
             "Management Fee Percentage": 0.0,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "Testing",
+                    "Date Invested": "2023-06-15",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-06-15",
+                            250000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.0,
             "Type": "Fund"
         }

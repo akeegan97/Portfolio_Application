@@ -141,7 +141,6 @@ class Asset{
         void MoveReserveToDeploy(wxDateTime &date, double amount);
         void MoveDeployToReserve(wxDateTime &date, double amount);
         void MoveReserveToReturnOfCapital(wxDateTime &date, double amount);
-        void MoveDeployToReturnOfCapital(wxDateTime &date,double amount);
         void SetCurrentValue();
         void SetNewCommittedOnNewPosition(double additionalCapital);
         void SetDeployedCapital(double &startingDeployed);
@@ -175,6 +174,7 @@ class Asset{
         void AddNewPositionAdditionalCapital(Position &position);
         std::shared_ptr<Position> GetPositionByID(size_t id);
         void SetPositionID();
+        void UpdateCommitted();
 };
 
 void to_json(json &j, const Asset &asset);
