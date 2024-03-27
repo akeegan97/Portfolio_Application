@@ -196,9 +196,15 @@ void DistributionExecution::OnAmountsChanged(wxCommandEvent &e){
 
 void DistributionExecution::UpdateConfirmButton(){
     Distribution selectedDistribution = GetDistribution();
+    std::cout<<"Total Distribution Value: "<<selectedDistribution.distribution.second<<std::endl;
+    //this returns 0 questionable?
     double distributionAmount = GetDistributeAmount();
+    std::cout<<"Distribution Amount: "<<distributionAmount<<std::endl;
     double reserveAmount = GetReserveAmount();
+    std::cout<<"Reserve Amount: "<<reserveAmount<<std::endl;
     double totalAmount = distributionAmount + reserveAmount;
+    std::cout<<"Total Amount: "<<totalAmount<<std::endl;
+    bool isAllocated = (totalAmount == selectedDistribution.distribution.second);
 
     confirmButton->Enable(totalAmount == selectedDistribution.distribution.second);
 }
