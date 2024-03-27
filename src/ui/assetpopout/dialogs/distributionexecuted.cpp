@@ -159,7 +159,7 @@ void DistributionExecution::OnGetAmount(wxCommandEvent &e){
     wxString month = qChoice->GetStringSelection();
     auto selectedDistributionOpt = GetSelectedDistribution(yearInt, month);
     if(selectedDistributionOpt.has_value()) {
-        Distribution selectedDistribution = selectedDistributionOpt.value();
+        selectedDistribution = selectedDistributionOpt.value();
         selectedDistributionAmount->SetLabel("Amount: " + utilities::formatDollarAmount(selectedDistribution.distribution.second));
     } else {
         selectedDistributionAmount->SetLabel("No distribution selected or available.");
@@ -197,7 +197,6 @@ void DistributionExecution::OnAmountsChanged(wxCommandEvent &e){
 void DistributionExecution::UpdateConfirmButton(){
     Distribution selectedDistribution = GetDistribution();
     std::cout<<"Total Distribution Value: "<<selectedDistribution.distribution.second<<std::endl;
-    //this returns 0 questionable?
     double distributionAmount = GetDistributeAmount();
     std::cout<<"Distribution Amount: "<<distributionAmount<<std::endl;
     double reserveAmount = GetReserveAmount();
