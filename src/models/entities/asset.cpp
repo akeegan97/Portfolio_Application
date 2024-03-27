@@ -156,13 +156,10 @@ double Asset::GetTotalAssetReserve()const{
 }
 double Asset::GetTotalReturnOfCapital()const{
     double returnedCapital = 0.0;
-    for(const auto&position:m_positions){
-        // for(const auto& rocMovement: position->GetReturnOfCapitalMap()){
-        //     returnedCapital+=rocMovement.second;
-        // }
-        returnedCapital+=position->GetReturnOfCapital();
+    for(const auto& element: m_rocMovements){
+        returnedCapital+=element.second;
     }
-    return m_assetReturnOfCapital;
+    return returnedCapital;
 }
 std::shared_ptr<Position> Asset::GetPositionByID(size_t id){
     for(auto position: m_positions){
@@ -309,8 +306,10 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
     if(j.contains("Asset ROC Movements")) {
         const auto& rocMovementsJson = j["Asset ROC Movements"];
         std::map<std::string, double> movements;
-        for (auto it = rocMovementsJson.begin(); it != rocMovementsJson.end(); ++it) {
-            movements[it.key()] = it.value();
+        for(const auto& item: j["Asset ROC Movements"]){
+            std::string dateStr = item["Date"].get<std::string>();
+            double amount = item["Amount"].get<double>();
+            movements[dateStr] = amount;
         }
         asset.DeserializeSetRocMovements(movements);
     }

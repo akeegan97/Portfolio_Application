@@ -1,26 +1,129 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 0.0,
-            "Asset Deployed Capital": 0.0,
-            "Asset Exit Date": "2024-12-31",
-            "Asset Name": "Collins Park",
-            "Asset ROC Movements": null,
-            "Asset Reserve Capital": 0.0,
-            "Asset Sponser": "Kawa",
-            "Current Value": 0.0,
+            "Asset Committed Capital": 300000.0,
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2024-03-27",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-06-15"
+                }
+            ],
+            "Asset Name": "Test",
+            "Asset ROC Movements": [
+                {
+                    "Amount": 200000.0,
+                    "Date": "2024-03-27"
+                }
+            ],
+            "Asset Reserve Capital": 50000.0,
+            "Asset Sponser": "Test",
+            "Current Value": 250000.0,
             "Distributions": [],
+            "Quarterly Distributions": null,
             "Valuations": []
         }
     ],
     "Investors": [
         {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "Test",
+                    "Date Invested": "2023-06-15",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-06-15",
+                            250000.0
+                        ],
+                        [
+                            "2023-07-01",
+                            -166666.6666666667
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 400000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-01",
+                            200000.0
+                        ],
+                        [
+                            "2024-03-27",
+                            200000.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        },
+        {
             "Client Name": "Andrew Keegan",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "Test",
+                    "Date Invested": "2023-07-01",
+                    "InvestorName": "Andrew Keegan",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 314.8528405201916,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 314.8528405201916,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 308.0082135523613,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 937.7138945927445,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-01",
+                            166666.66666666666
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 200000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         }
     ],
-    "valuationVectorPlotting": []
+    "valuationVectorPlotting": [
+        {
+            "Amount": 250000.0,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 250000.0,
+            "Date": "2024-03-31"
+        }
+    ]
 }

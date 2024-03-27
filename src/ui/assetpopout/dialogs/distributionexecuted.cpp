@@ -75,7 +75,6 @@ void DistributionExecution::SetupLayout(){
     reserveAmountCtrl = new wxTextCtrl(this, wxID_ANY);
     reserveAmountCtrl->SetValidator(numberValidator);
     reserveAmountCtrl->Bind(wxEVT_TEXT,&DistributionExecution::OnAmountsChanged,this);
-
     confirmButton = new wxButton(this, wxID_OK,"Confirm");
     confirmButton->Enable(false);
     cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
@@ -204,7 +203,6 @@ void DistributionExecution::UpdateConfirmButton(){
     double totalAmount = distributionAmount + reserveAmount;
     std::cout<<"Total Amount: "<<totalAmount<<std::endl;
     bool isAllocated = (totalAmount == selectedDistribution.distribution.second);
-
     confirmButton->Enable(totalAmount == selectedDistribution.distribution.second);
 }
 

@@ -380,16 +380,11 @@ void to_json(json &j, const Position &pos){
         });
     }
     j["Movements Deploy"] = movementsDeploy;
-    json movedFromDeployJson;
-    for(const auto&movement:pos.GetMovementsDeploy()){
-        movementsDeploy.push_back({
-            movement.first.FormatISODate().ToStdString(), movement.second
-        });
-    }
+
     json rocMovementsJson;
     for (const auto& movement : pos.GetROCMapConstant()) {
         rocMovementsJson.push_back({
-            {movement.first.FormatISODate().ToStdString(), movement.second}
+            movement.first.FormatISODate().ToStdString(), movement.second
         });
     }
     j["ROC Movements"] = rocMovementsJson;
@@ -449,18 +444,27 @@ void from_json(const json&j, Position &position, Portfolio &port){//also deseria
             }
         }
     }
-    if(j.contains("ROC Movements") && j["ROC Movements"].is_array()){
-        std::vector<std::pair<wxDateTime, double>> movements;
-        for(const auto& item : j["ROC Movements"]){
-            for(auto&[dateStr, amount] : item.items()){
-                wxDateTime date;
-                date.ParseISODate(dateStr);
-                double amountMoved = amount.get<double>(); 
+if(j.contains("ROC Movements") && j["ROC Movements"].is_array()){
+    for(const auto& item : j["ROC Movements"]){
+        if (item.is_array() && item.size() == 2) {
+            // Expecting each item to be an array with two elements: date string and amount
+            std::string dateStr = item[0];
+            double amountMoved = item[1].get<double>();
+
+            wxDateTime date;
+            if(date.ParseISODate(wxString::FromUTF8(dateStr.c_str()))) {
                 std::pair<wxDateTime, double> movement = std::make_pair(date, amountMoved);
                 position.AddRocMovement(movement);
+            } else {
+                // Handle the error if the date parsing fails
+                std::cerr << "Failed to parse date: " << dateStr << std::endl;
             }
+        } else {
+            // Handle the case where the structure is not as expected
+            std::cerr << "Unexpected structure in ROC Movements array." << std::endl;
         }
     }
+}
     if (j.contains("Management Fees") && j["Management Fees"].is_array()) {
         std::vector<ManagementFee> fees;
         for (const auto& feeJson : j["Management Fees"]) {
