@@ -5,11 +5,13 @@ DistributionExecution::DistributionExecution(wxWindow *parentWindow, std::shared
     wxDialog(parentWindow, wxID_ANY, "Distribute", wxDefaultPosition, wxSize(500,400),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_asset(asset){
         SetupLayout();
-            wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+            wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
             wxColour color = wxColor(255,255,255);
             wxColour foregroundcolor = wxColor(0,0,0);
             #ifdef __WXMSW__
             utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+            utilities::SetFontForWindowAndChildren(this, font);
+            #elif defined(__WXMAC__)
             utilities::SetFontForWindowAndChildren(this, font);
             #endif
     }

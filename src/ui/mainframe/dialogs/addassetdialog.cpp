@@ -10,8 +10,12 @@ AddAssetDialog::AddAssetDialog(wxWindow*parentWindow,Portfolio &portfolio):
         wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
         wxColour color = wxColor(255,255,255);
         wxColour foregroundcolor = wxColor(0,0,0);
+        #ifdef __WXMSW__
         utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
         utilities::SetFontForWindowAndChildren(this, font);
+        #elif defined(__WXMAC__)
+        utilities::SetFontForWindowAndChildren(this, font);
+        #endif
     }
 
 void AddAssetDialog::SetupLayout(){

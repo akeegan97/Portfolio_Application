@@ -10,7 +10,7 @@
 #include "wx/button.h"
 #include "wx/choice.h"
 #include "wx/arrstr.h"
-#include "entities/asset.hpp"
+#include "models/entities/asset.hpp"
 class Asset;
 
 
