@@ -1,5 +1,6 @@
 #include "ui/assetpopout/dialogs/addpositiondialog.hpp"
 #include "helpers/utilities.hpp"
+#define EPSILON 1e-9
 
 AddPositionDialog::AddPositionDialog(wxWindow* parentWindow, Portfolio &portfolio, std::shared_ptr<Asset> asset):
     wxDialog(parentWindow, wxID_ANY, "Add Position",wxDefaultPosition, wxDefaultSize,wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
@@ -132,8 +133,10 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 double newOwnership = pos->GetCommitted() / m_asset->GetTotalCommitted();
                 double newDeployedValue = m_asset->GetTotalAssetDeployed() * newOwnership;
                 std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, (newDeployedValue - oldDeploy));
-                pos->AddMovementDeploy(movement);
-                pos->UpdateManagementFees(movement.first);
+                if(std::fabs(movement.second) > EPSILON){
+                    pos->AddMovementDeploy(movement);
+                    pos->UpdateManagementFees(movement.first);
+                }
             }
             m_asset->AddPosition(newPositionPtr);
             m_asset->TriggerUpdateDerivedValues();
@@ -142,7 +145,10 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             for(auto&pos:m_asset->GetPositionsForIDP()){
                 if(pos->GetInvestorPtr()==associatedInvestorPointer){
                     std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, pos->GetDeployed());
-                    pos->AddMovementDeploy(movement);
+                    if(std::fabs(movement.second) > EPSILON){
+                        pos->AddMovementDeploy(movement);
+                        pos->UpdateManagementFees(movement.first);
+                    }
                 }
             }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
@@ -184,8 +190,10 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                         double difference = 0;
                         difference = pos->GetDeployed() - pair.second;
                         std::pair<wxDateTime, double> movement = {dateInvested, difference};
-                        pos->AddMovementDeploy(movement);
-                        pos->UpdateManagementFees(movement.first);
+                        if(std::fabs(movement.second) > EPSILON){
+                            pos->AddMovementDeploy(movement);
+                            pos->UpdateManagementFees(movement.first);
+                        }
                     }
                 }
             }

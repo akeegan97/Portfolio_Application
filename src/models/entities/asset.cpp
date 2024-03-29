@@ -522,7 +522,7 @@ void Asset::PopulateCurrentQDeploys(){
             m_currentQDeploymentMap[movement.first] = currentDeploy;
         }
     }
-    m_currentQDeploymentMap[currentQStartDate] = currentDeploy;
+    m_currentQDeploymentMap[currentQEndDate] = currentDeploy;
 }
 
 void Asset::PopulateValuationsDeploymentsForPlotting(){
@@ -824,7 +824,8 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         positionsCapitalDays = pos->CalculateCapitalDays(*this,distribution.distribution.first);
         positionsCapitalizedDays[pos] = positionsCapitalDays;
         totalCapdays+=positionsCapitalDays;
-        std::cout<<"Position CAP DAYS: "<<positionsCapitalDays<<std::endl;
+        std::cout<<"Investor: "<<pos->GetInvestorPtr()->GetName();
+        std::cout<<" Position CAP DAYS: "<<positionsCapitalDays<<std::endl;
     }
     for(auto &pair:positionsCapitalizedDays){
         pair.second = pair.second/totalCapdays;
@@ -853,8 +854,10 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         PromoteFee pf;
         pf.promotefee.first = distribution.distribution.first;
         pf.promotefee.second = promoteFee;
-        pos->AddPromoteFee(pf);
-        pos->AddNetIncome(netIncome);
+        if(netIncome.distribution.second != 0){
+            pos->AddPromoteFee(pf);
+            pos->AddNetIncome(netIncome);    
+        }
     }
 
 }

@@ -26,6 +26,10 @@ namespace utilities{
     std::string FormatPercentage(T value);
     void SetFontForWindowAndChildren(wxWindow*window, const wxFont&font);
     void SetBackgroundColorForWindowAndChildren(wxWindow *window, const wxColour&color, const wxColour &foregroundColor);
+    bool HasCurrency(const wxString&value);
+    bool HasPercent(const wxString &value);
+    double CurrencyStringToDouble(const wxString &value);
+    double PercentageStringToDouble(const wxString &value);
 }
 
 #endif

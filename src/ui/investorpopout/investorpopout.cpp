@@ -38,7 +38,7 @@ void InvestorPopout::SetupLayout(){
     investorAssetDisplayVirtualListControl = new VListControl<std::shared_ptr<InvestorAssetDisplay>>(this, wxID_ANY, FromDIP(wxDefaultPosition), FromDIP(wxDefaultSize));
     investorAssetDisplayVirtualListControl->setItems(investor->GetAssetDisplaysNonConst());
 
-    leftSizer->Add(investorAssetDisplayVirtualListControl, 1, wxALL,10);
+    leftSizer->Add(investorAssetDisplayVirtualListControl, 1, wxEXPAND|wxALL,10);
     distributionsByAssetNoteBook = new wxAuiNotebook(this, wxID_ANY);
     processedAssets.clear();
     for(auto position:investor->GetPositions()){
@@ -53,20 +53,32 @@ void InvestorPopout::SetupLayout(){
             std::vector<PromoteFee> mergedPromoteFees;
             for(auto position:investor->GetPositions()){
                 if(position->GetAssetPointer()==asset){
-                    try{
-                        for(auto&distribution:position->GetNetIncome()){
+                    for (auto& distribution : position->GetNetIncome()) {
+                        auto it = std::find_if(mergedDistributions.begin(), mergedDistributions.end(),
+                                            [&distribution](const Distribution& d) { return d.distribution.first == distribution.distribution.first; });
+                        if (it != mergedDistributions.end()) {
+                            it->distribution.second += distribution.distribution.second;
+                        } else {
                             mergedDistributions.push_back(distribution);
                         }
-                        for(auto&mgmtfee:position->GetManagementFees()){
-                            mergedMgmtFees.push_back(mgmtfee);
+                    }
+                    for (auto& mgmtFee : position->GetManagementFees()) {
+                        auto it = std::find_if(mergedMgmtFees.begin(), mergedMgmtFees.end(),
+                                            [&mgmtFee](const ManagementFee& mf) { return mf.quarter == mgmtFee.quarter; });
+                        if (it != mergedMgmtFees.end()) {
+                            it->amount += mgmtFee.amount;
+                        } else {
+                            mergedMgmtFees.push_back(mgmtFee);
                         }
-                        for(auto&pf:position->GetPromoteFees()){
+                    }
+                    for (auto& pf : position->GetPromoteFees()) {
+                        auto it = std::find_if(mergedPromoteFees.begin(), mergedPromoteFees.end(),
+                                            [&pf](const PromoteFee& p) { return p.promotefee.first == pf.promotefee.first; });
+                        if (it != mergedPromoteFees.end()) {
+                            it->promotefee.second += pf.promotefee.second;
+                        } else {
                             mergedPromoteFees.push_back(pf);
                         }
-                    }catch(const std::exception &e){
-                        wxLogError("Exception Caught: %s", e.what());
-                    }catch(...){
-                        wxLogError("UNKNOWN ERROR");
                     }
                 }
             }

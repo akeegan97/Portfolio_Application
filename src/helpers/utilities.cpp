@@ -216,6 +216,23 @@ namespace utilities{
             SetBackgroundColorForWindowAndChildren(child, color,foregroundColor); 
         }
     }
+    bool HasCurrency(const wxString &value){
+        return value.find('$') != wxString::npos;
+    }
+    bool HasPercent(const wxString &value){
+        return value.find('%') != wxString::npos;
+    }
+    double CurrencyStringToDouble(const wxString &value){
+        std::string stlString = value.ToStdString();
+        stlString.erase(std::remove(stlString.begin(),stlString.end(),'$'),stlString.end());
+        stlString.erase(std::remove(stlString.begin(),stlString.end(),','),stlString.end());
+        return std::stod(stlString);
+    }
+    double PercentageStringToDouble(const wxString &value){
+        std::string stlString = value.ToStdString();
+        stlString.erase(std::remove(stlString.begin(),stlString.end(),'%'),stlString.end());
+        return std::stod(stlString);
+    }
 }
 template std::string utilities::formatDollarAmount<double>(double);
 template std::string utilities::FormatPercentage<double>(double);

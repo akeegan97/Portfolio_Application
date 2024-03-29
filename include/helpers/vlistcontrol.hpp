@@ -1,6 +1,7 @@
 #ifndef VLISTCONTROL_H
 #define VLISTCONTROL_H
 #include <wx/listctrl.h>
+#include "utilities.hpp"
 #include <wx/wx.h>
 #include <numeric>
 #include <memory>
@@ -147,8 +148,18 @@ public:
                 wxVariant bValue = derefB.GetValue(column);
 
                 if (aValue.GetType() == "string" && bValue.GetType() == "string") {
-                    return sortAscending ? aValue.GetString() < bValue.GetString() 
-                                        : aValue.GetString() > bValue.GetString();
+                    if(utilities::HasCurrency(aValue.GetString())){
+                        double aNumeric = utilities::CurrencyStringToDouble(aValue.GetString());
+                        double bNumeric = utilities::CurrencyStringToDouble(bValue.GetString());
+                        return sortAscending ? aNumeric <bNumeric : aNumeric > bNumeric;
+                    }else if(utilities::HasPercent(aValue.GetString())){
+                        double aNumeric = utilities::PercentageStringToDouble(aValue.GetString());
+                        double bNumeric = utilities::PercentageStringToDouble(bValue.GetString());
+                        return sortAscending ? aNumeric <bNumeric : aNumeric > bNumeric;                       
+                    }else{
+                        return sortAscending ? aValue.GetString() < bValue.GetString() 
+                            : aValue.GetString() > bValue.GetString();
+                    }
                 }else if (aValue.GetType() == "datetime" && bValue.GetType() == "datetime") {
                     return sortAscending ? aValue.GetDateTime() < bValue.GetDateTime() 
                                                 : aValue.GetDateTime() > bValue.GetDateTime();

@@ -298,14 +298,13 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     }
     double currentValuation = previousQMap.rbegin()->second; 
     wxDateTime today = wxDateTime::Today();
-
     std::map<wxString, double> assetLastValuationMap; 
     for (auto& asset : assetPtrs) {
         auto lastValuationIt = asset->GetValuations().rbegin();
         if(lastValuationIt != asset->GetValuations().rend() && utilities::IsWithinQuarter(lastValuationIt->valuationDate, today)) {
             assetLastValuationMap[asset->GetAssetName()] = lastValuationIt->valuation;
         } else {
-            assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalInvestedCapital();
+            assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalAssetDeployed();
         }
     }
     std::vector<std::pair<wxDateTime, std::pair<wxString, double>>> currentQValuations;
@@ -316,30 +315,18 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
             }
         }
     }
-
-    // Sort the valuations within the quarter by date
     std::sort(currentQValuations.begin(), currentQValuations.end(), [](const auto& a, const auto& b) {
         return a.first.IsEarlierThan(b.first);
     });
-    if (currentQValuations.empty()) {
-        // No valuations for the current quarter, so carry forward the last valuation from the previous quarter
-        wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
-        if (!previousQMap.empty()) {
-            currentValuation = previousQMap.rbegin()->second;
+    double accumulatedValuation = std::accumulate(
+        assetLastValuationMap.begin(), assetLastValuationMap.end(), 0.0,
+        [](double sum, const std::pair<wxString, double>& assetVal) {
+            return sum + assetVal.second;
         }
-        currentQMap[currentQEndDate] = currentValuation;
-    } else {
-        // Sum up the latest valuations for all assets to get the total current valuation
-        currentValuation = std::accumulate(assetLastValuationMap.begin(), assetLastValuationMap.end(), 0.0,
-            [](double sum, const std::pair<wxString, double>& assetVal) {
-                return sum + assetVal.second;
-            }
-        );
-
-        // Update the currentQMap with the total current valuation at the end of the quarter
-        wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
-        currentQMap[currentQEndDate] = currentValuation;
-    }
+    );
+    wxDateTime currentQEndDate = utilities::GetQuarterEndDate(today);
+    currentValuation = accumulatedValuation;
+    currentQMap[currentQEndDate] = currentValuation;
 }
 
 

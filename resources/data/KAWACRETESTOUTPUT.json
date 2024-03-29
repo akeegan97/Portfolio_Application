@@ -1,0 +1,706 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 1628586.26,
+            "Asset Deployed Capital": 1628586.26,
+            "Asset Exit Date": "2028-03-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 500000.0,
+                    "Date": "2023-03-01"
+                },
+                {
+                    "Amount": 84761.35,
+                    "Date": "2023-03-15"
+                },
+                {
+                    "Amount": 151824.91,
+                    "Date": "2023-03-31"
+                },
+                {
+                    "Amount": 400000.0,
+                    "Date": "2023-05-04"
+                },
+                {
+                    "Amount": 42000.0,
+                    "Date": "2023-11-13"
+                },
+                {
+                    "Amount": 100000.0,
+                    "Date": "2024-03-14"
+                },
+                {
+                    "Amount": 350000.0,
+                    "Date": "2024-03-19"
+                }
+            ],
+            "Asset Name": "CRE LENDING FUND",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "KAWA",
+            "Current Value": 1628586.26,
+            "Distributions": [
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-06-06"
+                },
+                {
+                    "Distribution Amount": 15119.75,
+                    "Distribution Date": "2023-06-08"
+                },
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-09-13"
+                },
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-12-12"
+                },
+                {
+                    "Distribution Amount": 18000.0,
+                    "Distribution Date": "2024-03-20"
+                }
+            ],
+            "Quarterly Distributions": [
+                {
+                    "Distribution": {
+                        "Distribution Amount": 30119.75,
+                        "Distribution Date": "2023-06-30"
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 15000.0,
+                        "Distribution Date": "2023-09-30"
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 15000.0,
+                        "Distribution Date": "2023-12-31"
+                    },
+                    "Executed": true
+                }
+            ],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        },
+        {
+            "Client Name": "FD LP Fund Money",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-31",
+                    "InvestorName": "FD LP Fund Money",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-31",
+                            14685.06
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 446.08811569356266,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 193.80482392950975,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 185.79491634796778,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 14685.06,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "FUND"
+        },
+        {
+            "Client Name": "GP LOAN",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-15",
+                    "InvestorName": "GP LOAN",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-15",
+                            84761.35
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 2574.7958064279314,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 1118.6306704077172,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 1072.397929105555,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 84761.35,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "FUND"
+        },
+        {
+            "Client Name": "FD LP Promissory Note",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-31",
+                    "InvestorName": "FD LP Promissory Note",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-31",
+                            112139.85
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 3406.472590555215,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 1479.9560835796133,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 1418.7898483236472,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 112139.85,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "FUND"
+        },
+        {
+            "Client Name": "Juan Jose Risoul",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-01",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 277.2073921971253,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 840.8624229979466,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 850.1026694045174,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 850.1026694045175,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 831.6221765913759,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 831.6221765913759,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-01",
+                            450000.0
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 10041.265326353432,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 4070.987088206048,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 3874.6265197538182,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 450000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 2510.316331588358,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 1017.746772051512,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 968.6566299384546,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Maria Eugenia Soto Kudwin",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-01",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 30.80082135523614,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 93.42915811088297,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 94.45585215605749,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 94.45585215605749,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 92.40246406570841,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 92.40246406570841,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-01",
+                            50000.0
+                        ],
+                        [
+                            "2023-11-13",
+                            50000.0
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 1115.6961473726037,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 452.3318986895609,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 700.0559950796443,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 50000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 278.92403684315093,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 113.08297467239022,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 175.01399876991107,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                },
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-11-13",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 42.25872689938398,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 77.61806981519507,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 77.61806981519507,
+                    "Movements Deploy": [
+                        [
+                            "2023-11-13",
+                            42000.0
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 192.6082458370376,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 42000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 48.15206145925941,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Guillermo Ovalle",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-03-31",
+                    "InvestorName": "Guillermo Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 0.513347022587269,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 46.71457905544148,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 47.227926078028744,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 47.227926078028744,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 46.20123203285421,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 46.20123203285421,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-31",
+                            25000.000000000004
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 569.7577246103265,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 226.16594934478044,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 215.25702887521211,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 25000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 142.43943115258162,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 56.54148733619511,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 53.81425721880303,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Ricardo Said",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2023-05-04",
+                    "InvestorName": "Ricardo Said",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-04",
+                            400000.0
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 6582.796753364076,
+                            "Distribution Date": "2023-06-30"
+                        },
+                        {
+                            "Distribution Amount": 4487.1209335224585,
+                            "Distribution Date": "2023-09-30"
+                        },
+                        {
+                            "Distribution Amount": 4301.669285539797,
+                            "Distribution Date": "2023-12-31"
+                        }
+                    ],
+                    "Paid": 400000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 1161.6700152995427,
+                            "Promote Fee Date": "2023-06-30"
+                        },
+                        {
+                            "Promote Fee Amount": 791.8448706216103,
+                            "Promote Fee Date": "2023-09-30"
+                        },
+                        {
+                            "Promote Fee Amount": 759.1181092129053,
+                            "Promote Fee Date": "2023-12-31"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.15,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Hector Ovalle Favela",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2024-03-14",
+                    "InvestorName": "Hector Ovalle Favela",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 36.96098562628337,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 36.96098562628337,
+                    "Movements Deploy": [
+                        [
+                            "2024-03-14",
+                            100000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "German Hernandez",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2024-03-19",
+                    "InvestorName": "German Hernandez",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 53.38809034907598,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 53.38809034907598,
+                    "Movements Deploy": [
+                        [
+                            "2024-03-19",
+                            200000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 200000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Mario Beltran",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE LENDING FUND",
+                    "Date Invested": "2024-03-19",
+                    "InvestorName": "Mario Beltran",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 40.041067761806985,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 40.041067761806985,
+                    "Movements Deploy": [
+                        [
+                            "2024-03-19",
+                            150000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 150000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 736586.26,
+            "Date": "2023-03-31"
+        },
+        {
+            "Amount": 1136586.26,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 1136586.26,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 1178586.26,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 1628586.26,
+            "Date": "2024-03-31"
+        },
+        {
+            "Amount": 1700000.0,
+            "Date": "2024-03-28"
+        }
+    ]
+}
