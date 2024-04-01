@@ -156,8 +156,8 @@ double Asset::GetTotalAssetReserve()const{
 }
 double Asset::GetTotalReturnOfCapital()const{
     double returnedCapital = 0.0;
-    for(const auto& element: m_rocMovements){
-        returnedCapital+=element.second;
+    for(const auto& pos: m_positions){
+        returnedCapital+=pos->GetReturnOfCapital();
     }
     return returnedCapital;
 }
