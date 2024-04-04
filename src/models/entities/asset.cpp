@@ -326,6 +326,7 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         std::vector<std::pair<Distribution,bool>> qDistributions = j["Quarterly Distributions"].get<std::vector<std::pair<Distribution, bool>>>();
         asset.SetQuarterlyDistributions(qDistributions);
     }
+    //add transactions
 }
 
 void to_json(json &j, const Asset &asset){
@@ -378,6 +379,7 @@ void to_json(json &j, const Asset &asset){
         qDistributionJson.push_back(qdJson);
     }
     j["Quarterly Distributions"] = qDistributionJson;
+    //add transactions
 }
 
 
@@ -862,7 +864,6 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
 
 }
 
-
 void Asset::AddQuarterlyDistribution(Distribution &distribution){
     std::pair<Distribution, bool> newDistribution = std::make_pair(distribution,true);
     m_qDistributions.push_back(newDistribution);
@@ -870,4 +871,17 @@ void Asset::AddQuarterlyDistribution(Distribution &distribution){
 
 void Asset::SetQuarterlyDistributions(std::vector<std::pair<Distribution,bool>> qDistributions){
     m_qDistributions = qDistributions;
+}
+
+void Asset::AddNewTransaction(Transaction &transaction){
+    m_transactions.push_back(transaction);
+}
+
+void Asset::RemoveTransaction(const std::string &type, const wxDateTime &date, double amount){
+    for(auto it = m_transactions.begin(); it!= m_transactions.end(); ++it){
+        if(it->GetDate() == date && it->GetType()==type && it->GetAmount()==amount){
+            m_transactions.erase(it);
+            break;
+        }
+    }
 }

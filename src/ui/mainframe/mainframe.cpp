@@ -412,7 +412,7 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       initializedPosition->SetInvestorPtr(associatedInvestor);
       auto pair = std::make_pair(dateInvested, deployedAmount);
       initializedPosition->AddMovementDeploy(pair);
-      newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);//new function 
+      newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);
       newAssetPtr->AddMovement(pair);
       newAssetPtr->AddPosition(initializedPosition);
       newAssetPtr->SetDeployedCapital(deployedAmount);
@@ -428,6 +428,16 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       if(initializedPosition->GetInvestorPtr()->GetName() != "Fund"){
          initializedPosition->TriggerUpdateOfManagementFeeVector();
       }
+      double amountTransaction;
+      std::string positionName;
+      wxDateTime transactionDate;
+      std::string transactionType;
+      amountTransaction = paidAmount;
+      positionName = initializedPosition->GetInvestorPtr()->GetName();
+      transactionDate = dateInvested;
+      transactionType = "New Position";
+      Transaction newTransaction(transactionDate,positionName,paidAmount,initializedPosition,transactionType);
+      newAssetPtr->AddNewTransaction(newTransaction);
       this->Refresh();
    }
 }

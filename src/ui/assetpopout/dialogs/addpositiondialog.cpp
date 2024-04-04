@@ -152,6 +152,12 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 }
             }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
+            wxDateTime date = dateInvested;
+            double amount = amountPaid;
+            std::string name = newPositionPtr->GetInvestorPtr()->GetName();
+            std::string type = "New Position";
+            Transaction newTransaction(date,name,amount,newPositionPtr,type);
+            m_asset->AddNewTransaction(newTransaction);
         }else if(retValue == wxID_CANCEL){
             return;
         }
@@ -177,6 +183,12 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 thisPosition->UpdateROC();
                 thisPosition->SetCommitted();
                 totalDonatedCapital+=allocatedAmount;
+                wxDateTime date = dateInvested;
+                double amount = allocatedAmount;
+                std::string type = "Return of Capital";
+                std::string name = thisPosition->GetInvestorPtr()->GetName();
+                Transaction newTransaction(date,name,amount,thisPosition,type);
+                m_asset->AddNewTransaction(newTransaction);
             }
             newPositionPtr->SetPaid(totalDonatedCapital);
             m_asset->AddPosition(newPositionPtr);
@@ -198,6 +210,12 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 }
             }
             newPositionPtr->TriggerUpdateOfManagementFeeVector();
+            wxDateTime date = dateInvested;
+            double amount = newPositionPtr->GetCommitted();
+            std::string type = "New Position";
+            std::string name = newPositionPtr->GetInvestorPtr()->GetName();
+            Transaction newTransaction(date,name,amount,newPositionPtr,type);
+            m_asset->AddNewTransaction(newTransaction);
             m_asset->TriggerUpdateDerivedValues();
         }
     }else{

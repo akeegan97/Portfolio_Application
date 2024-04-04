@@ -1,0 +1,13 @@
+{
+    "Assets": [],
+    "Investors": [
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        }
+    ],
+    "valuationVectorPlotting": []
+}

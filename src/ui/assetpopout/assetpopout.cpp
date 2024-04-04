@@ -273,7 +273,6 @@ void AssetPopout::UpdateDisplayTextValues(){
 }
 
 void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
-    //this function simply adds distribution element to asset->m_distributions
     wxDateTime today = wxDateTime::Today();
     double zero = 0.0;
     DistributionDialog addDistroWindow(this,false,today, zero);
@@ -289,6 +288,13 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         UpdateChartDistribution();
         this->Refresh();
         UpdateExecuteDistributionButton();
+        wxDateTime transactionDate;
+        double amount;
+        std::shared_ptr<Position> positionPtr = nullptr;
+        std::string type = "Gross Distribution";
+        std::string name = asset->GetAssetName().ToStdString();
+        Transaction newTransaction(transactionDate,name,amount,positionPtr,type);
+        asset->AddNewTransaction(newTransaction);
     }
 }
 
@@ -301,14 +307,32 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
         wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
         if(selectedMovementDirection == "Reserve to Deploy"){
             asset->MoveReserveToDeploy(dateOfMovement,amountMoved);
-            asset->SetPositionValues();
+            asset->SetPositionValues();   
+            wxDateTime transactionDate = dateOfMovement;
+            double amount = amountMoved;
+            std::string type = "Reserve->Deploy";
+            std::string name = asset->GetAssetName().ToStdString();
+            Transaction newTransaction(transactionDate,name,amount,nullptr,type);
+            asset->AddNewTransaction(newTransaction);
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             asset->MoveDeployToReserve(dateOfMovement,amountMoved);
             asset->SetPositionValues();
+            wxDateTime transactionDate = dateOfMovement;
+            double amount = amountMoved;
+            std::string type = "Deploy->Reserve";
+            std::string name = asset->GetAssetName().ToStdString();
+            Transaction newTransaction(transactionDate,name,amount,nullptr,type);
+            asset->AddNewTransaction(newTransaction);
         }else if(selectedMovementDirection == "Reserve to ROC"){
             asset->MoveReserveToReturnOfCapital(dateOfMovement,amountMoved);
             asset->UpdateCommitted();
             asset->SetPositionValues();
+            wxDateTime transactionDate = dateOfMovement;
+            double amount = amountMoved;
+            std::string type = "Reserve->Return Of Capital";
+            std::string name = asset->GetAssetName().ToStdString();
+            Transaction newTransaction(transactionDate,name,amount,nullptr,type);
+            asset->AddNewTransaction(newTransaction);
         }
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
@@ -341,7 +365,14 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         asset->TriggerUpdateDerivedValues();
         UpdateDisplayTextValues();
         this->Layout();
+        wxDateTime transactionDate = valuationDate;
+        double amount = valuationAmount;
+        std::string name = asset->GetAssetName().ToStdString();
+        std::string type = "Valuation";
+        Transaction newTransaction(transactionDate,name,amount,nullptr,type);
+        asset->AddNewTransaction(newTransaction);
     }else if(retVal == wxID_CANCEL){
+
     }
     AllowBindingOnValuationLC();
 }
@@ -359,6 +390,10 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     auto selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
     wxDateTime distributionDate = selectedDistribution.distribution.first;
     double distributionAmount = selectedDistribution.distribution.second;
+    std::string type = "Distribution";
+    double amount = distributionAmount;
+    wxDateTime date = distributionDate;
+    asset->RemoveTransaction(type,date,amount);
     DistributionDialog distributionEditwindow(this,true, distributionDate, distributionAmount);
     int retVal = distributionEditwindow.ShowModal();
     if(retVal == wxID_OK){
@@ -368,12 +403,20 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         asset->AddDistribution(selectedDistribution);
         distributionListControl->setItems(asset->GetDistributionsNonConst());
         distributionListControl->Update();
+        double amount = selectedDistribution.distribution.second;
+        std::string name = asset->GetAssetName().ToStdString();
+        std::string type = "Distribution";
+        Transaction newTransaction(date,name,amount,nullptr,type);
         UpdateDisplayTextValues();
         UpdateChartDistribution();
         this->Refresh();
     }else if(retVal == MY_CUSTOM_DELETE_CODE){
         if(dataIndex >= 0 && dataIndex < asset->GetDistributions().size()){
             asset->RemoveDistribution(dataIndex);
+            wxDateTime date = selectedDistribution.distribution.first;
+            double amount = selectedDistribution.distribution.second;
+            std::string type = "Distribution";
+            asset->RemoveTransaction(type,date,amount);
             UpdateExecuteDistributionButton();
         }
         distributionListControl->setItems(asset->GetDistributions());
@@ -391,6 +434,10 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
     std::cout<<"List Index: "<<listIndex<<" Data Index: "<<dataIndex<<std::endl;
     wxDateTime setDate  = valuationToEdit.valuationDate;
     double setValue = valuationToEdit.valuation;
+    std::string type = "Valuation";
+    wxDateTime date = valuationToEdit.valuationDate;
+    double amount = valuationToEdit.valuation;
+    asset->RemoveTransaction(type,date,amount);
     ValuationDialog valuationWindow(this, true, setDate, setValue);
     int retValue = valuationWindow.ShowModal();
     if(retValue == wxID_OK){
@@ -405,6 +452,12 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         investorPositionDisplayVirtualListControl->Refresh();
         UpdateChartValuationDeploy();
         UpdateDisplayTextValues();
+        wxDateTime date = valuationToEdit.valuationDate;
+        double amount = valuationToEdit.valuation;
+        std::string name = asset->GetAssetName().ToStdString();
+        std::string type = "Valuation";
+        Transaction newTransaction(date,name,amount,nullptr,type);
+        asset->AddNewTransaction(newTransaction);
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
         if(dataIndex>=0 && dataIndex < asset->GetValuations().size()){
@@ -743,6 +796,12 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
                 std::cout<<"NI "<<ni.distribution.second<<std::endl;
             }
         }
+        wxDateTime date = dateOfDistribution;
+        double amount = amountToDistribute;
+        std::string type = "Distribution";
+        std::string name = asset->GetAssetName().ToStdString();
+        Transaction newTransaction(date,name,amount,nullptr,type);
+        asset->AddNewTransaction(newTransaction);
     }else{
         //do nothing and close
     }

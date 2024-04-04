@@ -15,9 +15,11 @@
 #include "models/entities/position.hpp"
 #include "models/components/investorpositiondisplay.hpp"
 #include "helpers/utilities.hpp"
+#include "models/supporting/transaction.hpp"
 
 using json = nlohmann::json;
 class Portfolio;
+class Transaction;
 class InvestorPositionDisplay;
 
 class Asset{
@@ -32,6 +34,7 @@ class Asset{
         double m_assetReturnOfCapital;
         double m_currentValue;
         std::vector<std::shared_ptr<InvestorPositionDisplay>> m_investorPositionDisplays;
+        std::vector<Transaction> m_transactions;
     //positional specifics
         double m_totalInvestedCapital;
         double m_countOfInvestors;
@@ -175,6 +178,8 @@ class Asset{
         std::shared_ptr<Position> GetPositionByID(size_t id);
         void SetPositionID();
         void UpdateCommitted();
+        void AddNewTransaction(Transaction &transaction);
+        void RemoveTransaction(const std::string &type,const wxDateTime &date,double amount);
 };
 
 void to_json(json &j, const Asset &asset);

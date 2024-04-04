@@ -20,7 +20,7 @@ bool RugenBerg::OnInit()
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
     jsonFilePath = resourcePath + "/data/CRECOLLINSTESTOUTPUT.json";
     #elif defined(__WXMSW__)
-    jsonFilePath = "../resources/data/CRECOLLINSTESTOUTPUT.json";
+    jsonFilePath = "../resources/data/Fresh.json";
     #endif
 
     portfolio.LoadFromFile(jsonFilePath);
@@ -39,7 +39,7 @@ int RugenBerg::OnExit()
     jsonFilePath = resourcePath + "/data/CRECOLLINSTESTOUTPUT.json";
     #endif
     #ifdef __WXMSW__
-    jsonFilePath = "../resources/data/CRECOLLINSTESTOUTPUT.json";
+    jsonFilePath = "../resources/data/FreshOutput.json";
     #endif
     portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
     return wxApp::OnExit();
