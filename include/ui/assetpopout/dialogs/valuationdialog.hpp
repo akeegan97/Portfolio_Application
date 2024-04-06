@@ -19,11 +19,14 @@ class ValuationDialog : public wxDialog{
         void SetUpOnAdd();
         void SetUpOnEdit(wxDateTime &setDate, double &setValue);
         void OnDeleteButtonPress(wxCommandEvent &e);
+        std::string GetNote();
     private:
         wxDatePickerCtrl *datePicker;
         wxStaticText *datePickerText;
         wxTextCtrl *valuationCtrl;
         wxStaticText *valuationText;
+        wxStaticText *noteForTransactionText;
+        wxTextCtrl *noteForTransactionTextCtrl;
 };
 
 

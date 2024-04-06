@@ -156,8 +156,16 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             double amount = amountPaid;
             std::string name = newPositionPtr->GetInvestorPtr()->GetName();
             std::string type = "New Position";
-            Transaction newTransaction(date,name,amount,newPositionPtr,type);
+            std::string note = dialog.GetNote();
+            Transaction newTransaction(date,name,amount,newPositionPtr,type,note);
             m_asset->AddNewTransaction(newTransaction);
+            double amountToDeploy = deployedAmount;
+            std::string name2 = m_asset->GetAssetName().ToStdString();
+            std::string type2 = "To Deploy";
+            Transaction newTransaction2(date,name2,amountToDeploy,nullptr,type2,note);
+            if(newTransaction2.GetAmount()!=0){
+                m_asset->AddNewTransaction(newTransaction2);    
+            }
         }else if(retValue == wxID_CANCEL){
             return;
         }
@@ -187,8 +195,12 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 double amount = allocatedAmount;
                 std::string type = "Return of Capital";
                 std::string name = thisPosition->GetInvestorPtr()->GetName();
-                Transaction newTransaction(date,name,amount,thisPosition,type);
-                m_asset->AddNewTransaction(newTransaction);
+                std::string note = dialog.GetNote();
+                if(amount != 0){
+                    Transaction newTransaction(date,name,amount,thisPosition,type,note);
+                    m_asset->AddNewTransaction(newTransaction);
+                }
+
             }
             newPositionPtr->SetPaid(totalDonatedCapital);
             m_asset->AddPosition(newPositionPtr);
@@ -214,7 +226,8 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             double amount = newPositionPtr->GetCommitted();
             std::string type = "New Position";
             std::string name = newPositionPtr->GetInvestorPtr()->GetName();
-            Transaction newTransaction(date,name,amount,newPositionPtr,type);
+            std::string note = dialog.GetNote();
+            Transaction newTransaction(date,name,amount,newPositionPtr,type,note);
             m_asset->AddNewTransaction(newTransaction);
             m_asset->TriggerUpdateDerivedValues();
         }

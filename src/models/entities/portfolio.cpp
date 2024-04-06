@@ -301,7 +301,7 @@ void Portfolio::PopulateAndProcessCurrentQValuations() {
     std::map<wxString, double> assetLastValuationMap; 
     for (auto& asset : assetPtrs) {
         auto lastValuationIt = asset->GetValuations().rbegin();
-        if(lastValuationIt != asset->GetValuations().rend() && utilities::IsWithinQuarter(lastValuationIt->valuationDate, today)) {
+        if(lastValuationIt != asset->GetValuations().rend() /*&& utilities::IsWithinQuarter(lastValuationIt->valuationDate, today)*/) {
             assetLastValuationMap[asset->GetAssetName()] = lastValuationIt->valuation;
         } else {
             assetLastValuationMap[asset->GetAssetName()] = asset->GetTotalAssetDeployed();

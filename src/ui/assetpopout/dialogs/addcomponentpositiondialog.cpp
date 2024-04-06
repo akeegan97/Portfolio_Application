@@ -58,6 +58,20 @@ void AddComponentPositionDialog::SetupLayout(){
     buttonSizer->Add(confirmButton, 1, wxALL|wxEXPAND, 5);
     buttonSizer->Add(cancelButton, 1, wxALL|wxEXPAND,5);
     mainSizer->Add(buttonSizer, 1, wxALL|wxEXPAND,5);
+    noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+    wxString allowableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .";
+    wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+    characterValidator.SetIncludes(wxArrayString(1, &allowableCharacters));
+    noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    noteForTransactionTextCtrl->SetValidator(characterValidator);
+    noteForTransactionTextCtrl->SetMaxLength(55);
+    mainSizer->Add(noteForTransactionText,1,wxLEFT|wxALL,5);
+    mainSizer->Add(noteForTransactionTextCtrl,1,wxEXPAND|wxALL,5);
+
     this->SetSizer(mainSizer);
     this->Layout();
+}
+
+std::string AddComponentPositionDialog::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
 }

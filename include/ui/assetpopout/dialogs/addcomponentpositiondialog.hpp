@@ -20,6 +20,7 @@ class AddComponentPositionDialog : public wxDialog{
         wxDateTime GetDateValue();
         std::map<size_t, wxTextCtrl*> GetAllocations();
         void OnXClick(wxCloseEvent &e);
+        std::string GetNote();
     private:
         Portfolio &m_portfolio;
         std::shared_ptr<Asset> m_asset;
@@ -28,6 +29,8 @@ class AddComponentPositionDialog : public wxDialog{
         wxStaticText* dateInvestedText;
         wxButton *confirmButton;
         wxButton *cancelButton;
+        wxStaticText *noteForTransactionText;
+        wxTextCtrl *noteForTransactionTextCtrl;
 
 };
 

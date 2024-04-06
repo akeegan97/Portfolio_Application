@@ -35,7 +35,12 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
         includeList.Add(wxT(".")); 
         wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
         validator.SetIncludes(includeList);
+        wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+        characterValidator.SetIncludes(wxArrayString(1, &allowableChars));
+
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
+
         //date of valuation
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
         wxDateTime setDate = wxDateTime::Today();
@@ -60,9 +65,16 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
         valuationText = new wxStaticText(this, wxID_ANY, "Enter Valuation Amount");
         valuationText->SetForegroundColour(wxColor(51,245,12));
         valuationText->SetBackgroundColour(wxColor(0,0,0));
+        noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+        noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+        noteForTransactionTextCtrl->SetValidator(characterValidator);
+        noteForTransactionTextCtrl->SetMaxLength(55);
 
         mainSizer->Add(valuationText, 0, wxALL|wxLEFT,5);
         mainSizer->Add(valuationCtrl, 0, wxALL|wxEXPAND,5);
+
+        mainSizer->Add(noteForTransactionText,0,wxALL|wxLEFT,5);
+        mainSizer->Add(noteForTransactionTextCtrl,0,wxALL|wxEXPAND,5);
 
         //buttons
 
@@ -100,6 +112,9 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
         wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
         validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
+        wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+        characterValidator.SetIncludes(wxArrayString(1, &allowableChars));
 
 
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
@@ -128,6 +143,14 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
 
         mainSizer->Add(valuationText, 0, wxALL|wxLEFT,5);
         mainSizer->Add(valuationCtrl, 0, wxALL|wxEXPAND,5);
+
+        noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+        noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+        noteForTransactionTextCtrl->SetValidator(characterValidator);
+        noteForTransactionTextCtrl->SetMaxLength(55);
+
+        mainSizer->Add(noteForTransactionText,0,wxALL|wxLEFT,5);
+        mainSizer->Add(noteForTransactionTextCtrl,0,wxALL|wxEXPAND,5);
 
         //buttons
 
@@ -165,4 +188,8 @@ ValuationDialog::ValuationDialog(wxWindow *parentWindow, bool editMode,wxDateTim
     
     void ValuationDialog::OnDeleteButtonPress(wxCommandEvent &e){
         EndModal(MY_VALUATION_DELETE_CODE);
+    }
+
+    std::string ValuationDialog::GetNote(){
+        return noteForTransactionTextCtrl->GetValue().ToStdString();
     }

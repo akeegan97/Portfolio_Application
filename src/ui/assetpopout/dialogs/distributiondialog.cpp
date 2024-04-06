@@ -43,6 +43,9 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
         includeList.Add(wxT(".")); 
         wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
         validator.SetIncludes(includeList);
+        wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+        characterValidator.SetIncludes(wxArrayString(1, &allowableChars));
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
 
         //Date of Distribution
@@ -73,6 +76,14 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
         mainSizer->Add(amountText, 0, wxALL|wxLEFT, 5);
         mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
 
+        noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+        noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+        noteForTransactionTextCtrl->SetValidator(characterValidator);
+        noteForTransactionTextCtrl->SetMaxLength(55);
+
+        mainSizer->Add(noteForTransactionText,0,wxALL|wxLEFT,5);
+        mainSizer->Add(noteForTransactionTextCtrl,0,wxALL|wxEXPAND,5);
+
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
         wxButton * okayButton = new wxButton(this, wxID_OK, "Okay");
@@ -96,7 +107,7 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
         includeList.Add(wxT("0"));
         includeList.Add(wxT("1"));
         includeList.Add(wxT("2"));
-        includeList.Add(wxT("3"));
+        includeList.Add(wxT("3"));   
         includeList.Add(wxT("4"));
         includeList.Add(wxT("5"));
         includeList.Add(wxT("6"));
@@ -107,6 +118,7 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
         wxTextValidator validator(wxFILTER_INCLUDE_CHAR_LIST);
         validator.SetIncludes(includeList);
         wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
+        
 
         //Date of Distribution
         datePicker = new wxDatePickerCtrl(this, wxID_ANY);
@@ -119,6 +131,9 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
 
         mainSizer->Add(datePickerText, 0, wxALL|wxLEFT, 5);
         mainSizer->Add(datePicker, 0, wxALL|wxEXPAND, 5);
+        wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+        characterValidator.SetIncludes(wxArrayString(1, &allowableChars));
 
         //Distribution Amount
 
@@ -135,6 +150,13 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
 
         mainSizer->Add(amountText, 0, wxALL|wxLEFT, 5);
         mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
+        noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+        noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+        noteForTransactionTextCtrl->SetValidator(characterValidator);
+        noteForTransactionTextCtrl->SetMaxLength(55);
+
+        mainSizer->Add(noteForTransactionText,0,wxALL|wxLEFT,5);
+        mainSizer->Add(noteForTransactionTextCtrl,0,wxALL|wxEXPAND,5);
 
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -161,4 +183,8 @@ DistributionDialog::DistributionDialog(wxWindow* parentWindow,bool isEditMode,wx
     }
 void DistributionDialog::OnDeleteButtonPress(wxCommandEvent &e){
     EndModal(MY_CUSTOM_DELETE_CODE);
+}
+
+std::string DistributionDialog::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
 }

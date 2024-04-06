@@ -29,6 +29,9 @@ void DistributionExecution::SetupLayout(){
     wxString allowableNumbers = "0123457689. ";
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);
     numberValidator.SetIncludes(wxArrayString(1, &allowableNumbers));
+    wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .";
+    wxTextValidator charValidator(wxFILTER_INCLUDE_CHAR_LIST);
+    charValidator.SetIncludes(wxArrayString(1, &allowableChars));
     PopulateQDistributions();
     PopulateChoiceArrays();
     for(const int &year : yearsInt){
@@ -78,6 +81,11 @@ void DistributionExecution::SetupLayout(){
     confirmButton = new wxButton(this, wxID_OK,"Confirm");
     confirmButton->Enable(false);
     cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
+
+    noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+    noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    noteForTransactionTextCtrl->SetValidator(charValidator);
+    noteForTransactionTextCtrl->SetMaxLength(55);
     topLeftSizer->Add(yearText,1,wxALL|wxLEFT,5);
     topLeftSizer->Add(yearChoice,1,wxALL|wxEXPAND,5);
     topMiddleSizer->Add(qText,1,wxALL|wxLEFT,5);
@@ -92,6 +100,8 @@ void DistributionExecution::SetupLayout(){
     leftSizer->Add(distributionAmountTextCtrl,1,wxALL|wxEXPAND,5);
     rightSizer->Add(reserveAmountText,1,wxALL,5);
     rightSizer->Add(reserveAmountCtrl,1,wxALL|wxEXPAND,5);
+    rightSizer->Add(noteForTransactionText,1,wxALL,5);
+    rightSizer->Add(noteForTransactionTextCtrl,1,wxALL|wxEXPAND,5);
     mainSizer->Add(leftSizer,1,wxALL,5);
     mainSizer->Add(rightSizer,1,wxALL,5);
     bottomSizer->Add(confirmButton,1,wxALL|wxEXPAND,5);
@@ -216,4 +226,8 @@ void DistributionExecution::UpdateGetAmountButton(){
     wxString month = qChoice->GetStringSelection();
     auto selectedDistributionOpt = GetSelectedDistribution(yearInt, month);
     getDistribution->Enable(selectedDistributionOpt.has_value());
+}
+
+std::string DistributionExecution::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
 }

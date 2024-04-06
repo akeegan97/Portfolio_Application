@@ -47,6 +47,11 @@ void AddAssetDialog::SetupLayout(){
     wxDateTime setDate = wxDateTime::Today();
     assetExitDateCtrl->SetValue(setDate);
 
+    noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+    noteForTransactionTextCtrl = new wxTextCtrl(this,wxID_ANY);
+    noteForTransactionTextCtrl->SetValidator(characterValidator);
+    noteForTransactionTextCtrl->SetMaxLength(50);
+
     wxArrayString investorChoices;
     for(auto inv: m_portfolio.GetInvestors()){
         std::string name = inv->GetName();
@@ -86,13 +91,15 @@ void AddAssetDialog::SetupLayout(){
     cancelButton->SetForegroundColour(wxColor(255,255,255));
     createNewInvestorButton = new wxButton(this, wxID_ANY,"Create New Investor");
     createNewInvestorButton->Bind(wxEVT_BUTTON, &AddAssetDialog::OnAddInvestor, this);
-    
+
     topLeftSizer->Add(assetNameCtrlText,1,wxLEFT,5);
     topLeftSizer->Add(assetNameCtrl,1,wxEXPAND|wxALL,5);
     topLeftSizer->Add(assetSponserCtrlText, 1, wxLEFT,5);
     topLeftSizer->Add(assetSponserCtrl,1, wxEXPAND|wxALL,5);
     topLeftSizer->Add(assetExitDateText,1,wxLEFT,5);
     topLeftSizer->Add(assetExitDateCtrl,1,wxEXPAND|wxALL,5);
+    topLeftSizer->Add(noteForTransactionText,1,wxLEFT,5);
+    topLeftSizer->Add(noteForTransactionTextCtrl,1,wxEXPAND|wxALL,5);
     topSizer->Add(topLeftSizer,1,wxALL,20);
     topRightSizer->Add(investorChoiceText,1,wxLEFT,5);
     topRightSizer->Add(investorChoiceCtrl,1,wxEXPAND|wxALL,5);
@@ -104,17 +111,17 @@ void AddAssetDialog::SetupLayout(){
     topRightSizer->Add(reserveAmountTextCtrl,1,wxEXPAND|wxALL,5);
     topRightSizer->Add(effectiveStartDateCtrlText,1,wxLEFT,5);
     topRightSizer->Add(effectiveStartDateCtrl,1,wxEXPAND|wxALL,5);
+
     topSizer->Add(topRightSizer,1,wxALL,20);
 
     buttonSizer->Add(createNewInvestorButton,1,wxEXPAND,5);
     buttonSizer->Add(cancelButton, 1, wxEXPAND,5);
     buttonSizer->Add(confirmButton,1,wxEXPAND,5);
-
     bottomSizer->Add(buttonSizer,1,wxEXPAND,5);
 
     mainSizer->Add(topSizer,2,wxEXPAND,5);
     mainSizer->Add(bottomSizer,1,wxEXPAND,5);
-
+    
     this->SetSizer(mainSizer);
     this->Layout();
 
@@ -148,6 +155,9 @@ std::string AddAssetDialog::GetInvestorChoiceName(){
     return investorChoiceCtrl->GetStringSelection().ToStdString();
 }
 
+std::string AddAssetDialog::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
+}
 
 void AddAssetDialog::OnAddInvestor(wxCommandEvent &e){
     AddInvestorDialog dialog(this);

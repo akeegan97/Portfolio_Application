@@ -23,6 +23,7 @@ class MoveDeploy : public wxDialog{
         void OnAmountsChanged(wxCommandEvent&e);
         void UpdateConfirmButton();
         void SetupLayout();
+        std::string GetNote();
 
     private:
         wxDatePickerCtrl* datePicker;
@@ -33,6 +34,8 @@ class MoveDeploy : public wxDialog{
         wxStaticText *directionOfMovementText;
         std::shared_ptr<Asset> m_asset;
         wxButton* okayButton;
+        wxTextCtrl* noteForTransactionTextCtrl;
+        wxStaticText* noteForTransactionText;
 };
 
 #endif

@@ -27,6 +27,7 @@ class AddAssetDialog: public wxDialog{
         double GetDeployedAmount();
         double GetReserveAmount();
         std::string GetInvestorChoiceName();
+        std::string GetNote();
         void OnAddInvestor(wxCommandEvent &e);
         void UpdateInvestorChoice();
         void OnAmountsChanged(wxCommandEvent &e);
@@ -50,6 +51,8 @@ class AddAssetDialog: public wxDialog{
         wxTextCtrl *reserveAmountTextCtrl;
         wxStaticText *effectiveStartDateCtrlText;
         wxDatePickerCtrl *effectiveStartDateCtrl;
+        wxStaticText* noteForTransactionText;
+        wxTextCtrl *noteForTransactionTextCtrl;
 
         wxButton *confirmButton;
         wxButton *cancelButton;

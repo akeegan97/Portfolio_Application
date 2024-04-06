@@ -19,11 +19,14 @@ class DistributionDialog : public wxDialog{
         void SetUpOnAddDistribution();
         void SetUpOnEditDistribution(wxDateTime &setDate, double &setAmount);
         void OnDeleteButtonPress(wxCommandEvent &e);
+        std::string GetNote();
     private:
         wxDatePickerCtrl* datePicker;
         wxStaticText* datePickerText;
         wxTextCtrl* amountCtrl;
         wxStaticText* amountText;
+        wxTextCtrl* noteForTransactionTextCtrl;
+        wxStaticText* noteForTransactionText;
 };
 
 

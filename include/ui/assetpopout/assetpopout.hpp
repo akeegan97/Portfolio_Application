@@ -47,6 +47,7 @@ class AssetPopout : public wxFrame{
         wxButton *addValuationButton;
         wxButton *executeDistributionButton;
         wxButton *addPositionButton;
+        wxButton *viewTransactionsButton;
         wxPanel *chartPanelHolderPanel;
         wxPanel *distributionChartPanelHolder;
         void SetupLayout();
@@ -67,7 +68,7 @@ class AssetPopout : public wxFrame{
         Chart* PopulateDrawChartDistribution();
         void UpdateChartDistribution();
         void OnExecuteDistribution(wxCommandEvent &e);
+        void OnTransactionClick(wxCommandEvent &e);
 };
-
 
 #endif

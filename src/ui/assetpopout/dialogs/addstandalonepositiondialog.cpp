@@ -2,7 +2,7 @@
 #include "helpers/utilities.hpp"
 
 AddStandalonePositionDialog::AddStandalonePositionDialog(wxWindow* parentWindow, Portfolio &portfolio):
-    wxDialog(parentWindow, wxID_ANY, "Standalone Position",wxDefaultPosition, wxSize(450,475),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+    wxDialog(parentWindow, wxID_ANY, "Standalone Position",wxDefaultPosition, wxSize(650,475),wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
     m_portfolio(portfolio){
         SetupLayout();
             wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
@@ -23,6 +23,9 @@ void AddStandalonePositionDialog::SetupLayout(){
     wxString allowableNumbers = "0123456789.";
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);
     numberValidator.SetIncludes(wxArrayString(1, &allowableNumbers));
+    wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .";
+    wxTextValidator charValidator(wxFILTER_INCLUDE_CHAR_LIST);
+    charValidator.SetIncludes(wxArrayString(1,&allowableChars));
 
     amountIncreaseCapitalText = new wxStaticText(this, wxID_ANY, "Enter Position Paid");
     amountIncreaseCapitalTextCtrl = new wxTextCtrl(this, wxID_ANY);
@@ -44,6 +47,12 @@ void AddStandalonePositionDialog::SetupLayout(){
     dateNewPositionCtrl->SetValue(setDate);
     dateNewPositionText = new wxStaticText(this, wxID_ANY, "Investment Date");
 
+    noteForTransactionText = new wxStaticText(this, wxID_ANY,"Enter Note For Transaction");
+    noteForTransactionTextCtrl = new wxTextCtrl(this, wxID_ANY);
+    noteForTransactionTextCtrl->SetValidator(charValidator);
+    noteForTransactionTextCtrl->SetMaxLength(55);
+
+
     leftTopSizer->Add(amountIncreaseCapitalText, 1, wxLEFT,5);
     leftTopSizer->Add(amountIncreaseCapitalTextCtrl,1,wxALL|wxEXPAND,5);
     leftTopSizer->Add(amountDeployText,1,wxLEFT,5);
@@ -53,6 +62,9 @@ void AddStandalonePositionDialog::SetupLayout(){
 
     rightTopSizer->Add(dateNewPositionText, 1, wxLEFT,5);
     rightTopSizer->Add(dateNewPositionCtrl,1,wxALL|wxEXPAND,5);
+    rightTopSizer->Add(noteForTransactionText,1,wxLEFT,5);
+    rightTopSizer->Add(noteForTransactionTextCtrl,1,wxALL|wxEXPAND,5);
+
     topSizer->Add(leftTopSizer, 1, wxALL,5);
     topSizer->Add(rightTopSizer, 1, wxALL, 5);
 
@@ -104,4 +116,8 @@ void AddStandalonePositionDialog::OnClose(wxCloseEvent &e){
 
 void AddStandalonePositionDialog::OnAmountsChanged(wxCommandEvent &e){
     UpdateConfirmButton();
+}
+
+std::string AddStandalonePositionDialog::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
 }

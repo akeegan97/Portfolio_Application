@@ -25,6 +25,7 @@ class AddStandalonePositionDialog : public wxDialog{
         void UpdateConfirmButton();
         void OnAmountsChanged(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
+        std::string GetNote();
     private:
         Portfolio &m_portfolio;
         wxStaticText* amountIncreaseCapitalText;
@@ -37,6 +38,8 @@ class AddStandalonePositionDialog : public wxDialog{
         wxDatePickerCtrl* dateNewPositionCtrl;
         wxButton* confirmButton;
         wxButton* cancelButton;
+        wxStaticText *noteForTransactionText;
+        wxTextCtrl *noteForTransactionTextCtrl;
 };
 
 

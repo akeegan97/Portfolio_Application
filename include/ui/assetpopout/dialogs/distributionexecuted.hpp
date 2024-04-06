@@ -30,6 +30,7 @@ class DistributionExecution : public wxDialog{
         void UpdateConfirmButton();
         void OnSelection(wxCommandEvent &e);
         void UpdateGetAmountButton();
+        std::string GetNote();
     private:
         std::shared_ptr<Asset> m_asset;
         std::vector<Distribution> qDistributions;
@@ -50,6 +51,8 @@ class DistributionExecution : public wxDialog{
         std::set<int> yearsInt;
         std::set<int> monthsInt;
         Distribution selectedDistribution;
+        wxStaticText *noteForTransactionText;
+        wxTextCtrl *noteForTransactionTextCtrl;
 };
 
 

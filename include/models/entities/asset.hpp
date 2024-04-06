@@ -180,6 +180,7 @@ class Asset{
         void UpdateCommitted();
         void AddNewTransaction(Transaction &transaction);
         void RemoveTransaction(const std::string &type,const wxDateTime &date,double amount);
+        std::vector<Transaction> GetTransactions();
 };
 
 void to_json(json &j, const Asset &asset);

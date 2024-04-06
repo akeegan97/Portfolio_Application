@@ -51,6 +51,15 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow,std::shared_ptr<Asset> &asset):
         amountText = new wxStaticText(this, wxID_ANY, "Enter Amount Moved");
         mainSizer->Add(amountText, 0, wxALL|wxLEFT,5);
         mainSizer->Add(amountCtrl, 0, wxALL|wxEXPAND, 5);
+        wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .";
+        wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
+        characterValidator.SetIncludes(wxArrayString(1, &allowableChars));
+        noteForTransactionText = new wxStaticText(this,wxID_ANY,"Enter Note For Transaction");
+        noteForTransactionTextCtrl = new wxTextCtrl(this,wxID_ANY);
+        noteForTransactionTextCtrl->SetValidator(characterValidator);
+        noteForTransactionTextCtrl->SetMaxLength(55);
+        mainSizer->Add(noteForTransactionText,0,wxALL|wxLEFT,5);
+        mainSizer->Add(noteForTransactionTextCtrl,0,wxALL|wxEXPAND,5);
         //buttons
         wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
         okayButton = new wxButton(this, wxID_OK, "Okay");
@@ -125,4 +134,8 @@ MoveDeploy::MoveDeploy(wxWindow *parentWindow,std::shared_ptr<Asset> &asset):
                 okayButton->Enable(false);
             }
         }
+    }
+
+    std::string MoveDeploy::GetNote(){
+        return noteForTransactionTextCtrl->GetValue().ToStdString();
     }

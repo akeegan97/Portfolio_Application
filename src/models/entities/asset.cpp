@@ -885,3 +885,7 @@ void Asset::RemoveTransaction(const std::string &type, const wxDateTime &date, d
         }
     }
 }
+
+std::vector<Transaction> Asset::GetTransactions(){
+    return m_transactions;
+}
