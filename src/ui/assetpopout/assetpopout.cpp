@@ -295,7 +295,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         std::string type = "Gross Distribution";
         std::string name = asset->GetAssetName().ToStdString();
         std::string note = addDistroWindow.GetNote();
-        Transaction newTransaction(transactionDate,name,amount,positionPtr,type,note);
+        Transaction newTransaction(transactionDate,name,amount,type,note);
         asset->AddNewTransaction(newTransaction);
     }
 }
@@ -315,7 +315,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             double amount = amountMoved;
             std::string type = "Reserve->Deploy";
             std::string name = asset->GetAssetName().ToStdString();
-            Transaction newTransaction(transactionDate,name,amount,nullptr,type,note);
+            Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             asset->MoveDeployToReserve(dateOfMovement,amountMoved);
@@ -324,7 +324,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             double amount = amountMoved;
             std::string type = "Deploy->Reserve";
             std::string name = asset->GetAssetName().ToStdString();
-            Transaction newTransaction(transactionDate,name,amount,nullptr,type,note);
+            Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
         }else if(selectedMovementDirection == "Reserve to ROC"){
             asset->MoveReserveToReturnOfCapital(dateOfMovement,amountMoved);
@@ -334,7 +334,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             double amount = amountMoved;
             std::string type = "Reserve->Return Of Capital";
             std::string name = asset->GetAssetName().ToStdString();
-            Transaction newTransaction(transactionDate,name,amount,nullptr,type,note);
+            Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
         }
         investorPositionDisplayVirtualListControl->Refresh();
@@ -373,7 +373,7 @@ void AssetPopout::OnAddValuation(wxCommandEvent &e){
         std::string note = addValuationDialog.GetNote();
         std::string name = asset->GetAssetName().ToStdString();
         std::string type = "Valuation";
-        Transaction newTransaction(transactionDate,name,amount,nullptr,type,note);
+        Transaction newTransaction(transactionDate,name,amount,type,note);
         asset->AddNewTransaction(newTransaction);
     }else if(retVal == wxID_CANCEL){
 
@@ -411,7 +411,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
         std::string name = asset->GetAssetName().ToStdString();
         std::string type = "Gross Distribution";
         std::string note = distributionEditwindow.GetNote();
-        Transaction newTransaction(date,name,amount,nullptr,type,note);
+        Transaction newTransaction(date,name,amount,type,note);
         UpdateDisplayTextValues();
         UpdateChartDistribution();
         this->Refresh();
@@ -462,7 +462,7 @@ void AssetPopout::OnValuationEdit(wxListEvent &e){
         std::string name = asset->GetAssetName().ToStdString();
         std::string note = valuationWindow.GetNote();
         std::string type = "Valuation";
-        Transaction newTransaction(date,name,amount,nullptr,type,note);
+        Transaction newTransaction(date,name,amount,type,note);
         asset->AddNewTransaction(newTransaction);
         this->Refresh();
     }else if(retValue == MY_VALUATION_DELETE_CODE){
@@ -809,7 +809,7 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
         std::string type = "Distribution Executed";
         std::string name = asset->GetAssetName().ToStdString();
         std::string note = dialog.GetNote();
-        Transaction newTransaction(date,name,amount,nullptr,type,note);
+        Transaction newTransaction(date,name,amount,type,note);
         asset->AddNewTransaction(newTransaction);
     }else{
         //do nothing and close
@@ -832,6 +832,6 @@ void AssetPopout::AllowBindingOnValuationLC(){
 }
 
 void AssetPopout::OnTransactionClick(wxCommandEvent &e){
-    auto* transactionPopout = new TransactionPopout(this,asset->GetAssetName(),wxDefaultPosition,wxDefaultSize,asset);
+    auto* transactionPopout = new TransactionPopout(this,asset->GetAssetName(),wxDefaultPosition,wxSize(FromDIP(1200),FromDIP(800)),asset);
     transactionPopout->Show(true);
 }

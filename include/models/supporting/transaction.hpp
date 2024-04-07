@@ -13,20 +13,27 @@ class Transaction{
         double m_amount;
         std::string m_type;
         std::string m_note;
-        std::shared_ptr<Position> m_position;//unknown if this is needed could be helpful accumulating transactions per position
     public:
-        Transaction(wxDateTime &transactionDate, std::string &investorName, double &amount, std::shared_ptr<Position> position,std::string &type,std::string &note):
-        m_transactionDate(transactionDate),m_investorName(investorName),m_amount(amount),m_position(position),m_type(type),m_note(note){
+        Transaction(wxDateTime &transactionDate, std::string &investorName, double &amount,std::string &type,std::string &note):
+        m_transactionDate(transactionDate),m_investorName(investorName),m_amount(amount),m_type(type),m_note(note){
         };
         Transaction()=default;
         wxDateTime GetDate()const;
+        void SetDate(wxDateTime &date);
         double GetAmount()const;
+        void SetAmount(double amount);
         std::string GetType()const;
+        void SetType(std::string &type);
         std::string GetNote()const;
+        void SetNote(std::string &note);
         wxVariant GetValue(int col)const;
+        std::string GetName()const;
+        void SetName(std::string &name);
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
-
 };
+
+void to_json(json &j, const Transaction &transaction);
+void from_json(const json&j, Transaction &transaction);
 
 #endif

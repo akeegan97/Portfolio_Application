@@ -157,12 +157,12 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             std::string name = newPositionPtr->GetInvestorPtr()->GetName();
             std::string type = "New Position";
             std::string note = dialog.GetNote();
-            Transaction newTransaction(date,name,amount,newPositionPtr,type,note);
+            Transaction newTransaction(date,name,amount,type,note);
             m_asset->AddNewTransaction(newTransaction);
             double amountToDeploy = deployedAmount;
             std::string name2 = m_asset->GetAssetName().ToStdString();
             std::string type2 = "To Deploy";
-            Transaction newTransaction2(date,name2,amountToDeploy,nullptr,type2,note);
+            Transaction newTransaction2(date,name2,amountToDeploy,type2,note);
             if(newTransaction2.GetAmount()!=0){
                 m_asset->AddNewTransaction(newTransaction2);    
             }
@@ -197,7 +197,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
                 std::string name = thisPosition->GetInvestorPtr()->GetName();
                 std::string note = dialog.GetNote();
                 if(amount != 0){
-                    Transaction newTransaction(date,name,amount,thisPosition,type,note);
+                    Transaction newTransaction(date,name,amount,type,note);
                     m_asset->AddNewTransaction(newTransaction);
                 }
 
@@ -227,7 +227,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             std::string type = "New Position";
             std::string name = newPositionPtr->GetInvestorPtr()->GetName();
             std::string note = dialog.GetNote();
-            Transaction newTransaction(date,name,amount,newPositionPtr,type,note);
+            Transaction newTransaction(date,name,amount,type,note);
             m_asset->AddNewTransaction(newTransaction);
             m_asset->TriggerUpdateDerivedValues();
         }

@@ -326,7 +326,14 @@ void from_json(const json&j, Asset &asset, Portfolio &port){
         std::vector<std::pair<Distribution,bool>> qDistributions = j["Quarterly Distributions"].get<std::vector<std::pair<Distribution, bool>>>();
         asset.SetQuarterlyDistributions(qDistributions);
     }
-    //add transactions
+    if(j.contains("Transactions")&&j["Transactions"].is_array()){
+        std::vector<Transaction> transactions = j["Transactions"].get<std::vector<Transaction>>();
+        asset.SetTransactions(transactions);
+    }
+}
+
+void Asset::SetTransactions(std::vector<Transaction> &transactions){
+    m_transactions = transactions;
 }
 
 void to_json(json &j, const Asset &asset){
@@ -342,7 +349,8 @@ void to_json(json &j, const Asset &asset){
         {"Distributions", json::array()},
         {"Asset ROC Movements", json::array()},
         {"Asset Movement To From Deploy", json::array()},
-        {"Quarterly Distributions",json::array()}
+        {"Quarterly Distributions",json::array()},
+        {"Transactions",json::array()}
     };
     json rocMovementsJson;
     for(const auto& movement : asset.GetROCMovements()){
@@ -380,6 +388,13 @@ void to_json(json &j, const Asset &asset){
     }
     j["Quarterly Distributions"] = qDistributionJson;
     //add transactions
+    json transactionsJson;
+    for(const auto& transaction: asset.GetTransactions()){
+        json tJson;
+        to_json(tJson,transaction);
+        transactionsJson.push_back(tJson);
+    }
+    j["Transactions"] = transactionsJson;
 }
 
 
@@ -886,6 +901,6 @@ void Asset::RemoveTransaction(const std::string &type, const wxDateTime &date, d
     }
 }
 
-std::vector<Transaction> Asset::GetTransactions(){
+std::vector<Transaction> Asset::GetTransactions()const{
     return m_transactions;
 }

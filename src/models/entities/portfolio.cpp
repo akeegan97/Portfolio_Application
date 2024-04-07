@@ -86,7 +86,6 @@ void from_json(const json &j, Portfolio &por) {
                     position->SetAssetPtr(*asset);
                     (*investor)->AddPosition(position);
                     (*asset)->AddPosition(position);
-                    
                 }
             }
         }

@@ -437,15 +437,14 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       transactionDate = dateInvested;
       transactionType = "New Position";
       std::string note = dialog.GetNote();
-      Transaction newTransaction(transactionDate,positionName,paidAmount,initializedPosition,transactionType,note);
+      Transaction newTransaction(transactionDate,positionName,paidAmount,transactionType,note);
       newAssetPtr->AddNewTransaction(newTransaction);
       double amountToDeploy =deployedAmount;
       std::string name = newAssetName.ToStdString();
       std::string type2 = "To Deploy";
       wxDateTime date = transactionDate;
-      Transaction newTransaction2(date,name,amountToDeploy,nullptr,type2,note);
+      Transaction newTransaction2(date,name,amountToDeploy,type2,note);
       newAssetPtr->AddNewTransaction(newTransaction2);
-
       this->Refresh();
    }
 }
