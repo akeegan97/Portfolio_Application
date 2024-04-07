@@ -4,18 +4,21 @@
 
 void to_json(json &j,const Distribution &distribution){
     std::string date = distribution.distribution.first.FormatISODate().ToStdString();
-    j=json{{"Distribution Date",date},{"Distribution Amount", distribution.distribution.second}};
+    j=json{{"Distribution Date",date},{"Distribution Amount", distribution.distribution.second},{"Distribution Paid",distribution.paid}};
 }
 void from_json(const json &j, Distribution &distribution){
     std::string dateStr;
     double amount;
+    bool paid;
 
     if(j.find("Distribution Date")!=j.end() && j.find("Distribution Amount")!=j.end()){
         dateStr = j["Distribution Date"].get<std::string>();
         amount = j["Distribution Amount"].get<double>();
+        paid = j["Distribution Paid"].get<bool>();
         wxDateTime date;
         date.ParseISODate(dateStr);
         distribution.distribution = std::make_pair(date, amount);
+        distribution.paid = paid;
     }
 }
 

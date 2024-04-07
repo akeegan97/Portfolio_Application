@@ -9,7 +9,7 @@
 #include "ui/assetpopout/dialogs/moveDeploy.hpp"
 #include "ui/assetpopout/dialogs/valuationdialog.hpp"
 #include "ui/assetpopout/dialogs/setassetdeployreservedialog.hpp"
-#include "ui/assetpopout/dialogs/distributionexecuted.hpp"
+#include "ui/assetpopout/dialogs/executedistribution.hpp"
 #include "ui/transactionpopout/transactionpopout.hpp"
 AssetPopout::AssetPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port, std::shared_ptr<Asset> asset)
     : wxFrame(parentWindow, wxID_ANY, title, pos, size),
@@ -285,6 +285,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
         Distribution newDistribution;
         newDistribution.distribution.first = addDistroWindow.GetDistributionDate();
         newDistribution.distribution.second = addDistroWindow.GetDistributionAmount();
+        newDistribution.paid = false;
         asset->AddDistribution(newDistribution);
         distributionListControl->setItems(asset->GetDistributions());
         distributionListControl->Update();
@@ -397,6 +398,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     auto selectedDistribution = asset->GetDistributionsNonConst()[dataIndex];
     wxDateTime distributionDate = selectedDistribution.distribution.first;
     double distributionAmount = selectedDistribution.distribution.second;
+    bool paid = selectedDistribution.paid;
     std::string type = "Gross Distribution";
     double amount = distributionAmount;
     wxDateTime date = distributionDate;
@@ -406,6 +408,7 @@ void AssetPopout::OnDistributionEdit(wxListEvent &e){
     if(retVal == wxID_OK){
         selectedDistribution.distribution.first = distributionEditwindow.GetDistributionDate();
         selectedDistribution.distribution.second = distributionEditwindow.GetDistributionAmount();
+        selectedDistribution.paid = paid;
         asset->RemoveDistribution(dataIndex);
         asset->AddDistribution(selectedDistribution);
         distributionListControl->setItems(asset->GetDistributionsNonConst());
@@ -790,32 +793,38 @@ void AssetPopout::OnAddPosition(wxCommandEvent &e){
 }
 
 void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
-    DistributionExecution dialog(this, asset);
+    ExecuteDistribution dialog(this, asset);
     int retValue = dialog.ShowModal();
     if(retValue == wxID_OK){
-        double amountToDistribute = dialog.GetDistributeAmount();
+        double amountToDistribute = dialog.GetDistributionAmount();
         double amountToReserve = dialog.GetReserveAmount();
-        wxDateTime dateOfDistribution = dialog.GetDateOfDistribution();
+        wxDateTime dateOfDistribution = dialog.GetDate();
         Distribution newDistribution;
         newDistribution.distribution.first = dateOfDistribution;
         newDistribution.distribution.second = amountToDistribute;
+        newDistribution.paid = true;
+        for(auto&distribution : asset->GetDistributionsNonConst()){
+            if(distribution.distribution.first <= dateOfDistribution){
+                distribution.paid = true;
+            }
+        }
         asset->PassDistributionToPositions(newDistribution);
         asset->AddQuarterlyDistribution(newDistribution);
         asset->AddNewReserve(amountToReserve);
-        for(auto pos: asset->GetPositions()){
-            for(auto ni:pos->GetNetIncome()){
-                std::cout<<"NI "<<ni.distribution.second<<std::endl;
-            }
-        }
-        wxDateTime date = dateOfDistribution;
-        double amount = amountToDistribute;
         std::string type = "Distribution Executed";
         std::string name = asset->GetAssetName().ToStdString();
         std::string note = dialog.GetNote();
-        Transaction newTransaction(date,name,amount,type,note);
+        Transaction newTransaction(dateOfDistribution,name,amountToDistribute,type,note);
         asset->AddNewTransaction(newTransaction);
+        if(amountToReserve>0){
+            investorPositionDisplayVirtualListControl->setItems(asset->GetIPDVector());
+            asset->SetPositionValues();
+        }
+        UpdateDisplayTextValues();
+        this->Refresh();
+        this->Layout();
     }else{
-        //do nothing and close
+        //do nothing and close;
     }
 }
 

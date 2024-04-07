@@ -621,7 +621,7 @@ void Asset::UpdateCommitted(){
 void Asset::SetPositionValues(){
     for(auto&pos:m_positions){
         pos->SetCommitted();
-        pos->SetOwnership();//ownership is being set before all committed amounts are in for asset need to use function to set committed 
+        pos->SetOwnership(); 
         pos->SetReserve();
         pos->SetDeployed();
         pos->SetCurrentValue();
@@ -860,8 +860,9 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
             }
         }
         double amountAftermgmtFees = distributionShare;
+        wxDateTime qEndOfDistribution = utilities::GetQuarterEndDate(distribution.distribution.first);
         for(auto&mf : pos->GetManagementFeesReference()){
-            if(mf.paid == false && mf.quarter <= distribution.distribution.first && amountAftermgmtFees > 0){
+            if(mf.paid == false && mf.quarter <= qEndOfDistribution && amountAftermgmtFees > 0){
                 amountAftermgmtFees-=mf.amount;
                 mf.paid = true;
             }

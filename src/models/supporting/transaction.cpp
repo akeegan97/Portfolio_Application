@@ -47,7 +47,7 @@ wxVariant Transaction::GetValue(int col)const{
 }
 
 std::vector<wxString> Transaction::columnNames ={"Date","Amount","Type","Name","Note"}; 
-std::vector<int> Transaction::columnWidths = {150,100,150,150,300};
+std::vector<int> Transaction::columnWidths = {150,150,200,175,350};
 
 
 void to_json(json &j, const Transaction &transaction){

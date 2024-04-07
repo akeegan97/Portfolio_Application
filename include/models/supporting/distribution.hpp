@@ -9,6 +9,7 @@ using json = nlohmann::json;
 class Distribution{
     public:
         std::pair<wxDateTime, double> distribution;
+        bool paid;
         Distribution()=default;
 
         static std::vector<wxString> columnNames;
