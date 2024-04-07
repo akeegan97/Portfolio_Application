@@ -189,6 +189,9 @@ void AssetPopout::SetupLayout(){
     executeDistributionButton->SetForegroundColour(fgColor);
     executeDistributionButton->SetBackgroundColour(bgColor);
     executeDistributionButton->SetFont(font);
+    viewTransactionsButton->SetForegroundColour(fgColor);
+    viewTransactionsButton->SetBackgroundColour(bgColor);
+    viewTransactionsButton->SetFont(font);
 
     assetIRR->SetForegroundColour(fgColor);
     assetIRR->SetFont(font);

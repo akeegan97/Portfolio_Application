@@ -35,8 +35,11 @@ void TransactionPopout::SetupLayout(){
     wxColour fgColor = wxColor(0,0,0);  
     this->SetBackgroundColour(bgColor);
     allTransactionVListControl->SetFont(font);
-    allTransactionVListControl->SetBackgroundColor(bgColor);
-    allTransactionVListControl->SetForegroundcolor(fgColor);
+    allTransactionVListControl->SetBackgroundColour(bgColor);
+    allTransactionVListControl->SetForegroundColour(fgColor);
+    writeToCsv->SetForegroundColour(fgColor);
+    writeToCsv->SetBackgroundColour(bgColor);
+    writeToCsv->SetFont(font);
     #endif
     this->SetSizer(mainSizer);
     this->Layout();
