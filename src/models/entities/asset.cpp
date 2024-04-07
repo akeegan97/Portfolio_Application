@@ -1,5 +1,8 @@
 #include "models/entities/asset.hpp"
 #include "helpers/utilities.hpp"
+#include <wx/filename.h>
+#include <wx/stdpaths.h>
+#include <wx/file.h>
 
 void Asset::SortDistributions(std::vector<Distribution> &distributions){
     std::sort(distributions.begin(), distributions.end(),
@@ -903,4 +906,19 @@ void Asset::RemoveTransaction(const std::string &type, const wxDateTime &date, d
 
 std::vector<Transaction> Asset::GetTransactions()const{
     return m_transactions;
+}
+
+void Asset::WriteCSV()const{
+    wxDateTime today;
+    today=wxDateTime::Today();
+    wxString fileName = m_assetName+" "+"Transactions"+" "+today.FormatISODate()+".csv";
+    wxFileName filePath(wxStandardPaths::Get().GetDocumentsDir(),fileName);
+    wxFile file(filePath.GetFullPath(),wxFile::write);
+    if(file.IsOpened()){
+        file.Write("Date,Amount,Type,Name,Note\n");
+        for(const auto&transaction: m_transactions){
+            file.Write(transaction.ToCSV());
+        }
+        file.Close();
+    }
 }

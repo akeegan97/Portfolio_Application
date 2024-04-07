@@ -1,5 +1,7 @@
 #include "models/supporting/transaction.hpp"
-
+#include <wx/filename.h>
+#include <wx/stdpaths.h>
+#include <wx/file.h>
 wxDateTime Transaction::GetDate()const{
     return m_transactionDate;
 }
@@ -71,4 +73,8 @@ void from_json(const json&j, Transaction &transaction){
     transaction.SetAmount(amount);
     std::string note = j["Transaction Note"].get<std::string>().c_str();
     transaction.SetNote(note);
+}
+
+wxString Transaction::ToCSV()const{
+    return wxString::Format("%s,%.2f,%s,%s,%s\n",m_transactionDate.FormatISODate(),m_amount,m_type,m_investorName,m_note);
 }

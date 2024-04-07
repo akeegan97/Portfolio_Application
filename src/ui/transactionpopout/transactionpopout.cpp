@@ -23,7 +23,10 @@ void TransactionPopout::SetupLayout(){
     if(!m_asset->GetTransactions().empty()){
         allTransactionVListControl->setItems(m_asset->GetTransactions());
     }
+    writeToCsv = new wxButton(this,wxID_ANY,"Write To CSV");
+    writeToCsv->Bind(wxEVT_BUTTON,&TransactionPopout::ExecuteFileWrite,this);
     lSideSizer->Add(allTransactionVListControl,1,wxEXPAND|wxALL,5);
+    lSideSizer->Add(writeToCsv,1,wxALL|wxEXPAND,5);
     topSizer->Add(lSideSizer,1,wxEXPAND|wxALL,5);
     mainSizer->Add(topSizer,1,wxALL|wxEXPAND,5);
     #ifdef __WXMAC__
@@ -37,4 +40,8 @@ void TransactionPopout::SetupLayout(){
     #endif
     this->SetSizer(mainSizer);
     this->Layout();
+}
+
+void TransactionPopout::ExecuteFileWrite(wxCommandEvent &e){
+    m_asset->WriteCSV();
 }

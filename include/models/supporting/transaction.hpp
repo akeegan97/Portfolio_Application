@@ -31,6 +31,7 @@ class Transaction{
         void SetName(std::string &name);
         static std::vector<wxString> columnNames;
         static std::vector<int> columnWidths;
+        wxString ToCSV()const;
 };
 
 void to_json(json &j, const Transaction &transaction);

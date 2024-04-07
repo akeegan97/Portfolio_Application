@@ -12,7 +12,9 @@ class TransactionPopout : public wxFrame{
         std::shared_ptr<Asset> m_asset;
     private:
         VListControl<Transaction>* allTransactionVListControl;
+        wxButton *writeToCsv;
         void SetupLayout();
+        void ExecuteFileWrite(wxCommandEvent &e);
 };
 
 
