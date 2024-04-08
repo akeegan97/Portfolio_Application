@@ -23,6 +23,7 @@ class AddHybridPositionDialog : public wxDialog{
         std::map<size_t,wxTextCtrl*> GetAllocations();
         void OnXClick(wxCloseEvent &e);
         std::string GetNote();
+        double GetAdditionalCapital();
     private:
         Portfolio &m_portfolio;
         std::shared_ptr<Asset> m_asset;

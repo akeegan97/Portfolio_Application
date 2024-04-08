@@ -235,7 +235,65 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
         AddHybridPositionDialog dialog(this,m_asset,m_portfolio);
         int retValue = dialog.ShowModal();
         if(retValue == wxID_OK){
-
+            std::shared_ptr<Position> newPositionPtr = std::make_shared<Position>();
+            newPositionPtr->SetInvestorPtr(associatedInvestorPointer);
+            newPositionPtr->SetAssetPtr(m_asset);
+            wxDateTime dateInvested = dialog.GetDateValue();
+            newPositionPtr->SetDateInvested(dateInvested);
+            double totalDonatedCapital = 0.0;
+            std::map<std::shared_ptr<Position>,double>previousDeployed;
+            for(auto input:dialog.GetAllocations()){
+                auto positionId = input.first;
+                auto amountReturned = input.second;
+                double allocatedAmount = wxAtof(amountReturned->GetValue());
+                std::shared_ptr<Position> thisPosition = m_asset->GetPositionByID(positionId);
+                previousDeployed.insert({thisPosition, thisPosition->GetDeployed()});
+                std::pair<wxDateTime, double> movement = std::make_pair(dateInvested,allocatedAmount);
+                thisPosition->AddRocMovement(movement);
+                thisPosition->UpdateROC();
+                thisPosition->SetCommitted();
+                totalDonatedCapital+=allocatedAmount;
+                if(movement.second != 0){
+                    wxDateTime date = dateInvested;
+                    std::string type = "Return of Capital";
+                    std::string note = dialog.GetNote();
+                    std::string name = thisPosition->GetInvestorPtr()->GetName();
+                    Transaction newTransaction(date,name,allocatedAmount,type,note);
+                    m_asset->AddNewTransaction(newTransaction);
+                }
+            }
+            double additionalCapital = dialog.GetAdditionalCapital();
+            double totalPaid = additionalCapital + totalDonatedCapital;
+            newPositionPtr->SetPaid(totalPaid);
+            m_asset->AddPosition(newPositionPtr);
+            m_asset->AddNewReserve(additionalCapital);
+            m_asset->SetNewCommittedOnNewPosition(additionalCapital);
+            m_asset->SetPositionValues();
+            std::pair<wxDateTime, double> movement = {dateInvested,newPositionPtr->GetDeployed()};
+            newPositionPtr->AddMovementDeploy(movement);
+            associatedInvestorPointer->AddPosition(newPositionPtr);
+            for(auto pos:m_asset->GetPositionsForIDP()){
+                for(auto pair:previousDeployed){
+                    if(pos == pair.first){
+                        double difference = 0;
+                        difference = pos->GetDeployed()-pair.second;
+                        std::pair<wxDateTime, double> movement = {dateInvested, difference};
+                        if(std::fabs(movement.second) > EPSILON){
+                            pos->AddMovementDeploy(movement);
+                            pos->UpdateManagementFees(movement.first);
+                        }
+                    }
+                }
+            }
+            newPositionPtr->TriggerUpdateOfManagementFeeVector();
+            wxDateTime date = dateInvested;
+            double amount = newPositionPtr->GetCommitted();
+            std::string type = "New Position";
+            std::string name = newPositionPtr->GetInvestorPtr()->GetName();
+            std::string note = dialog.GetNote();
+            Transaction newTransaction(date,name,amount,type,note);
+            m_asset->AddNewTransaction(newTransaction);
+            m_asset->TriggerUpdateDerivedValues();
         }else{
             
         }

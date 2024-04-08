@@ -5,7 +5,13 @@ AddHybridPositionDialog::AddHybridPositionDialog(wxWindow *parentWindow, std::sh
     m_portfolio(portfolio),
     m_asset(asset){
         SetupLayout();
-        //WIN styling
+        //#ifdef __WXMSW__
+        wxFont font = wxFont(12, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColour foregroundcolor = wxColor(0,0,0);
+        utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+        utilities::SetFontForWindowAndChildren(this, font);
+       // #endif
     }
 
 
@@ -62,3 +68,20 @@ void AddHybridPositionDialog::SetupLayout(){
     this->SetSizer(mainSizer);
     this->Layout();
 }
+
+wxDateTime AddHybridPositionDialog::GetDateValue(){
+    return dateInvested->GetValue();
+}
+
+double AddHybridPositionDialog::GetAdditionalCapital(){
+    return wxAtof(additionalCapitalTextCtrl->GetValue());
+}
+
+std::string AddHybridPositionDialog::GetNote(){
+    return noteForTransactionTextCtrl->GetValue().ToStdString();
+}
+
+std::map<size_t,wxTextCtrl*> AddHybridPositionDialog::GetAllocations(){
+    return allocationInputs;
+}
+
