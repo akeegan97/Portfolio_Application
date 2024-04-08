@@ -25,7 +25,7 @@ void AddComponentPositionDialog::OnXClick(wxCloseEvent &e){
 }
 void AddComponentPositionDialog::SetupLayout(){
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
-    wxString allowableNumbers = "012345679.";
+    wxString allowableNumbers = "0123456789.";
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);
     numberValidator.SetIncludes(wxArrayString(1, &allowableNumbers));
     for(const auto& position: m_asset->GetPositions()){

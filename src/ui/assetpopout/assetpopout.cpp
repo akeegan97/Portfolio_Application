@@ -313,7 +313,8 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
         wxString selectedMovementDirection = DeployMovementWindow.GetSelectedMovementDirection();
         std::string note = DeployMovementWindow.GetNote();
         if(selectedMovementDirection == "Reserve to Deploy"){
-            asset->MoveReserveToDeploy(dateOfMovement,amountMoved);
+            asset->MoveReserveToDeploy(dateOfMovement,amountMoved);//could maybe call this from inside the MoveReserveToDeploy function
+            asset->SetCurrentValue();
             asset->SetPositionValues();   
             wxDateTime transactionDate = dateOfMovement;
             double amount = amountMoved;
@@ -323,6 +324,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             asset->AddNewTransaction(newTransaction);
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             asset->MoveDeployToReserve(dateOfMovement,amountMoved);
+            asset->SetCurrentValue();//could maybe call this from inside the MoveDeployToReserve function
             asset->SetPositionValues();
             wxDateTime transactionDate = dateOfMovement;
             double amount = amountMoved;
@@ -330,6 +332,7 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             std::string name = asset->GetAssetName().ToStdString();
             Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
+
         }else if(selectedMovementDirection == "Reserve to ROC"){
             asset->MoveReserveToReturnOfCapital(dateOfMovement,amountMoved);
             asset->UpdateCommitted();
