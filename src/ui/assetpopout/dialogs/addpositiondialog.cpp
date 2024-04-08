@@ -231,8 +231,14 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             m_asset->AddNewTransaction(newTransaction);
             m_asset->TriggerUpdateDerivedValues();
         }
-    }else{
+    }else if(positionType == "Hybrid"){
+        AddHybridPositionDialog dialog(this,m_asset,m_portfolio);
+        int retValue = dialog.ShowModal();
+        if(retValue == wxID_OK){
 
+        }else{
+            
+        }
     }
 }
 

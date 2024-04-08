@@ -15,6 +15,7 @@
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 #include "ui/assetpopout/dialogs/addstandalonepositiondialog.hpp"
 #include "ui/assetpopout/dialogs/addcomponentpositiondialog.hpp"
+#include "ui/assetpopout/dialogs/addhybridposition.hpp"
 class Portfolio;
 class AddPositionDialog : public wxDialog{
     public:
