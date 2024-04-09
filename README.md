@@ -42,6 +42,8 @@ Before you begin, ensure you have met the following requirements:
 3. **Clone and Build wxFreeChart**: Similarly, clone wxFreeChart into `YourProjectDirectory/staticlibs`. Ensure wxFreeChart is configured for a static build. During the build phase, provide the `wx-config` script from the wxWidgets build to wxFreeChart.
 4. For your project, reference the `staticlibs/(wxWidgets),(wxFreeChart)` directories for includes and libraries in your build configuration.
 
+### Linux Ubuntu Specific
+
 ## Building the Project
 
 Directory Structure for Static Libraries
@@ -240,5 +242,5 @@ add_custom_command(TARGET Portfolio POST_BUILD
     COMMENT "Copying the app icon to the app bundle"
 )
 ```
-
+##Linux Ubuntu CMake...
 
