@@ -117,14 +117,17 @@ void MainFrame::setupLayout(){
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
 
-   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Committed: $0.00");
-   totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Investors in fund: 0");
+   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Deployed: $0.00");
+   totalReserveText = new wxStaticText(botRSidePanel,wxID_ANY,"Total Amount In Reserve: $0.0");
    totalValuationText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Valuation: $0.00");
+   totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Investors in fund: 0");
 
    wxBoxSizer* botRSiderSizer = new wxBoxSizer(wxVERTICAL);
    botRSiderSizer->Add(totalInvestedText, 1, wxEXPAND|wxALL, 5);
-   botRSiderSizer->Add(totalInvestorCountText, 1, wxEXPAND| wxALL, 5);
+   botRSiderSizer->Add(totalReserveText, 1, wxEXPAND | wxALL, 5);
    botRSiderSizer->Add(totalValuationText, 1, wxEXPAND | wxALL, 5);
+   botRSiderSizer->Add(totalInvestorCountText, 1, wxEXPAND| wxALL, 5);
+
 
    botRSidePanel->SetSizer(botRSiderSizer);
    //add the bottom right side panel which houses the static text lines
@@ -174,18 +177,22 @@ void MainFrame::setupLayout(){
 }
 
 void MainFrame::UpdatePortfolioDisplayValues(){
-   double totalCommmittedCapital = 0;
+   double totalDeployedCapital = 0;
+   double totalReserveCapital = 0;
    for(auto asset:portfolio.assetPtrs){
-      totalCommmittedCapital+=asset->GetTotalCommitted();
+      totalDeployedCapital+=asset->GetTotalAssetDeployed();
+      totalReserveCapital+=asset->GetTotalAssetReserve();
    }
-   std::string formattedTotalInvested = utilities::formatDollarAmount(totalCommmittedCapital);
+   std::string formattedTotalInvested = utilities::formatDollarAmount(totalDeployedCapital);
    double totalInvestors = portfolio.TotalInvestors();
    double totalValuation_value = portfolio.TotalValuation();
    std::string formattedTotalvaluation = utilities::formatDollarAmount(totalValuation_value);
+   std::string formattedTotalReserve = utilities::formatDollarAmount(totalReserveCapital);
 
-   totalInvestedText->SetLabel("Total Amount Committed: "+formattedTotalInvested);
-   totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
+   totalInvestedText->SetLabel("Total Amount Deployed: "+formattedTotalInvested);
+   totalReserveText->SetLabel("Total Amount In Reserve: "+formattedTotalReserve);
    totalValuationText->SetLabel("Total Valuation of Fund: "+formattedTotalvaluation);
+   totalInvestorCountText->SetLabel(wxString::Format("Total Investors in Fund: %.2f", totalInvestors));
    #ifdef __WXMAC__
    
    #endif
