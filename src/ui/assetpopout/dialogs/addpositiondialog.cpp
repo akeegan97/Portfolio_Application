@@ -126,7 +126,9 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             std::pair<wxDateTime, double> movement = std::make_pair(dateInvested, deployedAmount);
             m_asset->AddNewDeployed(deployedAmount);
             m_asset->AddNewReserve(reserveAmount);
-            m_asset->AddMovement(movement);
+            if(std::fabs(movement.second)>EPSILON){
+                m_asset->AddMovement(movement);
+            }
             m_asset->SetNewCommittedOnNewPosition(amountPaid);
             for(auto &pos : m_asset->GetPositionsForIDP()){
                 double oldDeploy = pos->GetDeployed();
@@ -163,7 +165,7 @@ void AddPositionDialog::OnConfirmPosition(wxCommandEvent &e){
             std::string name2 = m_asset->GetAssetName().ToStdString();
             std::string type2 = "To Deploy";
             Transaction newTransaction2(date,name2,amountToDeploy,type2,note);
-            if(newTransaction2.GetAmount()!=0){
+            if(newTransaction2.GetAmount()>EPSILON){
                 m_asset->AddNewTransaction(newTransaction2);    
             }
         }else if(retValue == wxID_CANCEL){

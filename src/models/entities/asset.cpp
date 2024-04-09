@@ -546,7 +546,6 @@ void Asset::PopulateCurrentQDeploys(){
 }
 
 void Asset::PopulateValuationsDeploymentsForPlotting(){
-
     m_valuationsForPlotting.clear();
     m_deploymentsForPlotting.clear();
     PopulatePreviousQValuations();
@@ -554,7 +553,9 @@ void Asset::PopulateValuationsDeploymentsForPlotting(){
         PopulateCurrentQValuations();
     }
     PopulatePreviousQDeploys();
-    PopulateCurrentQDeploys(); 
+    if(!m_previousQDeploymentMap.empty()){
+        PopulateCurrentQDeploys(); 
+    }
     
     for(const auto&entry:m_previousQValuationMap){
         m_valuationsForPlotting.push_back(entry);

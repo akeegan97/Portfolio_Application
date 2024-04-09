@@ -411,9 +411,11 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       associatedInvestor->AddPosition(initializedPosition);
       initializedPosition->SetInvestorPtr(associatedInvestor);
       auto pair = std::make_pair(dateInvested, deployedAmount);
-      initializedPosition->AddMovementDeploy(pair);
+      if(pair.second != 0){
+         initializedPosition->AddMovementDeploy(pair);
+         newAssetPtr->AddMovement(pair);   
+      }
       newAssetPtr->DeserializeSetAssetCommittedCapital(paidAmount);
-      newAssetPtr->AddMovement(pair);
       newAssetPtr->AddPosition(initializedPosition);
       newAssetPtr->SetDeployedCapital(deployedAmount);
       newAssetPtr->SetReserveCapital(reserveAmount);
