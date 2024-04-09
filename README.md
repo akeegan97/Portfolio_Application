@@ -19,7 +19,7 @@ These features collective
 
 Before you begin, ensure you have met the following requirements:
 
-- Operating System: Windows 11 / MacOS Sonoma 14.3.1 (specify versions).
+- Operating System: Windows 11 / MacOS Sonoma 14.4.1.
 - A C++17 compatible compiler. This project uses GCC via Mingw on Windows for static builds.
 - CMake version 3.10 or higher for building the project.
 - wxWidgets 3.2, as wxFreeChart is not compatible with wxWidgets 3.3.
