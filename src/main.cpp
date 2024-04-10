@@ -18,7 +18,7 @@ bool RugenBerg::OnInit()
 
     #ifdef __WXMAC__
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/Fresh.json";
+    jsonFilePath = resourcePath + "/data/CRECPKAWABASE.json";
     #elif defined(__WXMSW__)
     jsonFilePath = "../resources/data/CRECPKAWABASE.json";
     #endif
@@ -36,7 +36,7 @@ int RugenBerg::OnExit()
     std::string jsonFilePath;
     #ifdef __WXMAC__
     wxString resourcePath = wxStandardPaths::Get().GetResourcesDir();
-    jsonFilePath = resourcePath + "/data/Fresh.json";
+    jsonFilePath = resourcePath + "/data/CRECPKAWABASE.json";
     #endif
     #ifdef __WXMSW__
     jsonFilePath = "../resources/data/DISTRIBUTIONOUTPUT.json";
