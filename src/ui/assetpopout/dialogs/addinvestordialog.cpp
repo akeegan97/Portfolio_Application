@@ -19,7 +19,7 @@ void AddInvestorDialog::SetupLayout(){
     wxBoxSizer *rightTopSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    wxString allowableChars = "0123456789-,.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     wxString allowableNumbers = "012345679.";
     wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);

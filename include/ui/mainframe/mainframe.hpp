@@ -37,6 +37,7 @@ class MainFrame : public wxFrame{
         wxStaticText *totalReserveText;
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;
+        wxStaticText * totalCapitalText;
         wxPanel* chartPanelHolderPanel;
         wxStaticText * quoteOfTheDate;
         wxPanel* quoteOftheDatePanel;

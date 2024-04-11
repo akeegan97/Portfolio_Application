@@ -39,7 +39,7 @@ int RugenBerg::OnExit()
     jsonFilePath = resourcePath + "/data/Fresh.json";
     #endif
     #ifdef __WXMSW__
-    jsonFilePath = "../resources/data/DISTRIBUTIONOUTPUT.json";
+    jsonFilePath = "../resources/data/CRECPKAWABASE.json";
     #endif
     portfolio.SavePortfolioToFile(portfolio, jsonFilePath);
     return wxApp::OnExit();

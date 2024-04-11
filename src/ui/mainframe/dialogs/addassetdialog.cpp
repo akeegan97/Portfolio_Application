@@ -26,7 +26,7 @@ void AddAssetDialog::SetupLayout(){
     wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxString allowableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    wxString allowableChars = "0123456789.,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     wxString allowableNumbers = "1234567890.";
     wxTextValidator characterValidator(wxFILTER_INCLUDE_CHAR_LIST);
     wxTextValidator numberValidator(wxFILTER_INCLUDE_CHAR_LIST);
