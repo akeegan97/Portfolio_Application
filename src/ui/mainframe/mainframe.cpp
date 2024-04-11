@@ -162,7 +162,9 @@ void MainFrame::setupLayout(){
    totalInvestorCountText->SetFont(font);
    totalInvestorCountText->SetForegroundColour(fgColor);
    totalCapitalText->SetFont(font);
-   totalCapitalText->SetForegroundColour(fgcolor);
+   totalCapitalText->SetForegroundColour(fgColor);
+   totalReserveText->SetFont(font);
+   totalReserveText->SetForegroundColour(fgColor);
    totalInvestedText->SetFont(font);
    totalInvestedText->SetForegroundColour(fgColor);
    totalValuationText->SetFont(font);
