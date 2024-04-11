@@ -11,6 +11,13 @@ ExecuteDistribution::ExecuteDistribution(wxWindow *parentWindow, std::shared_ptr
         utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
         utilities::SetFontForWindowAndChildren(this, font);
         #endif
+        #ifdef __WXMAC__
+        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        wxColour color = wxColor(255,255,255);
+        wxColour foregroundcolor = wxColor(0,0,0);
+        utilities::SetBackgroundColorForWindowAndChildren(this, color, foregroundcolor);
+        utilities::SetFontForWindowAndChildren(this, font);
+        #endif
     }
 
 void ExecuteDistribution::SetupLayout(){
@@ -88,37 +95,41 @@ void ExecuteDistribution::SetupLayout(){
     bottomSizer->Add(cancelButton,1,wxALL|wxEXPAND,5);
     mainSizer->Add(bottomSizer,1,wxALL|wxEXPAND,5);
     this->SetSizer(mainSizer);
-    this->Layout();
     #ifdef __WXMAC__
-        wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
-        wxColour bgColor = wxColor(255,255,255);
-        wxColour fgColor = wxColor(0,0,0);
-        getAmountText->SetFont(font);
-        getAmountText->SetForegroundColour(fgColor);
-        amountOfDistributionText->SetFont(font);
-        amountOfDistributionText->SetForegroundColour(fgColor);
-        amountToReserveText->SetFont(font);
-        amountToReserveText->SetForegroundColour(fgColor);
-        amountToDistributeTextCtrl->SetFont(font);
-        amountToDistributeTextCtrl->SetForegroundColour(fgColor);
-        amountToReserveTextCtrl->SetFont(font);
-        amountToReserveTextCtrl->SetForegroundColour(fgColor);
-        noteText->SetFont(font);
-        noteText->SetForegroundColour(fgColor);
-        noteTextCrtl->SetFont(font);
-        noteTextCrtl->SetForegroundColour(fgColor);
-        confirmButton->SetFont(font);
-        confirmButton->SetForegroundColour(fgColor);
-        cancelButton->SetFont(font);
-        cancelButton->SetForegroundColour(fgColor);
-        getAmount->SetFont(font);
-        getAmount->SetForegroundColour(fgColor);
-        datePicker->SetFont(font);
-        datePicker->SetForegroundColour(fgColor);
-        datePickerText->SetFont(font);
-        datePickerText->SetForegroundColour(fgColor);
-        this->SetBackgroundColour(bgColor);
+        // wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
+        // wxColour bgColor = wxColor(255,255,255);
+        // wxColour fgColor = wxColor(0,0,0);
+        // this->SetBackgroundColour(bgColor);
+        // getAmountText->SetFont(font);
+        // getAmountText->SetForegroundColour(fgColor);
+        // amountToDistributeText->SetFont(font);
+        // amountToDistributeText->SetForegroundColour(fgColor);
+        // amountToReserveText->SetFont(font);
+        // amountToReserveText->SetForegroundColour(fgColor);
+        // amountToDistributeTextCtrl->SetFont(font);
+        // amountToDistributeTextCtrl->SetForegroundColour(fgColor);
+        // amountToReserveTextCtrl->SetFont(font);
+        // amountToReserveTextCtrl->SetForegroundColour(fgColor);
+        // noteText->SetFont(font);
+        // noteText->SetForegroundColour(fgColor);
+        // noteTextCrtl->SetFont(font);
+        // noteTextCrtl->SetForegroundColour(fgColor);
+        // confirmButton->SetFont(font);
+        // confirmButton->SetBackgroundColour(bgColor);
+        // confirmButton->SetForegroundColour(fgColor);
+        // cancelButton->SetFont(font);
+        // cancelButton->SetForegroundColour(fgColor);
+        // cancelButton->SetBackgroundColour(bgColor);
+        // getAmount->SetFont(font);
+        // getAmount->SetForegroundColour(fgColor);
+        // getAmount->SetBackgroundColour(bgColor);
+        // datePicker->SetFont(font);
+        // datePicker->SetBackgroundColour(bgColor);
+        // datePicker->SetForegroundColour(fgColor);
+        // datePickerText->SetFont(font);
+        // datePickerText->SetForegroundColour(fgColor);
     #endif
+    this->Layout();
 }
 
 double ExecuteDistribution::GetAmountOfDistribution(wxDateTime &date){
@@ -143,7 +154,6 @@ void ExecuteDistribution::OnGetAmount(wxCommandEvent &e){
     wxDateTime date = GetDate();
     double amount = GetAmountOfDistribution(date);
     UpdateAmountText(amount);
-    this->Update();
     this->Layout();
 }
 

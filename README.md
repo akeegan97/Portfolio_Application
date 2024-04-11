@@ -19,7 +19,7 @@ These features collective
 
 Before you begin, ensure you have met the following requirements:
 
-- Operating System: Windows 11 / MacOS Sonoma 14.3.1 (specify versions).
+- Operating System: Windows 11 / MacOS Sonoma 14.4.1.
 - A C++17 compatible compiler. This project uses GCC via Mingw on Windows for static builds.
 - CMake version 3.10 or higher for building the project.
 - wxWidgets 3.2, as wxFreeChart is not compatible with wxWidgets 3.3.
@@ -41,6 +41,8 @@ Before you begin, ensure you have met the following requirements:
 2. **Clone wxWidgets 3.2**: Navigate to `YourProjectDirectory/staticlibs` and clone the wxWidgets 3.2 repository. Configure and build wxWidgets for a static build, but do not install it globally.
 3. **Clone and Build wxFreeChart**: Similarly, clone wxFreeChart into `YourProjectDirectory/staticlibs`. Ensure wxFreeChart is configured for a static build. During the build phase, provide the `wx-config` script from the wxWidgets build to wxFreeChart.
 4. For your project, reference the `staticlibs/(wxWidgets),(wxFreeChart)` directories for includes and libraries in your build configuration.
+
+### Linux Ubuntu Specific
 
 ## Building the Project
 
@@ -240,5 +242,5 @@ add_custom_command(TARGET Portfolio POST_BUILD
     COMMENT "Copying the app icon to the app bundle"
 )
 ```
-
+##Linux Ubuntu CMake...
 
