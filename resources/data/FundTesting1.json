@@ -1,0 +1,2113 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 1000000.0,
+            "Asset Deployed Capital": 882600.17,
+            "Asset Exit Date": "2024-12-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 777929.76,
+                    "Date": "2023-05-16"
+                },
+                {
+                    "Amount": 18633.54,
+                    "Date": "2023-07-03"
+                },
+                {
+                    "Amount": 68431.55,
+                    "Date": "2023-07-25"
+                },
+                {
+                    "Amount": -54774.13,
+                    "Date": "2023-09-01"
+                },
+                {
+                    "Amount": 24479.98,
+                    "Date": "2023-09-20"
+                },
+                {
+                    "Amount": 25881.96,
+                    "Date": "2023-11-01"
+                },
+                {
+                    "Amount": 22017.51,
+                    "Date": "2023-12-01"
+                }
+            ],
+            "Asset Name": "Collins Park",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 117399.82999999997,
+            "Asset Sponser": "KAWA",
+            "Current Value": 892937.56,
+            "Distributions": [
+                {
+                    "Distribution Amount": 3922.17,
+                    "Distribution Date": "2023-06-16",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 7455.21,
+                    "Distribution Date": "2023-07-17",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 7937.41,
+                    "Distribution Date": "2023-08-07",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 8487.51,
+                    "Distribution Date": "2023-09-08",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 7611.08,
+                    "Distribution Date": "2023-10-03",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 8524.84,
+                    "Distribution Date": "2023-11-09",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 8161.22,
+                    "Distribution Date": "2023-12-07",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-05-16",
+                    "Transaction Name": "Hector Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2023-05-16",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-05-16",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 777929.76,
+                    "Transaction Date": "2023-05-16",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "Hector Ovalle",
+                    "Transaction Note": "half sale of both H.O and JJR positions to German",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "half sale of both H.O and JJR positions to German",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "German Hernandez",
+                    "Transaction Note": "half sale of both H.O and JJR positions to German",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 18633.54,
+                    "Transaction Date": "2023-07-03",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 68431.55,
+                    "Transaction Date": "2023-07-25",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 54774.13,
+                    "Transaction Date": "2023-09-01",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 24479.98,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 25881.96,
+                    "Transaction Date": "2023-11-01",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 22017.51,
+                    "Transaction Date": "2023-12-01",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 3922.17,
+                    "Transaction Date": "2023-06-16",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 7455.21,
+                    "Transaction Date": "2023-07-17",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 7937.41,
+                    "Transaction Date": "2023-08-07",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 8487.51,
+                    "Transaction Date": "2023-09-08",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 7611.08,
+                    "Transaction Date": "2023-10-03",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 8524.84,
+                    "Transaction Date": "2023-11-09",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 8161.22,
+                    "Transaction Date": "2023-12-07",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 785882.05,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 843339.03,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 892937.56,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "Collins Park",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 785882.05,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 843339.03,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 892937.56,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        },
+        {
+            "Asset Committed Capital": 1028586.0,
+            "Asset Deployed Capital": 1028586.0,
+            "Asset Exit Date": "2027-08-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2022-09-30"
+                },
+                {
+                    "Amount": 778586.0,
+                    "Date": "2023-03-03"
+                }
+            ],
+            "Asset Name": "CRE Lending Fund ",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "Kawa",
+            "Current Value": 1049034.0,
+            "Distributions": [
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-06-06",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-09-13",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15000.0,
+                    "Distribution Date": "2023-12-12",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Initializing asset with fund money",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "Initializing asset with fund money",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2022-12-08",
+                    "Transaction Name": "Maria Eugenia Soto Kudwin",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 450000.0,
+                    "Transaction Date": "2023-02-28",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 278586.0,
+                    "Transaction Date": "2023-03-03",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "More fund money to cover call",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 778586.0,
+                    "Transaction Date": "2023-03-03",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 25000.0,
+                    "Transaction Date": "2023-03-06",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Guillermo Ovalle entering asset",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 25000.0,
+                    "Transaction Date": "2023-03-06",
+                    "Transaction Name": "Guillermo Ovalle",
+                    "Transaction Note": "Guillermo Ovalle entering asset",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 146414.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Ricardo Said entering asset backing out some fund money",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 253586.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Ricardo Said entering asset backing out some fund money",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 400000.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Ricardo Said",
+                    "Transaction Note": "Ricardo Said entering asset backing out some fund money",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 42000.0,
+                    "Transaction Date": "2023-11-13",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "second position open for MESK backing out fund money",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 42000.0,
+                    "Transaction Date": "2023-11-13",
+                    "Transaction Name": "Maria Eugenia Soto Kudwin",
+                    "Transaction Note": "second position open for MESK backing out fund money",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 256029.12,
+                    "Transaction Date": "2022-12-31",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 1017526.77,
+                    "Transaction Date": "2023-03-31",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 1020349.95,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 1031840.2,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 1049034.0,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 15000.0,
+                    "Transaction Date": "2023-06-06",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15000.0,
+                    "Transaction Date": "2023-09-13",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15000.0,
+                    "Transaction Date": "2023-12-12",
+                    "Transaction Name": "CRE Lending Fund ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 250000.0,
+                    "Valuation Date": "2022-09-30"
+                },
+                {
+                    "Valuation Amount": 256029.12,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 1017526.77,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 1020349.95,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 1031840.2,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 1049034.0,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        },
+        {
+            "Asset Committed Capital": 1900000.0,
+            "Asset Deployed Capital": 1683875.0,
+            "Asset Exit Date": "2031-12-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 1558000.0,
+                    "Date": "2023-07-12"
+                },
+                {
+                    "Amount": 125875.0,
+                    "Date": "2023-12-21"
+                }
+            ],
+            "Asset Name": "Raleigh",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 216125.0,
+            "Asset Sponser": "BH3",
+            "Current Value": 1683875.0,
+            "Distributions": [
+                {
+                    "Distribution Amount": 90250.0,
+                    "Distribution Date": "2023-12-01",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Hector Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "German Hernandez",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 205000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Carlos Bulido",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 1558000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-20",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Alberto Tanus swap for fund money",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-20",
+                    "Transaction Name": "Alberto Tanus",
+                    "Transaction Note": "Alberto Tanus swap for fund money",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 125875.0,
+                    "Transaction Date": "2023-12-21",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 90250.0,
+                    "Transaction Date": "2023-12-01",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                }
+            ],
+            "Valuations": []
+        },
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 450000.0,
+            "Asset Exit Date": "2031-12-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 350000.0,
+                    "Date": "2022-12-20"
+                },
+                {
+                    "Amount": 50000.0,
+                    "Date": "2023-05-05"
+                },
+                {
+                    "Amount": 50000.0,
+                    "Date": "2024-02-16"
+                }
+            ],
+            "Asset Name": "Island Garden",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 50000.0,
+            "Asset Sponser": "BH3",
+            "Current Value": 450000.0,
+            "Distributions": [],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2022-12-20",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2022-12-20",
+                    "Transaction Name": "Island Garden",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 350000.0,
+                    "Transaction Date": "2022-12-20",
+                    "Transaction Name": "Island Garden",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-01",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-01",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-03-06",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-03-06",
+                    "Transaction Name": "Guillermo Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Ricardo Said",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2023-05-04",
+                    "Transaction Name": "Alfredo Said",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-05-26",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-05-26",
+                    "Transaction Name": "Guillermo Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-05-26",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-05-26",
+                    "Transaction Name": "Hector Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-05-05",
+                    "Transaction Name": "Island Garden",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2024-02-16",
+                    "Transaction Name": "Island Garden",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                }
+            ],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Hector Ovalle",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Hector Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 367.4000919917864,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.7146078028748,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 457.55773454825464,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 458.3847982546201,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 463.47796267967146,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 2156.5351952772075,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-16",
+                            388964.88
+                        ],
+                        [
+                            "2023-07-01",
+                            -194482.44
+                        ],
+                        [
+                            "2023-07-03",
+                            4658.385
+                        ],
+                        [
+                            "2023-07-25",
+                            17107.8875
+                        ],
+                        [
+                            "2023-09-01",
+                            13693.5325
+                        ],
+                        [
+                            "2023-09-20",
+                            6119.995
+                        ],
+                        [
+                            "2023-11-01",
+                            6470.49
+                        ],
+                        [
+                            "2023-12-01",
+                            5504.3775
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-01",
+                            250000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Hector Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 340.9650924024641,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 391.0100102669405,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.4584188911704,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 414.0079568788501,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1555.441478439425,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            205000.0
+                        ],
+                        [
+                            "2023-12-21",
+                            16562.5
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-05-26",
+                    "InvestorName": "Hector Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 31.724845995893226,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.4394250513347,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 84.08624229979466,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 345.37987679671454,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-05",
+                            5000.0
+                        ],
+                        [
+                            "2023-05-26",
+                            35000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            5000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 50000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Juan Jose Risoul",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-05-16",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 367.4000919917864,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.7146078028748,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 457.55773454825464,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 458.3847982546201,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 463.47796267967146,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 2156.5351952772075,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-16",
+                            388964.88
+                        ],
+                        [
+                            "2023-07-01",
+                            -194482.44
+                        ],
+                        [
+                            "2023-07-03",
+                            4658.385
+                        ],
+                        [
+                            "2023-07-25",
+                            17107.8875
+                        ],
+                        [
+                            "2023-09-01",
+                            13693.5325
+                        ],
+                        [
+                            "2023-09-20",
+                            6119.995
+                        ],
+                        [
+                            "2023-11-01",
+                            6470.49
+                        ],
+                        [
+                            "2023-12-01",
+                            5504.3775
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-01",
+                            250000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2023-02-28",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 267.9671457905544,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 840.8624229979466,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 850.1026694045174,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 850.1026694045174,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 831.6221765913757,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 840.8624229979466,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 4481.519507186858,
+                    "Movements Deploy": [
+                        [
+                            "2023-02-28",
+                            150000.0
+                        ],
+                        [
+                            "2023-03-03",
+                            300000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 450000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-06",
+                            0.0
+                        ],
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-11-13",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 340.9650924024641,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 391.0100102669405,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.4584188911704,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 414.0079568788501,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1555.441478439425,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            205000.0
+                        ],
+                        [
+                            "2023-12-21",
+                            16562.5
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-03-01",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 21.560574948665298,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 71.25256673511294,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.4394250513347,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 84.08624229979466,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 406.46817248459956,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-01",
+                            35000.0
+                        ],
+                        [
+                            "2023-05-05",
+                            5000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            5000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 50000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-06",
+                            0.0
+                        ],
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-05-26",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "German Hernandez",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Collins Park",
+                    "Date Invested": "2023-07-01",
+                    "InvestorName": "German Hernandez",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 819.4292156057496,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 915.1154690965093,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 916.7695965092402,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 926.9559253593429,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 3578.270206570842,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-01",
+                            388964.88
+                        ],
+                        [
+                            "2023-07-03",
+                            9316.77
+                        ],
+                        [
+                            "2023-07-25",
+                            34215.775
+                        ],
+                        [
+                            "2023-09-01",
+                            27387.065
+                        ],
+                        [
+                            "2023-09-20",
+                            12239.99
+                        ],
+                        [
+                            "2023-11-01",
+                            12940.98
+                        ],
+                        [
+                            "2023-12-01",
+                            11008.755
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "German Hernandez",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 681.9301848049282,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 782.020020533881,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 818.9168377823408,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 828.0159137577002,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 3110.88295687885,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            410000.0
+                        ],
+                        [
+                            "2023-12-21",
+                            33125.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Maria Eugenia Soto Kudwin",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2022-12-08",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 20.533880903490758,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 79.39767282683093,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 93.42915811088297,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.45585215605749,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.45585215605749,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 92.40246406570841,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 93.42915811088297,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 568.1040383299111,
+                    "Movements Deploy": [
+                        [
+                            "2022-12-08",
+                            41666.666666666664
+                        ],
+                        [
+                            "2023-02-28",
+                            -24999.999999999996
+                        ],
+                        [
+                            "2023-03-03",
+                            33333.333333333336
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 50000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-06",
+                            0.0
+                        ],
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-11-13",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2023-11-13",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 42.25872689938398,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 77.61806981519507,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.48049281314168,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 198.35728952772075,
+                    "Movements Deploy": [
+                        [
+                            "2023-11-13",
+                            42000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 42000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Guillermo Ovalle",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2023-03-06",
+                    "InvestorName": "Guillermo Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 12.833675564681725,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 46.71457905544148,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 47.227926078028744,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 47.227926078028744,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 46.20123203285421,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 46.71457905544148,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 246.9199178644764,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-06",
+                            25000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 25000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-11-13",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-03-06",
+                    "InvestorName": "Guillermo Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 35.93429158110883,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 142.50513347022587,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 151.12936344969197,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 151.12936344969197,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 156.8788501026694,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 168.17248459958932,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 805.7494866529773,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-06",
+                            70000.0
+                        ],
+                        [
+                            "2023-05-05",
+                            10000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            10000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-05-26",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-05-26",
+                    "InvestorName": "Guillermo Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 31.724845995893226,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 75.56468172484598,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.4394250513347,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 84.08624229979466,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 345.37987679671454,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-05",
+                            5000.0
+                        ],
+                        [
+                            "2023-05-26",
+                            35000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            5000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 50000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-05-26",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Ricardo Said",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2023-05-04",
+                    "InvestorName": "Ricardo Said",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-04",
+                            400000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 400000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-11-13",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-05-04",
+                    "InvestorName": "Ricardo Said",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-04",
+                            70000.0
+                        ],
+                        [
+                            "2023-05-05",
+                            10000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            10000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-05-04",
+                            0.0
+                        ],
+                        [
+                            "2023-05-26",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.15,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Mario Beltran",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Alberto Tanus",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-20",
+                    "InvestorName": "Alberto Tanus",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 854.264887063655,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 1087.0078285420946,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 1138.2944045174538,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 1150.9421201232033,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 4230.509240246407,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-20",
+                            569900.0
+                        ],
+                        [
+                            "2023-12-21",
+                            46043.75
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 695000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Carlos Bulido",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Carlos Bulido",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 279.59137577002053,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 320.6282084188912,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 335.75590349075975,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 339.4865246406571,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1275.4620123203285,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            168100.0
+                        ],
+                        [
+                            "2023-12-21",
+                            13581.25
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 205000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Alfredo Said",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2023-05-04",
+                    "InvestorName": "Alfredo Said",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-05-04",
+                            70000.0
+                        ],
+                        [
+                            "2023-05-05",
+                            10000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            10000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-05-26",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.15,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Manual Yolanda Uribe",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Luis Ortiz Zequera",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "FB Group - A2",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "InBest Seven",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Maria Del Carmen Macias",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "FB Global Corp",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Susana Castaneda",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2022-09-30",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-09-30",
+                            250000.0
+                        ],
+                        [
+                            "2022-12-08",
+                            -41666.66666666666
+                        ],
+                        [
+                            "2023-02-28",
+                            -125000.00000000001
+                        ],
+                        [
+                            "2023-03-03",
+                            227429.6947459911
+                        ],
+                        [
+                            "2023-05-04",
+                            -146414.0
+                        ],
+                        [
+                            "2023-11-13",
+                            -42000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 188414.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-06",
+                            0.0
+                        ],
+                        [
+                            "2023-05-04",
+                            146414.0
+                        ],
+                        [
+                            "2023-11-13",
+                            42000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "CRE Lending Fund ",
+                    "Date Invested": "2023-03-03",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-03",
+                            278586.0
+                        ],
+                        [
+                            "2023-03-06",
+                            -25000.0
+                        ],
+                        [
+                            "2023-05-04",
+                            -253586.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 278586.0,
+                    "Promote Fees": null,
+                    "ROC": 278586.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-06",
+                            25000.0
+                        ],
+                        [
+                            "2023-05-04",
+                            253586.0
+                        ],
+                        [
+                            "2023-11-13",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            569900.0
+                        ],
+                        [
+                            "2023-07-20",
+                            -569900.0
+                        ],
+                        [
+                            "2023-12-21",
+                            0.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 695000.0,
+                    "Promote Fees": null,
+                    "ROC": 695000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            695000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Island Garden",
+                    "Date Invested": "2022-12-20",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-12-20",
+                            350000.0
+                        ],
+                        [
+                            "2023-03-01",
+                            -35000.0
+                        ],
+                        [
+                            "2023-03-06",
+                            -70000.00000000003
+                        ],
+                        [
+                            "2023-05-04",
+                            -139999.99999999997
+                        ],
+                        [
+                            "2023-05-05",
+                            5000.0
+                        ],
+                        [
+                            "2023-05-26",
+                            -70000.0
+                        ],
+                        [
+                            "2024-02-16",
+                            5000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 450000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-01",
+                            50000.0
+                        ],
+                        [
+                            "2023-03-06",
+                            100000.0
+                        ],
+                        [
+                            "2023-05-04",
+                            200000.0
+                        ],
+                        [
+                            "2023-05-26",
+                            100000.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 250000.0,
+            "Date": "2022-09-30"
+        },
+        {
+            "Amount": 600000.0,
+            "Date": "2022-12-31"
+        },
+        {
+            "Amount": 606029.12,
+            "Date": "2023-03-31"
+        },
+        {
+            "Amount": 2195456.5300000003,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 3764232.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 3959054.23,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 4075846.56,
+            "Date": "2024-03-31"
+        },
+        {
+            "Amount": 4075846.56,
+            "Date": "2024-06-30"
+        }
+    ]
+}
