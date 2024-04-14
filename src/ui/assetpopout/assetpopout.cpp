@@ -304,7 +304,7 @@ void AssetPopout::OnAddDistributionClicked(wxCommandEvent &e){
     }
 }
 
-void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - > ROC option
+void AssetPopout::OnCapitalMovement(wxCommandEvent &e){
     MoveDeploy DeployMovementWindow(this,asset);
     int retValue = DeployMovementWindow.ShowModal();
     if(retValue == wxID_OK){
@@ -322,6 +322,9 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             std::string name = asset->GetAssetName().ToStdString();
             Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
+            for(auto pos : asset->GetPositionsForIDP()){
+                pos->UpdateManagementFees(dateOfMovement);
+            }
         }else if(selectedMovementDirection == "Deploy to Reserve"){
             asset->MoveDeployToReserve(dateOfMovement,amountMoved);
             asset->SetCurrentValue();//could maybe call this from inside the MoveDeployToReserve function
@@ -332,7 +335,9 @@ void AssetPopout::OnCapitalMovement(wxCommandEvent &e){//need to add Reserve - >
             std::string name = asset->GetAssetName().ToStdString();
             Transaction newTransaction(transactionDate,name,amount,type,note);
             asset->AddNewTransaction(newTransaction);
-
+            for(auto pos : asset->GetPositionsForIDP()){
+                pos->UpdateManagementFees(dateOfMovement);
+            }
         }else if(selectedMovementDirection == "Reserve to ROC"){
             asset->MoveReserveToReturnOfCapital(dateOfMovement,amountMoved);
             asset->UpdateCommitted();

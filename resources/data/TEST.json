@@ -1,0 +1,260 @@
+{
+    "Assets": [
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2029-04-14",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-06-15"
+                }
+            ],
+            "Asset Name": "Testing MGMT Fees",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 250000.0,
+            "Asset Sponser": "MGMT FEES",
+            "Current Value": 250000.0,
+            "Distributions": [],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-06-15",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "New Asset Testing MGMT FEES",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-06-15",
+                    "Transaction Name": "Testing MGMT Fees",
+                    "Transaction Note": "New Asset Testing MGMT FEES",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "Andrew Keegan",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                }
+            ],
+            "Valuations": []
+        },
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 500000.0,
+            "Asset Exit Date": "2024-04-14",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-07-15"
+                },
+                {
+                    "Amount": 250000.0,
+                    "Date": "2023-08-01"
+                }
+            ],
+            "Asset Name": "Testing MGMT FEES TWO",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "MGMT FEES ",
+            "Current Value": 500000.0,
+            "Distributions": [],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-07-15",
+                    "Transaction Name": "Andrew Keegan",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2023-07-15",
+                    "Transaction Name": "Testing MGMT FEES TWO",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-15",
+                    "Transaction Name": "Testing MGMT FEES TWO",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-08-01",
+                    "Transaction Name": "Testing MGMT FEES TWO",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                }
+            ],
+            "Valuations": []
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "Testing MGMT Fees",
+                    "Date Invested": "2023-06-15",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-06-15",
+                            250000.0
+                        ],
+                        [
+                            "2023-06-30",
+                            -125000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-06-30",
+                            250000.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        },
+        {
+            "Client Name": "Andrew Keegan",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "Testing MGMT Fees",
+                    "Date Invested": "2023-06-30",
+                    "InvestorName": "Andrew Keegan",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 2.5667351129363447,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 236.1396303901437,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 236.1396303901437,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 231.00616016427102,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 233.5728952772074,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 939.4250513347022,
+                    "Movements Deploy": [
+                        [
+                            "2023-06-30",
+                            125000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                },
+                {
+                    "AssetName": "Testing MGMT FEES TWO",
+                    "Date Invested": "2023-07-15",
+                    "InvestorName": "Andrew Keegan",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 713.5523613963038,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 944.5585215605748,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 924.0246406570841,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 934.2915811088296,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 3516.427104722792,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-15",
+                            250000.0
+                        ],
+                        [
+                            "2023-08-01",
+                            250000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 250000.0,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 750000.0,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 750000.0,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 750000.0,
+            "Date": "2024-03-31"
+        },
+        {
+            "Amount": 750000.0,
+            "Date": "2024-06-30"
+        }
+    ]
+}
