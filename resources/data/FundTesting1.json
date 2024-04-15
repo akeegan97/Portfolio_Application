@@ -737,6 +737,990 @@
                 }
             ],
             "Valuations": []
+        },
+        {
+            "Asset Committed Capital": 408333.32999999996,
+            "Asset Deployed Capital": 199248.89,
+            "Asset Exit Date": "2025-01-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 158333.33,
+                    "Date": "2022-03-15"
+                },
+                {
+                    "Amount": 250000.0,
+                    "Date": "2022-10-18"
+                },
+                {
+                    "Amount": -42967.04,
+                    "Date": "2023-07-25"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-08-23"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-09-20"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-10-23"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-11-20"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-12-27"
+                }
+            ],
+            "Asset Name": "OneBlinc",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 209084.44000000003,
+            "Asset Sponser": "KAWA",
+            "Current Value": 199848.55,
+            "Distributions": [
+                {
+                    "Distribution Amount": 189.12,
+                    "Distribution Date": "2022-03-25",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 3479.81,
+                    "Distribution Date": "2022-06-28",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 3479.81,
+                    "Distribution Date": "2022-10-04",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 3441.99,
+                    "Distribution Date": "2022-12-28",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 3762.5,
+                    "Distribution Date": "2022-12-28",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 2345.09,
+                    "Distribution Date": "2023-03-10",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 3702.78,
+                    "Distribution Date": "2023-03-10",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 11705.56,
+                    "Distribution Date": "2023-06-23",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 6153.01,
+                    "Distribution Date": "2023-08-23",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 2817.22,
+                    "Distribution Date": "2023-09-20",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 2453.63,
+                    "Distribution Date": "2023-10-23",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 2253.62,
+                    "Distribution Date": "2023-11-20",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 1908.21,
+                    "Distribution Date": "2023-12-27",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "Maria Eugenia Soto Kudwin",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Fund money used to cover call",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "Fund money used to cover call",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 125000.0,
+                    "Transaction Date": "2023-01-31",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Backing out fund money for uribe family",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 125000.0,
+                    "Transaction Date": "2023-01-31",
+                    "Transaction Name": "Manual Yolanda Uribe",
+                    "Transaction Note": "Backing out fund money for uribe family",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-22",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-22",
+                    "Transaction Name": "Luis Ortiz Zequera",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 189.12,
+                    "Transaction Date": "2022-03-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-06-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-10-04",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3441.99,
+                    "Transaction Date": "2022-12-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3762.5,
+                    "Transaction Date": "2022-12-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2345.09,
+                    "Transaction Date": "2023-03-10",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3702.78,
+                    "Transaction Date": "2023-03-10",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 11705.56,
+                    "Transaction Date": "2023-06-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 6153.01,
+                    "Transaction Date": "2023-08-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2817.22,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2453.63,
+                    "Transaction Date": "2023-10-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2253.62,
+                    "Transaction Date": "2023-11-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 1908.21,
+                    "Transaction Date": "2023-12-27",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 42967.04,
+                    "Transaction Date": "2023-07-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-08-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-10-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-11-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-12-27",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 158749.4,
+                    "Transaction Date": "2022-03-21",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 162191.4,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 158711.58,
+                    "Transaction Date": "2022-06-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 299737.19,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 199848.55,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 158749.4,
+                    "Valuation Date": "2022-03-21"
+                },
+                {
+                    "Valuation Amount": 158711.58,
+                    "Valuation Date": "2022-06-30"
+                },
+                {
+                    "Valuation Amount": 162191.4,
+                    "Valuation Date": "2022-09-30"
+                },
+                {
+                    "Valuation Amount": 409406.36,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 412137.63,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 409308.78,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 299737.19,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 199848.55,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        },
+        {
+            "Asset Committed Capital": 750000.0,
+            "Asset Deployed Capital": 750000.0,
+            "Asset Exit Date": "2027-04-30",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 500000.0,
+                    "Date": "2022-04-05"
+                },
+                {
+                    "Amount": 250000.0,
+                    "Date": "2022-08-01"
+                }
+            ],
+            "Asset Name": "PHL Airport",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "KAWA",
+            "Current Value": 529381.74,
+            "Distributions": [
+                {
+                    "Distribution Amount": 6371.4,
+                    "Distribution Date": "2022-06-29",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 17187.42,
+                    "Distribution Date": "2022-09-19",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15164.13,
+                    "Distribution Date": "2022-12-15",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15281.79,
+                    "Distribution Date": "2023-03-10",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15482.45,
+                    "Distribution Date": "2023-06-14",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15034.54,
+                    "Distribution Date": "2023-09-11",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 15208.84,
+                    "Distribution Date": "2023-12-18",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 116098.68,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 116098.68,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 133901.32,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "FB Group - A2",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 133901.32,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "InBest Seven",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2022-06-22",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "backing out fund money for Uribe",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2022-06-22",
+                    "Transaction Name": "Manual Yolanda Uribe",
+                    "Transaction Note": "backing out fund money for Uribe",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-08-01",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "Fund money used to cover call",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-08-01",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "Fund money used to cover call",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 100000.0,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "Maria Del Carmen Macias",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 41666.67,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 41666.67,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "Maria Eugenia Soto Kudwin",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 108333.33,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 108333.33,
+                    "Transaction Date": "2022-08-03",
+                    "Transaction Name": "FB Global Corp",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 166667.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "InBest Seven",
+                    "Transaction Note": "backing out of inbest seven position bought by fund",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 166667.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "backing out of inbest seven position bought by fund",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 83333.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "InBest Seven",
+                    "Transaction Note": "closing of inbest seven position remainder bought by FB",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 83333.0,
+                    "Transaction Date": "2023-07-01",
+                    "Transaction Name": "FB Global Corp",
+                    "Transaction Note": "closing of inbest seven position remainder bought by FB",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 6371.4,
+                    "Transaction Date": "2022-06-29",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 17187.42,
+                    "Transaction Date": "2022-09-19",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15164.13,
+                    "Transaction Date": "2022-12-15",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15281.79,
+                    "Transaction Date": "2023-03-10",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15482.45,
+                    "Transaction Date": "2023-06-14",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15034.54,
+                    "Transaction Date": "2023-09-11",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 15208.84,
+                    "Transaction Date": "2023-12-18",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 499164.39,
+                    "Transaction Date": "2022-06-30",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 752373.07,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 751948.51,
+                    "Transaction Date": "2022-12-31",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 751072.5,
+                    "Transaction Date": "2023-03-31",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 750140.42,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 749799.46,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 529381.74,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "PHL Airport",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 499164.39,
+                    "Valuation Date": "2022-06-30"
+                },
+                {
+                    "Valuation Amount": 752373.07,
+                    "Valuation Date": "2022-09-30"
+                },
+                {
+                    "Valuation Amount": 751948.51,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 751072.5,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 750140.42,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 749799.46,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 529381.74,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        },
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 500000.0,
+            "Asset Exit Date": "2032-02-29",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 500000.0,
+                    "Date": "2022-03-03"
+                }
+            ],
+            "Asset Name": "200 West Jackson",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "KAWA",
+            "Current Value": 502951.39,
+            "Distributions": [
+                {
+                    "Distribution Amount": 354.17,
+                    "Distribution Date": "2022-04-08",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2022-06-16",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2022-09-12",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10743.06,
+                    "Distribution Date": "2022-12-09",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10625.0,
+                    "Distribution Date": "2023-03-08",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2023-06-07",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2023-09-11",
+                    "Distribution Paid": false
+                },
+                {
+                    "Distribution Amount": 10743.06,
+                    "Distribution Date": "2023-12-07",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2022-03-03",
+                    "Transaction Name": "FB Group - A2",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2022-03-03",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 354.17,
+                    "Transaction Date": "2022-04-08",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-06-16",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-09-12",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2022-12-09",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10625.0,
+                    "Transaction Date": "2023-03-08",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-06-07",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-09-11",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2023-12-07",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 503305.56,
+                    "Transaction Date": "2022-03-31",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2022-06-30",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2022-12-31",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2023-03-31",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "200 West Jackson",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 503305.56,
+                    "Valuation Date": "2022-03-31"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2022-06-30"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2022-09-30"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        },
+        {
+            "Asset Committed Capital": 250000.0,
+            "Asset Deployed Capital": 250000.0,
+            "Asset Exit Date": "2027-03-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 250000.0,
+                    "Date": "2022-04-05"
+                }
+            ],
+            "Asset Name": "Multifamily TX SE",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "Leste",
+            "Current Value": 250000.0,
+            "Distributions": [],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Multifamily TX SE",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 200000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 200000.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Maria Eugenia Soto Kudwin",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 49991.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 49991.0,
+                    "Transaction Date": "2022-04-05",
+                    "Transaction Name": "Susana Castaneda",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                }
+            ],
+            "Valuations": []
         }
     ],
     "Investors": [
@@ -1425,6 +2409,245 @@
                     "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
+                },
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2022-03-15",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 55.27036160164271,
+                            "Management Fee Date": "2022-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 295.85899445585216,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 299.11019219712523,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 299.11019219712523,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 289.35659897330595,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 295.85899445585216,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 335.6000386362356,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 410.2074828239874,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 442.43572605774966,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 447.35167856950244,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 3170.160259968379,
+                    "Movements Deploy": [
+                        [
+                            "2022-03-15",
+                            158333.33
+                        ],
+                        [
+                            "2023-07-25",
+                            16660.688764846112
+                        ],
+                        [
+                            "2023-08-23",
+                            12882.573711502806
+                        ],
+                        [
+                            "2023-09-20",
+                            12882.573711502806
+                        ],
+                        [
+                            "2023-10-23",
+                            12882.573711502806
+                        ],
+                        [
+                            "2023-11-20",
+                            12882.573711502806
+                        ],
+                        [
+                            "2023-12-27",
+                            12882.573711502806
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 158333.33,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-01-31",
+                            0.0
+                        ],
+                        [
+                            "2023-03-22",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-08-03",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 50.47912792607803,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.71321642710471,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 76.14648110882956,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 77.85763798767967,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.71321642710471,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 78.71321642710471,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 77.00205954825462,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 77.85763798767967,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 595.4825938398358,
+                    "Movements Deploy": [
+                        [
+                            "2022-08-03",
+                            41666.67
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 41666.67,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Multifamily TX SE",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "Maria Eugenia Soto Kudwin",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 357.2895277207392,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 377.82340862422996,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 377.82340862422996,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 365.5030800821355,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 373.71663244353186,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 377.82340862422996,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 377.82340862422996,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 369.60985626283366,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 373.71663244353186,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 3351.129363449692,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            200000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 200000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2022-04-05",
+                            0.0
+                        ]
+                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -1841,49 +3064,722 @@
         {
             "Client Name": "Manual Yolanda Uribe",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2023-01-31",
+                    "InvestorName": "Manual Yolanda Uribe",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 151.43737166324436,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 233.5728952772074,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 264.94740450118405,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 323.84801957363266,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 349.2913700306735,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 353.17238525323654,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1676.2694462991785,
+                    "Movements Deploy": [
+                        [
+                            "2023-01-31",
+                            125000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            13153.175617576946
+                        ],
+                        [
+                            "2023-08-23",
+                            10170.453144248599
+                        ],
+                        [
+                            "2023-09-20",
+                            10170.453144248599
+                        ],
+                        [
+                            "2023-10-23",
+                            10170.453144248599
+                        ],
+                        [
+                            "2023-11-20",
+                            10170.453144248599
+                        ],
+                        [
+                            "2023-12-27",
+                            10170.453144248599
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 125000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-22",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-06-22",
+                    "InvestorName": "Manual Yolanda Uribe",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 18.480492813141684,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 182.75154004106776,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 186.85831622176593,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 184.80492813141683,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 186.85831622176593,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1515.400410677618,
+                    "Movements Deploy": [
+                        [
+                            "2022-06-22",
+                            100000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "Luis Ortiz Zequera",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2023-03-22",
+                    "InvestorName": "Luis Ortiz Zequera",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 10.266940451745379,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 93.42915811088297,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 105.97896180047361,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 129.53920782945303,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 139.71654801226936,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 141.26895410129458,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 620.1997703061189,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-22",
+                            50000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            5261.270247030778
+                        ],
+                        [
+                            "2023-08-23",
+                            4068.1812576994394
+                        ],
+                        [
+                            "2023-09-20",
+                            4068.1812576994394
+                        ],
+                        [
+                            "2023-10-23",
+                            4068.1812576994394
+                        ],
+                        [
+                            "2023-11-20",
+                            4068.1812576994394
+                        ],
+                        [
+                            "2023-12-27",
+                            4068.1812576994394
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 50000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "FB Group - A2",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "FB Group - A2",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 239.20769691991788,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 252.95526570841886,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 252.95526570841886,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 244.70672443531828,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 250.2057519507187,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 252.95526570841886,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 252.95526570841886,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 247.45623819301846,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 250.2057519507187,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 2243.6032262833673,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            133901.32
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 133901.32,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2022-06-22",
+                            0.0
+                        ],
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "200 West Jackson",
+                    "Date Invested": "2022-03-03",
+                    "InvestorName": "FB Group - A2",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 287.4743326488706,
+                            "Management Fee Date": "2022-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 934.2915811088296,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 944.5585215605748,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 944.5585215605748,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 913.7577002053388,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 934.2915811088296,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 944.5585215605748,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 944.5585215605748,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 924.0246406570841,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 934.2915811088296,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 8706.365503080082,
+                    "Movements Deploy": [
+                        [
+                            "2022-03-03",
+                            500000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 500000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "InBest Seven",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "InBest Seven",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 446.611909650924,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 472.2792607802874,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 472.2792607802874,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 456.8788501026694,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 467.1457905544148,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 2315.195071868583,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            250000.0
+                        ],
+                        [
+                            "2023-07-01",
+                            -250000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        [
+                            "2022-06-22",
+                            0.0
+                        ],
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            250000.0
+                        ]
+                    ]
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "Maria Del Carmen Macias",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-08-03",
+                    "InvestorName": "Maria Del Carmen Macias",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 121.14989733059548,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 182.75154004106776,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 186.85831622176593,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 188.91170431211498,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 184.80492813141683,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 186.85831622176593,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1429.1581108829569,
+                    "Movements Deploy": [
+                        [
+                            "2022-08-03",
+                            100000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 100000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "FB Global Corp",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-08-03",
+                    "InvestorName": "FB Global Corp",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 131.24571806981518,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 204.65434004106774,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 197.98082895277204,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 202.4298363449692,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 204.65434004106774,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 204.65434004106774,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 200.2053326488706,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 202.4298363449692,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1548.2545724845995,
+                    "Movements Deploy": [
+                        [
+                            "2022-08-03",
+                            108333.33
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 108333.33,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2023-07-01",
+                    "InvestorName": "FB Global Corp",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 157.42579055441476,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 157.42579055441476,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 154.00349075975356,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 155.71464065708417,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 624.5697125256672,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-01",
+                            83333.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 83333.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
         {
             "Client Name": "Susana Castaneda",
             "Management Fee Percentage": 0.0075,
-            "Positions": [],
+            "Positions": [
+                {
+                    "AssetName": "Multifamily TX SE",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "Susana Castaneda",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 89.30630390143737,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.43885010266939,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.43885010266939,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 91.35932238193018,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 93.41234086242301,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.43885010266939,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 94.43885010266939,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 92.38583162217658,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 93.41234086242301,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 837.6315400410678,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            49991.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 49991.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
             "Promote Fee Percentage": 0.2,
             "Type": "Individual"
         },
@@ -2070,6 +3966,181 @@
                             100000.0
                         ]
                     ]
+                },
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2022-10-18",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-10-18",
+                            250000.0
+                        ],
+                        [
+                            "2023-01-31",
+                            -125000.0
+                        ],
+                        [
+                            "2023-03-22",
+                            -50000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            7891.905370546167
+                        ],
+                        [
+                            "2023-08-23",
+                            6102.27188654916
+                        ],
+                        [
+                            "2023-09-20",
+                            6102.27188654916
+                        ],
+                        [
+                            "2023-10-23",
+                            6102.27188654916
+                        ],
+                        [
+                            "2023-11-20",
+                            6102.27188654916
+                        ],
+                        [
+                            "2023-12-27",
+                            6102.27188654916
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 175000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-01-31",
+                            125000.0
+                        ],
+                        [
+                            "2023-03-22",
+                            50000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            116098.68
+                        ],
+                        [
+                            "2022-06-22",
+                            -100000.0
+                        ],
+                        [
+                            "2022-08-01",
+                            16098.679999999993
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 116098.68,
+                    "Promote Fees": null,
+                    "ROC": 100000.0,
+                    "ROC Movements": [
+                        [
+                            "2022-06-22",
+                            100000.0
+                        ],
+                        [
+                            "2022-08-03",
+                            0.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2022-08-01",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-08-01",
+                            250000.0
+                        ],
+                        [
+                            "2022-08-03",
+                            -250000.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 250000.0,
+                    "ROC Movements": [
+                        [
+                            "2022-08-03",
+                            250000.0
+                        ],
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "PHL Airport",
+                    "Date Invested": "2023-07-01",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-01",
+                            166667.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 166667.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-01",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Multifamily TX SE",
+                    "Date Invested": "2022-04-05",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-04-05",
+                            9.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 249991.0,
+                    "ROC Movements": [
+                        [
+                            "2022-04-05",
+                            249991.0
+                        ]
+                    ]
                 }
             ],
             "Promote Fee Percentage": 0.0,
@@ -2078,35 +4149,43 @@
     ],
     "valuationVectorPlotting": [
         {
-            "Amount": 250000.0,
+            "Amount": 658749.4,
+            "Date": "2022-03-31"
+        },
+        {
+            "Amount": 1412054.96,
+            "Date": "2022-06-30"
+        },
+        {
+            "Amount": 1660709.3,
             "Date": "2022-09-30"
         },
         {
-            "Amount": 600000.0,
+            "Amount": 2267397.8,
             "Date": "2022-12-31"
         },
         {
-            "Amount": 606029.12,
+            "Amount": 2520335.38,
             "Date": "2023-03-31"
         },
         {
-            "Amount": 2195456.5300000003,
+            "Amount": 4111618.0500000003,
             "Date": "2023-06-30"
         },
         {
-            "Amount": 3764232.0,
+            "Amount": 5676514.53,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 3959054.23,
+            "Amount": 5761424.21,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 4075846.56,
+            "Amount": 5558028.24,
             "Date": "2024-03-31"
         },
         {
-            "Amount": 4075846.56,
+            "Amount": 5558028.24,
             "Date": "2024-06-30"
         }
     ]
