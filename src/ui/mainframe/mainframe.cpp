@@ -171,14 +171,17 @@ void MainFrame::setupLayout(){
    addAssetButton->SetBackgroundColour(bgColor);
    addAssetButton->SetForegroundColour(fgColor);
    addAssetButton->SetFont(font);
+
    addInvestorButton->SetBackgroundColour(bgColor);
    addInvestorButton->SetForegroundColour(fgColor);
    addInvestorButton->SetFont(font);
-   botRSidePanel->SetFont(font);
-   botRSidePanel->SetForegroundColour(fgColor);
-   openTransactions->SetBackgroundColour(wxColor(300,100,200));
-   openTransactions->SetFont(font);
+
+   openTransactions->SetBackgroundColour(bgColor);
    openTransactions->SetForegroundColour(fgColor);
+   openTransactions->SetFont(font);
+
+   //ORDER MATTERS FOR MACOS STYLING MUST BE BG->FG->FONT
+
    totalInvestedText->SetFont(font);
    totalInvestedText->SetForegroundColour(fgColor);
    totalInvestorCountText->SetFont(font);
