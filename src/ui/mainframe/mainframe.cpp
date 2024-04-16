@@ -146,21 +146,13 @@ void MainFrame::setupLayout(){
       chartPanel->SetChart(valuationChart);
       holderSizer->Add(chartPanel, 1, wxEXPAND); // Add chartPanel to the holder sizer with proportion 1 and expand flag
    }
-   // Add chartPanelHolderPanel to the right side sizer
    rSideSizer->Add(chartPanelHolderPanel, 7, wxEXPAND | wxALL, 10);
 
-   wxPanel* botRSidePanel = new wxPanel(this);
-   //botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
-
-   wxBoxSizer* botRSiderSizer = new wxBoxSizer(wxVERTICAL);
-
-   openTransactions = new wxButton(botRSidePanel, wxID_ANY,"View All Transactions");
+   openTransactions = new wxButton(this, wxID_ANY,"View All Transactions");
    openTransactions->Bind(wxEVT_BUTTON, &MainFrame::OnGetTransactionsClick,this);
-   botRSiderSizer->Add(openTransactions,1,wxALL,5);
-   botRSidePanel->SetSizer(botRSiderSizer);
+   rSideSizer->Add(openTransactions,1,wxALL,5);
    //add the bottom right side panel which houses the static text lines
-   rSideSizer->Add(botRSidePanel, 2, wxEXPAND | wxALL, 10);
-   //add right side sizer to the main sizer
+
    mainSizer->Add(rSideSizer, 5, wxEXPAND | wxALL,10);
    mainSizer->Layout();
    //set mainframe sizer to be the main sizer here
