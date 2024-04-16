@@ -8,6 +8,7 @@
 #include "ui/investorpopout/investorpopout.hpp"
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
+#include "ui/mainframe/dialogs/gettransactionpopout.hpp"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port)
       : wxFrame(NULL, wxID_ANY, title, pos, size),
@@ -59,9 +60,9 @@ void MainFrame::setupLayout(){
    addAssetButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddAsset, this);
 
    lSideSizer->Add(allAssetVListControl, 3, wxEXPAND | wxALL, 10);
-   buttonSizer->Add(addAssetButton,1,10);
-   buttonSizer->Add(addInvestorButton, 1,10);
-   lSideSizer->Add(buttonSizer, 2, wxEXPAND,10);
+   buttonSizer->Add(addAssetButton,1,wxEXPAND | wxALL,10);
+   buttonSizer->Add(addInvestorButton,1,wxEXPAND | wxALL,10);
+   lSideSizer->Add(buttonSizer, 1, wxEXPAND,10);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnAssetVLCClick, this);
    allAssetVListControl->Bind(wxEVT_LIST_ITEM_ACTIVATED, &MainFrame::OnAssetVLCClick, this);
    allInvestorVListControl = new VListControl<std::shared_ptr<Investor>>(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
@@ -72,6 +73,42 @@ void MainFrame::setupLayout(){
    allInvestorVListControl->Bind(wxEVT_LIST_ITEM_RIGHT_CLICK, &MainFrame::OnInvestorVLCClick, this);
 
    lSideSizer->Add(allInvestorVListControl, 3, wxEXPAND | wxALL, 10);
+   wxPanel* botLSidePanel = new wxPanel(this);
+   botLSidePanel->SetBackgroundColour(wxColor(255,255,255));
+   wxBoxSizer *botLSideLSizer = new wxBoxSizer(wxVERTICAL);
+   wxBoxSizer *botLSideRSizer = new wxBoxSizer(wxVERTICAL);
+   wxBoxSizer *bottomSizer = new wxBoxSizer(wxHORIZONTAL);
+
+   totalInvestedText = new wxStaticText(botLSidePanel, wxID_ANY,"Total Amount Deployed: $0.00");
+   totalReserveText = new wxStaticText(botLSidePanel,wxID_ANY,"Total Amount In Reserve: $0.0");
+   totalCapitalText = new wxStaticText(botLSidePanel,wxID_ANY,"Total Capital in Fund: $0.0");
+   totalValuationText = new wxStaticText(botLSidePanel, wxID_ANY, "Total Valuation: $0.00");
+   totalInvestorCountText = new wxStaticText(botLSidePanel, wxID_ANY, "Total Positions in fund: 0");
+
+   botLSideLSizer->Add(totalInvestedText, 1, wxEXPAND|wxALL, 5);
+   botLSideLSizer->Add(totalReserveText, 1, wxEXPAND|wxALL, 5);
+   botLSideLSizer->Add(totalCapitalText, 1, wxEXPAND|wxALL, 5);
+   botLSideLSizer->Add(totalValuationText, 1, wxEXPAND|wxALL, 5);
+   botLSideLSizer->Add(totalInvestorCountText, 1, wxEXPAND|wxALL, 5);
+   bottomSizer->Add(botLSideLSizer,1,wxALL|wxEXPAND,5);
+
+   totalPortfolioIrr = new wxStaticText(botLSidePanel,wxID_ANY,"Total Portfolio IRR: ");
+   totalMgmtFeesDue = new wxStaticText(botLSidePanel,wxID_ANY,"Total MGMT Fees Due: ");
+   totalMgmtFeesEarned = new wxStaticText(botLSidePanel,wxID_ANY,"Total MGMT Fees Earned: ");
+   totalPromoteFeesEarned = new wxStaticText(botLSidePanel,wxID_ANY,"Total Promotes Earned: ");
+   totalFundMoneyInUse = new wxStaticText(botLSidePanel,wxID_ANY,"Total Fund Money In Use: ");
+
+   botLSideRSizer->Add(totalPortfolioIrr, 1, wxEXPAND|wxALL, 5);
+   botLSideRSizer->Add(totalMgmtFeesDue, 1, wxEXPAND|wxALL, 5);
+   botLSideRSizer->Add(totalMgmtFeesEarned, 1, wxEXPAND|wxALL, 5);
+   botLSideRSizer->Add(totalPromoteFeesEarned, 1, wxEXPAND|wxALL, 5);
+   botLSideRSizer->Add(totalFundMoneyInUse, 1, wxEXPAND|wxALL, 5);
+   bottomSizer->Add(botLSideRSizer,1,wxALL|wxEXPAND,5);
+
+   botLSidePanel->SetSizer(bottomSizer);
+
+   lSideSizer->Add(botLSidePanel,2,wxALL|wxEXPAND,5);
+
    mainSizer->Add(lSideSizer, 5, wxEXPAND | wxALL, 10);
    wxBoxSizer* rSideSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -103,34 +140,23 @@ void MainFrame::setupLayout(){
    if (chartPanel->GetChart() != nullptr) {
       delete chartPanel->GetChart();
    }
-
    // Populate and set the new chart
    Chart* valuationChart = PopulateDrawChart(portfolio);
    if (valuationChart != nullptr) {
       chartPanel->SetChart(valuationChart);
       holderSizer->Add(chartPanel, 1, wxEXPAND); // Add chartPanel to the holder sizer with proportion 1 and expand flag
    }
-
    // Add chartPanelHolderPanel to the right side sizer
    rSideSizer->Add(chartPanelHolderPanel, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
    botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
 
-   totalInvestedText = new wxStaticText(botRSidePanel, wxID_ANY,"Total Amount Deployed: $0.00");
-   totalReserveText = new wxStaticText(botRSidePanel,wxID_ANY,"Total Amount In Reserve: $0.0");
-   totalCapitalText = new wxStaticText(botRSidePanel,wxID_ANY,"Total Capital in Fund: $0.0");
-   totalValuationText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Valuation: $0.00");
-   totalInvestorCountText = new wxStaticText(botRSidePanel, wxID_ANY, "Total Positions in fund: 0");
-
    wxBoxSizer* botRSiderSizer = new wxBoxSizer(wxVERTICAL);
-   botRSiderSizer->Add(totalInvestedText, 1, wxEXPAND|wxALL, 5);
-   botRSiderSizer->Add(totalReserveText, 1, wxEXPAND | wxALL, 5);
-   botRSiderSizer->Add(totalCapitalText,1,wxEXPAND|wxALL,5);
-   botRSiderSizer->Add(totalValuationText, 1, wxEXPAND | wxALL, 5);
-   botRSiderSizer->Add(totalInvestorCountText, 1, wxEXPAND| wxALL, 5);
 
-
+   openTransactions = new wxButton(botRSidePanel, wxID_ANY,"View All Transactions");
+   openTransactions->Bind(wxEVT_BUTTON, &MainFrame::OnGetTransactionsClick,this);
+   botRSiderSizer->Add(openTransactions,1,wxALL,5);
    botRSidePanel->SetSizer(botRSiderSizer);
    //add the bottom right side panel which houses the static text lines
    rSideSizer->Add(botRSidePanel, 2, wxEXPAND | wxALL, 10);
@@ -170,6 +196,17 @@ void MainFrame::setupLayout(){
    totalValuationText->SetFont(font);
    totalValuationText->SetForegroundColour(fgColor);
    botRSidePanel->SetForegroundColour(fgColor);
+   totalPortfolioIrr->SetForegroundColour(fgColor);
+   totalPortfolioIrr->SetFont(font);
+   totalMgmtFeesDue->SetForegroundColour(fgColor);
+   totalMgmtFeesDue->SetFont(font);
+   totalMgmtFeesEarned->SetForegroundColour(fgColor);
+   totalMgmtFeesEarned->SetFont(font);
+   totalPromoteFeesEarned->SetForegroundColour(fgColor);
+   totalPromoteFeesEarned->SetFont(font);
+   totalFundMoneyInUse->SetForegroundColour(fgColor);
+   totalFundMoneyInUse->SetFont(font);
+   botLSidePanel->SetForegroundColour(fgColor);
 
    this->SetBackgroundColour(bgColor);
    
@@ -210,6 +247,35 @@ void MainFrame::UpdatePortfolioDisplayValues(){
    totalCapitalText->SetLabel("Total Capital in Fund: "+formattedTotalCapital);
    totalValuationText->SetLabel("Total Valuation of Fund: "+formattedTotalvaluation);
    totalInvestorCountText->SetLabel(wxString::Format("Total Positions in Fund: %.2f", totalPositions));
+
+   double portfolioIrr = portfolio.CalculateFundIrr();
+   std::string formattedIrr = utilities::FormatPercentage(portfolioIrr);
+   totalPortfolioIrr->SetLabel("Total Fund IRR : "+formattedIrr);
+
+   double mgmtFeesDue = 0.0;
+   double mgmtFeesEarned = 0.0;
+   double fundMoney = 0.0;
+   double promotefees = 0.0;
+   for(auto asset: portfolio.assetPtrs){
+      mgmtFeesEarned +=asset->GetTotalMgmtFeesEarned();
+      promotefees+=asset->GetTotalPromoteFeesEarned();
+      for(auto pos: asset->GetPositions()){
+         if(pos->GetInvestorPtr()->GetType() == "Fund"){
+            fundMoney+=pos->GetCommitted();
+         }
+         mgmtFeesDue+= pos->GetManagementFeesDue();
+      }
+   }
+
+   std::string formattedMgmtFeesDue = utilities::formatDollarAmount(mgmtFeesDue);
+   totalMgmtFeesDue->SetLabel("Total MGMT Fees Due: "+formattedMgmtFeesDue);
+   std::string formattedMgmtFeesEarned = utilities::formatDollarAmount(mgmtFeesEarned);
+   totalMgmtFeesEarned->SetLabel("Total MGMT Fees Earned: "+formattedMgmtFeesEarned);
+   std::string formattedFundMoney = utilities::formatDollarAmount(fundMoney);
+   totalFundMoneyInUse->SetLabel("Total Fund Money In Use: "+formattedFundMoney);
+   std::string formattedPromoteFees = utilities::formatDollarAmount(promotefees);
+   totalPromoteFeesEarned->SetLabel("Total Promote Fees : "+formattedPromoteFees);
+ 
    #ifdef __WXMAC__
    
    #endif
@@ -451,7 +517,7 @@ void MainFrame::OnAddAsset(wxCommandEvent &e){
       portfolio.PopulateValuationMaps();
       UpdateChart();
       UpdatePortfolioDisplayValues();
-      if(initializedPosition->GetInvestorPtr()->GetName() != "Fund"){
+      if(initializedPosition->GetInvestorPtr()->GetType() != "Fund"){
          initializedPosition->TriggerUpdateOfManagementFeeVector();
       }
       double amountTransaction;
@@ -500,4 +566,9 @@ void MainFrame::OnAddInvestor(wxCommandEvent &e){
 void MainFrame::OnClose(wxCloseEvent& event) {
     std::cout << "Closing MainFrame..." << std::endl;
     wxExit();
+}
+
+void MainFrame::OnGetTransactionsClick(wxCommandEvent &e){
+   auto* transactionPopout = new GetTransactionPopout(this, "TRANSACTIONS",wxDefaultPosition,wxSize(1075,450),portfolio);
+   transactionPopout->Show(true);
 }

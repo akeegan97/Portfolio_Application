@@ -38,12 +38,18 @@ class MainFrame : public wxFrame{
         wxStaticText * totalInvestorCountText;
         wxStaticText * totalValuationText;
         wxStaticText * totalCapitalText;
+        wxStaticText *totalPortfolioIrr;
+        wxStaticText *totalMgmtFeesDue;
+        wxStaticText *totalMgmtFeesEarned;
+        wxStaticText *totalPromoteFeesEarned;
+        wxStaticText *totalFundMoneyInUse;
         wxPanel* chartPanelHolderPanel;
         wxStaticText * quoteOfTheDate;
         wxPanel* quoteOftheDatePanel;
         std::string originalQuoteText;
         wxButton *addAssetButton;
         wxButton *addInvestorButton;
+        wxButton *openTransactions;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
@@ -58,6 +64,7 @@ class MainFrame : public wxFrame{
         void OnAddAsset(wxCommandEvent &e);
         void OnAddInvestor(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
+        void OnGetTransactionsClick(wxCommandEvent &e);
 };
 
 

@@ -125,6 +125,7 @@ class Asset{
         const std::map<wxDateTime, double> GetMovementsToFromDeploy()const;
         const std::vector<Distribution> GetDistributionsConst()const;
         std::vector<std::pair<Distribution, bool>> GetQuarterDistributions()const;
+        std::vector<CashFlow> GetAssetCashFlow();
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);

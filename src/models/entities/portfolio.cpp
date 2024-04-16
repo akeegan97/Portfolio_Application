@@ -360,3 +360,63 @@ void Portfolio::EnsureFundPositionExists(){
         allInvestorPtrs.push_back(fundPosition);
     }
 }
+
+double Portfolio::CalculateFundIrr(){
+    std::vector<CashFlow> allAssetCashFlows;
+    for(auto asset:assetPtrs){
+        std::vector<CashFlow> tempCashFlow;
+        tempCashFlow = asset->GetAssetCashFlow();
+        std::move(std::begin(tempCashFlow),std::end(tempCashFlow),std::back_inserter(allAssetCashFlows));
+    }
+    std::sort(allAssetCashFlows.begin(),allAssetCashFlows.end(),
+            [](const CashFlow &a, const CashFlow &b){
+                return a.date < b.date;
+            });
+    double m_irr = 0; 
+    double zero = 0.0;
+    double npvAtZero = CalculateNPV(allAssetCashFlows, zero); 
+    double direction = npvAtZero > 0 ? 1.0 : -1.0; 
+
+    int maxIterationsPerGuess = 100; 
+    double precision = 0.000001; 
+    bool foundIRR = false; 
+
+
+    for (double initialGuess = 0.1 * direction; std::fabs(initialGuess) <= 1.0; initialGuess += 0.1 * direction) {
+        double x1 = initialGuess; 
+
+        for (int i = 0; i < maxIterationsPerGuess; ++i) {
+            double npv = CalculateNPV(allAssetCashFlows, x1); 
+            double x1AddPrecision = x1+precision;
+            double npvPrime = (CalculateNPV(allAssetCashFlows, x1AddPrecision) - npv) / precision; 
+
+            if (std::fabs(npvPrime) < 1e-6) {
+                break; 
+            }
+            double xNext = x1 - npv / npvPrime; 
+            if (std::fabs(xNext - x1) <= precision) {
+                m_irr = xNext; 
+                foundIRR = true; 
+                std::cout << "IRR found: " << m_irr << std::endl;
+                break; 
+            }
+            x1 = xNext; 
+        }
+
+        if (foundIRR) {
+            return m_irr;
+            break; 
+        }
+    }
+}
+
+double Portfolio::CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate){
+    double npv = 0.0;
+    wxDateTime firstDate = cashFlows[0].date;
+    for(const auto& cf : cashFlows){
+        wxTimeSpan timeSpan = cf.date - firstDate;
+        double years = timeSpan.GetDays() / 365.25;
+        npv += cf.amount / std::pow(1+rate, years);
+    }
+    return npv;
+}

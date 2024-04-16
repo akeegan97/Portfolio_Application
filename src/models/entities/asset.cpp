@@ -924,3 +924,38 @@ void Asset::WriteCSV()const{
         file.Close();
     }
 }
+
+std::vector<CashFlow> Asset::GetAssetCashFlow(){
+        std::vector<CashFlow> cashFlow;
+    for(const auto& movement: m_movementsToFromDeploy){
+        CashFlow newCashFlow;
+        newCashFlow.amount = -movement.second;
+        newCashFlow.date = movement.first;
+        cashFlow.push_back(newCashFlow);
+    }
+    for(const auto& distr : m_distributions){
+        CashFlow newCashFlow;
+        newCashFlow.amount = distr.distribution.second;
+        newCashFlow.date = distr.distribution.first;
+        cashFlow.push_back(newCashFlow);
+    }
+    if(!m_valuations.empty()){
+        CashFlow newCashFlow;
+        SortValuations2();
+        auto valuation = m_valuations.back();
+        newCashFlow.amount = valuation.valuation;
+        newCashFlow.date = valuation.valuationDate;
+        cashFlow.push_back(newCashFlow);
+    }else{
+        CashFlow newCashFlow;
+        newCashFlow.amount = m_assetDeployedCapital;
+        newCashFlow.date = wxDateTime::Today();
+        cashFlow.push_back(newCashFlow);
+    }
+    std::sort(cashFlow.begin(),cashFlow.end(),
+                [](const CashFlow &a, const CashFlow &b){
+                    return a.date < b.date;
+                });
+
+    return cashFlow;
+}
