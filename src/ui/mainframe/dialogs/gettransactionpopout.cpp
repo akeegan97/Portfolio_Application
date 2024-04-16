@@ -65,6 +65,40 @@ void GetTransactionPopout::SetupLayout(){
     mainSizer->Add(bottomSizer,2,wxALL|wxEXPAND,5);
 
     this->SetSizer(mainSizer);
+    #ifdef __WXMAC__
+        wxFont font = wxFont(14,wxDEFAULT, wxNORMAL,wxFONTWEIGHT_BOLD, false);
+        wxColor bgColor = wxColor(255,255,255);
+        wxColor fgColor = wxColor(0, 0, 0);
+
+        allAssetsTransactionsVLC->SetBackgroundColour(bgColor);
+        allAssetsTransactionsVLC->SetForegroundColour(fgColor);
+        allAssetsTransactionsVLC->SetFont(font);
+
+        startDate->SetBackgroundColour(bgColor);
+        startDate->SetForegroundColour(fgColor);
+        startDate->SetFont(font);
+
+        endDate->SetBackgroundColour(bgColor);
+        endDate->SetForegroundColour(fgColor);
+        endDate->SetFont(font);
+
+        startDateText->SetForegroundColour(fgColor);
+        startDateText->SetFont(font);
+
+        endDateText->SetForegroundColour(fgColor);
+        endDateText->SetFont(font);
+
+        writeToCsv->SetBackgroundColour(bgColor);
+        writeToCsv->SetForegoundColour(fgColor);
+        writeToCsv->SetFont(font);
+
+        refreshVLCButton->SetBackgroundColour(bgColor);
+        refreshVLCButton->SetForegroundColour(fgColor);
+        refreshVLCButton->SetFont(font);
+
+        this->SetBackgroundColour(bgColor);
+
+    #endif
     this->Layout();
 }
 
