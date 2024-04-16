@@ -150,7 +150,7 @@ void MainFrame::setupLayout(){
    rSideSizer->Add(chartPanelHolderPanel, 7, wxEXPAND | wxALL, 10);
 
    wxPanel* botRSidePanel = new wxPanel(this);
-   botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
+   //botRSidePanel->SetBackgroundColour(wxColor(255,255,255));
 
    wxBoxSizer* botRSiderSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -183,6 +183,10 @@ void MainFrame::setupLayout(){
    addInvestorButton->SetForegroundColour(fgColor);
    addInvestorButton->SetFont(font);
    botRSidePanel->SetFont(font);
+   botRSidePanel->SetForegroundColour(fgColor);
+   openTransactions->SetBackgroundColour(wxColor(300,100,200));
+   openTransactions->SetFont(font);
+   openTransactions->SetForegroundColour(fgColor);
    totalInvestedText->SetFont(font);
    totalInvestedText->SetForegroundColour(fgColor);
    totalInvestorCountText->SetFont(font);
@@ -195,7 +199,6 @@ void MainFrame::setupLayout(){
    totalInvestedText->SetForegroundColour(fgColor);
    totalValuationText->SetFont(font);
    totalValuationText->SetForegroundColour(fgColor);
-   botRSidePanel->SetForegroundColour(fgColor);
    totalPortfolioIrr->SetForegroundColour(fgColor);
    totalPortfolioIrr->SetFont(font);
    totalMgmtFeesDue->SetForegroundColour(fgColor);
