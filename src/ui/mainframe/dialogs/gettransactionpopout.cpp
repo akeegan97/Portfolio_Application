@@ -89,7 +89,7 @@ void GetTransactionPopout::SetupLayout(){
         endDateText->SetFont(font);
 
         writeToCsv->SetBackgroundColour(bgColor);
-        writeToCsv->SetForegoundColour(fgColor);
+        writeToCsv->SetForegroundColour(fgColor);
         writeToCsv->SetFont(font);
 
         refreshVLCButton->SetBackgroundColour(bgColor);
