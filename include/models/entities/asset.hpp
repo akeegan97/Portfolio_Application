@@ -126,6 +126,7 @@ class Asset{
         const std::vector<Distribution> GetDistributionsConst()const;
         std::vector<std::pair<Distribution, bool>> GetQuarterDistributions()const;
         std::vector<CashFlow> GetAssetCashFlow();
+        double GetValuationOnDate(wxDateTime &date)const;
     //public setters
         void DeserializeSetAssetName(wxString &assetName);
         void DeserializeSetAssetSponser(wxString &assetSponserName);

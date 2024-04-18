@@ -406,12 +406,17 @@ double Portfolio::CalculateFundIrr(){
         if (foundIRR) {
             return m_irr;
             break; 
+        }else{
+            return 0.0;
         }
     }
 }
 
 double Portfolio::CalculateNPV(std::vector<CashFlow> &cashFlows, double &rate){
     double npv = 0.0;
+    if(cashFlows.empty()){
+        return npv;
+    }
     wxDateTime firstDate = cashFlows[0].date;
     for(const auto& cf : cashFlows){
         wxTimeSpan timeSpan = cf.date - firstDate;

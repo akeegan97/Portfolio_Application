@@ -34,10 +34,12 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
          };
 
 void MainFrame::setupLayout(){
-   for(auto&asset:portfolio.assetPtrs){
-      asset->SetCurrentValue();
-      asset->SetPositionValues();
-      asset->TriggerUpdateDerivedValues();
+   if(!portfolio.assetPtrs.empty()){
+         for(auto&asset:portfolio.assetPtrs){
+         asset->SetCurrentValue();
+         asset->SetPositionValues();
+         asset->TriggerUpdateDerivedValues();
+      }
    }
    if(!portfolio.allInvestorPtrs.empty()){
          portfolio.PopulateValuationMaps();    

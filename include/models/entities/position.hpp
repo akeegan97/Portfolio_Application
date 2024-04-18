@@ -124,6 +124,7 @@ class Position{
         double GetInitialDeployedBefore(const wxDateTime &date);
         void AddNetIncome(Distribution &distribution);
         void AddPromoteFee(PromoteFee &pf);
+        double CalculateIrrOnDate(const wxDateTime &date)const;
 };
 
 void to_json(json &j, const Position &pos);

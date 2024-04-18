@@ -959,3 +959,25 @@ std::vector<CashFlow> Asset::GetAssetCashFlow(){
 
     return cashFlow;
 }
+
+double Asset::GetValuationOnDate(wxDateTime &date)const{
+    double valuation = 0.0;
+    if(!m_valuations.empty()){
+        std::vector<Valuation> valuations = GetValuations();
+        std::sort(valuations.begin(),valuations.end(),[](const Valuation &a, const Valuation &b){
+            return a.valuationDate < b.valuationDate;
+        });
+        for(auto val: valuations){
+            if(val.valuationDate<date){
+                valuation = val.valuation;
+            }
+        }
+    }else{
+        for(auto & deploymovement : m_movementsToFromDeploy){
+            if(deploymovement.first < date){
+                valuation+=deploymovement.second;
+            }
+        }
+    }
+    return valuation;
+}
