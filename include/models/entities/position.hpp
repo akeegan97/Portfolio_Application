@@ -18,12 +18,14 @@
 #include "models/supporting/promoteFee.hpp"
 #include "models/supporting/distribution.hpp"
 #include "models/supporting/valuation.hpp"
+#include "models/supporting/cashflow.hpp"
 
 
 class Portfolio;
 class Distribution;
 class Asset;
 class Investor;
+class CashFlow;
 using json = nlohmann::json;
 
 
@@ -110,7 +112,7 @@ class Position{
     //public methods in general
         void UpdateFinancesPostDistributionChanges(Distribution &distribution, PromoteFee &promoteFee);
         double CalculateManagementFeesDue(const Distribution&currentDistribution);
-        double CalculateOwnershipAtDate(const wxDateTime &date);
+        double CalculateOwnershipAtDate(const wxDateTime &date)const;
         double GetInvestorPromoteFee();
         void ClearNetIncomePromoteFees();
         double CalculateCommittedUpToDate(const wxDateTime &date)const;
@@ -124,7 +126,7 @@ class Position{
         double GetInitialDeployedBefore(const wxDateTime &date);
         void AddNetIncome(Distribution &distribution);
         void AddPromoteFee(PromoteFee &pf);
-        double CalculateIrrOnDate(const wxDateTime &date)const;
+        std::vector<CashFlow> ReturnCashFlowToFromDate(const wxDateTime &startDate, const wxDateTime &endDate)const;
 };
 
 void to_json(json &j, const Position &pos);

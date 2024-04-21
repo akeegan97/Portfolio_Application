@@ -5,44 +5,79 @@
 #include "models/entities/investor.hpp"
 #include "models/entities/position.hpp"
 struct Details;
+class Investor;
 
 class Statement{
     public:
         Statement()=default;
-        Statement(wxDateTime &startDate, wxDateTime &endDate);
+        Statement(wxDateTime &startDate, wxDateTime &endDate,std::shared_ptr<Investor> &investorPtr);
         //setters
-        void SetInternalValues();
-        void SetCommittedCapital(double value);
-        void SetReturnedPrincipal(double value);
-        void SetQStartValuation(double value);
-        void SetEndValuation(double value);
-        void SetValuationChange(double value);
+        void SetBeginningBalance(double value);
         void SetAdditionalCapital(double value);
         void SetReturnedCapital(double value);
-        void SetExecutedDistributions(double value);
-        void SetTotalDistributions(double value);
-        void SetTotalValuation(double value);
-        void SetTotalGains(double value);
-        void SetIrr(double value);
-        void SetAssetDetails();
+        void SetChangeInValuationThisPeriod(double value);
+        void SetEndingBalance(double value);
 
+        void SetPaid(double value);
+        void SetReturnedPrincipal(double value);
+
+        void SetNetIncomeThisPeriod(double value);
+        void SetReturnThisPeriod(double value);
+        void SetReturnPercentThisPeriod(double value);
+
+        void SetTotalNetIncome(double value);
+        void SetTotalChangeInValuation(double value);
+        void SetTotalGain(double value);
+        void SetCombinedIrr(double value);
+        
+        void SetInternalValues();
+        void SetAssetDetails();
+        //Getters
+        double GetBeginningBalance();
+        double GetAdditionalCapital();
+        double GetReturnedCapital();
+        double GetChangeInValuationThisPeriod();
+        double GetEndingBalance();
+
+        double GetPaidCapital();
+        double GetReturnedPrincipal();
+
+        double GetNetIncomeThisPeriod();
+        double GetReturnAmountThisPeriod();
+        double GetReturnPercentThisPeriod();
+
+        double GetTotalNetIncomeToEndDate();
+        double GetChangeInValuationToEndDate();
+        double GetTotalGain();
+        double GetCombinedIrr();
+        std::vector<Details> GetDetails();
+        
     private:
         std::shared_ptr<Investor> m_InvestorPtr;
         wxDateTime m_QStartDate;
         wxDateTime m_EndingDate;
-        double m_CommittedCapital;//
-        double m_ReturnedPrincipal;//
-        double m_QStartValuation;//
-        double m_EndValuation;//
-        double m_ValuationChange;// 
+
+        double m_BeginningBalance;//
         double m_AdditionalCapitalThisPeriod;//
         double m_ReturnedCapitalThisPeriod;//
-        double m_executedDistributionsThisPeriod;//
+        double m_ChangeValuationThisPeriod;// 
+        double m_EndingBalance;//
+
+        double m_PaidCapital;
+        double m_ReturnedPrincipal;//
+
+        double m_NetIncomeThisPeriod;//
+        double m_ReturnThisPeriodAmount;//net income + change valuation this period
+        double m_ReturnThisPeriodPercent;//returnThisPeriod / (paid capital - returned Principal)
+
         double m_TotalNetDistributions;//
-        double m_InceptionToDateValuation;//
-        double m_TotalGain;//
+        double m_ChangeInValuationToEndDate;//ending balance - starting valuation
+        double m_TotalGain;//total net income + change In valuation to end date
         double m_CombinedIRR;
+
         std::vector<Details> m_ITDDetails;
+        double CalculateNPV(std::vector<CashFlow> &cashFlows, double rate);
+        double CalculateIrr(std::vector<CashFlow> &cashFlow);
 };
 struct Details{
     std::shared_ptr<Asset> m_AssetPtr;
@@ -53,5 +88,8 @@ struct Details{
     double m_TotalReturn;
     double m_IRR;
     double m_AllocationPercent;
+    wxVariant GetValue(int col)const;
+    static std::vector<wxString> columnNames;
+    static std::vector<int> columnWidths;
 };
 #endif

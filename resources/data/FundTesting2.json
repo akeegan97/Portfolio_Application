@@ -1,422 +1,90 @@
 {
     "Assets": [
         {
-            "Asset Committed Capital": 800000.0,
-            "Asset Deployed Capital": 775000.0,
-            "Asset Exit Date": "2032-01-15",
+            "Asset Committed Capital": 408333.32999999996,
+            "Asset Deployed Capital": 322399.25,
+            "Asset Exit Date": "2024-04-21",
             "Asset Movement To From Deploy": [
+                {
+                    "Amount": 158333.33,
+                    "Date": "2022-03-15"
+                },
                 {
                     "Amount": 250000.0,
-                    "Date": "2022-01-15"
+                    "Date": "2022-10-18"
                 },
                 {
-                    "Amount": 150000.0,
-                    "Date": "2022-04-02"
+                    "Amount": -42967.04,
+                    "Date": "2023-07-25"
                 },
                 {
-                    "Amount": 200000.0,
-                    "Date": "2022-07-17"
-                },
-                {
-                    "Amount": 175000.0,
-                    "Date": "2022-11-12"
+                    "Amount": -42967.04,
+                    "Date": "2023-07-26"
                 }
             ],
-            "Asset Name": "Downtown Office Building",
+            "Asset Name": "OneBlinc",
             "Asset ROC Movements": null,
-            "Asset Reserve Capital": 25000.0,
-            "Asset Sponser": "Andrew Capital",
-            "Current Value": 780000.0,
-            "Distributions": [
-                {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2022-03-30",
-                    "Distribution Paid": true
-                },
-                {
-                    "Distribution Amount": 7500.0,
-                    "Distribution Date": "2022-06-30",
-                    "Distribution Paid": true
-                },
-                {
-                    "Distribution Amount": 8500.0,
-                    "Distribution Date": "2022-09-30",
-                    "Distribution Paid": true
-                },
-                {
-                    "Distribution Amount": 10000.0,
-                    "Distribution Date": "2022-12-31",
-                    "Distribution Paid": false
-                }
-            ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 10000.0,
-                        "Distribution Date": "2022-03-30",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 16000.0,
-                        "Distribution Date": "2022-09-30",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
-            "Transactions": [
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-01-15",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 0.0,
-                    "Transaction Date": "2022-01-15",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "To Deploy"
-                },
-                {
-                    "Transaction Amount": 300000.0,
-                    "Transaction Date": "2022-02-01",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "Backing out fund money for Andrew",
-                    "Transaction Type": "Return of Capital"
-                },
-                {
-                    "Transaction Amount": 300000.0,
-                    "Transaction Date": "2022-02-01",
-                    "Transaction Name": "Andrew Keegan",
-                    "Transaction Note": "Backing out fund money for Andrew",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 200000.0,
-                    "Transaction Date": "2022-03-15",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "Closure of fund position for MB",
-                    "Transaction Type": "Return of Capital"
-                },
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-03-15",
-                    "Transaction Name": "Mac Brown",
-                    "Transaction Note": "Closure of fund position for MB",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 250000.0,
-                    "Transaction Date": "2022-01-15",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "Initial Deployment",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 150000.0,
-                    "Transaction Date": "2022-04-02",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 200000.0,
-                    "Transaction Date": "2022-07-17",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 175000.0,
-                    "Transaction Date": "2022-11-12",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "final deployment ",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 256000.0,
-                    "Transaction Date": "2022-03-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 415000.0,
-                    "Transaction Date": "2022-06-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 635000.0,
-                    "Transaction Date": "2022-09-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 10000.0,
-                    "Transaction Date": "2022-03-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 7500.0,
-                    "Transaction Date": "2022-06-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 8500.0,
-                    "Transaction Date": "2022-09-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10000.0,
-                    "Transaction Date": "2022-12-31",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 780000.0,
-                    "Transaction Date": "2022-12-31",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 10000.0,
-                    "Transaction Date": "2022-03-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "sending all of the distribution to positions",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 16000.0,
-                    "Transaction Date": "2022-09-30",
-                    "Transaction Name": "Downtown Office Building",
-                    "Transaction Note": "combing Q two and three into one sending all ",
-                    "Transaction Type": "Distribution Executed"
-                }
-            ],
-            "Valuations": [
-                {
-                    "Valuation Amount": 256000.0,
-                    "Valuation Date": "2022-03-30"
-                },
-                {
-                    "Valuation Amount": 415000.0,
-                    "Valuation Date": "2022-06-30"
-                },
-                {
-                    "Valuation Amount": 635000.0,
-                    "Valuation Date": "2022-09-30"
-                },
-                {
-                    "Valuation Amount": 780000.0,
-                    "Valuation Date": "2022-12-31"
-                }
-            ]
-        },
-        {
-            "Asset Committed Capital": 750000.0,
-            "Asset Deployed Capital": 725000.0,
-            "Asset Exit Date": "2027-05-15",
-            "Asset Movement To From Deploy": [
-                {
-                    "Amount": 650000.0,
-                    "Date": "2023-03-15"
-                },
-                {
-                    "Amount": 75000.0,
-                    "Date": "2023-05-15"
-                }
-            ],
-            "Asset Name": "Apartment Building 1",
-            "Asset ROC Movements": null,
-            "Asset Reserve Capital": 25000.0,
-            "Asset Sponser": "Andrew Capital",
-            "Current Value": 710000.0,
-            "Distributions": [
-                {
-                    "Distribution Amount": 1000.0,
-                    "Distribution Date": "2023-03-31",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 5000.0,
-                    "Distribution Date": "2023-06-30",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 4500.0,
-                    "Distribution Date": "2023-09-30",
-                    "Distribution Paid": false
-                }
-            ],
-            "Quarterly Distributions": null,
-            "Transactions": [
-                {
-                    "Transaction Amount": 750000.0,
-                    "Transaction Date": "2022-03-15",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 0.0,
-                    "Transaction Date": "2022-03-15",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "To Deploy"
-                },
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-03-30",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "backing out of fund position for WK",
-                    "Transaction Type": "Return of Capital"
-                },
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-03-30",
-                    "Transaction Name": "Will Keegan",
-                    "Transaction Note": "backing out of fund position for WK",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 250000.0,
-                    "Transaction Date": "2023-05-01",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "Closure of fund position for JD",
-                    "Transaction Type": "Return of Capital"
-                },
-                {
-                    "Transaction Amount": 250000.0,
-                    "Transaction Date": "2023-05-01",
-                    "Transaction Name": "John Doe",
-                    "Transaction Note": "Closure of fund position for JD",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 650000.0,
-                    "Transaction Date": "2023-03-15",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "initial deployment",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 75000.0,
-                    "Transaction Date": "2023-05-15",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 650000.0,
-                    "Transaction Date": "2023-03-31",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 700000.0,
-                    "Transaction Date": "2023-06-30",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 705000.0,
-                    "Transaction Date": "2023-09-30",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 710000.0,
-                    "Transaction Date": "2023-12-31",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 1000.0,
-                    "Transaction Date": "2023-03-31",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 5000.0,
-                    "Transaction Date": "2023-06-30",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 4500.0,
-                    "Transaction Date": "2023-09-30",
-                    "Transaction Name": "Apartment Building 1",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                }
-            ],
-            "Valuations": [
-                {
-                    "Valuation Amount": 650000.0,
-                    "Valuation Date": "2023-03-31"
-                },
-                {
-                    "Valuation Amount": 700000.0,
-                    "Valuation Date": "2023-06-30"
-                },
-                {
-                    "Valuation Amount": 705000.0,
-                    "Valuation Date": "2023-09-30"
-                },
-                {
-                    "Valuation Amount": 710000.0,
-                    "Valuation Date": "2023-12-31"
-                }
-            ]
-        },
-        {
-            "Asset Committed Capital": 750000.0,
-            "Asset Deployed Capital": 0.0,
-            "Asset Exit Date": "2029-09-18",
-            "Asset Movement To From Deploy": null,
-            "Asset Name": "Land Holding",
-            "Asset ROC Movements": null,
-            "Asset Reserve Capital": 750000.0,
-            "Asset Sponser": "Andrew Capital",
-            "Current Value": 0.0,
+            "Asset Reserve Capital": 85934.08,
+            "Asset Sponser": "KAWA",
+            "Current Value": 322399.25,
             "Distributions": [],
             "Quarterly Distributions": null,
             "Transactions": [
                 {
-                    "Transaction Amount": 750000.0,
-                    "Transaction Date": "2023-06-15",
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
                     "Transaction Name": "Fund Position",
                     "Transaction Note": "",
                     "Transaction Type": "New Position"
                 },
                 {
-                    "Transaction Amount": 0.0,
-                    "Transaction Date": "2023-06-15",
-                    "Transaction Name": "Land Holding",
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "OneBlinc",
                     "Transaction Note": "",
                     "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "MESK",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 42967.04,
+                    "Transaction Date": "2023-07-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 42967.04,
+                    "Transaction Date": "2023-07-26",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
                 }
             ],
             "Valuations": []
@@ -428,333 +96,58 @@
             "Management Fee Percentage": 0.0,
             "Positions": [
                 {
-                    "AssetName": "Downtown Office Building",
-                    "Date Invested": "2022-01-15",
-                    "InvestorName": "Fund Position",
-                    "Management Fees": [],
-                    "Management Fees Due": 0.0,
-                    "Movements Deploy": [
-                        [
-                            "2022-01-15",
-                            0.0
-                        ],
-                        [
-                            "2022-04-02",
-                            0.0
-                        ],
-                        [
-                            "2022-07-17",
-                            0.0
-                        ],
-                        [
-                            "2022-11-12",
-                            0.0
-                        ]
-                    ],
-                    "Net Income": null,
-                    "Paid": 500000.0,
-                    "Promote Fees": null,
-                    "ROC": 500000.0,
-                    "ROC Movements": [
-                        [
-                            "2022-02-01",
-                            300000.0
-                        ],
-                        [
-                            "2022-03-15",
-                            200000.0
-                        ]
-                    ]
-                },
-                {
-                    "AssetName": "Apartment Building 1",
+                    "AssetName": "OneBlinc",
                     "Date Invested": "2022-03-15",
                     "InvestorName": "Fund Position",
                     "Management Fees": [],
                     "Management Fees Due": 0.0,
                     "Movements Deploy": [
                         [
-                            "2023-03-15",
+                            "2022-03-15",
                             0.0
                         ],
                         [
-                            "2023-05-15",
+                            "2022-10-18",
                             0.0
+                        ],
+                        [
+                            "2023-07-25",
+                            0.0
+                        ],
+                        [
+                            "2023-07-26",
+                            -0.0
                         ]
                     ],
                     "Net Income": null,
-                    "Paid": 750000.0,
+                    "Paid": 158333.33,
                     "Promote Fees": null,
-                    "ROC": 750000.0,
+                    "ROC": 158333.33,
                     "ROC Movements": [
                         [
-                            "2022-03-30",
-                            500000.0
-                        ],
-                        [
-                            "2023-05-01",
-                            250000.0
+                            "2022-03-15",
+                            158333.33
                         ]
                     ]
                 },
                 {
-                    "AssetName": "Land Holding",
-                    "Date Invested": "2023-06-15",
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2022-10-18",
                     "InvestorName": "Fund Position",
                     "Management Fees": [],
                     "Management Fees Due": 0.0,
-                    "Movements Deploy": null,
-                    "Net Income": null,
-                    "Paid": 750000.0,
-                    "Promote Fees": null,
-                    "ROC": 0.0,
-                    "ROC Movements": null
-                }
-            ],
-            "Promote Fee Percentage": 0.0,
-            "Type": "Fund"
-        },
-        {
-            "Client Name": "Andrew Keegan",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Downtown Office Building",
-                    "Date Invested": "2022-02-01",
-                    "InvestorName": "Andrew Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 144.3788501026694,
-                            "Management Fee Date": "2022-03-31",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 279.13244353182745,
-                            "Management Fee Date": "2022-06-30",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 400.4106776180698,
-                            "Management Fee Date": "2022-09-30",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 492.4281314168378,
-                            "Management Fee Date": "2022-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 531.1216632443532,
-                            "Management Fee Date": "2023-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 543.0569815195072,
-                            "Management Fee Date": "2023-06-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 549.0246406570841,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 549.0246406570841,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 537.0893223819302,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 543.0569815195072,
-                            "Management Fee Date": "2024-06-30",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 3744.8023613963037,
                     "Movements Deploy": [
                         [
-                            "2022-01-15",
-                            93750.0
+                            "2022-10-18",
+                            250000.00000000003
                         ],
                         [
-                            "2022-02-01",
-                            0.0
+                            "2023-07-25",
+                            26306.351235153892
                         ],
                         [
-                            "2022-04-02",
-                            56250.0
-                        ],
-                        [
-                            "2022-07-17",
-                            75000.0
-                        ],
-                        [
-                            "2022-11-12",
-                            65625.0
-                        ]
-                    ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 2884.4969199178645,
-                            "Distribution Date": "2022-03-30",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4256.365503080082,
-                            "Distribution Date": "2022-09-30",
-                            "Distribution Paid": false
-                        }
-                    ],
-                    "Paid": 300000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 721.1242299794662,
-                            "Promote Fee Date": "2022-03-30"
-                        },
-                        {
-                            "Promote Fee Amount": 1064.0913757700207,
-                            "Promote Fee Date": "2022-09-30"
-                        }
-                    ],
-                    "ROC": 0.0,
-                    "ROC Movements": [
-                        [
-                            "2022-03-15",
-                            0.0
-                        ]
-                    ]
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "Will Keegan",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Apartment Building 1",
-                    "Date Invested": "2022-03-30",
-                    "InvestorName": "Will Keegan",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 151.26625598904857,
-                            "Management Fee Date": "2023-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 857.9739904175221,
-                            "Management Fee Date": "2023-06-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 913.0732375085556,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 913.0732375085556,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 893.2238193018479,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 903.1485284052019,
-                            "Management Fee Date": "2024-06-30",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 4631.759069130731,
-                    "Movements Deploy": [
-                        [
-                            "2022-03-30",
-                            0.0
-                        ],
-                        [
-                            "2023-03-15",
-                            433333.3333333333
-                        ],
-                        [
-                            "2023-05-15",
-                            50000.0
-                        ]
-                    ],
-                    "Net Income": null,
-                    "Paid": 500000.0,
-                    "Promote Fees": null,
-                    "ROC": 0.0,
-                    "ROC Movements": [
-                        [
-                            "2023-05-01",
-                            0.0
-                        ]
-                    ]
-                }
-            ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
-        },
-        {
-            "Client Name": "John Doe",
-            "Management Fee Percentage": 0.0075,
-            "Positions": [
-                {
-                    "AssetName": "Apartment Building 1",
-                    "Date Invested": "2023-05-01",
-                    "InvestorName": "John Doe",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 75.63312799452429,
-                            "Management Fee Date": "2023-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 428.9869952087611,
-                            "Management Fee Date": "2023-06-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 456.5366187542778,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 456.5366187542778,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 446.61190965092396,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 451.57426420260094,
-                            "Management Fee Date": "2024-06-30",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 2315.8795345653657,
-                    "Movements Deploy": [
-                        [
-                            "2023-03-15",
-                            216666.66666666666
-                        ],
-                        [
-                            "2023-05-01",
-                            0.0
-                        ],
-                        [
-                            "2023-05-15",
-                            25000.0
+                            "2023-07-26",
+                            -26306.351235153892
                         ]
                     ],
                     "Net Income": null,
@@ -764,115 +157,91 @@
                     "ROC Movements": null
                 }
             ],
-            "Promote Fee Percentage": 0.2,
-            "Type": "Individual"
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
         },
         {
-            "Client Name": "Mac Brown",
+            "Client Name": "MESK",
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Downtown Office Building",
+                    "AssetName": "OneBlinc",
                     "Date Invested": "2022-03-15",
-                    "InvestorName": "Mac Brown",
+                    "InvestorName": "MESK",
                     "Management Fees": [
                         {
-                            "Management Fee Amount": 240.63141683778235,
+                            "Management Fee Amount": 55.27036160164271,
                             "Management Fee Date": "2022-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 465.22073921971247,
+                            "Management Fee Amount": 295.85899445585216,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 667.3511293634498,
+                            "Management Fee Amount": 299.11019219712523,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 820.7135523613963,
+                            "Management Fee Amount": 299.1101921971252,
                             "Management Fee Date": "2022-12-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 885.202772073922,
+                            "Management Fee Amount": 289.3565989733059,
                             "Management Fee Date": "2023-03-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 905.0949691991786,
+                            "Management Fee Amount": 295.8589944558521,
                             "Management Fee Date": "2023-06-30",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 915.0410677618069,
+                            "Management Fee Amount": 299.45230079599264,
                             "Management Fee Date": "2023-09-30",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 915.0410677618069,
+                            "Management Fee Amount": 299.1101921971252,
                             "Management Fee Date": "2023-12-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 895.1488706365502,
+                            "Management Fee Amount": 292.60779671457897,
                             "Management Fee Date": "2024-03-31",
                             "Paid": false
                         },
                         {
-                            "Management Fee Amount": 905.0949691991786,
+                            "Management Fee Amount": 295.8589944558521,
                             "Management Fee Date": "2024-06-30",
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 6241.337268993839,
+                    "Management Fees Due": 2721.594618044452,
                     "Movements Deploy": [
                         [
-                            "2022-01-15",
-                            156250.0
-                        ],
-                        [
                             "2022-03-15",
-                            0.0
+                            158333.33
                         ],
                         [
-                            "2022-04-02",
-                            93750.0
+                            "2022-10-18",
+                            -1.4551915228366852e-11
                         ],
                         [
-                            "2022-07-17",
-                            125000.0
+                            "2023-07-25",
+                            16660.688764846112
                         ],
                         [
-                            "2022-11-12",
-                            109375.0
+                            "2023-07-26",
+                            -16660.688764846112
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 4807.494866529774,
-                            "Distribution Date": "2022-03-30",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 7093.942505133471,
-                            "Distribution Date": "2022-09-30",
-                            "Distribution Paid": false
-                        }
-                    ],
-                    "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 1201.8737166324436,
-                            "Promote Fee Date": "2022-03-30"
-                        },
-                        {
-                            "Promote Fee Amount": 1773.4856262833678,
-                            "Promote Fee Date": "2022-09-30"
-                        }
-                    ],
+                    "Net Income": null,
+                    "Paid": 158333.33,
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
@@ -883,43 +252,43 @@
     ],
     "valuationVectorPlotting": [
         {
-            "Amount": 256000.0,
+            "Amount": 158333.33,
             "Date": "2022-03-31"
         },
         {
-            "Amount": 256000.0,
+            "Amount": 158333.33,
             "Date": "2022-06-30"
         },
         {
-            "Amount": 415000.0,
+            "Amount": 158333.33,
             "Date": "2022-09-30"
         },
         {
-            "Amount": 635000.0,
+            "Amount": 408333.32999999996,
             "Date": "2022-12-31"
         },
         {
-            "Amount": 1430000.0,
+            "Amount": 408333.32999999996,
             "Date": "2023-03-31"
         },
         {
-            "Amount": 1430000.0,
+            "Amount": 408333.32999999996,
             "Date": "2023-06-30"
         },
         {
-            "Amount": 1480000.0,
+            "Amount": 322399.25,
             "Date": "2023-09-30"
         },
         {
-            "Amount": 1485000.0,
+            "Amount": 322399.25,
             "Date": "2023-12-31"
         },
         {
-            "Amount": 1490000.0,
+            "Amount": 322399.25,
             "Date": "2024-03-31"
         },
         {
-            "Amount": 1490000.0,
+            "Amount": 322399.25,
             "Date": "2024-06-30"
         }
     ]

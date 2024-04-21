@@ -82,7 +82,7 @@ double Position::CalculateCommittedUpToDate(const wxDateTime &date)const{
     return committed > 0 ? committed : 0;
 }
 
-double Position::CalculateOwnershipAtDate(const wxDateTime &date){
+double Position::CalculateOwnershipAtDate(const wxDateTime &date)const{
     double totalPaidCapitalAtDate = 0.0;
     double committed = CalculateCommittedUpToDate(date);
     for(auto&pos:m_assetPtr->GetPositions()){
@@ -561,4 +561,42 @@ void Position::SetPromoteFees(std::vector<PromoteFee> pfs){
 
 void Position::SetNetIncome(std::vector<Distribution> netIncome){
     m_netIncome = netIncome;
+}
+
+std::vector<CashFlow> Position::ReturnCashFlowToFromDate(const wxDateTime &startDate, const wxDateTime &endDate)const{
+    std::vector<CashFlow> cashFlow;
+    //initial cash flow
+    if(GetDateInvested() < endDate){
+        CashFlow newCashFlow;
+        newCashFlow.amount = GetPaid();
+        newCashFlow.date = GetDateInvested();
+        cashFlow.push_back(newCashFlow);
+    }
+    //any distributions
+    for(const auto&distr : GetNetIncome()){
+        if(distr.distribution.first > startDate && distr.distribution.first < endDate){
+            CashFlow newCashFlow;
+            newCashFlow.amount = distr.distribution.second;
+            newCashFlow.date = distr.distribution.first;
+            cashFlow.push_back(newCashFlow);
+        }
+    }
+    //any return of capital
+    for(const auto&roc: GetROCMapConstant()){
+        if(roc.first > startDate && roc.first < endDate){
+            CashFlow newCashFlow;
+            newCashFlow.amount = roc.second;
+            newCashFlow.date = roc.first;
+            cashFlow.push_back(newCashFlow);
+        }
+    }
+    //ending valuation of position
+    wxDateTime endingDate = endDate;
+    double endingValuation = GetAssetPointer()->GetValuationOnDate(endingDate) * CalculateOwnershipAtDate(endingDate);
+    CashFlow newCashFlow;
+    newCashFlow.amount = endingValuation;
+    newCashFlow.date = endingDate;
+    cashFlow.push_back(newCashFlow);
+    
+    return cashFlow;
 }

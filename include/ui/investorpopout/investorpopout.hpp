@@ -18,7 +18,12 @@
 #include <wx/aui/tabart.h>
 #include <wx/aui/auibook.h>
 #include "helpers/utilities.hpp"
+#include <wx/button.h>
+#include <wx/datectrl.h>
+#include "models/supporting/statement.hpp"
 
+struct Details;
+class Statement;
 class InvestorPopout : public wxFrame{
     public:
         InvestorPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size,
@@ -30,11 +35,33 @@ class InvestorPopout : public wxFrame{
         wxAuiNotebook* distributionsByAssetNoteBook;
         wxStaticText *totalPaid;
         void SetupLayout();
+        void WriteStatementDetails();
         Chart* PopulateInvestorsValuationDeployChart();
         Chart* PopulateInvestorsDistributionChart();
         void UpdateInvestorsValuationDeployChart();
         void UpdateInvestorsDistributionChart();
-        
+        void OnMakeStatementClick(wxCommandEvent &e);
+        wxButton *DisplayStatement;
+        wxDatePickerCtrl* startDate;
+        wxDatePickerCtrl* endDate;
+        VListControl<Details> *itdDetailsVLC;
+
+        wxStaticText *beginningBalance;
+        wxStaticText *additionalCapital;
+        wxStaticText *returnedCapital;
+        wxStaticText *endingBalance;
+
+        wxStaticText *distributionsThisperiod;
+        wxStaticText *changeInValuationthisPeriod;
+        wxStaticText *returnAmountThisPeriod;
+        wxStaticText *returnPercentThisPeriod;
+
+        wxStaticText *paidCapital;
+        wxStaticText *returnedPrincipal;
+        wxStaticText *endingBalanceITD;
+        wxStaticText *totalDistributions;
+        wxStaticText *totalGain;
+        wxStaticText *irr;
 };
 
 #endif

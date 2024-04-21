@@ -651,7 +651,7 @@ void Asset::MoveDeployToReserve(wxDateTime &date, double amount){
     m_assetDeployedCapital -= amount;
     m_movementsToFromDeploy[date] = -amount;
     for(auto&pos:m_positions){
-        std::pair<wxDateTime, double> movement = std::make_pair(date, (amount * pos->GetOwnership()));
+        std::pair<wxDateTime, double> movement = std::make_pair(date, (-amount * pos->GetOwnership()));
         pos->AddMovementDeploy(movement);
     }
 
@@ -968,13 +968,13 @@ double Asset::GetValuationOnDate(wxDateTime &date)const{
             return a.valuationDate < b.valuationDate;
         });
         for(auto val: valuations){
-            if(val.valuationDate<date){
+            if(val.valuationDate<=date){
                 valuation = val.valuation;
             }
         }
     }else{
         for(auto & deploymovement : m_movementsToFromDeploy){
-            if(deploymovement.first < date){
+            if(deploymovement.first <= date){
                 valuation+=deploymovement.second;
             }
         }

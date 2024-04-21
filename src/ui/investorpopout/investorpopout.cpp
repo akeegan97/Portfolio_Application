@@ -113,9 +113,64 @@ void InvestorPopout::SetupLayout(){
         }
     }
     rightSizer->Add(distributionsByAssetNoteBook, 1, wxALL, 10);
+    auto *leftmiddleSizer = new wxBoxSizer(wxHORIZONTAL);
+    startDate = new wxDatePickerCtrl(this, wxID_ANY);
+    endDate = new wxDatePickerCtrl(this, wxID_ANY);
+    DisplayStatement = new wxButton(this, wxID_ANY,"Display Statement");
+    DisplayStatement->Bind(wxEVT_BUTTON, &InvestorPopout::OnMakeStatementClick, this);
+    leftmiddleSizer->Add(startDate,1, wxALL,5);
+    leftmiddleSizer->Add(endDate,1,wxALL,5);
+    leftmiddleSizer->Add(DisplayStatement,1,wxALL,5);
+    leftSizer->Add(leftmiddleSizer,1,wxALL,5);
+    auto *leftTextSizer = new wxBoxSizer(wxHORIZONTAL);
+
+    beginningBalance = new wxStaticText(this, wxID_ANY," ");
+    additionalCapital = new wxStaticText(this, wxID_ANY," ");
+    returnedCapital = new wxStaticText(this, wxID_ANY," ");
+    endingBalance = new wxStaticText(this, wxID_ANY," ");
+
+    distributionsThisperiod = new wxStaticText(this, wxID_ANY," ");
+    changeInValuationthisPeriod = new wxStaticText(this, wxID_ANY,"");
+    returnAmountThisPeriod = new wxStaticText(this, wxID_ANY," ");
+    returnPercentThisPeriod = new wxStaticText(this, wxID_ANY," ");
+
+    paidCapital = new wxStaticText(this, wxID_ANY," ");
+    returnedPrincipal = new wxStaticText(this, wxID_ANY," ");
+    endingBalanceITD = new wxStaticText(this, wxID_ANY," ");
+    totalDistributions = new wxStaticText(this, wxID_ANY," ");
+    totalGain = new wxStaticText(this, wxID_ANY," ");
+    irr = new wxStaticText(this, wxID_ANY," ");
+
+    itdDetailsVLC = new VListControl<Details>(this, wxID_ANY,wxDefaultPosition, wxDefaultSize);
+    auto leftLeftSizer = new wxBoxSizer(wxVERTICAL);
+    auto leftMiddleSizer = new wxBoxSizer(wxVERTICAL);
+    auto leftRightSizer = new wxBoxSizer(wxVERTICAL);
+
+    leftLeftSizer->Add(beginningBalance,1,wxALL,5);
+    leftLeftSizer->Add(additionalCapital,1, wxALL,5);
+    leftLeftSizer->Add(returnedCapital,1, wxALL,5);
+    leftLeftSizer->Add(endingBalance,1, wxALL,5);
+
+    leftMiddleSizer->Add(changeInValuationthisPeriod,1,wxALL,5);
+    leftMiddleSizer->Add(distributionsThisperiod,1, wxALL,5);
+    leftMiddleSizer->Add(returnAmountThisPeriod,1,wxALL,5);
+    leftMiddleSizer->Add(returnPercentThisPeriod,1,wxALL,5);
+
+    leftRightSizer->Add(paidCapital,1,wxALL,5);
+    leftRightSizer->Add(returnedPrincipal,1, wxALL,5);
+    leftRightSizer->Add(endingBalanceITD,1,wxALL,5);
+    leftRightSizer->Add(totalDistributions,1, wxALL,5);
+    leftRightSizer->Add(totalGain,1, wxALL,5);
+    leftRightSizer->Add(irr,1, wxALL,5);
+
+    leftTextSizer->Add(leftLeftSizer,1,wxALL,5);
+    leftTextSizer->Add(leftMiddleSizer,1,wxALL,5);
+    leftTextSizer->Add(leftRightSizer,1,wxALL,5);
+    leftSizer->Add(leftTextSizer,2,wxALL,5);
+
+    leftSizer->Add(itdDetailsVLC,1,wxALL,5);
     mainSizer->Add(leftSizer, 7, wxRIGHT,5);
     mainSizer->Add(rightSizer,3,wxALL|wxEXPAND,5);
-    
     wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
     wxColour bgColor = wxColor(255,255,255);
     wxColour fgColor = wxColor(0,0,0);  
@@ -136,4 +191,36 @@ void InvestorPopout::SetupLayout(){
     });
     this->SetSizer(mainSizer);
     this->Layout();  
+}
+
+void InvestorPopout::WriteStatementDetails(){
+    wxDateTime statementBegin = startDate->GetValue();
+    wxDateTime statementEnd = endDate->GetValue();
+    Statement clientStatement(statementBegin, statementEnd,investor);
+
+    beginningBalance->SetLabel("Beginning Balance: "+utilities::formatDollarAmount(clientStatement.GetBeginningBalance()));
+    additionalCapital->SetLabel("Additional Capital: "+utilities::formatDollarAmount(clientStatement.GetAdditionalCapital()));
+    returnedCapital->SetLabel("Returned Capital: "+utilities::formatDollarAmount(clientStatement.GetReturnedCapital()));
+    endingBalance->SetLabel("Ending Balance: "+utilities::formatDollarAmount(clientStatement.GetEndingBalance()));
+
+    changeInValuationthisPeriod->SetLabel("Change In Valuation This Period: "+utilities::formatDollarAmount(clientStatement.GetChangeInValuationThisPeriod()));
+    distributionsThisperiod->SetLabel("Distributions This Period: "+utilities::formatDollarAmount(clientStatement.GetNetIncomeThisPeriod()));
+    returnAmountThisPeriod->SetLabel("Return This Period: "+utilities::formatDollarAmount(clientStatement.GetReturnAmountThisPeriod()));
+    returnPercentThisPeriod->SetLabel("Return % This Period: "+utilities::FormatPercentage(clientStatement.GetReturnPercentThisPeriod()));
+
+    paidCapital->SetLabel("Paid Capital: "+utilities::formatDollarAmount(clientStatement.GetPaidCapital()));
+    returnedPrincipal->SetLabel("Returned Principal: "+utilities::formatDollarAmount(clientStatement.GetReturnedPrincipal()));
+    endingBalanceITD->SetLabel("Ending Balance: "+utilities::formatDollarAmount(clientStatement.GetEndingBalance()));
+    totalDistributions->SetLabel("Total Distributions: "+utilities::formatDollarAmount(clientStatement.GetTotalNetIncomeToEndDate()));
+    totalGain->SetLabel("Total Return: "+utilities::formatDollarAmount(clientStatement.GetTotalGain()));
+    irr->SetLabel("IRR: "+utilities::formatDollarAmount(clientStatement.GetCombinedIrr()));
+
+    itdDetailsVLC->setItems(clientStatement.GetDetails());
+}
+
+void InvestorPopout::OnMakeStatementClick(wxCommandEvent &e){
+    WriteStatementDetails();
+    this->Update();
+    this->Refresh();
+    this->Layout();
 }
