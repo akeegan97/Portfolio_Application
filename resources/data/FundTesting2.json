@@ -1,5 +1,1199 @@
 {
-    "Assets": [],
-    "Investors": [],
-    "valuationVectorPlotting": []
+    "Assets": [
+        {
+            "Asset Committed Capital": 408333.32999999996,
+            "Asset Deployed Capital": 199248.89,
+            "Asset Exit Date": "2024-04-22",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 158333.33,
+                    "Date": "2022-03-15"
+                },
+                {
+                    "Amount": 250000.0,
+                    "Date": "2022-10-18"
+                },
+                {
+                    "Amount": -42967.04,
+                    "Date": "2023-07-25"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-08-23"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-09-20"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-10-23"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-11-20"
+                },
+                {
+                    "Amount": -33223.48,
+                    "Date": "2023-12-27"
+                }
+            ],
+            "Asset Name": "OneBlinc",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 209084.44000000003,
+            "Asset Sponser": "KAWa",
+            "Current Value": 199848.55,
+            "Distributions": [
+                {
+                    "Distribution Amount": 189.12,
+                    "Distribution Date": "2022-03-25",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 3479.81,
+                    "Distribution Date": "2022-06-28",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 3479.81,
+                    "Distribution Date": "2022-10-04",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 7204.49,
+                    "Distribution Date": "2022-12-28",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 6047.87,
+                    "Distribution Date": "2023-03-10",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 11705.56,
+                    "Distribution Date": "2023-06-23",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 6153.01,
+                    "Distribution Date": "2023-08-23",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 2817.22,
+                    "Distribution Date": "2023-09-20",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 2453.63,
+                    "Distribution Date": "2023-10-23",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 2253.62,
+                    "Distribution Date": "2023-11-20",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 1908.21,
+                    "Distribution Date": "2023-12-27",
+                    "Distribution Paid": true
+                }
+            ],
+            "Quarterly Distributions": [
+                {
+                    "Distribution": {
+                        "Distribution Amount": 189.12,
+                        "Distribution Date": "2022-03-25",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 3479.81,
+                        "Distribution Date": "2022-06-28",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 3479.81,
+                        "Distribution Date": "2022-10-04",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 7204.49,
+                        "Distribution Date": "2022-12-28",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 6047.87,
+                        "Distribution Date": "2023-03-10",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 11705.56,
+                        "Distribution Date": "2023-06-23",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 6153.01,
+                        "Distribution Date": "2023-08-23",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 2817.22,
+                        "Distribution Date": "2023-09-20",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 2453.63,
+                        "Distribution Date": "2023-10-23",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 2253.62,
+                        "Distribution Date": "2023-11-20",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 1908.21,
+                        "Distribution Date": "2023-12-27",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                }
+            ],
+            "Transactions": [
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "MESK",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 158333.33,
+                    "Transaction Date": "2022-03-15",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2022-10-18",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 125000.0,
+                    "Transaction Date": "2023-01-31",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 125000.0,
+                    "Transaction Date": "2023-01-31",
+                    "Transaction Name": "Uribe",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-22",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 50000.0,
+                    "Transaction Date": "2023-03-22",
+                    "Transaction Name": "Luis Ortiz",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 42967.04,
+                    "Transaction Date": "2023-07-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-08-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-10-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-11-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 33223.48,
+                    "Transaction Date": "2023-12-27",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Deploy->Reserve"
+                },
+                {
+                    "Transaction Amount": 162191.4,
+                    "Transaction Date": "2022-09-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 412137.63,
+                    "Transaction Date": "2023-03-31",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 409308.78,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 299737.19,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 199848.55,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 189.12,
+                    "Transaction Date": "2022-03-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-06-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-10-04",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 6047.87,
+                    "Transaction Date": "2023-03-10",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 11705.56,
+                    "Transaction Date": "2023-06-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 6153.01,
+                    "Transaction Date": "2023-08-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2817.22,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2453.63,
+                    "Transaction Date": "2023-10-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 2253.62,
+                    "Transaction Date": "2023-11-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 1908.21,
+                    "Transaction Date": "2023-12-27",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 189.12,
+                    "Transaction Date": "2022-03-25",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-06-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 3479.81,
+                    "Transaction Date": "2022-10-04",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 7204.49,
+                    "Transaction Date": "2022-12-28",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 6047.87,
+                    "Transaction Date": "2023-03-10",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 11705.56,
+                    "Transaction Date": "2023-06-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 6153.01,
+                    "Transaction Date": "2023-08-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 2817.22,
+                    "Transaction Date": "2023-09-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 2453.63,
+                    "Transaction Date": "2023-10-23",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 2253.62,
+                    "Transaction Date": "2023-11-20",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                },
+                {
+                    "Transaction Amount": 1908.21,
+                    "Transaction Date": "2023-12-27",
+                    "Transaction Name": "OneBlinc",
+                    "Transaction Note": "",
+                    "Transaction Type": "Distribution Executed"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 158749.4,
+                    "Valuation Date": "2022-03-31"
+                },
+                {
+                    "Valuation Amount": 158711.58,
+                    "Valuation Date": "2022-06-30"
+                },
+                {
+                    "Valuation Amount": 162191.4,
+                    "Valuation Date": "2022-09-30"
+                },
+                {
+                    "Valuation Amount": 409406.36,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 412137.63,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 409308.78,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 299737.19,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 199848.55,
+                    "Valuation Date": "2023-12-31"
+                }
+            ]
+        }
+    ],
+    "Investors": [
+        {
+            "Client Name": "MESK",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2022-03-15",
+                    "InvestorName": "MESK",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 55.27036160164271,
+                            "Management Fee Date": "2022-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 295.85899445585216,
+                            "Management Fee Date": "2022-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 299.11019219712523,
+                            "Management Fee Date": "2022-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 299.1101921971252,
+                            "Management Fee Date": "2022-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 289.3565989733059,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 295.8589944558521,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 262.6203457580147,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 188.012901570263,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 142.77986737140827,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 144.3663103422017,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 287.14617771361,
+                    "Movements Deploy": [
+                        [
+                            "2022-03-15",
+                            158333.33
+                        ],
+                        [
+                            "2022-10-18",
+                            -1.4551915228366852e-11
+                        ],
+                        [
+                            "2023-07-25",
+                            -16660.688764846112
+                        ],
+                        [
+                            "2023-08-23",
+                            -12882.573711502806
+                        ],
+                        [
+                            "2023-09-20",
+                            -12882.573711502806
+                        ],
+                        [
+                            "2023-10-23",
+                            -12882.573711502806
+                        ],
+                        [
+                            "2023-11-20",
+                            -12882.573711502806
+                        ],
+                        [
+                            "2023-12-27",
+                            -12882.573711502806
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 107.07971071868583,
+                            "Distribution Date": "2022-03-25",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2547.1608044353184,
+                            "Distribution Date": "2022-06-28",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2305.2716924845995,
+                            "Distribution Date": "2022-10-04",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2530.83198050214,
+                            "Distribution Date": "2022-12-28",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 1644.5886558236239,
+                            "Distribution Date": "2023-03-10",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 3394.4252474284963,
+                            "Distribution Date": "2023-06-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 1698.5925151183287,
+                            "Distribution Date": "2023-08-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 873.9131315929559,
+                            "Distribution Date": "2023-09-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 610.7157097496836,
+                            "Distribution Date": "2023-10-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 699.0821134382537,
+                            "Distribution Date": "2023-11-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 591.9345229825838,
+                            "Distribution Date": "2023-12-27",
+                            "Distribution Paid": false
+                        }
+                    ],
+                    "Paid": 158333.33,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 26.769927679671458,
+                            "Promote Fee Date": "2022-03-25"
+                        },
+                        {
+                            "Promote Fee Amount": 636.7902011088296,
+                            "Promote Fee Date": "2022-06-28"
+                        },
+                        {
+                            "Promote Fee Amount": 576.3179231211499,
+                            "Promote Fee Date": "2022-10-04"
+                        },
+                        {
+                            "Promote Fee Amount": 632.707995125535,
+                            "Promote Fee Date": "2022-12-28"
+                        },
+                        {
+                            "Promote Fee Amount": 411.14716395590597,
+                            "Promote Fee Date": "2023-03-10"
+                        },
+                        {
+                            "Promote Fee Amount": 848.6063118571242,
+                            "Promote Fee Date": "2023-06-23"
+                        },
+                        {
+                            "Promote Fee Amount": 424.64812877958224,
+                            "Promote Fee Date": "2023-08-23"
+                        },
+                        {
+                            "Promote Fee Amount": 218.47828289823897,
+                            "Promote Fee Date": "2023-09-20"
+                        },
+                        {
+                            "Promote Fee Amount": 152.67892743742092,
+                            "Promote Fee Date": "2023-10-23"
+                        },
+                        {
+                            "Promote Fee Amount": 174.77052835956343,
+                            "Promote Fee Date": "2023-11-20"
+                        },
+                        {
+                            "Promote Fee Amount": 147.98363074564597,
+                            "Promote Fee Date": "2023-12-27"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-01-31",
+                            0.0
+                        ],
+                        [
+                            "2023-03-22",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Fund Position",
+            "Management Fee Percentage": 0.0,
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2022-10-18",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2022-10-18",
+                            250000.00000000003
+                        ],
+                        [
+                            "2023-01-31",
+                            -125000.0
+                        ],
+                        [
+                            "2023-03-22",
+                            -50000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            -7891.905370546167
+                        ],
+                        [
+                            "2023-08-23",
+                            -6102.27188654916
+                        ],
+                        [
+                            "2023-09-20",
+                            -6102.27188654916
+                        ],
+                        [
+                            "2023-10-23",
+                            -6102.27188654916
+                        ],
+                        [
+                            "2023-11-20",
+                            -6102.27188654916
+                        ],
+                        [
+                            "2023-12-27",
+                            -6102.27188654916
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 4040.9500243723246,
+                            "Distribution Date": "2022-12-28",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2656.340438720792,
+                            "Distribution Date": "2023-03-10",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2150.0008338775588,
+                            "Distribution Date": "2023-06-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 1130.1447031032224,
+                            "Distribution Date": "2023-08-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 517.4485756526417,
+                            "Distribution Date": "2023-09-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 450.66673837279,
+                            "Distribution Date": "2023-10-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 413.9302074606549,
+                            "Distribution Date": "2023-11-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 350.48755388153126,
+                            "Distribution Date": "2023-12-27",
+                            "Distribution Paid": false
+                        }
+                    ],
+                    "Paid": 250000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2022-12-28"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-03-10"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-06-23"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-08-23"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-09-20"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-10-23"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-11-20"
+                        },
+                        {
+                            "Promote Fee Amount": 0.0,
+                            "Promote Fee Date": "2023-12-27"
+                        }
+                    ],
+                    "ROC": 175000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-01-31",
+                            125000.0
+                        ],
+                        [
+                            "2023-03-22",
+                            50000.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.0,
+            "Type": "Fund"
+        },
+        {
+            "Client Name": "Uribe",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2023-01-31",
+                    "InvestorName": "Uribe",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 151.43737166324436,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 233.5728952772074,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 207.33185627910342,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 148.43124120665485,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 112.72095029786867,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 113.97340530117833,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 226.69435559904701,
+                    "Movements Deploy": [
+                        [
+                            "2023-01-31",
+                            125000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            -13153.175617576946
+                        ],
+                        [
+                            "2023-08-23",
+                            -10170.453144248599
+                        ],
+                        [
+                            "2023-09-20",
+                            -10170.453144248599
+                        ],
+                        [
+                            "2023-10-23",
+                            -10170.453144248599
+                        ],
+                        [
+                            "2023-11-20",
+                            -10170.453144248599
+                        ],
+                        [
+                            "2023-12-27",
+                            -10170.453144248599
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 715.9998166905024,
+                            "Distribution Date": "2023-03-10",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 2679.8094622816448,
+                            "Distribution Date": "2023-06-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 1340.9941191143469,
+                            "Distribution Date": "2023-08-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 689.931434203522,
+                            "Distribution Date": "2023-09-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 482.14399153172917,
+                            "Distribution Date": "2023-10-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 551.9069432808728,
+                            "Distribution Date": "2023-11-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 467.316738508708,
+                            "Distribution Date": "2023-12-27",
+                            "Distribution Paid": false
+                        }
+                    ],
+                    "Paid": 125000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 178.99995417262562,
+                            "Promote Fee Date": "2023-03-10"
+                        },
+                        {
+                            "Promote Fee Amount": 669.9523655704112,
+                            "Promote Fee Date": "2023-06-23"
+                        },
+                        {
+                            "Promote Fee Amount": 335.24852977858677,
+                            "Promote Fee Date": "2023-08-23"
+                        },
+                        {
+                            "Promote Fee Amount": 172.4828585508805,
+                            "Promote Fee Date": "2023-09-20"
+                        },
+                        {
+                            "Promote Fee Amount": 120.53599788293229,
+                            "Promote Fee Date": "2023-10-23"
+                        },
+                        {
+                            "Promote Fee Amount": 137.9767358202182,
+                            "Promote Fee Date": "2023-11-20"
+                        },
+                        {
+                            "Promote Fee Amount": 116.82918462717701,
+                            "Promote Fee Date": "2023-12-27"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-03-22",
+                            0.0
+                        ]
+                    ]
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        },
+        {
+            "Client Name": "Luis Ortiz",
+            "Management Fee Percentage": 0.0075,
+            "Positions": [
+                {
+                    "AssetName": "OneBlinc",
+                    "Date Invested": "2023-03-22",
+                    "InvestorName": "Luis Ortiz",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 10.266940451745379,
+                            "Management Fee Date": "2023-03-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 93.42915811088297,
+                            "Management Fee Date": "2023-06-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 82.93274251164138,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 59.372496482661944,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": true
+                        },
+                        {
+                            "Management Fee Amount": 45.08838011914748,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 45.58936212047134,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 90.67774223961882,
+                    "Movements Deploy": [
+                        [
+                            "2023-03-22",
+                            50000.0
+                        ],
+                        [
+                            "2023-07-25",
+                            -5261.270247030778
+                        ],
+                        [
+                            "2023-08-23",
+                            -4068.1812576994394
+                        ],
+                        [
+                            "2023-09-20",
+                            -4068.1812576994394
+                        ],
+                        [
+                            "2023-10-23",
+                            -4068.1812576994394
+                        ],
+                        [
+                            "2023-11-20",
+                            -4068.1812576994394
+                        ],
+                        [
+                            "2023-12-27",
+                            -4068.1812576994394
+                        ]
+                    ],
+                    "Net Income": [
+                        {
+                            "Distribution Amount": 1063.7102325512615,
+                            "Distribution Date": "2023-06-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 536.3976476457386,
+                            "Distribution Date": "2023-08-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 275.9725736814088,
+                            "Distribution Date": "2023-09-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 192.85759661269165,
+                            "Distribution Date": "2023-10-23",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 220.7627773123492,
+                            "Distribution Date": "2023-11-20",
+                            "Distribution Paid": false
+                        },
+                        {
+                            "Distribution Amount": 186.92669540348322,
+                            "Distribution Date": "2023-12-27",
+                            "Distribution Paid": false
+                        }
+                    ],
+                    "Paid": 50000.0,
+                    "Promote Fees": [
+                        {
+                            "Promote Fee Amount": 265.92755813781537,
+                            "Promote Fee Date": "2023-06-23"
+                        },
+                        {
+                            "Promote Fee Amount": 134.09941191143466,
+                            "Promote Fee Date": "2023-08-23"
+                        },
+                        {
+                            "Promote Fee Amount": 68.99314342035221,
+                            "Promote Fee Date": "2023-09-20"
+                        },
+                        {
+                            "Promote Fee Amount": 48.21439915317291,
+                            "Promote Fee Date": "2023-10-23"
+                        },
+                        {
+                            "Promote Fee Amount": 55.1906943280873,
+                            "Promote Fee Date": "2023-11-20"
+                        },
+                        {
+                            "Promote Fee Amount": 46.731673850870806,
+                            "Promote Fee Date": "2023-12-27"
+                        }
+                    ],
+                    "ROC": 0.0,
+                    "ROC Movements": null
+                }
+            ],
+            "Promote Fee Percentage": 0.2,
+            "Type": "Individual"
+        }
+    ],
+    "valuationVectorPlotting": [
+        {
+            "Amount": 158333.33,
+            "Date": "2022-03-31"
+        },
+        {
+            "Amount": 158749.4,
+            "Date": "2022-06-30"
+        },
+        {
+            "Amount": 158711.58,
+            "Date": "2022-09-30"
+        },
+        {
+            "Amount": 162191.4,
+            "Date": "2022-12-31"
+        },
+        {
+            "Amount": 409406.36,
+            "Date": "2023-03-31"
+        },
+        {
+            "Amount": 412137.63,
+            "Date": "2023-06-30"
+        },
+        {
+            "Amount": 409308.78,
+            "Date": "2023-09-30"
+        },
+        {
+            "Amount": 299737.19,
+            "Date": "2023-12-31"
+        },
+        {
+            "Amount": 199848.55,
+            "Date": "2024-03-31"
+        },
+        {
+            "Amount": 199848.55,
+            "Date": "2024-06-30"
+        }
+    ]
 }
