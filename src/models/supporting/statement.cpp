@@ -19,11 +19,16 @@ void Statement::SetInternalValues(){
     double paidCapital = 0.0;
     double returnAmount = 0.0;
     double committed = 0.0;
+    double combinedIrr = 0.0;
+    std::vector<CashFlow> cashflow;
 
     for(const auto& pos : m_InvestorPtr->GetPositions()){
         if(pos->GetDateInvested() > m_EndingDate) continue;
-
+        CashFlow newCashFlow;
         double paid = pos->GetPaid();
+        newCashFlow.amount = -paid;
+        newCashFlow.date = pos->GetDateInvested();
+        cashflow.push_back(newCashFlow);
         committed += pos->GetPaid();
         double valuationAtStart = 0.0;
         double valuationAtEnd = 0.0;
@@ -57,6 +62,10 @@ void Statement::SetInternalValues(){
             if(ROC.first < m_EndingDate){
                 returnedCapitalAtEnd += ROC.second;
                 committed-=ROC.second;
+                CashFlow newCashFlow;
+                newCashFlow.amount = ROC.second;
+                newCashFlow.date = ROC.first;
+                cashflow.push_back(newCashFlow);
             }
         }
 
@@ -87,10 +96,18 @@ void Statement::SetInternalValues(){
             }
             if(ni.distribution.first <m_EndingDate){
                 netIncomeAlltime+=ni.distribution.second;
+                CashFlow newCashFlow;
+                newCashFlow.amount = ni.distribution.second;
+                newCashFlow.date = ni.distribution.first;
+                cashflow.push_back(newCashFlow);
             }
         }
         paidCapital+=pos->GetPaid();
     }
+    CashFlow newCashFlow;
+    newCashFlow.amount = endingBalance;
+    newCashFlow.date = m_EndingDate;
+    cashflow.push_back(newCashFlow);
 
     double changeInValuationThisPeriod = endingBalance - (beginningBalance + additionalCapital - returnedCapital);
     returnAmount = changeInValuationThisPeriod + netIncomeThisPeriod;
@@ -108,6 +125,10 @@ void Statement::SetInternalValues(){
     SetReturnPercentThisPeriod(returnPercent);
     SetPaid(paidCapital);
     SetTotalGain(totalGain);
+    if(!cashflow.empty()){
+        combinedIrr = CalculateIrr(cashflow);
+    }
+    SetCombinedIrr(combinedIrr);
 
 }
 
@@ -165,57 +186,84 @@ void Statement::SetAssetDetails(){
         Details assetDetails;
         double committed = 0.0;//
         double returnedCapital = 0.0;//
-        double startingValuation = 0.0;//
         double endingValuation = 0.0;//
         double totalDistributions = 0.0;//
         double totalReturn = 0.0;//
         double irr = 0.0;//
         double allocationPercent = 0.0;
-        std::shared_ptr<Asset> assetPtr;
         std::vector<CashFlow> cashFlow;
-        for(auto &pos : m_InvestorPtr->GetPositions()){
-            if(pos->GetAssetPointer() == asset){
-                committed+=pos->GetPaid();
-                for(auto&roc : pos->GetReturnOfCapitalMap()){
-                    if(roc.first< m_EndingDate){
-                        returnedCapital+=roc.second;
+        std::shared_ptr<Asset> assetPtr = nullptr;
+        for(auto &pos: m_InvestorPtr->GetPositions()){
+            if(pos->GetDateInvested()>m_EndingDate)continue;
+            if(pos->GetAssetPointer()==asset){
+                std::vector<CashFlow> tempCashFlow;
+                CashFlow newCashFlow;
+                assetPtr=pos->GetAssetPointer();
+                double paid = pos->GetPaid();
+                committed+=paid;
+                newCashFlow.amount = -paid;
+                newCashFlow.date = pos->GetDateInvested();
+                tempCashFlow.push_back(newCashFlow);
+
+                double deployedAtEnd = 0.0;
+                for(auto& move : pos->GetMovementsDeploy()){
+                    if(move.first < m_EndingDate){
+                        deployedAtEnd+=move.second;
                     }
                 }
-                if(pos->GetDateInvested() > m_QStartDate){
-                    wxDateTime dateInvested = pos->GetDateInvested();
-                    startingValuation += asset->GetValuationOnDate(dateInvested) * pos->CalculateOwnershipAtDate(pos->GetDateInvested());
-                }else{
-                    startingValuation += asset->GetValuationOnDate(m_QStartDate) * pos->CalculateOwnershipAtDate(m_QStartDate);    
+                double returnedCapitalAtEnd=0.0;
+                for(auto&ROC: pos->GetROCMapConstant()){
+                    if(ROC.first < m_EndingDate){
+                        CashFlow newCashFlow;
+                        newCashFlow.amount = ROC.second;
+                        newCashFlow.date = ROC.first;
+                        tempCashFlow.push_back(newCashFlow);
+                        returnedCapitalAtEnd+=ROC.second;
+                    }
                 }
-                endingValuation = asset->GetValuationOnDate(m_EndingDate) * pos->CalculateOwnershipAtDate(m_EndingDate);
-                for(auto &ni : pos->GetNetIncome()){
+                returnedCapital+=returnedCapitalAtEnd;
+                double reserveAtEnd = paid - deployedAtEnd - returnedCapitalAtEnd;
+                for(auto&ni : pos->GetNetIncome()){
                     if(ni.distribution.first < m_EndingDate){
-                        totalDistributions +=ni.distribution.second;    
+                        CashFlow newCashFlow;
+                        newCashFlow.amount = ni.distribution.second;
+                        newCashFlow.date = ni.distribution.first;
+                        tempCashFlow.push_back(newCashFlow);
+                        totalDistributions+=ni.distribution.second;
                     }
                 }
-                totalReturn +=endingValuation + totalDistributions;
-                std::vector<CashFlow> cashflowTemp;
-                cashflowTemp = pos->ReturnCashFlowToFromDate(m_QStartDate, m_EndingDate);
-                std::move(std::begin(cashflowTemp),std::end(cashflowTemp),std::back_inserter(cashFlow));
-                assetPtr = pos->GetAssetPointer();
+                double assetValuationAtEnd = pos->GetAssetPointer()->GetValuationOnDate(m_EndingDate);
+                double ownershipAtEnd = pos->CalculateOwnershipAtDate(m_EndingDate);
+                double positionsValueAtEnd = assetValuationAtEnd * ownershipAtEnd;
+                double positionsScaledValueAtEnd = positionsValueAtEnd + reserveAtEnd;
+                CashFlow endingCashFlow;
+                endingCashFlow.amount = positionsScaledValueAtEnd;
+                endingCashFlow.date = m_EndingDate;
+                tempCashFlow.push_back(endingCashFlow);
+                endingValuation += positionsScaledValueAtEnd;
+                std::move(std::begin(tempCashFlow),std::end(tempCashFlow),std::back_inserter(cashFlow));
             }
         }
-        irr = CalculateIrr(cashFlow);
+        if(!cashFlow.empty()){
+            irr = CalculateIrr(cashFlow);
+        }else{
+            irr=0.0;
+        }
         assetDetails.m_AssetPtr = assetPtr;
         assetDetails.m_CommittedAmount = committed;
         assetDetails.m_IRR = irr;
         assetDetails.m_NetDistributionsExecuted = totalDistributions;
         assetDetails.m_ReturnedCapital = returnedCapital;
-        assetDetails.m_TotalReturn = totalReturn;
-        assetDetails.m_ChangeInValuation = endingValuation - startingValuation;
+        assetDetails.m_ChangeInValuation = endingValuation - (committed - returnedCapital);
         assetDetails.m_AllocationPercent = 0.0;
+        assetDetails.m_TotalReturn = assetDetails.m_ChangeInValuation + assetDetails.m_NetDistributionsExecuted;
         m_ITDDetails.push_back(assetDetails);
     }
     double totalCommitted = 0;
     for(auto detail : m_ITDDetails){
         totalCommitted += detail.m_CommittedAmount;
     }
-    for(auto detail : m_ITDDetails){
+    for(auto &detail : m_ITDDetails){
         detail.m_AllocationPercent = detail.m_CommittedAmount / totalCommitted;
     }
 
@@ -228,7 +276,9 @@ double Statement::CalculateIrr(std::vector<CashFlow> &cashFlow){
     int maxIterations = 100;
     double precision = 0.000001;
     bool foundIrr = false;
-
+    for(const auto&cf:cashFlow){
+        std::cout<<"*Cash Flow Date: "<<cf.date.FormatISODate().ToStdString()<<" | Cash Flow Amount: "<<cf.amount<<std::endl;
+    }
     for(double initialGuess = 0.1 * direction; std::fabs(initialGuess)<=1.0; initialGuess +=0.1*direction){
         double x1 = initialGuess;
         for(int i = 0; i< maxIterations; i++){
@@ -239,10 +289,11 @@ double Statement::CalculateIrr(std::vector<CashFlow> &cashFlow){
             if(std::fabs(npvPrime) < 1e-6){
                 break;
             }
-                        double xNext = x1 - npv / npvPrime; 
+            double xNext = x1 - npv / npvPrime; 
             if (std::fabs(xNext - x1) <= precision) {
                 irr = xNext; 
                 foundIrr = true; 
+                std::cout << "IRR found: " << irr << std::endl;
                 break; 
             }
             x1 = xNext; 
@@ -282,8 +333,8 @@ wxVariant Details::GetValue(int col)const{
     }
 }
 
-std::vector<wxString> Details::columnNames = {"Asset Name","Committed","Returned Cap","Change Valuation","ITD NetDistributions","Total Return","Allocate %","IRR%"};
-std::vector<int> Details::columnWidths = {75,75,75,75,75,75,75,75};
+std::vector<wxString> Details::columnNames = {"Asset Name","Committed","ROC","Valuation Delta","ITD Income","Total Return","Allocate %","IRR%"};
+std::vector<int> Details::columnWidths = {100,110,80,120,125,120,100,80};
 
 double Statement::GetBeginningBalance(){
     return m_BeginningBalance;
@@ -333,4 +384,41 @@ double Statement::GetCombinedIrr(){
 
 std::vector<Details> Statement::GetDetails(){
     return m_ITDDetails;
+}
+
+wxString Statement::ToCsv()const{
+    return wxString::Format("Beginning Balance,%.2f\n"
+    "Additional Capiatl, %.2f\n"
+    "Returned Capital, %.2f\n"
+    "Ending Balance, %.2f\n"
+    "Change In Valuation,%.2f\n"
+    "Distributions This Period, %.2f\n"
+    "Return This Period,%.2f\n"
+    "Return % This Period ,%.2f%%\n"
+    "Paid Capital,%.2f\n"
+    "Returned Principal,%.2f\n"
+    "Ending Balance, %.2f\n"
+    "ITD Distributions,%.2f\n"
+    "Total Return,%.2f\n"
+    "IRR, %.5f\n",
+    m_EndingBalance, m_AdditionalCapitalThisPeriod, m_ReturnedCapitalThisPeriod, m_EndingBalance,m_ChangeValuationThisPeriod,
+    m_NetIncomeThisPeriod,m_ReturnThisPeriodAmount,m_ReturnThisPeriodPercent,m_PaidCapital,m_ReturnedPrincipal,
+    m_EndingBalance,m_TotalNetDistributions,m_TotalGain,m_CombinedIRR);
+}
+
+wxString Details::ToCsv()const{
+    return wxString::Format("%s,%.2f,%.2f,%.2f,%.2f,%.2f,%.5f,%.2f\n",
+    m_AssetPtr->GetAssetName(),m_CommittedAmount,m_ReturnedCapital,m_ChangeInValuation,m_NetDistributionsExecuted,
+    m_TotalReturn,m_IRR,m_AllocationPercent);
+}
+
+wxString Statement::WriteCsv()const{
+    wxString statement = ToCsv();
+    wxString detailHeaders = "Asset Name, Committed Amount, Returned Capital, Change In Valuation, ITD Distributions, Total Return, IRR, Allocation\n";
+    wxString details;
+    for(const auto&detail : m_ITDDetails){
+        details+=detail.ToCsv();
+    }
+    wxString csvData = statement+detailHeaders+details;
+    return csvData;
 }

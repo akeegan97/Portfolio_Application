@@ -41,7 +41,9 @@ class InvestorPopout : public wxFrame{
         void UpdateInvestorsValuationDeployChart();
         void UpdateInvestorsDistributionChart();
         void OnMakeStatementClick(wxCommandEvent &e);
+        void OnWriteToCsvClick(wxCommandEvent &e);
         wxButton *DisplayStatement;
+        wxButton *WriteToCsv;
         wxDatePickerCtrl* startDate;
         wxDatePickerCtrl* endDate;
         VListControl<Details> *itdDetailsVLC;
@@ -62,6 +64,7 @@ class InvestorPopout : public wxFrame{
         wxStaticText *totalDistributions;
         wxStaticText *totalGain;
         wxStaticText *irr;
+        Statement m_clientStatement;
 };
 
 #endif

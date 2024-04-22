@@ -51,6 +51,7 @@ class Statement{
         double GetTotalGain();
         double GetCombinedIrr();
         std::vector<Details> GetDetails();
+        wxString WriteCsv()const;
         
     private:
         std::shared_ptr<Investor> m_InvestorPtr;
@@ -78,6 +79,7 @@ class Statement{
         std::vector<Details> m_ITDDetails;
         double CalculateNPV(std::vector<CashFlow> &cashFlows, double rate);
         double CalculateIrr(std::vector<CashFlow> &cashFlow);
+        wxString ToCsv()const;
 };
 struct Details{
     std::shared_ptr<Asset> m_AssetPtr;
@@ -91,5 +93,6 @@ struct Details{
     wxVariant GetValue(int col)const;
     static std::vector<wxString> columnNames;
     static std::vector<int> columnWidths;
+    wxString ToCsv()const;
 };
 #endif

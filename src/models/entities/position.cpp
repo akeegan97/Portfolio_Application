@@ -568,13 +568,13 @@ std::vector<CashFlow> Position::ReturnCashFlowToFromDate(const wxDateTime &start
     //initial cash flow
     if(GetDateInvested() < endDate){
         CashFlow newCashFlow;
-        newCashFlow.amount = GetPaid();
+        newCashFlow.amount = -GetPaid();
         newCashFlow.date = GetDateInvested();
         cashFlow.push_back(newCashFlow);
     }
     //any distributions
     for(const auto&distr : GetNetIncome()){
-        if(distr.distribution.first > startDate && distr.distribution.first < endDate){
+        if(distr.distribution.first < endDate){
             CashFlow newCashFlow;
             newCashFlow.amount = distr.distribution.second;
             newCashFlow.date = distr.distribution.first;
@@ -593,6 +593,22 @@ std::vector<CashFlow> Position::ReturnCashFlowToFromDate(const wxDateTime &start
     //ending valuation of position
     wxDateTime endingDate = endDate;
     double endingValuation = GetAssetPointer()->GetValuationOnDate(endingDate) * CalculateOwnershipAtDate(endingDate);
+    double deployedAtEnd = 0;
+    double reserveAtEnd = 0;
+    double committedAtEnd = 0;
+    double returnedAtEnd = 0.0;
+    for(const auto&movementDeploy : GetMovementsDeploy()){
+        if(movementDeploy.first <=endDate){
+            deployedAtEnd+=movementDeploy.second;
+        }
+    }
+    for(const auto&ROC:GetROCMapConstant()){
+        if(ROC.first <= endDate){
+            returnedAtEnd+=ROC.second;
+        }
+    }
+    reserveAtEnd = GetPaid()-deployedAtEnd - returnedAtEnd;
+    endingValuation = endingValuation+reserveAtEnd;
     CashFlow newCashFlow;
     newCashFlow.amount = endingValuation;
     newCashFlow.date = endingDate;

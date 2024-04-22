@@ -321,7 +321,7 @@ void MainFrame::OnInvestorVLCClick(wxListEvent &e){
    long listIndex = e.GetIndex();
    auto& selectedInvestor = allInvestorVListControl->GetItemAtListIndex(listIndex);
    std::string selectedInvestorName  = selectedInvestor->GetName();
-   auto* investorPopout  = new InvestorPopout(this, selectedInvestorName, wxDefaultPosition,wxSize(FromDIP(1200),FromDIP(800)),
+   auto* investorPopout  = new InvestorPopout(this, selectedInvestorName, wxDefaultPosition,wxSize(1300, 800),
    portfolio, selectedInvestor);
    investorPopout->Show(true);
 }

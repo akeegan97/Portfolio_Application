@@ -1,6 +1,9 @@
 #include "ui/investorpopout/investorpopout.hpp"
 #include <memory>
 #include <unordered_set>
+#include <wx/filename.h>
+#include <wx/stdpaths.h>
+#include <wx/file.h>
 
 InvestorPopout::InvestorPopout(wxWindow *parentWindow, const wxString &title, const wxPoint &pos, const wxSize &size,
     Portfolio &port, std::shared_ptr<Investor> investor):
@@ -117,10 +120,13 @@ void InvestorPopout::SetupLayout(){
     startDate = new wxDatePickerCtrl(this, wxID_ANY);
     endDate = new wxDatePickerCtrl(this, wxID_ANY);
     DisplayStatement = new wxButton(this, wxID_ANY,"Display Statement");
+    WriteToCsv = new wxButton(this, wxID_ANY,"Write To CSV /Documents/..");
+    WriteToCsv->Bind(wxEVT_BUTTON, &InvestorPopout::OnWriteToCsvClick,this);
     DisplayStatement->Bind(wxEVT_BUTTON, &InvestorPopout::OnMakeStatementClick, this);
     leftmiddleSizer->Add(startDate,1, wxALL,5);
     leftmiddleSizer->Add(endDate,1,wxALL,5);
     leftmiddleSizer->Add(DisplayStatement,1,wxALL,5);
+    leftmiddleSizer->Add(WriteToCsv,1,wxALL,5);
     leftSizer->Add(leftmiddleSizer,1,wxALL,5);
     auto *leftTextSizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -168,7 +174,7 @@ void InvestorPopout::SetupLayout(){
     leftTextSizer->Add(leftRightSizer,1,wxALL,5);
     leftSizer->Add(leftTextSizer,2,wxALL,5);
 
-    leftSizer->Add(itdDetailsVLC,1,wxALL,5);
+    leftSizer->Add(itdDetailsVLC, 1, wxEXPAND|wxALL,10);
     mainSizer->Add(leftSizer, 7, wxRIGHT,5);
     mainSizer->Add(rightSizer,3,wxALL|wxEXPAND,5);
     wxFont font = wxFont(14, wxDEFAULT, wxNORMAL, wxFONTWEIGHT_BOLD, false);
@@ -189,6 +195,85 @@ void InvestorPopout::SetupLayout(){
     distributionsByAssetNoteBook->Bind(wxEVT_AUINOTEBOOK_PAGE_CLOSE, [&](wxAuiNotebookEvent& event) {
     event.Veto();//stop users from closing tabs using GUI button
     });
+    #ifdef __WXMAC__
+    startDate->SetForegroundColour(fgColor);
+    startDate->SetBackgroundColour(bgColor);
+    startDate->SetFont(font);
+
+    endDate->SetForegroundColour(fgColor);
+    endDate->SetBackgroundColour(bgColor);
+    endDate->SetFont(font);
+    
+    DisplayStatement->SetForegroundColour(fgColor);
+    DisplayStatement->SetBackgroundColour(bgColor);
+    DisplayStatement->SetFont(font);
+
+    WriteToCsv->SetForegroundColour(fgColor);
+    WriteToCsv->SetBackgroundColour(bgColor);
+    WriteToCsv->SetFont(font);
+
+    beginningBalance->SetForegroundColour(fgColor);
+    beginningBalance->SetBackgroundColour(bgColor);
+    beginningBalance->SetFont(font);
+
+    additionalCapital->SetForegroundColour(fgColor);
+    additionalCapital->SetBackgroundColour(bgColor);
+    additionalCapital->SetFont(font);
+
+    returnedCapital->SetForegroundColour(fgColor);
+    returnedCapital->SetBackgroundColour(bgColor);
+    returnedCapital->SetFont(font);
+    
+        endingBalance->SetForegroundColour(fgColor);
+    endingBalance->SetBackgroundColour(bgColor);
+    endingBalance->SetFont(font);
+
+        distributionsThisperiod->SetForegroundColour(fgColor);
+    distributionsThisperiod->SetBackgroundColour(bgColor);
+    distributionsThisperiod->SetFont(font);
+
+        changeInValuationthisPeriod->SetForegroundColour(fgColor);
+    changeInValuationthisPeriod->SetBackgroundColour(bgColor);
+    changeInValuationthisPeriod->SetFont(font);
+
+        returnAmountThisPeriod->SetForegroundColour(fgColor);
+    returnAmountThisPeriod->SetBackgroundColour(bgColor);
+    returnAmountThisPeriod->SetFont(font);
+
+        returnPercentThisPeriod->SetForegroundColour(fgColor);
+    returnPercentThisPeriod->SetBackgroundColour(bgColor);
+    returnPercentThisPeriod->SetFont(font);
+
+        paidCapital->SetForegroundColour(fgColor);
+    paidCapital->SetBackgroundColour(bgColor);
+    paidCapital->SetFont(font);
+
+        returnedPrincipal->SetForegroundColour(fgColor);
+    returnedPrincipal->SetBackgroundColour(bgColor);
+    returnedPrincipal->SetFont(font);
+
+        endingBalanceITD->SetForegroundColour(fgColor);
+    endingBalanceITD->SetBackgroundColour(bgColor);
+    endingBalanceITD->SetFont(font);
+
+        totalDistributions->SetForegroundColour(fgColor);
+    totalDistributions->SetBackgroundColour(bgColor);
+    totalDistributions->SetFont(font);
+
+        totalGain->SetForegroundColour(fgColor);
+    totalGain->SetBackgroundColour(bgColor);
+    totalGain->SetFont(font);
+
+        irr->SetForegroundColour(fgColor);
+    irr->SetBackgroundColour(bgColor);
+    irr->SetFont(font);
+
+        itdDetailsVLC->SetForegroundColour(fgColor);
+    itdDetailsVLC->SetBackgroundColour(bgColor);
+    itdDetailsVLC->SetFont(font);
+
+
+    #endif
     this->SetSizer(mainSizer);
     this->Layout();  
 }
@@ -197,25 +282,26 @@ void InvestorPopout::WriteStatementDetails(){
     wxDateTime statementBegin = startDate->GetValue();
     wxDateTime statementEnd = endDate->GetValue();
     Statement clientStatement(statementBegin, statementEnd,investor);
+    m_clientStatement = clientStatement;
 
-    beginningBalance->SetLabel("Beginning Balance: "+utilities::formatDollarAmount(clientStatement.GetBeginningBalance()));
-    additionalCapital->SetLabel("Additional Capital: "+utilities::formatDollarAmount(clientStatement.GetAdditionalCapital()));
-    returnedCapital->SetLabel("Returned Capital: "+utilities::formatDollarAmount(clientStatement.GetReturnedCapital()));
-    endingBalance->SetLabel("Ending Balance: "+utilities::formatDollarAmount(clientStatement.GetEndingBalance()));
+    beginningBalance->SetLabel("Beginning Balance: "+utilities::formatDollarAmount(m_clientStatement.GetBeginningBalance()));
+    additionalCapital->SetLabel("Additional Capital: "+utilities::formatDollarAmount(m_clientStatement.GetAdditionalCapital()));
+    returnedCapital->SetLabel("Returned Capital: "+utilities::formatDollarAmount(m_clientStatement.GetReturnedCapital()));
+    endingBalance->SetLabel("Ending Balance: "+utilities::formatDollarAmount(m_clientStatement.GetEndingBalance()));
 
-    changeInValuationthisPeriod->SetLabel("Change In Valuation This Period: "+utilities::formatDollarAmount(clientStatement.GetChangeInValuationThisPeriod()));
-    distributionsThisperiod->SetLabel("Distributions This Period: "+utilities::formatDollarAmount(clientStatement.GetNetIncomeThisPeriod()));
-    returnAmountThisPeriod->SetLabel("Return This Period: "+utilities::formatDollarAmount(clientStatement.GetReturnAmountThisPeriod()));
-    returnPercentThisPeriod->SetLabel("Return % This Period: "+utilities::FormatPercentage(clientStatement.GetReturnPercentThisPeriod()));
+    changeInValuationthisPeriod->SetLabel("Change In Valuation This Period: "+utilities::formatDollarAmount(m_clientStatement.GetChangeInValuationThisPeriod()));
+    distributionsThisperiod->SetLabel("Distributions This Period: "+utilities::formatDollarAmount(m_clientStatement.GetNetIncomeThisPeriod()));
+    returnAmountThisPeriod->SetLabel("Return This Period: "+utilities::formatDollarAmount(m_clientStatement.GetReturnAmountThisPeriod()));
+    returnPercentThisPeriod->SetLabel("Return % This Period: "+utilities::FormatPercentage(m_clientStatement.GetReturnPercentThisPeriod()));
 
-    paidCapital->SetLabel("Paid Capital: "+utilities::formatDollarAmount(clientStatement.GetPaidCapital()));
-    returnedPrincipal->SetLabel("Returned Principal: "+utilities::formatDollarAmount(clientStatement.GetReturnedPrincipal()));
-    endingBalanceITD->SetLabel("Ending Balance: "+utilities::formatDollarAmount(clientStatement.GetEndingBalance()));
-    totalDistributions->SetLabel("Total Distributions: "+utilities::formatDollarAmount(clientStatement.GetTotalNetIncomeToEndDate()));
-    totalGain->SetLabel("Total Return: "+utilities::formatDollarAmount(clientStatement.GetTotalGain()));
-    irr->SetLabel("IRR: "+utilities::formatDollarAmount(clientStatement.GetCombinedIrr()));
+    paidCapital->SetLabel("Paid Capital: "+utilities::formatDollarAmount(m_clientStatement.GetPaidCapital()));
+    returnedPrincipal->SetLabel("Returned Principal: "+utilities::formatDollarAmount(m_clientStatement.GetReturnedPrincipal()));
+    endingBalanceITD->SetLabel("Ending Balance: "+utilities::formatDollarAmount(m_clientStatement.GetEndingBalance()));
+    totalDistributions->SetLabel("Total Distributions: "+utilities::formatDollarAmount(m_clientStatement.GetTotalNetIncomeToEndDate()));
+    totalGain->SetLabel("Total Return: "+utilities::formatDollarAmount(m_clientStatement.GetTotalGain()));
+    irr->SetLabel("IRR: "+utilities::FormatPercentage(m_clientStatement.GetCombinedIrr()));
 
-    itdDetailsVLC->setItems(clientStatement.GetDetails());
+    itdDetailsVLC->setItems(m_clientStatement.GetDetails());
 }
 
 void InvestorPopout::OnMakeStatementClick(wxCommandEvent &e){
@@ -223,4 +309,17 @@ void InvestorPopout::OnMakeStatementClick(wxCommandEvent &e){
     this->Update();
     this->Refresh();
     this->Layout();
+}
+
+void InvestorPopout::OnWriteToCsvClick(wxCommandEvent &e){
+    wxString fromDate = startDate->GetValue().FormatISODate();
+    wxString toDate = endDate->GetValue().FormatISODate();
+    wxString clientName = investor->GetName();
+    wxString fileName = clientName+" Statement From "+fromDate+" To "+toDate+".csv";
+    wxFileName filePath(wxStandardPaths::Get().GetDocumentsDir(),fileName);
+    wxFile file(filePath.GetFullPath(),wxFile::write);
+    if(file.IsOpened()){
+        file.Write(m_clientStatement.WriteCsv());
+    }
+    file.Close();
 }
