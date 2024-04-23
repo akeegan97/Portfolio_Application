@@ -402,7 +402,7 @@ wxString Statement::ToCsv()const{
     "ITD Distributions,%.2f\n"
     "Total Return,%.2f\n"
     "IRR, %.5f\n",
-    m_EndingBalance, m_AdditionalCapitalThisPeriod, m_ReturnedCapitalThisPeriod, m_EndingBalance,m_ChangeValuationThisPeriod,
+    m_BeginningBalance, m_AdditionalCapitalThisPeriod, m_ReturnedCapitalThisPeriod, m_EndingBalance,m_ChangeValuationThisPeriod,
     m_NetIncomeThisPeriod,m_ReturnThisPeriodAmount,m_ReturnThisPeriodPercent,m_PaidCapital,m_ReturnedPrincipal,
     m_EndingBalance,m_TotalNetDistributions,m_TotalGain,m_CombinedIRR);
 }
