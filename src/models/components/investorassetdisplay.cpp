@@ -40,6 +40,8 @@ void InvestorAssetDisplay::PopulateIRR(){
         assetPtr->SortValuations2();
         auto valuations = assetPtr->GetValuations();
         auto lastvaluation = valuations.back();
+        std::cout<<"Last Valuation: "<<lastvaluation.valuation<<std::endl;
+        std::cout<<"Last Valuation Date: "<<lastvaluation.valuationDate.FormatISODate().ToStdString()<<std::endl;
         for(const auto&pos : investorPtr->GetPositions()){
             if(pos->GetAssetPointer() == assetPtr){
                 ownership+=pos->CalculateOwnershipAtDate(lastvaluation.valuationDate);
@@ -47,6 +49,8 @@ void InvestorAssetDisplay::PopulateIRR(){
                 reserveCapital+=pos->GetReserve();
             }
         }
+        std::cout<<"Reserve Amount: "<<reserveCapital<<std::endl;
+        std::cout<<"Ownership Amount: "<<ownership<<std::endl;
         newCashFlow.amount = lastvaluation.valuation * ownership + reserveCapital;
         newCashFlow.date = wxDateTime::Today();
         if(newCashFlow.amount != 0){

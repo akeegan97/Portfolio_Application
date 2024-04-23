@@ -29,7 +29,7 @@ void Statement::SetInternalValues(){
         newCashFlow.amount = -paid;
         newCashFlow.date = pos->GetDateInvested();
         cashflow.push_back(newCashFlow);
-        committed += pos->GetPaid();
+        committed += pos->GetPaid();//think this needs to be scoped to this loop instead and passed at the end to global comitted var
         double valuationAtStart = 0.0;
         double valuationAtEnd = 0.0;
 
@@ -40,7 +40,8 @@ void Statement::SetInternalValues(){
         }
 
         double assetValuationAtEnd = pos->GetAssetPointer()->GetValuationOnDate(m_EndingDate);
-        valuationAtEnd = assetValuationAtEnd * pos->CalculateOwnershipAtDate(m_EndingDate);
+        double ownershipAtEnd = pos->CalculateOwnershipAtDate(m_EndingDate);
+        valuationAtEnd = assetValuationAtEnd * ownershipAtEnd;
 
         double deployedAtStart = 0.0;
         double deployedAtEnd = 0.0;

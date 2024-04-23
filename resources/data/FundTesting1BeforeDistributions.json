@@ -47,136 +47,55 @@
                 {
                     "Distribution Amount": 3922.17,
                     "Distribution Date": "2023-06-16",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 7455.21,
                     "Distribution Date": "2023-07-17",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 7937.41,
                     "Distribution Date": "2023-08-07",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 8487.51,
                     "Distribution Date": "2023-09-08",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 7611.08,
                     "Distribution Date": "2023-10-03",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 8524.84,
                     "Distribution Date": "2023-11-09",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 8161.22,
                     "Distribution Date": "2023-12-07",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 8128.04,
                     "Distribution Date": "2024-01-05",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 9332.88,
                     "Distribution Date": "2024-02-05",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 8326.81,
                     "Distribution Date": "2024-03-05",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 }
             ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 3922.17,
-                        "Distribution Date": "2023-06-16",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 7455.21,
-                        "Distribution Date": "2023-07-17",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 7937.41,
-                        "Distribution Date": "2023-08-07",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 8487.51,
-                        "Distribution Date": "2023-09-08",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 7611.08,
-                        "Distribution Date": "2023-10-03",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 8524.84,
-                        "Distribution Date": "2023-11-09",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 8161.22,
-                        "Distribution Date": "2023-12-07",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 8128.04,
-                        "Distribution Date": "2024-01-05",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 9332.88,
-                        "Distribution Date": "2024-02-05",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 8326.81,
-                        "Distribution Date": "2024-03-05",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
+            "Quarterly Distributions": null,
             "Transactions": [
                 {
                     "Transaction Amount": 500000.0,
@@ -373,76 +292,6 @@
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
                     "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 3922.17,
-                    "Transaction Date": "2023-06-16",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 7455.21,
-                    "Transaction Date": "2023-07-17",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 7937.41,
-                    "Transaction Date": "2023-08-07",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 8487.51,
-                    "Transaction Date": "2023-09-08",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 7611.08,
-                    "Transaction Date": "2023-10-03",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 8524.84,
-                    "Transaction Date": "2023-11-09",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 8161.22,
-                    "Transaction Date": "2023-12-07",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 8128.04,
-                    "Transaction Date": "2024-01-05",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 9332.88,
-                    "Transaction Date": "2024-02-05",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 8326.81,
-                    "Transaction Date": "2024-03-05",
-                    "Transaction Name": "Collins Park",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
                 }
             ],
             "Valuations": [
@@ -495,71 +344,30 @@
                 {
                     "Distribution Amount": 15000.0,
                     "Distribution Date": "2023-06-06",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15119.75,
                     "Distribution Date": "2023-06-08",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15000.0,
                     "Distribution Date": "2023-09-13",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15000.0,
                     "Distribution Date": "2023-12-12",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 18000.0,
                     "Distribution Date": "2024-03-20",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 }
             ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15000.0,
-                        "Distribution Date": "2023-06-06",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15119.75,
-                        "Distribution Date": "2023-06-08",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15000.0,
-                        "Distribution Date": "2023-09-13",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15000.0,
-                        "Distribution Date": "2023-12-12",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 18000.0,
-                        "Distribution Date": "2024-03-20",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
+            "Quarterly Distributions": null,
             "Transactions": [
                 {
                     "Transaction Amount": 250000.0,
@@ -805,41 +613,6 @@
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
                     "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 15000.0,
-                    "Transaction Date": "2023-06-06",
-                    "Transaction Name": "CRE Lending",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15119.75,
-                    "Transaction Date": "2023-06-08",
-                    "Transaction Name": "CRE Lending",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15000.0,
-                    "Transaction Date": "2023-09-13",
-                    "Transaction Name": "CRE Lending",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15000.0,
-                    "Transaction Date": "2023-12-12",
-                    "Transaction Name": "CRE Lending",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 18000.0,
-                    "Transaction Date": "2024-03-20",
-                    "Transaction Name": "CRE Lending",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
                 }
             ],
             "Valuations": [
@@ -872,6 +645,114 @@
                     "Valuation Date": "2024-03-31"
                 }
             ]
+        },
+        {
+            "Asset Committed Capital": 1900000.0,
+            "Asset Deployed Capital": 1683875.0,
+            "Asset Exit Date": "2031-12-31",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 1558000.0,
+                    "Date": "2023-07-12"
+                },
+                {
+                    "Amount": 125875.0,
+                    "Date": "2023-12-31"
+                }
+            ],
+            "Asset Name": "Raleigh",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 216125.0,
+            "Asset Sponser": "BH3",
+            "Current Value": 1683875.0,
+            "Distributions": [
+                {
+                    "Distribution Amount": 90250.0,
+                    "Distribution Date": "2023-12-01",
+                    "Distribution Paid": false
+                }
+            ],
+            "Quarterly Distributions": null,
+            "Transactions": [
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Hector Ovalle",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 250000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Juan Jose Risoul",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "German Hernandez",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 205000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Carlos Bulido",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 1558000.0,
+                    "Transaction Date": "2023-07-12",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-20",
+                    "Transaction Name": "Fund Position",
+                    "Transaction Note": "",
+                    "Transaction Type": "Return of Capital"
+                },
+                {
+                    "Transaction Amount": 695000.0,
+                    "Transaction Date": "2023-07-20",
+                    "Transaction Name": "Alberto Tanus",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 125875.0,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 90250.0,
+                    "Transaction Date": "2023-12-01",
+                    "Transaction Name": "Raleigh",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                }
+            ],
+            "Valuations": []
         },
         {
             "Asset Committed Capital": 500000.0,
@@ -1080,193 +961,80 @@
                 {
                     "Distribution Amount": 189.12,
                     "Distribution Date": "2022-03-25",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 3479.81,
                     "Distribution Date": "2022-06-28",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 3479.81,
                     "Distribution Date": "2022-10-04",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 3441.99,
                     "Distribution Date": "2022-12-28",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 3762.5,
                     "Distribution Date": "2022-12-28",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 6047.87,
                     "Distribution Date": "2023-03-10",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 11705.56,
                     "Distribution Date": "2023-06-23",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 6153.01,
                     "Distribution Date": "2023-08-23",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 2817.22,
                     "Distribution Date": "2023-09-20",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 2453.63,
                     "Distribution Date": "2023-10-23",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 2253.62,
                     "Distribution Date": "2023-11-20",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 1908.21,
                     "Distribution Date": "2023-12-27",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 1690.02,
                     "Distribution Date": "2024-01-23",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 1408.22,
                     "Distribution Date": "2024-02-22",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 1053.75,
                     "Distribution Date": "2024-03-21",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 }
             ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 189.12,
-                        "Distribution Date": "2022-03-25",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 3479.81,
-                        "Distribution Date": "2022-06-28",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 3479.81,
-                        "Distribution Date": "2022-10-04",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 7204.49,
-                        "Distribution Date": "2022-12-28",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 6047.87,
-                        "Distribution Date": "2023-03-10",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 11705.56,
-                        "Distribution Date": "2023-06-23",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 6153.01,
-                        "Distribution Date": "2023-08-23",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 2817.22,
-                        "Distribution Date": "2023-09-20",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 2453.63,
-                        "Distribution Date": "2023-10-23",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 2253.62,
-                        "Distribution Date": "2023-11-20",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 1908.21,
-                        "Distribution Date": "2023-12-27",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 1690.02,
-                        "Distribution Date": "2024-01-23",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 1408.22,
-                        "Distribution Date": "2024-02-22",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 1053.75,
-                        "Distribution Date": "2024-03-21",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
+            "Quarterly Distributions": null,
             "Transactions": [
                 {
                     "Transaction Amount": 158333.33,
@@ -1561,104 +1329,6 @@
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
                     "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 189.12,
-                    "Transaction Date": "2022-03-25",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 3479.81,
-                    "Transaction Date": "2022-06-28",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 3479.81,
-                    "Transaction Date": "2022-10-04",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 7204.49,
-                    "Transaction Date": "2022-12-28",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 6047.87,
-                    "Transaction Date": "2023-03-10",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 11705.56,
-                    "Transaction Date": "2023-06-23",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 6153.01,
-                    "Transaction Date": "2023-08-23",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 2817.22,
-                    "Transaction Date": "2023-09-20",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 2453.63,
-                    "Transaction Date": "2023-10-23",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 2253.62,
-                    "Transaction Date": "2023-11-20",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 1908.21,
-                    "Transaction Date": "2023-12-27",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 1690.02,
-                    "Transaction Date": "2024-01-23",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 1408.22,
-                    "Transaction Date": "2024-02-22",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 1053.75,
-                    "Transaction Date": "2024-03-21",
-                    "Transaction Name": "One Blinc",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
                 }
             ],
             "Valuations": [
@@ -1723,97 +1393,40 @@
                 {
                     "Distribution Amount": 6371.4,
                     "Distribution Date": "2022-06-29",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 17187.42,
                     "Distribution Date": "2022-09-19",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15164.13,
                     "Distribution Date": "2022-12-15",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15281.79,
                     "Distribution Date": "2023-03-10",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15482.45,
                     "Distribution Date": "2023-06-14",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15034.54,
                     "Distribution Date": "2023-09-11",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 15208.84,
                     "Distribution Date": "2023-12-18",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 }
             ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 6371.4,
-                        "Distribution Date": "2022-06-29",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 17187.42,
-                        "Distribution Date": "2022-09-19",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15164.13,
-                        "Distribution Date": "2022-12-15",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15281.79,
-                        "Distribution Date": "2023-03-10",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15482.45,
-                        "Distribution Date": "2023-06-14",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15034.54,
-                        "Distribution Date": "2023-09-11",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                },
-                {
-                    "Distribution": {
-                        "Distribution Amount": 15208.84,
-                        "Distribution Date": "2023-12-18",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
+            "Quarterly Distributions": null,
             "Transactions": [
                 {
                     "Transaction Amount": 500000.0,
@@ -2059,55 +1672,6 @@
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
                     "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 6371.4,
-                    "Transaction Date": "2022-06-29",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 17187.42,
-                    "Transaction Date": "2022-09-19",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15164.13,
-                    "Transaction Date": "2022-12-15",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15281.79,
-                    "Transaction Date": "2023-03-10",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15482.45,
-                    "Transaction Date": "2023-06-14",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15034.54,
-                    "Transaction Date": "2023-09-11",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                },
-                {
-                    "Transaction Amount": 15208.84,
-                    "Transaction Date": "2023-12-18",
-                    "Transaction Name": "PHL Airport",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
                 }
             ],
             "Valuations": [
@@ -2164,7 +1728,7 @@
                 {
                     "Distribution Amount": 354.17,
                     "Distribution Date": "2022-04-08",
-                    "Distribution Paid": true
+                    "Distribution Paid": false
                 },
                 {
                     "Distribution Amount": 10861.11,
@@ -2207,16 +1771,7 @@
                     "Distribution Paid": false
                 }
             ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 354.17,
-                        "Distribution Date": "2022-04-08",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
+            "Quarterly Distributions": null,
             "Transactions": [
                 {
                     "Transaction Amount": 500000.0,
@@ -2357,13 +1912,6 @@
                     "Transaction Name": "200 West Jackson Mezzanine",
                     "Transaction Note": "",
                     "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 354.17,
-                    "Transaction Date": "2022-04-08",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
                 }
             ],
             "Valuations": [
@@ -2460,130 +2008,6 @@
                 }
             ],
             "Valuations": []
-        },
-        {
-            "Asset Committed Capital": 1900000.0,
-            "Asset Deployed Capital": 1683875.0,
-            "Asset Exit Date": "2024-12-31",
-            "Asset Movement To From Deploy": [
-                {
-                    "Amount": 1558000.0,
-                    "Date": "2023-07-12"
-                },
-                {
-                    "Amount": 125875.0,
-                    "Date": "2023-12-21"
-                }
-            ],
-            "Asset Name": "Raleigh Hotel",
-            "Asset ROC Movements": null,
-            "Asset Reserve Capital": 216125.0,
-            "Asset Sponser": "BH3",
-            "Current Value": 1683875.0,
-            "Distributions": [
-                {
-                    "Distribution Amount": 90250.0,
-                    "Distribution Date": "2023-12-01",
-                    "Distribution Paid": true
-                }
-            ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 90250.0,
-                        "Distribution Date": "2023-12-01",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
-            "Transactions": [
-                {
-                    "Transaction Amount": 695000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 0.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Raleigh Hotel",
-                    "Transaction Note": "",
-                    "Transaction Type": "To Deploy"
-                },
-                {
-                    "Transaction Amount": 250000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Hector Ovalle",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 250000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Juan Jose Risoul",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "German Hernandez",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 205000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Carlos Bulido",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 1558000.0,
-                    "Transaction Date": "2023-07-12",
-                    "Transaction Name": "Raleigh Hotel",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 695000.0,
-                    "Transaction Date": "2023-07-20",
-                    "Transaction Name": "Fund Position",
-                    "Transaction Note": "",
-                    "Transaction Type": "Return of Capital"
-                },
-                {
-                    "Transaction Amount": 695000.0,
-                    "Transaction Date": "2023-07-20",
-                    "Transaction Name": "Alberto Tanus",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 125875.0,
-                    "Transaction Date": "2023-12-21",
-                    "Transaction Name": "Raleigh Hotel",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 90250.0,
-                    "Transaction Date": "2023-12-01",
-                    "Transaction Name": "Raleigh Hotel",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 90250.0,
-                    "Transaction Date": "2023-12-01",
-                    "Transaction Name": "Raleigh Hotel",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                }
-            ],
-            "Valuations": []
         }
     ],
     "Investors": [
@@ -2643,56 +2067,9 @@
                             -61586.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 3086.475697981757,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3087.0576829055913,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2263.0354070599606,
-                            "Distribution Date": "2023-09-13",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2025.366760083219,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2282.924296752035,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-08"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-09-13"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         [
@@ -2741,29 +2118,9 @@
                             0.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1889.394442871,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1849.2758444919025,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 278586.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-08"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 278586.0,
                     "ROC Movements": [
                         [
@@ -2808,20 +2165,9 @@
                             165931.23083525433
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 2743.198791751847,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 200000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -2854,20 +2200,9 @@
                             -150000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 250.3481406226857,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 300000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 288414.0,
                     "ROC Movements": [
                         [
@@ -2877,6 +2212,37 @@
                         [
                             "2024-03-26",
                             150000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Fund Position",
+                    "Management Fees": [],
+                    "Management Fees Due": 0.0,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            569900.0
+                        ],
+                        [
+                            "2023-07-20",
+                            -569900.0
+                        ],
+                        [
+                            "2023-12-31",
+                            0.0
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 695000.0,
+                    "Promote Fees": null,
+                    "ROC": 695000.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            695000.0
                         ]
                     ]
                 },
@@ -2995,110 +2361,9 @@
                             -6102.27188654916
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 4040.9500243723246,
-                            "Distribution Date": "2022-12-28",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2656.340438720792,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2150.0008338775588,
-                            "Distribution Date": "2023-06-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1130.1447031032224,
-                            "Distribution Date": "2023-08-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 517.4485756526417,
-                            "Distribution Date": "2023-09-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 450.66673837279,
-                            "Distribution Date": "2023-10-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 413.9302074606549,
-                            "Distribution Date": "2023-11-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 350.48755388153126,
-                            "Distribution Date": "2023-12-27",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 310.4118392686682,
-                            "Distribution Date": "2024-01-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 258.6526551726749,
-                            "Distribution Date": "2024-02-22",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 193.54591994731376,
-                            "Distribution Date": "2024-03-21",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2022-12-28"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-23"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-08-23"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-09-20"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-10-23"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-11-20"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-12-27"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-01-23"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-02-22"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2024-03-21"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 175000.0,
                     "ROC Movements": [
                         [
@@ -3131,74 +2396,9 @@
                             10732.453333333331
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1360.884585085395,
-                            "Distribution Date": "2022-06-29",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 590.9120583407786,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 534.8408525641267,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 538.9907361850596,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 546.0680406842638,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 530.2701962796065,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 536.4177801239765,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2022-06-29"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 483901.32,
                     "ROC Movements": [
                         [
@@ -3235,20 +2435,9 @@
                             -250000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 160.5202116223643,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2022-09-19"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         [
@@ -3273,29 +2462,9 @@
                             166667.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 3293.8803480782226,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3332.067305888041,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 166667.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 0.0,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -3321,37 +2490,6 @@
                     "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
-                },
-                {
-                    "AssetName": "Raleigh Hotel",
-                    "Date Invested": "2023-07-12",
-                    "InvestorName": "Fund Position",
-                    "Management Fees": [],
-                    "Management Fees Due": 0.0,
-                    "Movements Deploy": [
-                        [
-                            "2023-07-12",
-                            569900.0
-                        ],
-                        [
-                            "2023-07-20",
-                            -569900.0
-                        ],
-                        [
-                            "2023-12-21",
-                            0.0
-                        ]
-                    ],
-                    "Net Income": null,
-                    "Paid": 695000.0,
-                    "Promote Fees": null,
-                    "ROC": 695000.0,
-                    "ROC Movements": [
-                        [
-                            "2023-07-20",
-                            695000.0
-                        ]
-                    ]
                 }
             ],
             "Promote Fee Percentage": 0.0,
@@ -3369,22 +2507,22 @@
                         {
                             "Management Fee Amount": 367.4000919917864,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 392.84372587269,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 405.8203632956879,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 419.3975208418891,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 426.99612808008214,
@@ -3392,7 +2530,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 426.99612808008214,
+                    "Management Fees Due": 2012.4578300821354,
                     "Movements Deploy": [
                         [
                             "2023-05-16",
@@ -3431,106 +2569,62 @@
                             7863.27
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1274.9479264065708,
-                            "Distribution Date": "2023-06-16",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1176.767019301848,
-                            "Distribution Date": "2023-07-17",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1587.482,
-                            "Distribution Date": "2023-08-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1697.502,
-                            "Distribution Date": "2023-09-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1197.5597093634497,
-                            "Distribution Date": "2023-10-03",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1704.968,
-                            "Distribution Date": "2023-11-09",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1632.2440000000001,
-                            "Distribution Date": "2023-12-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1290.089983326489,
-                            "Distribution Date": "2024-01-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1866.5759999999998,
-                            "Distribution Date": "2024-02-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1665.3619999999999,
-                            "Distribution Date": "2024-03-05",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 318.73698160164275,
-                            "Promote Fee Date": "2023-06-16"
-                        },
-                        {
-                            "Promote Fee Amount": 294.191754825462,
-                            "Promote Fee Date": "2023-07-17"
-                        },
-                        {
-                            "Promote Fee Amount": 396.8705,
-                            "Promote Fee Date": "2023-08-07"
-                        },
-                        {
-                            "Promote Fee Amount": 424.37550000000005,
-                            "Promote Fee Date": "2023-09-08"
-                        },
-                        {
-                            "Promote Fee Amount": 299.3899273408624,
-                            "Promote Fee Date": "2023-10-03"
-                        },
-                        {
-                            "Promote Fee Amount": 426.242,
-                            "Promote Fee Date": "2023-11-09"
-                        },
-                        {
-                            "Promote Fee Amount": 408.06100000000004,
-                            "Promote Fee Date": "2023-12-07"
-                        },
-                        {
-                            "Promote Fee Amount": 322.5224958316222,
-                            "Promote Fee Date": "2024-01-05"
-                        },
-                        {
-                            "Promote Fee Amount": 466.644,
-                            "Promote Fee Date": "2024-02-05"
-                        },
-                        {
-                            "Promote Fee Amount": 416.3405,
-                            "Promote Fee Date": "2024-03-05"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         [
                             "2023-07-01",
                             250000.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Hector Ovalle",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 340.9650924024641,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 387.60908624229984,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.4584188911704,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 414.0079568788501,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1552.0405544147845,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            205000.0
+                        ],
+                        [
+                            "2023-12-31",
+                            16562.5
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
+                            0.0
                         ]
                     ]
                 },
@@ -3581,65 +2675,6 @@
                     "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
-                },
-                {
-                    "AssetName": "Raleigh Hotel",
-                    "Date Invested": "2023-07-12",
-                    "InvestorName": "Hector Ovalle",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 340.9650924024641,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 391.0100102669405,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 409.4584188911704,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 414.0079568788501,
-                            "Management Fee Date": "2024-06-30",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 823.4663757700205,
-                    "Movements Deploy": [
-                        [
-                            "2023-07-12",
-                            205000.0
-                        ],
-                        [
-                            "2023-12-21",
-                            16562.5
-                        ]
-                    ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 8914.419917864476,
-                            "Distribution Date": "2023-12-01",
-                            "Distribution Paid": false
-                        }
-                    ],
-                    "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 2228.604979466119,
-                            "Promote Fee Date": "2023-12-01"
-                        }
-                    ],
-                    "ROC": 0.0,
-                    "ROC Movements": [
-                        [
-                            "2023-07-20",
-                            0.0
-                        ]
-                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -3657,22 +2692,22 @@
                         {
                             "Management Fee Amount": 367.4000919917864,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 392.84372587269,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 405.8203632956879,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 419.3975208418891,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 426.99612808008214,
@@ -3680,7 +2715,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 426.99612808008214,
+                    "Management Fees Due": 2012.4578300821354,
                     "Movements Deploy": [
                         [
                             "2023-05-16",
@@ -3719,101 +2754,9 @@
                             7863.27
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1274.9479264065708,
-                            "Distribution Date": "2023-06-16",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1176.767019301848,
-                            "Distribution Date": "2023-07-17",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1587.482,
-                            "Distribution Date": "2023-08-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1697.502,
-                            "Distribution Date": "2023-09-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1197.5597093634497,
-                            "Distribution Date": "2023-10-03",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1704.968,
-                            "Distribution Date": "2023-11-09",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1632.2440000000001,
-                            "Distribution Date": "2023-12-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1290.089983326489,
-                            "Distribution Date": "2024-01-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1866.5759999999998,
-                            "Distribution Date": "2024-02-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1665.3619999999999,
-                            "Distribution Date": "2024-03-05",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 318.73698160164275,
-                            "Promote Fee Date": "2023-06-16"
-                        },
-                        {
-                            "Promote Fee Amount": 294.191754825462,
-                            "Promote Fee Date": "2023-07-17"
-                        },
-                        {
-                            "Promote Fee Amount": 396.8705,
-                            "Promote Fee Date": "2023-08-07"
-                        },
-                        {
-                            "Promote Fee Amount": 424.37550000000005,
-                            "Promote Fee Date": "2023-09-08"
-                        },
-                        {
-                            "Promote Fee Amount": 299.3899273408624,
-                            "Promote Fee Date": "2023-10-03"
-                        },
-                        {
-                            "Promote Fee Amount": 426.242,
-                            "Promote Fee Date": "2023-11-09"
-                        },
-                        {
-                            "Promote Fee Amount": 408.06100000000004,
-                            "Promote Fee Date": "2023-12-07"
-                        },
-                        {
-                            "Promote Fee Amount": 322.5224958316222,
-                            "Promote Fee Date": "2024-01-05"
-                        },
-                        {
-                            "Promote Fee Amount": 466.644,
-                            "Promote Fee Date": "2024-02-05"
-                        },
-                        {
-                            "Promote Fee Amount": 416.3405,
-                            "Promote Fee Date": "2024-03-05"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         [
@@ -3830,27 +2773,27 @@
                         {
                             "Management Fee Amount": 267.9671457905544,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 840.8624229979466,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 850.1026694045174,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 850.1026694045175,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 830.9266818016843,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 840.8624229979466,
@@ -3858,7 +2801,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 840.8624229979466,
+                    "Management Fees Due": 4480.824012397167,
                     "Movements Deploy": [
                         [
                             "2023-02-28",
@@ -3881,56 +2824,9 @@
                             33870.59625797649
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 4070.0252676269456,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4996.663015890296,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4277.006787134132,
-                            "Distribution Date": "2023-09-13",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4277.006787134132,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4005.195842659017,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 450000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 1017.5063169067364,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 1249.165753972574,
-                            "Promote Fee Date": "2023-06-08"
-                        },
-                        {
-                            "Promote Fee Amount": 1069.251696783533,
-                            "Promote Fee Date": "2023-09-13"
-                        },
-                        {
-                            "Promote Fee Amount": 1069.251696783533,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 1001.2989606647543,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -3951,6 +2847,54 @@
                         ],
                         [
                             "2024-03-26",
+                            0.0
+                        ]
+                    ]
+                },
+                {
+                    "AssetName": "Raleigh",
+                    "Date Invested": "2023-07-12",
+                    "InvestorName": "Juan Jose Risoul",
+                    "Management Fees": [
+                        {
+                            "Management Fee Amount": 340.9650924024641,
+                            "Management Fee Date": "2023-09-30",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 387.60908624229984,
+                            "Management Fee Date": "2023-12-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 409.4584188911704,
+                            "Management Fee Date": "2024-03-31",
+                            "Paid": false
+                        },
+                        {
+                            "Management Fee Amount": 414.0079568788501,
+                            "Management Fee Date": "2024-06-30",
+                            "Paid": false
+                        }
+                    ],
+                    "Management Fees Due": 1552.0405544147845,
+                    "Movements Deploy": [
+                        [
+                            "2023-07-12",
+                            205000.0
+                        ],
+                        [
+                            "2023-12-31",
+                            16562.5
+                        ]
+                    ],
+                    "Net Income": null,
+                    "Paid": 250000.0,
+                    "Promote Fees": null,
+                    "ROC": 0.0,
+                    "ROC Movements": [
+                        [
+                            "2023-07-20",
                             0.0
                         ]
                     ]
@@ -4024,65 +2968,6 @@
                             0.0
                         ]
                     ]
-                },
-                {
-                    "AssetName": "Raleigh Hotel",
-                    "Date Invested": "2023-07-12",
-                    "InvestorName": "Juan Jose Risoul",
-                    "Management Fees": [
-                        {
-                            "Management Fee Amount": 340.9650924024641,
-                            "Management Fee Date": "2023-09-30",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 391.0100102669405,
-                            "Management Fee Date": "2023-12-31",
-                            "Paid": true
-                        },
-                        {
-                            "Management Fee Amount": 409.4584188911704,
-                            "Management Fee Date": "2024-03-31",
-                            "Paid": false
-                        },
-                        {
-                            "Management Fee Amount": 414.0079568788501,
-                            "Management Fee Date": "2024-06-30",
-                            "Paid": false
-                        }
-                    ],
-                    "Management Fees Due": 823.4663757700205,
-                    "Movements Deploy": [
-                        [
-                            "2023-07-12",
-                            205000.0
-                        ],
-                        [
-                            "2023-12-21",
-                            16562.5
-                        ]
-                    ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 8914.419917864476,
-                            "Distribution Date": "2023-12-01",
-                            "Distribution Paid": false
-                        }
-                    ],
-                    "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 2228.604979466119,
-                            "Promote Fee Date": "2023-12-01"
-                        }
-                    ],
-                    "ROC": 0.0,
-                    "ROC Movements": [
-                        [
-                            "2023-07-20",
-                            0.0
-                        ]
-                    ]
                 }
             ],
             "Promote Fee Percentage": 0.2,
@@ -4100,17 +2985,17 @@
                         {
                             "Management Fee Amount": 785.68745174538,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 811.6407265913758,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 838.7950416837782,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 853.9922561601643,
@@ -4118,7 +3003,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 853.9922561601643,
+                    "Management Fees Due": 3290.1154761806984,
                     "Movements Deploy": [
                         [
                             "2023-07-01",
@@ -4153,92 +3038,9 @@
                             15726.54
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 2353.534038603696,
-                            "Distribution Date": "2023-07-17",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3174.964,
-                            "Distribution Date": "2023-08-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3395.004,
-                            "Distribution Date": "2023-09-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2395.1194187268993,
-                            "Distribution Date": "2023-10-03",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3409.936,
-                            "Distribution Date": "2023-11-09",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3264.4880000000003,
-                            "Distribution Date": "2023-12-07",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2580.179966652978,
-                            "Distribution Date": "2024-01-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3733.1519999999996,
-                            "Distribution Date": "2024-02-05",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3330.7239999999997,
-                            "Distribution Date": "2024-03-05",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 588.383509650924,
-                            "Promote Fee Date": "2023-07-17"
-                        },
-                        {
-                            "Promote Fee Amount": 793.741,
-                            "Promote Fee Date": "2023-08-07"
-                        },
-                        {
-                            "Promote Fee Amount": 848.7510000000001,
-                            "Promote Fee Date": "2023-09-08"
-                        },
-                        {
-                            "Promote Fee Amount": 598.7798546817248,
-                            "Promote Fee Date": "2023-10-03"
-                        },
-                        {
-                            "Promote Fee Amount": 852.484,
-                            "Promote Fee Date": "2023-11-09"
-                        },
-                        {
-                            "Promote Fee Amount": 816.1220000000001,
-                            "Promote Fee Date": "2023-12-07"
-                        },
-                        {
-                            "Promote Fee Amount": 645.0449916632444,
-                            "Promote Fee Date": "2024-01-05"
-                        },
-                        {
-                            "Promote Fee Amount": 933.288,
-                            "Promote Fee Date": "2024-02-05"
-                        },
-                        {
-                            "Promote Fee Amount": 832.681,
-                            "Promote Fee Date": "2024-03-05"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 },
@@ -4250,27 +3052,27 @@
                         {
                             "Management Fee Amount": 12.833675564681725,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 46.71457905544148,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 47.227926078028744,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 47.22792607802875,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 46.1625934334269,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 46.71457905544148,
@@ -4278,7 +3080,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 46.71457905544148,
+                    "Management Fees Due": 246.8812792650491,
                     "Movements Deploy": [
                         [
                             "2023-03-06",
@@ -4297,56 +3099,9 @@
                             1881.6997921098055
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 227.7552253404429,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 277.5923897716831,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 237.6114881741184,
-                            "Distribution Date": "2023-09-13",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 237.6114881741184,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 222.5108801477232,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 25000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 56.938806335110726,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 69.39809744292079,
-                            "Promote Fee Date": "2023-06-08"
-                        },
-                        {
-                            "Promote Fee Amount": 59.402872043529605,
-                            "Promote Fee Date": "2023-09-13"
-                        },
-                        {
-                            "Promote Fee Amount": 59.402872043529605,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 55.62772003693081,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -4502,32 +3257,32 @@
                         {
                             "Management Fee Amount": 20.533880903490758,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 79.39767282683093,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 93.42915811088297,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 94.45585215605749,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 94.4558521560575,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 92.3251868668538,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 93.42915811088297,
@@ -4535,7 +3290,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 93.42915811088297,
+                    "Management Fees Due": 568.0267611310564,
                     "Movements Deploy": [
                         [
                             "2022-12-08",
@@ -4562,56 +3317,9 @@
                             3763.399584219611
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 396.0990886001192,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 555.1847795433662,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 475.2229763482368,
-                            "Distribution Date": "2023-09-13",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 475.2229763482368,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 445.0217602954464,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 50000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 99.02477215002982,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 138.79619488584157,
-                            "Promote Fee Date": "2023-06-08"
-                        },
-                        {
-                            "Promote Fee Amount": 118.80574408705921,
-                            "Promote Fee Date": "2023-09-13"
-                        },
-                        {
-                            "Promote Fee Amount": 118.80574408705921,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 111.25544007386162,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -4644,12 +3352,12 @@
                         {
                             "Management Fee Amount": 42.25872689938399,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 77.5531569681572,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 78.48049281314168,
@@ -4657,7 +3365,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 78.48049281314168,
+                    "Management Fees Due": 198.29237668068288,
                     "Movements Deploy": [
                         [
                             "2023-11-13",
@@ -4676,29 +3384,9 @@
                             3161.255650744475
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 156.32793606188577,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 373.81827864817495,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 42000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 39.08198401547145,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 93.45456966204375,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -4719,47 +3407,47 @@
                         {
                             "Management Fee Amount": 55.27036160164271,
                             "Management Fee Date": "2022-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 295.85899445585216,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 299.11019219712523,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 299.1101921971252,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 289.3565989733059,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 295.8589944558521,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 262.6203457580147,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.012901570263,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 111.82994695568287,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 72.14982937217574,
@@ -4767,7 +3455,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 72.14982937217574,
+                    "Management Fees Due": 2169.1783575370396,
                     "Movements Deploy": [
                         [
                             "2022-03-15",
@@ -4814,137 +3502,9 @@
                             -12882.573711502806
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 107.07971071868583,
-                            "Distribution Date": "2022-03-25",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2547.1608044353184,
-                            "Distribution Date": "2022-06-28",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2305.2716924845995,
-                            "Distribution Date": "2022-10-04",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2530.83198050214,
-                            "Distribution Date": "2022-12-28",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1644.5886558236239,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3394.4252474284963,
-                            "Distribution Date": "2023-06-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1698.5925151183287,
-                            "Distribution Date": "2023-08-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 873.9131315929559,
-                            "Distribution Date": "2023-09-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 610.7157097496836,
-                            "Distribution Date": "2023-10-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 699.0821134382537,
-                            "Distribution Date": "2023-11-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 591.9345229825838,
-                            "Distribution Date": "2023-12-27",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 434.7871377190053,
-                            "Distribution Date": "2024-01-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 436.8355862062006,
-                            "Distribution Date": "2024-02-22",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 326.87754680716364,
-                            "Distribution Date": "2024-03-21",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 158333.33,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 26.769927679671458,
-                            "Promote Fee Date": "2022-03-25"
-                        },
-                        {
-                            "Promote Fee Amount": 636.7902011088296,
-                            "Promote Fee Date": "2022-06-28"
-                        },
-                        {
-                            "Promote Fee Amount": 576.3179231211499,
-                            "Promote Fee Date": "2022-10-04"
-                        },
-                        {
-                            "Promote Fee Amount": 632.707995125535,
-                            "Promote Fee Date": "2022-12-28"
-                        },
-                        {
-                            "Promote Fee Amount": 411.14716395590597,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 848.6063118571242,
-                            "Promote Fee Date": "2023-06-23"
-                        },
-                        {
-                            "Promote Fee Amount": 424.64812877958224,
-                            "Promote Fee Date": "2023-08-23"
-                        },
-                        {
-                            "Promote Fee Amount": 218.47828289823897,
-                            "Promote Fee Date": "2023-09-20"
-                        },
-                        {
-                            "Promote Fee Amount": 152.67892743742092,
-                            "Promote Fee Date": "2023-10-23"
-                        },
-                        {
-                            "Promote Fee Amount": 174.77052835956343,
-                            "Promote Fee Date": "2023-11-20"
-                        },
-                        {
-                            "Promote Fee Amount": 147.98363074564597,
-                            "Promote Fee Date": "2023-12-27"
-                        },
-                        {
-                            "Promote Fee Amount": 108.69678442975133,
-                            "Promote Fee Date": "2024-01-23"
-                        },
-                        {
-                            "Promote Fee Amount": 109.20889655155015,
-                            "Promote Fee Date": "2024-02-22"
-                        },
-                        {
-                            "Promote Fee Amount": 81.71938670179091,
-                            "Promote Fee Date": "2024-03-21"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -4965,32 +3525,32 @@
                         {
                             "Management Fee Amount": 50.47912792607803,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 78.71321642710471,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 76.14648110882956,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 77.85763798767967,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 78.71321642710471,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 78.71321642710471,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 77.00205954825462,
@@ -5003,72 +3563,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 154.8596975359343,
+                    "Management Fees Due": 595.4825938398358,
                     "Movements Deploy": [
                         [
                             "2022-08-03",
                             41666.67
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 473.28141594387745,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 601.4825315245314,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 608.691477816113,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 616.1149564919948,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 595.8042316264366,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 603.4416085246379,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 41666.67,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 118.32035398596936,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 150.37063288113288,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 152.17286945402824,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 154.0287391229987,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 148.95105790660918,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 150.86040213115947,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5177,56 +3681,9 @@
                             30107.196673756887
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 2375.7855698973276,
-                            "Distribution Date": "2023-06-06",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2462.12380493145,
-                            "Distribution Date": "2023-06-08",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4681.695093621204,
-                            "Distribution Date": "2023-09-13",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4681.695093621204,
-                            "Distribution Date": "2023-12-12",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4410.4962332059,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 400000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 419.25627704070484,
-                            "Promote Fee Date": "2023-06-06"
-                        },
-                        {
-                            "Promote Fee Amount": 434.49243616437354,
-                            "Promote Fee Date": "2023-06-08"
-                        },
-                        {
-                            "Promote Fee Amount": 826.1814871096242,
-                            "Promote Fee Date": "2023-09-13"
-                        },
-                        {
-                            "Promote Fee Amount": 826.1814871096242,
-                            "Promote Fee Date": "2023-12-12"
-                        },
-                        {
-                            "Promote Fee Amount": 778.3228646833942,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5294,7 +3751,7 @@
                         {
                             "Management Fee Amount": 36.80643122857415,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 186.85831622176593,
@@ -5302,7 +3759,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 186.85831622176593,
+                    "Management Fees Due": 223.6647474503401,
                     "Movements Deploy": [
                         [
                             "2024-03-14",
@@ -5313,20 +3770,9 @@
                             7526.799168439222
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 61.60662238640475,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 100000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 15.401655596601188,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5355,7 +3801,7 @@
                         {
                             "Management Fee Amount": 53.38809034907598,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 373.71663244353186,
@@ -5363,27 +3809,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 373.71663244353186,
+                    "Management Fees Due": 427.10472279260784,
                     "Movements Deploy": [
                         [
                             "2024-03-19",
                             200000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 9.884641732327816,
-                            "Distribution Date": "2024-03-20",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 200000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 2.471160433081954,
-                            "Promote Fee Date": "2024-03-20"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5393,19 +3828,19 @@
                     ]
                 },
                 {
-                    "AssetName": "Raleigh Hotel",
+                    "AssetName": "Raleigh",
                     "Date Invested": "2023-07-12",
                     "InvestorName": "German Hernandez",
                     "Management Fees": [
                         {
                             "Management Fee Amount": 681.9301848049282,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 782.020020533881,
+                            "Management Fee Amount": 775.2181724845997,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 818.9168377823408,
@@ -5418,31 +3853,20 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 1646.932751540041,
+                    "Management Fees Due": 3104.081108829569,
                     "Movements Deploy": [
                         [
                             "2023-07-12",
                             410000.0
                         ],
                         [
-                            "2023-12-21",
+                            "2023-12-31",
                             33125.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 17828.83983572895,
-                            "Distribution Date": "2023-12-01",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 4457.209958932238,
-                            "Promote Fee Date": "2023-12-01"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5497,19 +3921,19 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Raleigh Hotel",
+                    "AssetName": "Raleigh",
                     "Date Invested": "2023-07-12",
                     "InvestorName": "Carlos Bulido",
                     "Management Fees": [
                         {
                             "Management Fee Amount": 279.59137577002053,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 320.6282084188912,
+                            "Management Fee Amount": 317.83945071868584,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 335.75590349075975,
@@ -5522,31 +3946,20 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 675.2424281314168,
+                    "Management Fees Due": 1272.673254620123,
                     "Movements Deploy": [
                         [
                             "2023-07-12",
                             168100.0
                         ],
                         [
-                            "2023-12-21",
+                            "2023-12-31",
                             13581.25
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 7309.824332648871,
-                            "Distribution Date": "2023-12-01",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 205000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 1827.4560831622177,
-                            "Promote Fee Date": "2023-12-01"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5564,19 +3977,19 @@
             "Management Fee Percentage": 0.0075,
             "Positions": [
                 {
-                    "AssetName": "Raleigh Hotel",
+                    "AssetName": "Raleigh",
                     "Date Invested": "2023-07-20",
                     "InvestorName": "Alberto Tanus",
                     "Management Fees": [
                         {
                             "Management Fee Amount": 854.264887063655,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
-                            "Management Fee Amount": 1087.0078285420946,
+                            "Management Fee Amount": 1077.5532597535935,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 1138.2944045174538,
@@ -5589,31 +4002,20 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 2289.236524640657,
+                    "Management Fees Due": 4221.054671457906,
                     "Movements Deploy": [
                         [
                             "2023-07-20",
                             569900.0
                         ],
                         [
-                            "2023-12-21",
+                            "2023-12-31",
                             46043.75
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 24856.981827515403,
-                            "Distribution Date": "2023-12-01",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 695000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 6214.245456878851,
-                            "Promote Fee Date": "2023-12-01"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
@@ -5672,27 +4074,27 @@
                         {
                             "Management Fee Amount": 151.43737166324436,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 233.5728952772074,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 207.33185627910342,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 148.43124120665485,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 88.28680208684021,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 56.960392808778586,
@@ -5700,7 +4102,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 56.960392808778586,
+                    "Management Fees Due": 886.0205593218287,
                     "Movements Deploy": [
                         [
                             "2023-01-31",
@@ -5743,101 +4145,9 @@
                             -10170.453144248599
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 715.9998166905024,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2679.8094622816448,
-                            "Distribution Date": "2023-06-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1340.9941191143469,
-                            "Distribution Date": "2023-08-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 689.931434203522,
-                            "Distribution Date": "2023-09-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 482.14399153172917,
-                            "Distribution Date": "2023-10-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 551.9069432808728,
-                            "Distribution Date": "2023-11-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 467.316738508708,
-                            "Distribution Date": "2023-12-27",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 343.2530106887519,
-                            "Distribution Date": "2024-01-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 344.87020689689956,
-                            "Distribution Date": "2024-02-22",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 258.0612265964181,
-                            "Distribution Date": "2024-03-21",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 125000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 178.99995417262562,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 669.9523655704112,
-                            "Promote Fee Date": "2023-06-23"
-                        },
-                        {
-                            "Promote Fee Amount": 335.24852977858677,
-                            "Promote Fee Date": "2023-08-23"
-                        },
-                        {
-                            "Promote Fee Amount": 172.4828585508805,
-                            "Promote Fee Date": "2023-09-20"
-                        },
-                        {
-                            "Promote Fee Amount": 120.53599788293229,
-                            "Promote Fee Date": "2023-10-23"
-                        },
-                        {
-                            "Promote Fee Amount": 137.9767358202182,
-                            "Promote Fee Date": "2023-11-20"
-                        },
-                        {
-                            "Promote Fee Amount": 116.82918462717701,
-                            "Promote Fee Date": "2023-12-27"
-                        },
-                        {
-                            "Promote Fee Amount": 85.81325267218797,
-                            "Promote Fee Date": "2024-01-23"
-                        },
-                        {
-                            "Promote Fee Amount": 86.2175517242249,
-                            "Promote Fee Date": "2024-02-22"
-                        },
-                        {
-                            "Promote Fee Amount": 64.51530664910455,
-                            "Promote Fee Date": "2024-03-21"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -5854,37 +4164,37 @@
                         {
                             "Management Fee Amount": 18.480492813141684,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 182.75154004106776,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 186.85831622176593,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 184.80492813141683,
@@ -5897,7 +4207,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 371.6632443531828,
+                    "Management Fees Due": 1515.400410677618,
                     "Movements Deploy": [
                         [
                             "2022-06-22",
@@ -5908,74 +4218,9 @@
                             7.275957614183426e-12
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 80.04574528437037,
-                            "Distribution Date": "2022-06-29",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1929.212579176149,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1443.5579601742386,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1460.8594298899168,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1478.6757772867254,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1429.930041509045,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1448.2597445983517,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 100000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 20.011436321092592,
-                            "Promote Fee Date": "2022-06-29"
-                        },
-                        {
-                            "Promote Fee Amount": 482.3031447940373,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 360.88949004355965,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 365.21485747247925,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 369.6689443216814,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 357.48251037726124,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 362.064936149588,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -6004,27 +4249,27 @@
                         {
                             "Management Fee Amount": 10.266940451745379,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 93.42915811088297,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 82.93274251164138,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 59.372496482661944,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 35.3147208347361,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 22.784157123511445,
@@ -6032,7 +4277,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 22.784157123511445,
+                    "Management Fees Due": 304.1002155151792,
                     "Movements Deploy": [
                         [
                             "2023-03-22",
@@ -6075,92 +4320,9 @@
                             -4068.1812576994394
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1063.7102325512615,
-                            "Distribution Date": "2023-06-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 536.3976476457386,
-                            "Distribution Date": "2023-08-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 275.9725736814088,
-                            "Distribution Date": "2023-09-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 192.85759661269165,
-                            "Distribution Date": "2023-10-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 220.7627773123492,
-                            "Distribution Date": "2023-11-20",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 186.92669540348322,
-                            "Distribution Date": "2023-12-27",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 137.30120427550077,
-                            "Distribution Date": "2024-01-23",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 137.94808275875988,
-                            "Distribution Date": "2024-02-22",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 103.22449063856732,
-                            "Distribution Date": "2024-03-21",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 50000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 265.92755813781537,
-                            "Promote Fee Date": "2023-06-23"
-                        },
-                        {
-                            "Promote Fee Amount": 134.09941191143466,
-                            "Promote Fee Date": "2023-08-23"
-                        },
-                        {
-                            "Promote Fee Amount": 68.99314342035221,
-                            "Promote Fee Date": "2023-09-20"
-                        },
-                        {
-                            "Promote Fee Amount": 48.21439915317291,
-                            "Promote Fee Date": "2023-10-23"
-                        },
-                        {
-                            "Promote Fee Amount": 55.1906943280873,
-                            "Promote Fee Date": "2023-11-20"
-                        },
-                        {
-                            "Promote Fee Amount": 46.731673850870806,
-                            "Promote Fee Date": "2023-12-27"
-                        },
-                        {
-                            "Promote Fee Amount": 34.32530106887519,
-                            "Promote Fee Date": "2024-01-23"
-                        },
-                        {
-                            "Promote Fee Amount": 34.48702068968998,
-                            "Promote Fee Date": "2024-02-22"
-                        },
-                        {
-                            "Promote Fee Amount": 25.80612265964183,
-                            "Promote Fee Date": "2024-03-21"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
@@ -6180,37 +4342,37 @@
                         {
                             "Management Fee Amount": 239.20769691991788,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 252.9552657084189,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 252.95526570841886,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 244.70672443531828,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 250.2057519507187,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 252.95526570841886,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 252.95526570841886,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 247.45623819301846,
@@ -6223,7 +4385,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 497.66199014373717,
+                    "Management Fees Due": 2243.603226283368,
                     "Movements Deploy": [
                         [
                             "2022-04-05",
@@ -6234,74 +4396,9 @@
                             7.275957614183426e-12
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1173.656034860866,
-                            "Distribution Date": "2022-06-29",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 2583.241109122909,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1932.9431636383797,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1956.1100599670729,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1979.9663843071853,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1914.6952006571596,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1939.238915045822,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 133901.32,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 293.4140087152165,
-                            "Promote Fee Date": "2022-06-29"
-                        },
-                        {
-                            "Promote Fee Amount": 645.8102772807274,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 483.2357909095949,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 489.0275149917682,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 494.9915960767963,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 478.6738001642899,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 484.8097287614555,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -6330,12 +4427,12 @@
                         {
                             "Management Fee Amount": 287.4743326488706,
                             "Management Fee Date": "2022-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 934.2915811088296,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 944.5585215605748,
@@ -6378,27 +4475,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 7484.599589322382,
+                    "Management Fees Due": 8706.365503080082,
                     "Movements Deploy": [
                         [
                             "2022-03-03",
                             500000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": -694.0767310061601,
-                            "Distribution Date": "2022-04-08",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 500000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": -173.51918275154003,
-                            "Promote Fee Date": "2022-04-08"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }
@@ -6418,30 +4504,30 @@
                         {
                             "Management Fee Amount": 446.611909650924,
                             "Management Fee Date": "2022-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 472.2792607802875,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 472.2792607802874,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 456.8788501026694,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 467.1457905544148,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         }
                     ],
-                    "Management Fees Due": 0.0,
+                    "Management Fees Due": 2315.195071868583,
                     "Movements Deploy": [
                         [
                             "2022-04-05",
@@ -6456,56 +4542,9 @@
                             -250000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 2191.2704722792605,
-                            "Distribution Date": "2022-06-29",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 4823.031447940373,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3608.8949004355964,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3652.148574724792,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 3696.6894432168133,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 250000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 547.8176180698151,
-                            "Promote Fee Date": "2022-06-29"
-                        },
-                        {
-                            "Promote Fee Amount": 1205.7578619850933,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 902.2237251088991,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 913.037143681198,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 924.1723608042034,
-                            "Promote Fee Date": "2023-06-14"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 250000.0,
                     "ROC Movements": [
                         [
@@ -6538,32 +4577,32 @@
                         {
                             "Management Fee Amount": 121.14989733059548,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 182.75154004106776,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 186.85831622176593,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 188.91170431211498,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 184.80492813141683,
@@ -6576,72 +4615,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 371.6632443531828,
+                    "Management Fees Due": 1429.1581108829569,
                     "Movements Deploy": [
                         [
                             "2022-08-03",
                             100000.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1135.8753073952814,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1443.5579601742386,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1460.8594298899168,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1478.6757772867254,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1429.930041509045,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1448.2597445983517,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 100000.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 283.96882684882036,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 360.88949004355965,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 365.21485747247925,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 369.6689443216814,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 357.48251037726124,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 362.064936149588,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -6670,32 +4653,32 @@
                         {
                             "Management Fee Amount": 131.24571806981518,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 204.65434004106774,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 197.98082895277204,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 202.4298363449692,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 204.65434004106774,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 204.65434004106774,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 200.2053326488706,
@@ -6708,72 +4691,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 402.6351689938398,
+                    "Management Fees Due": 1548.2545724845995,
                     "Movements Deploy": [
                         [
                             "2022-08-03",
                             108333.33
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1230.5315451490446,
-                            "Distribution Date": "2022-09-19",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1563.8544087368264,
-                            "Distribution Date": "2022-12-15",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1582.597667018762,
-                            "Distribution Date": "2023-03-10",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1601.8987094380932,
-                            "Distribution Date": "2023-06-14",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1549.0908306371305,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1568.9480083728893,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 108333.33,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 307.63288628726116,
-                            "Promote Fee Date": "2022-09-19"
-                        },
-                        {
-                            "Promote Fee Amount": 390.9636021842066,
-                            "Promote Fee Date": "2022-12-15"
-                        },
-                        {
-                            "Promote Fee Amount": 395.6494167546905,
-                            "Promote Fee Date": "2023-03-10"
-                        },
-                        {
-                            "Promote Fee Amount": 400.47467735952335,
-                            "Promote Fee Date": "2023-06-14"
-                        },
-                        {
-                            "Promote Fee Amount": 387.2727076592826,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 392.2370020932224,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": [
                         [
@@ -6790,12 +4717,12 @@
                         {
                             "Management Fee Amount": 157.42579055441476,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 157.42579055441476,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": true
+                            "Paid": false
                         },
                         {
                             "Management Fee Amount": 154.00349075975356,
@@ -6808,36 +4735,16 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 309.71813141683776,
+                    "Management Fees Due": 624.5697125256672,
                     "Movements Deploy": [
                         [
                             "2023-07-01",
                             83333.0
                         ]
                     ],
-                    "Net Income": [
-                        {
-                            "Distribution Amount": 1191.6036014907324,
-                            "Distribution Date": "2023-09-11",
-                            "Distribution Paid": false
-                        },
-                        {
-                            "Distribution Amount": 1206.8782929661443,
-                            "Distribution Date": "2023-12-18",
-                            "Distribution Paid": false
-                        }
-                    ],
+                    "Net Income": null,
                     "Paid": 83333.0,
-                    "Promote Fees": [
-                        {
-                            "Promote Fee Amount": 297.9009003726831,
-                            "Promote Fee Date": "2023-09-11"
-                        },
-                        {
-                            "Promote Fee Amount": 301.7195732415361,
-                            "Promote Fee Date": "2023-12-18"
-                        }
-                    ],
+                    "Promote Fees": null,
                     "ROC": 0.0,
                     "ROC Movements": null
                 }

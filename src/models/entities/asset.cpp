@@ -862,7 +862,8 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         }
         double amountAftermgmtFees = distributionShare;
         wxDateTime qEndOfDistribution = utilities::GetQuarterEndDate(distribution.distribution.first);
-        for(auto&mf : pos->GetManagementFeesReference()){
+        for(auto&mf : pos->GetManagementFeesReference()){//need to rework this as if the first mgmt fee is greater than the distribution
+        //this causes a negative net income amount to the investor 
             if(mf.paid == false && mf.quarter <= qEndOfDistribution && amountAftermgmtFees > 0){
                 amountAftermgmtFees-=mf.amount;
                 mf.paid = true;
