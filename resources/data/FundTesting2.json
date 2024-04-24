@@ -223,7 +223,7 @@
                 {
                     "Transaction Amount": 500000.0,
                     "Transaction Date": "2023-07-01",
-                    "Transaction Name": "Guillermo Ovalle",
+                    "Transaction Name": "German Hernandez",
                     "Transaction Note": "",
                     "Transaction Type": "New Position"
                 },
@@ -379,70 +379,70 @@
                     "Transaction Date": "2023-06-16",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 7455.21,
                     "Transaction Date": "2023-07-17",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 7937.41,
                     "Transaction Date": "2023-08-07",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 8487.51,
                     "Transaction Date": "2023-09-08",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 7611.08,
                     "Transaction Date": "2023-10-03",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 8524.84,
                     "Transaction Date": "2023-11-09",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 8161.22,
                     "Transaction Date": "2023-12-07",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 8128.04,
                     "Transaction Date": "2024-01-05",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 9332.88,
                     "Transaction Date": "2024-02-05",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 8326.81,
                     "Transaction Date": "2024-03-05",
                     "Transaction Name": "Collins Park",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 }
             ],
             "Valuations": [
@@ -811,35 +811,35 @@
                     "Transaction Date": "2023-06-06",
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15119.75,
                     "Transaction Date": "2023-06-08",
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15000.0,
                     "Transaction Date": "2023-09-13",
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15000.0,
                     "Transaction Date": "2023-12-12",
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 18000.0,
                     "Transaction Date": "2024-03-20",
                     "Transaction Name": "CRE Lending",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 }
             ],
             "Valuations": [
@@ -1567,98 +1567,98 @@
                     "Transaction Date": "2022-03-25",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 3479.81,
                     "Transaction Date": "2022-06-28",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 3479.81,
                     "Transaction Date": "2022-10-04",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 7204.49,
                     "Transaction Date": "2022-12-28",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 6047.87,
                     "Transaction Date": "2023-03-10",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 11705.56,
                     "Transaction Date": "2023-06-23",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 6153.01,
                     "Transaction Date": "2023-08-23",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 2817.22,
                     "Transaction Date": "2023-09-20",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 2453.63,
                     "Transaction Date": "2023-10-23",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 2253.62,
                     "Transaction Date": "2023-11-20",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 1908.21,
                     "Transaction Date": "2023-12-27",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 1690.02,
                     "Transaction Date": "2024-01-23",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 1408.22,
                     "Transaction Date": "2024-02-22",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 1053.75,
                     "Transaction Date": "2024-03-21",
                     "Transaction Name": "One Blinc",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 }
             ],
             "Valuations": [
@@ -2065,49 +2065,49 @@
                     "Transaction Date": "2022-06-29",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 17187.42,
                     "Transaction Date": "2022-09-19",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15164.13,
                     "Transaction Date": "2022-12-15",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15281.79,
                     "Transaction Date": "2023-03-10",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15482.45,
                     "Transaction Date": "2023-06-14",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15034.54,
                     "Transaction Date": "2023-09-11",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 },
                 {
                     "Transaction Amount": 15208.84,
                     "Transaction Date": "2023-12-18",
                     "Transaction Name": "PHL Airport",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 }
             ],
             "Valuations": [
@@ -2141,266 +2141,6 @@
                 },
                 {
                     "Valuation Amount": 544536.69,
-                    "Valuation Date": "2024-03-31"
-                }
-            ]
-        },
-        {
-            "Asset Committed Capital": 500000.0,
-            "Asset Deployed Capital": 500000.0,
-            "Asset Exit Date": "2032-02-29",
-            "Asset Movement To From Deploy": [
-                {
-                    "Amount": 500000.0,
-                    "Date": "2022-03-03"
-                }
-            ],
-            "Asset Name": "200 West Jackson Mezzanine",
-            "Asset ROC Movements": null,
-            "Asset Reserve Capital": 0.0,
-            "Asset Sponser": "KAWA",
-            "Current Value": 502951.39,
-            "Distributions": [
-                {
-                    "Distribution Amount": 354.17,
-                    "Distribution Date": "2022-04-08",
-                    "Distribution Paid": true
-                },
-                {
-                    "Distribution Amount": 10861.11,
-                    "Distribution Date": "2022-06-16",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10861.11,
-                    "Distribution Date": "2022-09-12",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10743.06,
-                    "Distribution Date": "2022-12-09",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10625.0,
-                    "Distribution Date": "2023-03-08",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10861.11,
-                    "Distribution Date": "2023-06-07",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10861.11,
-                    "Distribution Date": "2023-09-11",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10743.06,
-                    "Distribution Date": "2023-12-07",
-                    "Distribution Paid": false
-                },
-                {
-                    "Distribution Amount": 10743.06,
-                    "Distribution Date": "2024-03-14",
-                    "Distribution Paid": false
-                }
-            ],
-            "Quarterly Distributions": [
-                {
-                    "Distribution": {
-                        "Distribution Amount": 354.17,
-                        "Distribution Date": "2022-04-08",
-                        "Distribution Paid": true
-                    },
-                    "Executed": true
-                }
-            ],
-            "Transactions": [
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-03-03",
-                    "Transaction Name": "FB Group - A2",
-                    "Transaction Note": "",
-                    "Transaction Type": "New Position"
-                },
-                {
-                    "Transaction Amount": 0.0,
-                    "Transaction Date": "2022-03-03",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "To Deploy"
-                },
-                {
-                    "Transaction Amount": 500000.0,
-                    "Transaction Date": "2022-03-03",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Reserve->Deploy"
-                },
-                {
-                    "Transaction Amount": 503305.56,
-                    "Transaction Date": "2022-03-31",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502833.33,
-                    "Transaction Date": "2022-06-30",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502951.39,
-                    "Transaction Date": "2022-12-31",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502951.39,
-                    "Transaction Date": "2023-03-31",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502833.33,
-                    "Transaction Date": "2023-06-30",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502833.33,
-                    "Transaction Date": "2023-09-30",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502951.39,
-                    "Transaction Date": "2023-12-31",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 502951.39,
-                    "Transaction Date": "2024-03-31",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Valuation"
-                },
-                {
-                    "Transaction Amount": 354.17,
-                    "Transaction Date": "2022-04-08",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10861.11,
-                    "Transaction Date": "2022-06-16",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10861.11,
-                    "Transaction Date": "2022-09-12",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10743.06,
-                    "Transaction Date": "2022-12-09",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10625.0,
-                    "Transaction Date": "2023-03-08",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10861.11,
-                    "Transaction Date": "2023-06-07",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10861.11,
-                    "Transaction Date": "2023-09-11",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10743.06,
-                    "Transaction Date": "2023-12-07",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 10743.06,
-                    "Transaction Date": "2024-03-14",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Gross Distribution"
-                },
-                {
-                    "Transaction Amount": 354.17,
-                    "Transaction Date": "2022-04-08",
-                    "Transaction Name": "200 West Jackson Mezzanine",
-                    "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
-                }
-            ],
-            "Valuations": [
-                {
-                    "Valuation Amount": 503305.56,
-                    "Valuation Date": "2022-03-31"
-                },
-                {
-                    "Valuation Amount": 502833.33,
-                    "Valuation Date": "2022-06-30"
-                },
-                {
-                    "Valuation Amount": 502833.33,
-                    "Valuation Date": "2022-09-30"
-                },
-                {
-                    "Valuation Amount": 502951.39,
-                    "Valuation Date": "2022-12-31"
-                },
-                {
-                    "Valuation Amount": 502951.39,
-                    "Valuation Date": "2023-03-31"
-                },
-                {
-                    "Valuation Amount": 502833.33,
-                    "Valuation Date": "2023-06-30"
-                },
-                {
-                    "Valuation Amount": 502833.33,
-                    "Valuation Date": "2023-09-30"
-                },
-                {
-                    "Valuation Amount": 502951.39,
-                    "Valuation Date": "2023-12-31"
-                },
-                {
-                    "Valuation Amount": 502951.39,
                     "Valuation Date": "2024-03-31"
                 }
             ]
@@ -2580,10 +2320,397 @@
                     "Transaction Date": "2023-12-01",
                     "Transaction Name": "Raleigh Hotel",
                     "Transaction Note": "",
-                    "Transaction Type": "Distribution Executed"
+                    "Transaction Type": "Client Distribution Recorded"
                 }
             ],
             "Valuations": []
+        },
+        {
+            "Asset Committed Capital": 500000.0,
+            "Asset Deployed Capital": 500000.0,
+            "Asset Exit Date": "2032-02-29",
+            "Asset Movement To From Deploy": [
+                {
+                    "Amount": 500000.0,
+                    "Date": "2022-03-03"
+                }
+            ],
+            "Asset Name": "200 West Jackson ",
+            "Asset ROC Movements": null,
+            "Asset Reserve Capital": 0.0,
+            "Asset Sponser": "KAWA",
+            "Current Value": 502951.38,
+            "Distributions": [
+                {
+                    "Distribution Amount": 354.17,
+                    "Distribution Date": "2022-04-08",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2022-06-16",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2022-09-12",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10743.06,
+                    "Distribution Date": "2022-12-09",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10625.0,
+                    "Distribution Date": "2023-03-08",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2023-06-07",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10861.11,
+                    "Distribution Date": "2023-09-11",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10743.06,
+                    "Distribution Date": "2023-12-07",
+                    "Distribution Paid": true
+                },
+                {
+                    "Distribution Amount": 10743.06,
+                    "Distribution Date": "2024-03-14",
+                    "Distribution Paid": true
+                }
+            ],
+            "Quarterly Distributions": [
+                {
+                    "Distribution": {
+                        "Distribution Amount": 354.17,
+                        "Distribution Date": "2022-04-08",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10861.11,
+                        "Distribution Date": "2022-06-16",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10861.11,
+                        "Distribution Date": "2022-09-12",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10743.06,
+                        "Distribution Date": "2022-12-09",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10625.0,
+                        "Distribution Date": "2023-03-08",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10861.11,
+                        "Distribution Date": "2023-06-07",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10861.11,
+                        "Distribution Date": "2023-09-11",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10743.06,
+                        "Distribution Date": "2023-12-07",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                },
+                {
+                    "Distribution": {
+                        "Distribution Amount": 10743.06,
+                        "Distribution Date": "2024-03-14",
+                        "Distribution Paid": true
+                    },
+                    "Executed": true
+                }
+            ],
+            "Transactions": [
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2022-03-03",
+                    "Transaction Name": "FB Group - A2",
+                    "Transaction Note": "",
+                    "Transaction Type": "New Position"
+                },
+                {
+                    "Transaction Amount": 0.0,
+                    "Transaction Date": "2022-03-03",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "To Deploy"
+                },
+                {
+                    "Transaction Amount": 500000.0,
+                    "Transaction Date": "2022-03-03",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Reserve->Deploy"
+                },
+                {
+                    "Transaction Amount": 354.17,
+                    "Transaction Date": "2022-04-08",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-06-16",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-09-12",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2022-12-09",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10625.0,
+                    "Transaction Date": "2023-03-08",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-06-07",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-09-11",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2023-12-07",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2024-03-14",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Gross Distribution"
+                },
+                {
+                    "Transaction Amount": 503305.56,
+                    "Transaction Date": "2022-03-31",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2022-12-31",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2023-03-31",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-06-30",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502833.33,
+                    "Transaction Date": "2023-09-30",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.39,
+                    "Transaction Date": "2023-12-31",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 502951.38,
+                    "Transaction Date": "2024-03-31",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Valuation"
+                },
+                {
+                    "Transaction Amount": 354.17,
+                    "Transaction Date": "2022-04-08",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-06-16",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2022-09-12",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2022-12-09",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10625.0,
+                    "Transaction Date": "2023-03-08",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-06-07",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10861.11,
+                    "Transaction Date": "2023-09-11",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2023-12-07",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                },
+                {
+                    "Transaction Amount": 10743.06,
+                    "Transaction Date": "2024-03-14",
+                    "Transaction Name": "200 West Jackson ",
+                    "Transaction Note": "",
+                    "Transaction Type": "Client Distribution Recorded"
+                }
+            ],
+            "Valuations": [
+                {
+                    "Valuation Amount": 503305.56,
+                    "Valuation Date": "2022-03-31"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2022-12-31"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2023-03-31"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-06-30"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 502833.33,
+                    "Valuation Date": "2023-09-30"
+                },
+                {
+                    "Valuation Amount": 502951.39,
+                    "Valuation Date": "2023-12-31"
+                },
+                {
+                    "Valuation Amount": 502951.38,
+                    "Valuation Date": "2024-03-31"
+                }
+            ]
         }
     ],
     "Investors": [
@@ -6323,7 +6450,7 @@
                     ]
                 },
                 {
-                    "AssetName": "200 West Jackson Mezzanine",
+                    "AssetName": "200 West Jackson ",
                     "Date Invested": "2022-03-03",
                     "InvestorName": "FB Group - A2",
                     "Management Fees": [
@@ -6333,44 +6460,44 @@
                             "Paid": true
                         },
                         {
-                            "Management Fee Amount": 934.2915811088296,
+                            "Management Fee Amount": 867.5959137577001,
                             "Management Fee Date": "2022-06-30",
                             "Paid": true
                         },
                         {
                             "Management Fee Amount": 944.5585215605748,
                             "Management Fee Date": "2022-09-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 944.5585215605748,
                             "Management Fee Date": "2022-12-31",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 913.7577002053388,
                             "Management Fee Date": "2023-03-31",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 934.2915811088296,
                             "Management Fee Date": "2023-06-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 944.5585215605748,
                             "Management Fee Date": "2023-09-30",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 944.5585215605748,
                             "Management Fee Date": "2023-12-31",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 924.0246406570841,
                             "Management Fee Date": "2024-03-31",
-                            "Paid": false
+                            "Paid": true
                         },
                         {
                             "Management Fee Amount": 934.2915811088296,
@@ -6378,7 +6505,7 @@
                             "Paid": false
                         }
                     ],
-                    "Management Fees Due": 7484.599589322382,
+                    "Management Fees Due": 934.2915811088296,
                     "Movements Deploy": [
                         [
                             "2022-03-03",
@@ -6387,16 +6514,79 @@
                     ],
                     "Net Income": [
                         {
-                            "Distribution Amount": -694.0767310061601,
-                            "Distribution Date": "2022-04-08",
-                            "Distribution Paid": false
+                            "Distribution Amount": 7994.81126899384,
+                            "Distribution Date": "2022-06-16",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7933.241182751541,
+                            "Distribution Date": "2022-09-12",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7838.801182751539,
+                            "Distribution Date": "2022-12-09",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7768.993839835729,
+                            "Distribution Date": "2023-03-08",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7941.454735112937,
+                            "Distribution Date": "2023-06-07",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7933.241182751541,
+                            "Distribution Date": "2023-09-11",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7838.801182751539,
+                            "Distribution Date": "2023-12-07",
+                            "Distribution Paid": true
+                        },
+                        {
+                            "Distribution Amount": 7855.228287474332,
+                            "Distribution Date": "2024-03-14",
+                            "Distribution Paid": true
                         }
                     ],
                     "Paid": 500000.0,
                     "Promote Fees": [
                         {
-                            "Promote Fee Amount": -173.51918275154003,
-                            "Promote Fee Date": "2022-04-08"
+                            "Promote Fee Amount": 1998.70281724846,
+                            "Promote Fee Date": "2022-06-16"
+                        },
+                        {
+                            "Promote Fee Amount": 1983.3102956878852,
+                            "Promote Fee Date": "2022-09-12"
+                        },
+                        {
+                            "Promote Fee Amount": 1959.700295687885,
+                            "Promote Fee Date": "2022-12-09"
+                        },
+                        {
+                            "Promote Fee Amount": 1942.2484599589325,
+                            "Promote Fee Date": "2023-03-08"
+                        },
+                        {
+                            "Promote Fee Amount": 1985.3636837782342,
+                            "Promote Fee Date": "2023-06-07"
+                        },
+                        {
+                            "Promote Fee Amount": 1983.3102956878852,
+                            "Promote Fee Date": "2023-09-11"
+                        },
+                        {
+                            "Promote Fee Amount": 1959.700295687885,
+                            "Promote Fee Date": "2023-12-07"
+                        },
+                        {
+                            "Promote Fee Amount": 1963.807071868583,
+                            "Promote Fee Date": "2024-03-14"
                         }
                     ],
                     "ROC": 0.0,
@@ -6928,11 +7118,11 @@
             "Date": "2022-06-30"
         },
         {
-            "Amount": 1660709.3,
+            "Amount": 1661181.53,
             "Date": "2022-09-30"
         },
         {
-            "Amount": 2267397.8,
+            "Amount": 2267870.03,
             "Date": "2022-12-31"
         },
         {
@@ -6952,11 +7142,11 @@
             "Date": "2023-12-31"
         },
         {
-            "Amount": 5558028.24,
+            "Amount": 5558028.239999999,
             "Date": "2024-03-31"
         },
         {
-            "Amount": 6121159.58,
+            "Amount": 6121159.57,
             "Date": "2024-06-30"
         }
     ]
