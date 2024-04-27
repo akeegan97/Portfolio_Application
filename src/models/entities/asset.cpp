@@ -862,27 +862,39 @@ void Asset::PassDistributionToPositions(Distribution &distribution){
         }
         double amountAftermgmtFees = distributionShare;
         wxDateTime qEndOfDistribution = utilities::GetQuarterEndDate(distribution.distribution.first);
-        for(auto&mf : pos->GetManagementFeesReference()){//need to rework this as if the first mgmt fee is greater than the distribution
-        //this causes a negative net income amount to the investor 
-            if(mf.paid == false && mf.quarter <= qEndOfDistribution && amountAftermgmtFees > 0){
-                amountAftermgmtFees-=mf.amount;
-                mf.paid = true;
+        for(auto& mf : pos->GetManagementFeesReference()) {
+            if (!mf.paid && mf.quarter <= qEndOfDistribution) {
+                if (amountAftermgmtFees > mf.amount) {
+                    amountAftermgmtFees -= mf.amount;
+                    mf.paid = true;  
+                } else {
+                    mf.amount -= amountAftermgmtFees;  
+                    amountAftermgmtFees = 0; 
+                    mf.paid = false; 
+                    break;  
+                }
             }
         }
-        double promoteFee = amountAftermgmtFees * pos->GetInvestorPtr()->GetPromoteFeePercentage();
-        double amountAfterPromote = amountAftermgmtFees - promoteFee;
-        Distribution netIncome;
-        netIncome.distribution.first = distribution.distribution.first;
-        netIncome.distribution.second = amountAfterPromote;
-        PromoteFee pf;
-        pf.promotefee.first = distribution.distribution.first;
-        pf.promotefee.second = promoteFee;
-        if(netIncome.distribution.second != 0){
-            pos->AddPromoteFee(pf);
-            pos->AddNetIncome(netIncome);    
+        if (amountAftermgmtFees > 0) {
+            double promoteFee = amountAftermgmtFees * pos->GetInvestorPtr()->GetPromoteFeePercentage();
+            double amountAfterPromote = amountAftermgmtFees - promoteFee;
+            
+            Distribution netIncome;
+            netIncome.distribution.first = distribution.distribution.first;
+            netIncome.distribution.second = amountAfterPromote;
+            
+            PromoteFee pf;
+            pf.promotefee.first = distribution.distribution.first;
+            pf.promotefee.second = promoteFee;
+
+            if (netIncome.distribution.second != 0) {
+                pos->AddPromoteFee(pf);
+                pos->AddNetIncome(netIncome);
+            }
+        } else {
+            break;
         }
     }
-
 }
 
 void Asset::AddQuarterlyDistribution(Distribution &distribution){

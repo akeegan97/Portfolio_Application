@@ -819,7 +819,7 @@ void AssetPopout::OnExecuteDistribution(wxCommandEvent &e){
         asset->PassDistributionToPositions(newDistribution);
         asset->AddQuarterlyDistribution(newDistribution);
         asset->AddNewReserve(amountToReserve);
-        std::string type = "Distribution Executed";
+        std::string type = "Client Distribution Recorded";
         std::string name = asset->GetAssetName().ToStdString();
         std::string note = dialog.GetNote();
         Transaction newTransaction(dateOfDistribution,name,amountToDistribute,type,note);
