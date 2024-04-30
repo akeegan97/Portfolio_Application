@@ -7,7 +7,6 @@ class CustomControlBase;
 namespace utilities{
     wxDateTime GetQuarterEndDate(const wxDateTime &currentDate){
         int year = currentDate.GetYear();
-
         wxDateTime quarterEnd;
         if (currentDate >= wxDateTime(1, wxDateTime::Jan, year) && currentDate < wxDateTime(1, wxDateTime::Apr, year)) {
             // Q1
@@ -233,6 +232,14 @@ namespace utilities{
         stlString.erase(std::remove(stlString.begin(),stlString.end(),'%'),stlString.end());
         return std::stod(stlString);
     }
+    bool IsQEndDate(const wxDateTime& date) {
+        int year = date.GetYear();
+        return (date == wxDateTime(31, wxDateTime::Mar, year) ||
+                date == wxDateTime(30, wxDateTime::Jun, year) ||
+                date == wxDateTime(30, wxDateTime::Sep, year) ||
+                date == wxDateTime(31, wxDateTime::Dec, year));
+    }
 }
 template std::string utilities::formatDollarAmount<double>(double);
 template std::string utilities::FormatPercentage<double>(double);
+

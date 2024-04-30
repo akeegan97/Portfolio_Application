@@ -3,12 +3,14 @@
 #include <iomanip>
 #include <cmath>
 #include "wx/app.h"
+#include <wx/datectrl.h>
 #include "ui/mainframe/mainframe.hpp"
 #include "ui/assetpopout/assetpopout.hpp"
 #include "ui/investorpopout/investorpopout.hpp"
 #include "ui/mainframe/dialogs/addassetdialog.hpp"
 #include "ui/assetpopout/dialogs/addinvestordialog.hpp"
 #include "ui/mainframe/dialogs/gettransactionpopout.hpp"
+#include "ui/mainframe/dialogs/allocationpopout.hpp"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size, Portfolio &port)
       : wxFrame(NULL, wxID_ANY, title, pos, size),
@@ -152,9 +154,21 @@ void MainFrame::setupLayout(){
 
    openTransactions = new wxButton(this, wxID_ANY,"View All Transactions");
    openTransactions->Bind(wxEVT_BUTTON, &MainFrame::OnGetTransactionsClick,this);
-   rSideSizer->Add(openTransactions,1,wxALL,5);
-   //add the bottom right side panel which houses the static text lines
+   wxBoxSizer* bottomRightSideSizer = new wxBoxSizer(wxHORIZONTAL);
+   bottomRightSideSizer->Add(openTransactions, 1, wxALL,5);
+   viewAllocationSheet = new wxButton(this, wxID_ANY,"View Allocations");
+   viewAllocationSheet->Bind(wxEVT_BUTTON, &MainFrame::OnViewAllocationsClicked, this);
+   viewAllocationSheet->Enable(false);
 
+   allocationDate = new wxDatePickerCtrl(this, wxID_ANY);
+   wxDateTime today = wxDateTime::Today();
+   allocationDate->SetValue(today);
+   allocationDate->Bind(wxEVT_DATE_CHANGED, &MainFrame::AllowViewAllocations, this);
+
+   bottomRightSideSizer->Add(allocationDate, 1, wxALL,5);
+
+   bottomRightSideSizer->Add(viewAllocationSheet, 1, wxALL,5);
+   rSideSizer->Add(bottomRightSideSizer, 1, wxEXPAND|wxALL,5);
    mainSizer->Add(rSideSizer, 5, wxEXPAND | wxALL,10);
    mainSizer->Layout();
    //set mainframe sizer to be the main sizer here
@@ -571,4 +585,23 @@ void MainFrame::OnClose(wxCloseEvent& event) {
 void MainFrame::OnGetTransactionsClick(wxCommandEvent &e){
    auto* transactionPopout = new GetTransactionPopout(this, "TRANSACTIONS",wxDefaultPosition,wxSize(1075,450),portfolio);
    transactionPopout->Show(true);
+}
+
+void MainFrame::OnViewAllocationsClicked(wxCommandEvent &e){
+   wxDateTime qEndDate = GetAllocationDate();
+   auto* allocationPopout = new AllocationPopout(this, "Allocations", wxDefaultPosition, wxSize(1000,650),portfolio,qEndDate);
+   allocationPopout->Show(true);
+}
+
+wxDateTime MainFrame::GetAllocationDate(){
+   return allocationDate->GetValue();
+}
+
+void MainFrame::AllowViewAllocations(wxDateEvent& e) {
+    wxDateTime date = e.GetDate();
+    if (utilities::IsQEndDate(date)) {
+        viewAllocationSheet->Enable(true);
+    } else {
+        viewAllocationSheet->Enable(false);
+    }
 }

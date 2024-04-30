@@ -26,7 +26,7 @@ bool RugenBerg::OnInit()
     portfolio.LoadFromFile(jsonFilePath);
     std::cout << " TOTAL INVESTORS IN PORTFOLIO>INVESTORPTRS: " << portfolio.allInvestorPtrs.size() << std::endl;
 
-    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1300, 800), portfolio);
+    MainFrame *frame = new MainFrame("rugenberg", wxDefaultPosition, wxSize(1400, 800), portfolio);
     frame->Show(true);
     return true;
 }

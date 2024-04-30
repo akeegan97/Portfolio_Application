@@ -5,6 +5,7 @@
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include <wx/datectrl.h>
+#include <wx/dateevt.h>
 #include <wx/xy/xyplot.h>
 #include <wx/xy/xydataset.h>
 #include <wx/xy/timeseriesdataset.h>
@@ -50,6 +51,8 @@ class MainFrame : public wxFrame{
         wxButton *addAssetButton;
         wxButton *addInvestorButton;
         wxButton *openTransactions;
+        wxButton *viewAllocationSheet;
+        wxDateTimePickerCtrl* allocationDate;
         void setupLayout();
         void UpdatePortfolioDisplayValues();
         void ReadPickQuote(const std::string&filePath);
@@ -65,6 +68,9 @@ class MainFrame : public wxFrame{
         void OnAddInvestor(wxCommandEvent &e);
         void OnClose(wxCloseEvent &e);
         void OnGetTransactionsClick(wxCommandEvent &e);
+        void AllowViewAllocations(wxDateEvent &e);
+        void OnViewAllocationsClicked(wxCommandEvent &e);
+        wxDateTime GetAllocationDate();
 };
 
 

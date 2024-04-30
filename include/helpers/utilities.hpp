@@ -30,6 +30,7 @@ namespace utilities{
     bool HasPercent(const wxString &value);
     double CurrencyStringToDouble(const wxString &value);
     double PercentageStringToDouble(const wxString &value);
+    bool IsQEndDate(const wxDateTime &date);
 }
 
 #endif
